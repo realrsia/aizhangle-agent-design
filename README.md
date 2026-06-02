@@ -1,3 +1,5 @@
+# [AI 涨乐 Agent 设计规范知识库](https://y0htr35pce.feishu.cn/wiki/YMovwjSS1imiYTkjJ2zcMbS0nuc)
+---
 # Zhangle Agent Design System
 
 This folder is the schema-first upgrade of `zhangle-design-skill`.
