@@ -1,0 +1,122 @@
+{
+  "version": 1,
+  "scope": "mobile-app-switches",
+  "switch": {
+    "radius": "999px",
+    "sizes": {
+      "large": {
+        "track": [46, 28],
+        "thumb": [24, 24],
+        "onPosition": { "left": 20, "right": 2 },
+        "offPosition": { "left": 2, "right": 20 },
+        "verticalInset": 2,
+        "loadingStroke": 1.5
+      },
+      "medium": {
+        "track": [33, 20],
+        "thumb": [17.22, 17.22],
+        "onPosition": { "left": 14.85, "right": 0.93 },
+        "offPosition": { "left": 0.93, "right": 14.85 },
+        "verticalInset": 1.39,
+        "loadingStroke": 1.08
+      },
+      "small": {
+        "track": [23, 14],
+        "thumb": [12, 12],
+        "onPosition": { "left": 10, "right": 1 },
+        "offPosition": { "left": 1, "right": 10 },
+        "verticalInset": 1,
+        "loadingStroke": 0.75
+      }
+    },
+    "colors": {
+      "trackOn": { "token": "xzl/color/primary/red" },
+      "trackOff": { "light": "CCD0D8", "dark": "30% #FFFFFF" },
+      "thumb": { "light": "xzl-color-special", "dark": "EEEEEE" },
+      "loading": { "token": "xzl/color/primary/red" }
+    },
+    "shadow": {
+      "y": 3,
+      "blur": 5,
+      "color": "8% #000000"
+    }
+  },
+  "segmented": {
+    "height": 28,
+    "inset": 1,
+    "gap": 0,
+    "radius": 4,
+    "maxOptions": 3,
+    "textHorizontalPadding": 10,
+    "containerBackground": { "light": "12% #A6ACB8", "dark": "xzl/color/surface/card-level-1" },
+    "selectedBackground": { "light": "xzl/color/primary/red", "dark": "30% xzl/color/primary/blue" },
+    "text": {
+      "fontFamily": "PingFang SC",
+      "fontSize": 13,
+      "selectedWeight": "Medium",
+      "unselectedWeight": "Regular",
+      "selectedColor": { "token": "xzl/color/text/on-primary", "light": "#FFFFFF", "dark": "#FFFFFF" },
+      "unselectedColor": { "token": "xzl/color/text/tertiary", "light": "#6D778B", "dark": "50% #FFFFFF" }
+    }
+  },
+  "checkbox": {
+    "slotSize": [24, 24],
+    "containerSize": [20, 20],
+    "geometryModeInvariant": true,
+    "radius": "999px",
+    "strokeWidth": 1.5,
+    "selectedBackground": { "token": "xzl/color/primary/red" },
+    "unselectedStroke": { "token": "xzl/color/text/quaternary" },
+    "checkIcon": {
+      "size": [12, 9],
+      "asset": "assets/icons/checkbox-check.svg",
+      "align": "center",
+      "centerIn": "containerSize",
+      "token": "xzl/color/text/on-primary",
+      "light": "#FFFFFF",
+      "dark": "#FFFFFF"
+    },
+    "checkIconOnly": {
+      "size": [18, 13],
+      "asset": "assets/icons/check-icon-only.svg",
+      "token": "xzl/color/primary/red"
+    },
+    "disabledUncheckedDarkBackground": "#08152A"
+  },
+  "radio": {
+    "slotSize": [24, 24],
+    "containerSize": [20, 20],
+    "geometryModeInvariant": true,
+    "radius": "999px",
+    "strokeWidth": 1.5,
+    "selectedStroke": { "token": "xzl/color/primary/red" },
+    "unselectedStroke": { "token": "xzl/color/text/quaternary" },
+    "dot": [10, 10],
+    "dotModeInvariant": true,
+    "dotColor": { "token": "xzl/color/primary/red" },
+    "disabledUncheckedDarkBackground": "#08152A"
+  },
+  "iconToggles": {
+    "eye": { "size": [16, 16], "color": "xzl/color/text/tertiary" },
+    "sound": { "size": [22, 22], "color": "xzl/color/text/primary" },
+    "watch": {
+      "sizes": {
+        "normalWatchlistSettings": [22, 22],
+        "longPressStockBubble": [16, 16]
+      },
+      "offColor": "xzl/color/text/strong",
+      "onColor": "xzl/color/primary/red"
+    },
+    "pin": {
+      "sizes": {
+        "normalWatchlistSettings": [22, 22],
+        "longPressStockBubble": [16, 16]
+      },
+      "offColor": "xzl/color/text/strong",
+      "onColor": "xzl/color/primary/red"
+    }
+  },
+  "disabled": {
+    "defaultOpacity": 0.4
+  }
+}

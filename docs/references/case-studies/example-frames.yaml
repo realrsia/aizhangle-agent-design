@@ -1,0 +1,112 @@
+version: 1
+registry_name: ai_zhangle_example_frames
+figma_library_file_key: WVlhA7fa8R0Vxam7Q0nP0S
+
+example_frames:
+  - frame_id: "21654:89114"
+    frame_name: "顶部tab固定"
+    screen_archetype: "watchlist"
+    density_character: "high_scan"
+    scan_model: ["position_scan", "signal_scan", "exception_scan"]
+    space_usage_notes: "Top controls stay compact so row density remains primary in the first viewport."
+    zones_covered: ["page_shell", "top_nav", "top_filter", "list_body", "row_annotation"]
+    primary_components: ["背景/背景", "二级导航栏", "item/胶囊", "1月版/小标签", "1月版/信号标签"]
+    high_risk_binding_coverage: ["二级导航栏", "item/胶囊", "1月版/小标签", "1月版/信号标签"]
+    theme: "light"
+    notes: "Page: 🧩设计规范 / 3.4 标签. Best reference for watchlist-like top tabs, row-level tag placement, and binding verification of high-risk controls."
+
+  - frame_id: "21641:81896"
+    frame_name: "静态分组-标签在标的下"
+    screen_archetype: "grouped_signal"
+    density_character: "high_scan"
+    scan_model: ["group_scan", "signal_scan"]
+    space_usage_notes: "Group context stays concise so the signal-bearing list can dominate the viewport."
+    zones_covered: ["page_shell", "top_nav", "top_filter", "list_body", "row_annotation"]
+    primary_components: ["背景/背景", "二级导航栏", "item/胶囊", "1月版/小标签", "1月版/信号标签"]
+    high_risk_binding_coverage: ["二级导航栏", "item/胶囊", "1月版/小标签", "1月版/信号标签"]
+    theme: "light"
+    notes: "Page: 🧩设计规范 / 3.4 标签. Best reference for grouped signal browsing where tags sit under the target and should be verified as true component instances."
+
+  - frame_id: "21622:76290"
+    frame_name: "个股交易"
+    screen_archetype: "detail_list"
+    density_character: "balanced"
+    scan_model: ["subject_scan", "metric_scan"]
+    space_usage_notes: "Summary and detail footer are present, but should not overwhelm the continuation path into detailed content."
+    zones_covered: ["page_shell", "top_nav", "top_summary", "local_filter", "detail_footer", "bottom_dock"]
+    primary_components: ["背景/背景", "指数模块", "1月版/item/指数模块", "1月版/母组件", "底bar"]
+    high_risk_binding_coverage: ["底bar"]
+    theme: "light"
+    notes: "Page: 🧩设计规范 / 3.3 底bar组件. Use for market-detail composition and bottom interaction references."
+
+  - frame_id: "21641:76795"
+    frame_name: "个股交易"
+    screen_archetype: "detail_list"
+    density_character: "balanced"
+    scan_model: ["subject_scan", "metric_scan"]
+    space_usage_notes: "Dark detail view with compact summary posture and preserved continuation into deeper content."
+    zones_covered: ["page_shell", "top_nav", "top_summary", "local_filter", "detail_footer", "bottom_dock"]
+    primary_components: ["背景/背景", "指数模块", "1月版/item/指数模块", "1月版/母组件", "底bar"]
+    high_risk_binding_coverage: ["底bar"]
+    theme: "dark"
+    notes: "Page: 🧩设计规范 / 3.3 底bar组件. Dark reference for individual stock detail pages."
+
+  - frame_id: "21641:70040"
+    frame_name: "个股交易"
+    screen_archetype: "detail_list"
+    density_character: "balanced"
+    scan_model: ["subject_scan", "metric_scan"]
+    space_usage_notes: "Alternate detail density reference for validating compact summary rhythm."
+    zones_covered: ["page_shell", "top_nav", "top_summary", "local_filter", "detail_footer", "bottom_dock"]
+    primary_components: ["背景/背景", "指数模块", "1月版/item/指数模块", "1月版/母组件", "底bar"]
+    high_risk_binding_coverage: ["底bar"]
+    theme: "dark"
+    notes: "Alternate dark detail-list reference in the same section. Useful when verifying variant behavior across examples."
+
+  - frame_id: "4652:66651"
+    frame_name: "盯盘-大盘"
+    screen_archetype: "market_overview"
+    density_character: "high_scan"
+    scan_model: ["state_scan", "opportunity_scan", "continuation_path"]
+    space_usage_notes: "Overview should feel compact and finance-dense, with leaderboard content previewed rather than vertically expanded."
+    zones_covered: ["page_shell", "top_nav", "top_filter", "top_summary", "breadth_summary", "rank_list", "bottom_dock"]
+    primary_components: ["指数模块", "item/胶囊", "底bar"]
+    high_risk_binding_coverage: ["item/胶囊", "底bar"]
+    theme: "mixed"
+    notes: "Page: 草稿. Use as a market-overview reference for index movement, market breadth, ranking-style composition, and binding checks for top tabs plus bottom dock."
+
+  - frame_id: "4652:67720"
+    frame_name: "盯盘-大盘"
+    screen_archetype: "market_overview"
+    density_character: "high_scan"
+    scan_model: ["state_scan", "opportunity_scan", "continuation_path"]
+    space_usage_notes: "Alternative overview rhythm reference for compact summary plus leaderboard preview behavior."
+    zones_covered: ["page_shell", "top_nav", "top_filter", "top_summary", "breadth_summary", "rank_list", "bottom_dock"]
+    primary_components: ["指数模块", "item/胶囊", "底bar"]
+    high_risk_binding_coverage: ["item/胶囊", "底bar"]
+    theme: "mixed"
+    notes: "Page: 草稿. Secondary market-overview reference for validating layout alternatives within the same archetype."
+
+  - frame_id: "21518:130067"
+    frame_name: "常规选股流程"
+    screen_archetype: "assistant_panel"
+    density_character: "context_heavy"
+    scan_model: ["assistant_context", "continuation_path"]
+    space_usage_notes: "Assistant-led layout can hold more context, but interaction chrome should still remain compact."
+    zones_covered: ["page_shell", "top_nav", "local_filter", "list_body", "bottom_dock"]
+    primary_components: ["item/二级tab", "item/胶囊", "底bar"]
+    high_risk_binding_coverage: ["item/二级tab", "item/胶囊", "底bar"]
+    theme: "dark"
+    notes: "Page: 🧩设计规范 / 3.2 Tab栏. Use for assistant-led or workflow-driven composition and for binding verification of secondary tabs plus bottom dock."
+
+  - frame_id: "21518:131036"
+    frame_name: "常规选股流程"
+    screen_archetype: "assistant_panel"
+    density_character: "context_heavy"
+    scan_model: ["assistant_context", "continuation_path"]
+    space_usage_notes: "Light assistant example where context may expand, but list body should remain the main action surface."
+    zones_covered: ["page_shell", "top_nav", "local_filter", "list_body", "bottom_dock"]
+    primary_components: ["item/二级tab", "item/胶囊", "底bar"]
+    high_risk_binding_coverage: ["item/二级tab", "item/胶囊", "底bar"]
+    theme: "light"
+    notes: "Light companion example for assistant-panel flows."

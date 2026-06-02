@@ -1,0 +1,42 @@
+id: component.trading-action-button
+name: 交易行动点按钮
+owner: design-system
+status: draft
+sourceBrief: authoring/components/trading-action-button.brief.yaml
+classification:
+  primitiveFamily: trading_action
+  componentType: action
+  riskLevel: high
+  maintenanceLevel: strong
+usage:
+  allowedZones:
+    - stock_quote_bottom_action
+    - trading_order_footer
+    - order_entry_action_area
+  forbiddenZones:
+    - market_overview_primary_body
+    - watchlist_row_inline
+    - ai_chat_message_body
+    - generic_card_action_area
+variants:
+  confirmed:
+    - paired-buy-sell
+  candidates:
+    - single-buy
+    - single-sell
+    - cancel-order
+states:
+  required:
+    - default
+    - pressed
+    - disabled
+  optional:
+    - loading
+tokenSources:
+  - assets/tokens/button-tokens.json
+  - assets/tokens/token-mapping.json
+sourceRefs:
+  - references/foundation/components-trading-actions.md
+  - references/foundation/components-button.md
+checklist: canon/checklists/trading-action-button-review.yaml
+figmaBindingStatus: TODO_VERIFY_WITH_FIGMA

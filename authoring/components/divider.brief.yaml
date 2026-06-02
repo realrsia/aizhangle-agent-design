@@ -1,0 +1,139 @@
+# ============================================================
+# 01_HUMAN_REQUIRED
+# 人工必填区
+# ============================================================
+
+id: component.divider
+name: 分割线
+owner: design-system
+status: draft
+
+# [HUMAN REQUIRED]
+purpose: >
+  用于移动端表面、sheet、列表或模块之间的轻量分隔。分割线只表达层级分隔，
+  不应用作重边框或装饰线。
+
+# [HUMAN REQUIRED]
+usedIn:
+  - sheet-section
+  - list-section
+  - module-separator
+
+# [HUMAN REQUIRED]
+humanRules:
+  do:
+    - 主要分隔使用 xzl/color/divider/sheet。
+    - 只有明确层级需要时才使用更强或更弱的 divider token。
+  dont:
+    - 不要使用 arbitrary border color。
+    - 不要用分割线替代卡片 spacing 或 surface 层级。
+
+# [HUMAN REQUIRED]
+riskWarnings:
+  - 过重分割会降低移动金融页面密度和可扫读性。
+
+# [HUMAN REQUIRED]
+allowedZones:
+  - sheet_section_boundary
+  - list_section_boundary
+  - module_separator
+
+# [HUMAN REQUIRED]
+forbiddenZones:
+  - card_surface_border
+
+# [HUMAN REQUIRED]
+requiredPairings:
+  - separated-content-groups
+
+# [HUMAN REQUIRED]
+forbiddenPairings:
+  - arbitrary-border-color
+
+# [HUMAN REQUIRED]
+examples:
+  good: []
+  needsReview: []
+  bad:
+    - name: 卡片四周使用分割线描边
+      reason: 卡片层级应由 surface token 和 spacing 表达。
+
+# ============================================================
+# 02_AGENT_EXTRACTED
+# Agent 自动读取区
+# ============================================================
+
+figma:
+  fileName: TODO_VERIFY_WITH_FIGMA
+  fileKey: TODO_VERIFY_WITH_FIGMA
+  exampleNodeId: TODO_VERIFY_WITH_FIGMA
+  figmaExactName: TODO_VERIFY_WITH_FIGMA
+  componentKey: TODO_VERIFY_WITH_FIGMA
+  bindingMode: semantic_token_match
+  bindingFailurePolicy: stop_and_recheck
+  propertyHints: {}
+
+classification:
+  primitiveFamily: divider
+  componentType: separator
+  riskLevel: low
+  isOrdinaryButton: false
+  isTradingAction: false
+
+observedStructure:
+  root: TODO_VERIFY_WITH_FIGMA
+  children: []
+  typography: {}
+  tokens:
+    primary: xzl/color/divider/sheet
+
+variants:
+  confirmed: []
+  candidates:
+    - sheet
+    - subtle
+    - strong
+
+states:
+  - id: default
+    required: true
+
+slots:
+  line:
+    description: 分隔线本体。
+
+tokens:
+  source:
+    - assets/tokens/token-mapping.json
+
+textOverrideFields: []
+
+resourceRefs:
+  - references/foundation/components-divider.md
+
+# ============================================================
+# 03_AGENT_EXPANSION_AND_CHECKLIST
+# Agent 扩展与自查区
+# ============================================================
+
+reviewChecklist:
+  - id: divider-sheet-token
+    severity: P2
+    question: 主要分隔是否使用 sheet divider token？
+    passCriteria: major separator 使用 xzl/color/divider/sheet。
+  - id: no-arbitrary-border-color
+    severity: P1
+    question: 是否使用了任意 border color？
+    passCriteria: 分割线颜色来自 divider token。
+
+agentExpansion:
+  canonComponent:
+    path: canon/components/divider.meta.yaml
+  checklist:
+    path: canon/checklists/divider-review.yaml
+  figmaBinding:
+    path: bindings/figma/components.yaml
+  docs:
+    path: docs/generated/components/index.md
+  assetManifest:
+    path: bindings/assets/manifest.yaml

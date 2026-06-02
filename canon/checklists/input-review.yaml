@@ -1,0 +1,15 @@
+componentId: component.input
+sourceBrief: authoring/components/input.brief.yaml
+items:
+  - id: filled-input-no-border
+    severity: P1
+    question: filled input 是否错误添加了边框？
+    passCriteria: 使用 xzl/color/input/background 且无 stroke。
+  - id: placeholder-text-quaternary
+    severity: P1
+    question: placeholder 是否使用 text/quaternary？
+    passCriteria: placeholder 不使用 primary、secondary 或任意灰。
+  - id: input-radius-token
+    severity: P2
+    question: 输入框圆角是否使用 radius/input？
+    passCriteria: 圆角来自 radius/input 或 radius token。

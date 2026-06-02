@@ -1,0 +1,97 @@
+id: checklist.visual-review
+kind: checklist
+schemaVersion: 1
+version: 0.1.0
+status: draft
+title: Visual Review Checklist
+summary: Executable first-stage visual review checklist for Agent-generated AI Zhangle / New Zhangle artifacts.
+appliesTo:
+  archetypes:
+    - archetype.mobile-list-page
+    - archetype.mobile-chat-page
+  scenarios:
+    - scenario.watchlist
+    - scenario.ai-chat
+  components:
+    - component.button
+rules:
+  - id: token-only-styling
+    severity: error
+    target: page-or-component
+    assert:
+      tokenized: true
+      forbidRawColorOutsideTokenSource: true
+    rationale: Design output must resolve from canonical tokens instead of raw one-off values.
+    sourceRefs:
+      - canon/foundations/tokens/color.tokens.json
+      - canon/checklists/page-output-checklist.source.json
+    autofix:
+      strategy: replace-raw-values-with-token-reference
+  - id: light-dark-resolution
+    severity: error
+    target: themed-artifact
+    assert:
+      requiredModes:
+        - light
+        - dark
+      preserveSemanticRoleAcrossModes: true
+    rationale: Theme switching should change token values, not component meaning or geometry.
+    sourceRefs:
+      - canon/foundations/themes/light.theme.yaml
+      - canon/foundations/themes/dark.theme.yaml
+  - id: financial-red-green-semantics
+    severity: error
+    target: financial-state-color
+    assert:
+      redMeans: rising_or_positive
+      greenMeans: falling_or_negative
+    rationale: Chinese financial products use red for rising/positive and green for falling/negative.
+    sourceRefs:
+      - canon/foundations/semantics/financial-semantics.yaml
+  - id: standard-mobile-viewport
+    severity: error
+    target: mobile-page-shell
+    assert:
+      width: 390
+      height: 844
+      fixedChromeSeparatedFromScrollArea: true
+    rationale: AI Zhangle mobile pages should preserve the standard viewport and scrollable content structure.
+    sourceRefs:
+      - docs/references/pages/page-structure.md
+  - id: no-text-clipping
+    severity: error
+    target: text-bearing-component
+    assert:
+      textClippingAllowed: false
+      autoLayoutForDynamicText: true
+    rationale: Navigation, tabs, tags, buttons, bottom bars, inputs, and dense rows must not clip text.
+    sourceRefs:
+      - docs/references/foundations/visual-language.md
+  - id: high-risk-controls-bound
+    severity: error
+    target: high-risk-control
+    assert:
+      mustUseApprovedComponentOrAsset: true
+      verifyFigmaVariantBeforeInstantiation: true
+    rationale: Navigation, tabs, tags, bottom bars, table headers, and inputs should not be approximated with lookalike frames.
+    sourceRefs:
+      - bindings/figma/components.source.yaml
+  - id: finance-page-not-generic-dashboard
+    severity: warn
+    target: financial-page
+    assert:
+      financeContentFirst: true
+      forbidGenericSaaSCards: true
+      forbidDecorativeAICardsAsPrimaryContent: true
+    rationale: Market, watchlist, account, and trading pages must remain finance-first and scan-efficient.
+    sourceRefs:
+      - docs/references/process/design-taster.md
+outputs:
+  format:
+    - human-summary
+    - machine-json
+  include:
+    - failedRuleIds
+    - matchedNodes
+    - suggestedFixes
+    - confidence

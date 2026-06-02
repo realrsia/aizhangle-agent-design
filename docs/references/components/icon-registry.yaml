@@ -1,0 +1,83 @@
+version: 1
+registry_name: ai_zhangle_icons
+primary_library: "lucide"
+policy:
+  single_library_per_screen: true
+  use_whitelist_first: true
+  fallback_rule: "if_exact_icon_is_missing_use_nearest_semantic_lucide_substitute"
+  font_icon_policy: "not_recommended"
+  notes: "Agents should pick icons from this whitelist first. Do not invent icon names and do not mix multiple icon libraries in the same screen."
+
+icons:
+  search:
+    approved_name: "search"
+    aliases: ["搜索", "查找"]
+  filter:
+    approved_name: "list-filter"
+    aliases: ["筛选", "过滤"]
+  sort:
+    approved_name: "arrow-up-down"
+    aliases: ["排序", "升降序"]
+  trend_up:
+    approved_name: "trending-up"
+    aliases: ["上涨", "趋势上行", "增长"]
+  trend_down:
+    approved_name: "trending-down"
+    aliases: ["下跌", "趋势下行", "回落"]
+  chart:
+    approved_name: "chart-column"
+    aliases: ["图表", "行情图", "统计图"]
+  leaderboard:
+    approved_name: "list-ordered"
+    aliases: ["榜单", "排行", "排名"]
+  watchlist:
+    approved_name: "star"
+    aliases: ["自选", "收藏", "关注"]
+  alert:
+    approved_name: "bell"
+    aliases: ["提醒", "预警", "通知"]
+  account:
+    approved_name: "wallet"
+    aliases: ["账户", "资产", "钱包"]
+  holding:
+    approved_name: "briefcase-business"
+    aliases: ["持仓", "仓位"]
+  history:
+    approved_name: "history"
+    aliases: ["历史", "记录"]
+  time:
+    approved_name: "clock-3"
+    aliases: ["时间", "时钟"]
+  voice:
+    approved_name: "mic"
+    aliases: ["语音", "麦克风"]
+  assistant:
+    approved_name: "bot"
+    aliases: ["AI", "助手", "智能体"]
+  plus:
+    approved_name: "plus"
+    aliases: ["新增", "添加", "增加"]
+  minus:
+    approved_name: "minus"
+    aliases: ["减少", "移除"]
+  settings:
+    approved_name: "settings-2"
+    aliases: ["设置"]
+  menu:
+    approved_name: "ellipsis"
+    aliases: ["更多", "菜单"]
+  drill_in:
+    approved_name: "chevron-right"
+    aliases: ["进入", "跳转", "查看更多"]
+  back:
+    approved_name: "chevron-left"
+    aliases: ["返回"]
+  pin:
+    approved_name: "arrow-up-to-line"
+    aliases: ["置顶", "顶部"]
+  edit:
+    approved_name: "pencil"
+    aliases: ["编辑", "修改"]
+  delete:
+    approved_name: "trash-2"
+    aliases: ["删除"]

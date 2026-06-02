@@ -1,0 +1,49 @@
+id: renderers.html.components
+kind: renderer-registry
+schemaVersion: 1
+version: 0.1.0
+status: draft
+title: HTML Component Renderers
+summary: Low-fidelity HTML renderer mappings for Agent-generated H5 prototypes.
+principle: "Figma component IDs are identity evidence; local HTML renderer rules produce the low-fidelity DOM/CSS representation."
+renderers:
+  - id: renderer.html.bottom-bar
+    sourceComponent: component.bottom-bar
+    figmaBinding:
+      componentKey: "455cf0ed17ebc34a27a7de59ff7efdc3c8818fd1"
+      bindingSource: bindings/figma/critical-bindings.yaml
+      verificationRequired: true
+    htmlStrategy:
+      fidelity: low
+      renderAs: fixed-bottom-bar
+      useTokens: true
+      useLocalAssetsWhenNeeded: true
+    localFallbacks:
+      - bindings/assets/files/bottom-bar/icons/
+      - bindings/assets/files/templates/bottom-bar-component.json
+      - bindings/assets/fusion-files/templates/bottom-bar-component.json
+  - id: renderer.html.financial-table
+    sourceComponent: component.financial-table
+    figmaBinding:
+      bindingSource: canon/components/component-semantics.yaml
+      verificationRequired: false
+    htmlStrategy:
+      fidelity: low
+      renderAs: scrollable-financial-table
+      useTokens: true
+      useLocalAssetsWhenNeeded: true
+    localFallbacks:
+      - bindings/assets/files/templates/watchlist-table-module.json
+      - bindings/assets/files/templates/holding-table-module.json
+  - id: renderer.html.trading-action-button
+    sourceComponent: component.trading-action-button
+    figmaBinding:
+      bindingSource: authoring/components/trading-action-button.brief.yaml
+      verificationRequired: true
+    htmlStrategy:
+      fidelity: low
+      renderAs: paired-action-buttons
+      useTokens: true
+      useLocalAssetsWhenNeeded: false
+    localFallbacks:
+      - bindings/assets/files/templates/trading-order-form-inputs.json

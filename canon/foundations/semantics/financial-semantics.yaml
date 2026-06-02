@@ -1,0 +1,17 @@
+id: semantics.financial
+kind: semantics
+schemaVersion: 1
+version: 0.1.0
+status: draft
+title: Chinese Financial Color Semantics
+summary: Red and green semantics for AI Zhangle / New Zhangle financial screens.
+rules:
+  - id: finance-red-positive
+    severity: P0
+    statement: "Red represents rising, positive, hot, or favorable market movement in Chinese financial contexts."
+  - id: finance-green-negative
+    severity: P0
+    statement: "Green represents falling, negative, or unfavorable market movement in Chinese financial contexts."
+  - id: no-decorative-red-green
+    severity: P1
+    statement: "Do not use red or green as casual decoration outside financial state, alert, or validated semantic contexts."

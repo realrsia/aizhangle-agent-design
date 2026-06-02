@@ -1,0 +1,314 @@
+{
+  "name": "watchlist-output-checklist",
+  "description": "Artifact-level validation checklist for generated 自选列表 modules.",
+  "appliesTo": [
+    "watchlist",
+    "自选列表",
+    "complete 自选 page containing a 自选列表 module"
+  ],
+  "resultFormat": {
+    "statusValues": [
+      "pass",
+      "fail",
+      "notApplicable"
+    ],
+    "requiredFields": [
+      "id",
+      "severity",
+      "status",
+      "evidence",
+      "fixIfFail"
+    ]
+  },
+  "checks": [
+    {
+      "id": "hasColumnModel",
+      "severity": "P0",
+      "mustPass": true,
+      "question": "Does the artifact expose a columnModel before header and row nodes?",
+      "evidenceRequired": "Named structure, Figma layer, component tree, DOM/data attribute, or static structure tree.",
+      "fixIfFail": "Apply references/lists/watchlist-generation.md and assets/templates/watchlist-table-module.json, then revise the artifact until this proof point is structurally and visually present."
+    },
+    {
+      "id": "hasWatchlistHeaderTools",
+      "severity": "P0",
+      "mustPass": true,
+      "question": "Does the frozen name-code header instantiate watchlistHeaderTools?",
+      "evidenceRequired": "Node/layer/component named watchlistHeaderTools or equivalent mapped structure.",
+      "fixIfFail": "Apply references/lists/watchlist-generation.md and assets/templates/watchlist-table-module.json, then revise the artifact until this proof point is structurally and visually present."
+    },
+    {
+      "id": "hasFourHeaderIconButtons",
+      "severity": "P0",
+      "mustPass": true,
+      "question": "Are 编辑, 标签视图切换, 多股, 横屏 rendered as four clickable icon buttons?",
+      "expectedCount": 4,
+      "evidenceRequired": "Four rendered icon button nodes using the approved assets.",
+      "fixIfFail": "Apply references/lists/watchlist-generation.md and assets/templates/watchlist-table-module.json, then revise the artifact until this proof point is structurally and visually present."
+    },
+    {
+      "id": "frozenHeaderNotBlank",
+      "severity": "P0",
+      "mustPass": true,
+      "question": "Is the watchlist frozen header not blank and not text 名称代码?",
+      "evidenceRequired": "Frozen header contains watchlistHeaderTools and no 名称代码 text.",
+      "fixIfFail": "Apply references/lists/watchlist-generation.md and assets/templates/watchlist-table-module.json, then revise the artifact until this proof point is structurally and visually present."
+    },
+    {
+      "id": "hasFilterIconsForLatest",
+      "severity": "P0",
+      "mustPass": true,
+      "field": "最新",
+      "question": "Does 最新 header render labelText plus sortFilterIcon?",
+      "evidenceRequired": "filterableHeaderCell with sortFilterIcon.",
+      "fixIfFail": "Apply references/lists/watchlist-generation.md and assets/templates/watchlist-table-module.json, then revise the artifact until this proof point is structurally and visually present."
+    },
+    {
+      "id": "hasFilterIconsForChangePercent",
+      "severity": "P0",
+      "mustPass": true,
+      "field": "涨幅",
+      "question": "Does 涨幅 header render labelText plus sortFilterIcon?",
+      "evidenceRequired": "filterableHeaderCell with sortFilterIcon.",
+      "fixIfFail": "Apply references/lists/watchlist-generation.md and assets/templates/watchlist-table-module.json, then revise the artifact until this proof point is structurally and visually present."
+    },
+    {
+      "id": "hasFilterIconsForChangeAmount",
+      "severity": "P0",
+      "mustPass": true,
+      "field": "涨跌",
+      "question": "Does 涨跌 header render labelText plus sortFilterIcon when the field is requested?",
+      "evidenceRequired": "filterableHeaderCell with sortFilterIcon.",
+      "fixIfFail": "Apply references/lists/watchlist-generation.md and assets/templates/watchlist-table-module.json, then revise the artifact until this proof point is structurally and visually present."
+    },
+    {
+      "id": "hasFilterIconsForChangeSpeed",
+      "severity": "P0",
+      "mustPass": true,
+      "field": "涨速",
+      "question": "Does 涨速 header render labelText plus sortFilterIcon when the field is requested?",
+      "evidenceRequired": "filterableHeaderCell with sortFilterIcon.",
+      "fixIfFail": "Apply references/lists/watchlist-generation.md and assets/templates/watchlist-table-module.json, then revise the artifact until this proof point is structurally and visually present."
+    },
+    {
+      "id": "hasFilterIconsForTurnoverAmount",
+      "severity": "P0",
+      "mustPass": true,
+      "field": "成交额",
+      "question": "Does 成交额 header render labelText plus sortFilterIcon when the field is requested?",
+      "evidenceRequired": "filterableHeaderCell with sortFilterIcon.",
+      "fixIfFail": "Apply references/lists/watchlist-generation.md and assets/templates/watchlist-table-module.json, then revise the artifact until this proof point is structurally and visually present."
+    },
+    {
+      "id": "hasFilterIconsForTurnoverRate",
+      "severity": "P0",
+      "mustPass": true,
+      "field": "换手率",
+      "question": "Does 换手率 header render labelText plus sortFilterIcon when the field is requested?",
+      "evidenceRequired": "filterableHeaderCell with sortFilterIcon.",
+      "fixIfFail": "Apply references/lists/watchlist-generation.md and assets/templates/watchlist-table-module.json, then revise the artifact until this proof point is structurally and visually present."
+    },
+    {
+      "id": "headerBodyShareColumnIds",
+      "severity": "P0",
+      "mustPass": true,
+      "question": "Do header and body cells reference the same column ids?",
+      "expectedColumnIds": [
+        "nameCode",
+        "miniTrend",
+        "latest",
+        "changePercent",
+        "changeAmount",
+        "changeSpeed",
+        "turnoverAmount",
+        "turnoverRate"
+      ],
+      "evidenceRequired": "Shared columnId mapping in artifact structure.",
+      "fixIfFail": "Apply references/lists/watchlist-generation.md and assets/templates/watchlist-table-module.json, then revise the artifact until this proof point is structurally and visually present."
+    },
+    {
+      "id": "latestHeaderRightEdgeEqualsBody",
+      "severity": "P1",
+      "mustPass": true,
+      "question": "Does 最新 header share the same right edge as 最新 body values?",
+      "evidenceRequired": "Shared column id/box or measured right-edge equality.",
+      "fixIfFail": "Apply references/lists/watchlist-generation.md and assets/templates/watchlist-table-module.json, then revise the artifact until this proof point is structurally and visually present."
+    },
+    {
+      "id": "changePercentHeaderRightEdgeEqualsBody",
+      "severity": "P1",
+      "mustPass": true,
+      "question": "Does 涨幅 header share the same right edge as 涨幅 body values?",
+      "evidenceRequired": "Shared column id/box or measured right-edge equality.",
+      "fixIfFail": "Apply references/lists/watchlist-generation.md and assets/templates/watchlist-table-module.json, then revise the artifact until this proof point is structurally and visually present."
+    },
+    {
+      "id": "miniTrendHeaderBlank",
+      "severity": "P2",
+      "mustPass": true,
+      "question": "Is the K线图 header blank?",
+      "evidenceRequired": "miniTrend header cell exists and has no visible label.",
+      "fixIfFail": "Apply references/lists/watchlist-generation.md and assets/templates/watchlist-table-module.json, then revise the artifact until this proof point is structurally and visually present."
+    },
+    {
+      "id": "notGenericMarketListShortcut",
+      "severity": "P0",
+      "mustPass": true,
+      "question": "Is the artifact not a generic stock name + trend + latest + change list shortcut?",
+      "evidenceRequired": "Presence of watchlist-specific header tools, filter icons, and shared column model.",
+      "fixIfFail": "Apply references/lists/watchlist-generation.md and assets/templates/watchlist-table-module.json, then revise the artifact until this proof point is structurally and visually present."
+    },
+    {
+      "id": "realSecurityTagsPreferShown",
+      "severity": "P2",
+      "mustPass": true,
+      "question": "Are real security tags shown by default when they fit?",
+      "evidenceRequired": "Visible real tag text or documented overflow reason for numeric count.",
+      "fixIfFail": "Apply references/lists/watchlist-generation.md and assets/templates/watchlist-table-module.json, then revise the artifact until this proof point is structurally and visually present."
+    },
+    {
+      "id": "headerIconButtonsVisible",
+      "severity": "P1",
+      "mustPass": true,
+      "question": "Are the four watchlist header icon buttons visually visible in the rendered artifact?",
+      "evidenceRequired": "Visible rendered SVG/path/image geometry or screenshot evidence.",
+      "fixIfFail": "Apply references/lists/watchlist-generation.md and assets/templates/watchlist-table-module.json, then revise the artifact until this proof point is structurally and visually present."
+    },
+    {
+      "id": "sortFilterIconsVisible",
+      "severity": "P1",
+      "mustPass": true,
+      "question": "Are sort/filter icons visually visible in the rendered artifact?",
+      "evidenceRequired": "Visible rendered SVG/path/image geometry or screenshot evidence.",
+      "fixIfFail": "Apply references/lists/watchlist-generation.md and assets/templates/watchlist-table-module.json, then revise the artifact until this proof point is structurally and visually present."
+    },
+    {
+      "id": "noExternalAbsoluteSvgOnlyRendering",
+      "severity": "P1",
+      "mustPass": true,
+      "question": "For standalone HTML/file:// prototypes, are P1 icons not rendered only by external absolute SVG paths or CSS masks?",
+      "evidenceRequired": "Inline SVG or copied relative asset path plus visible rendering proof.",
+      "fixIfFail": "Apply references/lists/watchlist-generation.md and assets/templates/watchlist-table-module.json, then revise the artifact until this proof point is structurally and visually present."
+    },
+    {
+      "id": "p1IconsHaveRenderedGeometry",
+      "severity": "P1",
+      "mustPass": true,
+      "question": "Do P1 icon nodes have non-zero visible rendered geometry?",
+      "evidenceRequired": "Non-zero bounding box and visible pixels/paint.",
+      "fixIfFail": "Apply references/lists/watchlist-generation.md and assets/templates/watchlist-table-module.json, then revise the artifact until this proof point is structurally and visually present."
+    },
+    {
+      "id": "miniTrendStateDeclared",
+      "severity": "P2",
+      "mustPass": true,
+      "question": "Does the watchlist instance declare miniTrendState?",
+      "evidenceRequired": "List-level miniTrendState or data-chart-state source.",
+      "fixIfFail": "Apply references/lists/watchlist-generation.md and assets/templates/watchlist-table-module.json, then revise the artifact until this proof point is structurally and visually present."
+    },
+    {
+      "id": "miniTrendStateDefaultsTo5d",
+      "severity": "P2",
+      "mustPass": true,
+      "question": "When unspecified by the user, does miniTrendState default to 5日?",
+      "evidenceRequired": "Declared default or generated state value.",
+      "fixIfFail": "Apply references/lists/watchlist-generation.md and assets/templates/watchlist-table-module.json, then revise the artifact until this proof point is structurally and visually present."
+    },
+    {
+      "id": "singleMiniTrendStatePerWatchlistInstance",
+      "severity": "P1",
+      "mustPass": true,
+      "question": "Does one watchlist instance use only one miniTrendState?",
+      "evidenceRequired": "Single state across all mini trend rows.",
+      "fixIfFail": "Apply references/lists/watchlist-generation.md and assets/templates/watchlist-table-module.json, then revise the artifact until this proof point is structurally and visually present."
+    },
+    {
+      "id": "noMixedMiniTrendAssets",
+      "severity": "P1",
+      "mustPass": true,
+      "question": "Are mixed mini trend asset families avoided in one watchlist instance?",
+      "evidenceRequired": "All rows reference the same state asset family.",
+      "fixIfFail": "Apply references/lists/watchlist-generation.md and assets/templates/watchlist-table-module.json, then revise the artifact until this proof point is structurally and visually present."
+    },
+    {
+      "id": "securityTagUsesShortDisplayLabel",
+      "severity": "P2",
+      "mustPass": true,
+      "question": "Do dense-list security tags use short display labels where mapped?",
+      "evidenceRequired": "Rendered labels follow 沪A→沪, 科创/创业→创, 港股→港, 美股→USA.",
+      "fixIfFail": "Apply references/lists/watchlist-generation.md and assets/templates/watchlist-table-module.json, then revise the artifact until this proof point is structurally and visually present."
+    },
+    {
+      "id": "securityTagPreservesFullSemanticLabel",
+      "severity": "P2",
+      "mustPass": true,
+      "question": "Does each short security tag preserve its full semantic label in structure?",
+      "evidenceRequired": "data-full-label, Figma metadata, or component prop.",
+      "fixIfFail": "Apply references/lists/watchlist-generation.md and assets/templates/watchlist-table-module.json, then revise the artifact until this proof point is structurally and visually present."
+    },
+    {
+      "id": "marketGroupTabNotAffectedBySecurityTagMapping",
+      "severity": "P2",
+      "mustPass": true,
+      "question": "Are business group tabs excluded from security-tag short-label mapping?",
+      "evidenceRequired": "Tabs such as 港美股 remain business labels.",
+      "fixIfFail": "Apply references/lists/watchlist-generation.md and assets/templates/watchlist-table-module.json, then revise the artifact until this proof point is structurally and visually present."
+    },
+    {
+      "id": "dividerOverlayAboveFrozenAndScrollContent",
+      "severity": "P2",
+      "mustPass": true,
+      "question": "Is dividerOverlayLayer above frozen and scroll content layers?",
+      "evidenceRequired": "Layer order or z-index evidence.",
+      "fixIfFail": "Apply references/lists/watchlist-generation.md and assets/templates/watchlist-table-module.json, then revise the artifact until this proof point is structurally and visually present."
+    },
+    {
+      "id": "dividerStartsAt18px",
+      "severity": "P2",
+      "mustPass": true,
+      "question": "Do row/header dividers start at x=18px?",
+      "evidenceRequired": "Token/layer/measurement evidence.",
+      "fixIfFail": "Apply references/lists/watchlist-generation.md and assets/templates/watchlist-table-module.json, then revise the artifact until this proof point is structurally and visually present."
+    },
+    {
+      "id": "dividerRightInsetIs0",
+      "severity": "P2",
+      "mustPass": true,
+      "question": "Do row/header dividers extend to the right edge with 0px right inset?",
+      "evidenceRequired": "Token/layer/measurement evidence.",
+      "fixIfFail": "Apply references/lists/watchlist-generation.md and assets/templates/watchlist-table-module.json, then revise the artifact until this proof point is structurally and visually present."
+    },
+    {
+      "id": "dividerNotClippedByFrozenLayer",
+      "severity": "P2",
+      "mustPass": true,
+      "question": "Are dividers not hidden, clipped, or segmented by the frozen layer?",
+      "evidenceRequired": "Layer order and visual evidence.",
+      "fixIfFail": "Apply references/lists/watchlist-generation.md and assets/templates/watchlist-table-module.json, then revise the artifact until this proof point is structurally and visually present."
+    },
+    {
+      "id": "stockNameFontWeightIs500",
+      "severity": "P2",
+      "mustPass": true,
+      "question": "Is stock name font-weight exactly 500?",
+      "evidenceRequired": "CSS/Figma text style evidence.",
+      "fixIfFail": "Apply references/lists/watchlist-generation.md and assets/templates/watchlist-table-module.json, then revise the artifact until this proof point is structurally and visually present."
+    },
+    {
+      "id": "stockNameDoesNotUse600Or700",
+      "severity": "P2",
+      "mustPass": true,
+      "question": "Does stock name avoid 600/700 font weight?",
+      "evidenceRequired": "CSS/Figma text style evidence.",
+      "fixIfFail": "Apply references/lists/watchlist-generation.md and assets/templates/watchlist-table-module.json, then revise the artifact until this proof point is structurally and visually present."
+    },
+    {
+      "id": "strongTagOverridesDefaultBold",
+      "severity": "P2",
+      "mustPass": true,
+      "question": "If <strong> is used for stock names, is font-weight explicitly set to 500?",
+      "evidenceRequired": "CSS selector or inline style evidence.",
+      "fixIfFail": "Apply references/lists/watchlist-generation.md and assets/templates/watchlist-table-module.json, then revise the artifact until this proof point is structurally and visually present."
+    }
+  ]
+}

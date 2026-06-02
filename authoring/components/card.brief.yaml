@@ -1,0 +1,155 @@
+# ============================================================
+# 01_HUMAN_REQUIRED
+# 人工必填区
+# ============================================================
+
+id: component.card
+name: 卡片
+owner: design-system
+status: draft
+
+# [HUMAN REQUIRED]
+purpose: >
+  用于承载移动端页面模块、模块内部信息组和重复小块。卡片层级由内容结构决定，
+  不是由视觉轻重、位置或内容量决定。
+
+# [HUMAN REQUIRED]
+usedIn:
+  - page-module
+  - module-internal-group
+  - repeated-info-block
+
+# [HUMAN REQUIRED]
+humanRules:
+  do:
+    - 先声明 firstLevelCard、secondLevelCard 或 thirdLevelCard，再应用背景和圆角。
+    - 一级页面模块默认使用 first-level card。
+    - 有 approved background 的卡片不加边框。
+  dont:
+    - 不要因为模块较轻、较短或位于页面下方就降级为二级卡。
+    - 不要在卡片内部再嵌套卡片。
+    - 不要用任意白、黑、灰或描边制造层级。
+
+# [HUMAN REQUIRED]
+riskWarnings:
+  - 错误卡片层级会破坏页面信息密度和金融数据扫描效率。
+
+# [HUMAN REQUIRED]
+allowedZones:
+  - page_content_module
+  - module_internal_group
+  - repeated_small_block
+
+# [HUMAN REQUIRED]
+forbiddenZones:
+  - nested_card_inside_card
+
+# [HUMAN REQUIRED]
+requiredPairings:
+  - content-hierarchy
+
+# [HUMAN REQUIRED]
+forbiddenPairings:
+  - arbitrary-border
+  - ad-hoc-radius
+
+# [HUMAN REQUIRED]
+examples:
+  good:
+    - assetPath: assets/examples/mobile-home-workbench.png
+      reason: 页面模块卡片与内部信息组层级可区分。
+  needsReview: []
+  bad:
+    - name: 页面级模块被当作内部二级卡
+      reason: 卡片层级应按内容结构，而不是视觉轻重判断。
+
+# ============================================================
+# 02_AGENT_EXTRACTED
+# Agent 自动读取区
+# ============================================================
+
+figma:
+  fileName: TODO_VERIFY_WITH_FIGMA
+  fileKey: TODO_VERIFY_WITH_FIGMA
+  exampleNodeId: TODO_VERIFY_WITH_FIGMA
+  figmaExactName: TODO_VERIFY_WITH_FIGMA
+  componentKey: TODO_VERIFY_WITH_FIGMA
+  bindingMode: semantic_token_match
+  bindingFailurePolicy: stop_and_recheck
+  propertyHints:
+    hierarchy:
+      - firstLevelCard
+      - secondLevelCard
+      - thirdLevelCard
+
+classification:
+  primitiveFamily: card
+  componentType: surface
+  riskLevel: low
+  isOrdinaryButton: false
+  isTradingAction: false
+
+observedStructure:
+  root: TODO_VERIFY_WITH_FIGMA
+  children: []
+  typography: TODO_VERIFY_WITH_FIGMA
+  tokens:
+    firstLevelBackground: xzl/color/surface/card-level-1
+    nestedBackground: xzl/color/surface/card-level-2
+
+variants:
+  confirmed: []
+  candidates:
+    - firstLevelCard
+    - secondLevelCard
+    - thirdLevelCard
+
+states:
+  - id: default
+    required: true
+
+slots:
+  content:
+    description: 卡片承载的业务内容。
+
+tokens:
+  source:
+    - assets/tokens/radius-tokens.json
+    - assets/tokens/token-mapping.json
+
+textOverrideFields: []
+
+resourceRefs:
+  - references/foundation/components-card.md
+  - references/foundation/radius.md
+
+# ============================================================
+# 03_AGENT_EXPANSION_AND_CHECKLIST
+# Agent 扩展与自查区
+# ============================================================
+
+reviewChecklist:
+  - id: card-hierarchy-declared
+    severity: P1
+    question: 卡片是否先声明内容层级？
+    passCriteria: 每个卡片 surface 有 firstLevelCard、secondLevelCard 或 thirdLevelCard。
+  - id: colored-card-no-border
+    severity: P1
+    question: 有背景色的卡片是否错误添加边框？
+    passCriteria: approved card background 不叠加 stroke。
+  - id: no-card-in-card
+    severity: P1
+    question: 是否出现卡片嵌套卡片？
+    passCriteria: 重复模块为 sibling 或 section，而不是 card inside card。
+
+agentExpansion:
+  canonComponent:
+    path: canon/components/card.meta.yaml
+  checklist:
+    path: canon/checklists/card-review.yaml
+  figmaBinding:
+    path: bindings/figma/components.yaml
+  docs:
+    path: docs/generated/components/index.md
+  assetManifest:
+    path: bindings/assets/manifest.yaml

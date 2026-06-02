@@ -1,0 +1,172 @@
+# ============================================================
+# 01_HUMAN_REQUIRED
+# 人工必填区
+# ============================================================
+
+id: component.trading-input
+name: 交易输入框组件族
+owner: design-system
+status: draft
+
+# [HUMAN REQUIRED]
+purpose: >
+  用于新涨乐交易表单中的代码输入、数字步进输入、下拉选择、
+  数字步进输入加下拉选择和条件输入。它承载交易前置参数，不能简化为普通输入框。
+
+# [HUMAN REQUIRED]
+usedIn:
+  - trading-order-form
+  - order-condition-form
+  - security-code-entry
+
+# [HUMAN REQUIRED]
+humanRules:
+  do:
+    - 先按结构分类，再套普通输入背景和圆角规则。
+    - 所有交互图标必须是可见节点。
+    - 交易表单内使用时同步加载交易表单布局规则。
+  dont:
+    - 不要把数字步进、下拉、条件输入简化成 generic input。
+    - 不要用说明文字代替 minus、plus、dropdown、edit、delete 等图标节点。
+
+# [HUMAN REQUIRED]
+riskWarnings:
+  - 交易参数输入错误会影响委托结果，必须保持结构、状态和图标清晰。
+
+# [HUMAN REQUIRED]
+allowedZones:
+  - trading_order_form
+  - condition_order_form
+
+# [HUMAN REQUIRED]
+forbiddenZones:
+  - generic_search_bar
+  - decorative_card_body
+
+# [HUMAN REQUIRED]
+requiredPairings:
+  - trading-field-label
+  - value-or-placeholder
+
+# [HUMAN REQUIRED]
+forbiddenPairings:
+  - hidden-interactive-icon
+  - generic-input-only
+
+# [HUMAN REQUIRED]
+examples:
+  good:
+    - assetPath: assets/examples/trading-order-page.png
+      reason: 交易输入结构与交易表单上下文完整。
+  needsReview: []
+  bad:
+    - name: 用普通输入框替代数字步进输入
+      reason: 缺少 minus、plus 等必需交互节点。
+
+# ============================================================
+# 02_AGENT_EXTRACTED
+# Agent 自动读取区
+# ============================================================
+
+figma:
+  fileName: TODO_VERIFY_WITH_FIGMA
+  fileKey: TODO_VERIFY_WITH_FIGMA
+  exampleNodeId: TODO_VERIFY_WITH_FIGMA
+  figmaExactName: TODO_VERIFY_WITH_FIGMA
+  componentKey: TODO_VERIFY_WITH_FIGMA
+  bindingMode: must_use_library_instance
+  bindingFailurePolicy: stop_and_recheck
+  propertyHints:
+    subtype:
+      - code-input
+      - numeric-stepper
+      - dropdown
+      - numeric-stepper-dropdown
+      - condition-input
+
+classification:
+  primitiveFamily: trading_input
+  componentType: input
+  riskLevel: high
+  isOrdinaryButton: false
+  isTradingAction: false
+
+observedStructure:
+  root: TODO_VERIFY_WITH_FIGMA
+  children: []
+  typography: TODO_VERIFY_WITH_FIGMA
+  tokens:
+    source: assets/templates/trading-input-component.json
+
+variants:
+  confirmed: []
+  candidates:
+    - code-input
+    - numeric-stepper
+    - dropdown
+    - numeric-stepper-dropdown
+    - condition-input
+
+states:
+  - id: default
+    required: true
+  - id: focus
+    required: true
+  - id: entered
+    required: true
+  - id: disabled
+    required: true
+  - id: read-only
+    required: false
+
+slots:
+  value:
+    description: 居中值、占位符或输入光标。
+  leadingIcon:
+    description: 搜索、minus 或其他左侧交互节点。
+  trailingIcon:
+    description: plus、dropdown、edit、delete 或 clear 节点。
+
+tokens:
+  source:
+    - assets/templates/trading-input-component.json
+    - assets/templates/trading-order-form-inputs.json
+
+textOverrideFields:
+  - TODO_VERIFY_WITH_FIGMA
+
+resourceRefs:
+  - references/foundation/components-trading-inputs.md
+  - references/foundation/components-input.md
+  - assets/templates/trading-input-output-checklist.json
+
+# ============================================================
+# 03_AGENT_EXPANSION_AND_CHECKLIST
+# Agent 扩展与自查区
+# ============================================================
+
+reviewChecklist:
+  - id: trading-input-not-generic-input
+    severity: P0
+    question: 是否把交易输入控件简化成普通输入框？
+    passCriteria: subtype、图标节点、状态和交易表单上下文均完整。
+  - id: interactive-icons-visible
+    severity: P0
+    question: 所有交易输入交互图标是否作为可见节点存在？
+    passCriteria: minus、plus、dropdown、edit、delete 等不是备注或隐藏节点。
+  - id: order-form-context-present
+    severity: P1
+    question: 交易表单上下文是否完整？
+    passCriteria: 能看到字段标签、值/占位、状态和必要辅助信息。
+
+agentExpansion:
+  canonComponent:
+    path: canon/components/trading-input.meta.yaml
+  checklist:
+    path: canon/checklists/trading-input-review.yaml
+  figmaBinding:
+    path: bindings/figma/components.yaml
+  docs:
+    path: docs/generated/components/index.md
+  assetManifest:
+    path: bindings/assets/manifest.yaml

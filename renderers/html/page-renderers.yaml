@@ -1,0 +1,34 @@
+id: renderers.html.pages
+kind: renderer-registry
+schemaVersion: 1
+version: 0.1.0
+status: draft
+title: HTML Page Renderers
+summary: Low-fidelity H5 page renderer mappings for Agent-generated prototypes.
+renderers:
+  - id: renderer.html.watchlist-page
+    sourceScenario: scenario.watchlist
+    sourceArchetype: archetype.mobile-list-page
+    htmlStrategy:
+      fidelity: low
+      renderAs: mobile-fixed-shell-with-scroll-list
+      useTokens: true
+      useLocalAssetsWhenNeeded: true
+    requiredInputs:
+      - canon/scenarios/watchlist.yaml
+      - canon/archetypes/mobile-list-page.yaml
+      - renderers/html/component-renderers.yaml
+      - canon/checklists/visual-review.yaml
+  - id: renderer.html.ai-chat-page
+    sourceScenario: scenario.ai-chat
+    sourceArchetype: archetype.mobile-chat-page
+    htmlStrategy:
+      fidelity: low
+      renderAs: mobile-chat-shell
+      useTokens: true
+      useLocalAssetsWhenNeeded: true
+    requiredInputs:
+      - canon/scenarios/ai-chat.yaml
+      - canon/archetypes/mobile-chat-page.yaml
+      - renderers/html/component-renderers.yaml
+      - canon/checklists/visual-review.yaml

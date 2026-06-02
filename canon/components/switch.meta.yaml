@@ -1,0 +1,42 @@
+id: component.switch
+name: 开关与选择控件
+owner: design-system
+status: draft
+sourceBrief: authoring/components/switch.brief.yaml
+classification:
+  primitiveFamily: switch
+  componentType: state-control
+  riskLevel: medium
+  maintenanceLevel: strong
+usage:
+  allowedZones:
+    - setting_row_control_area
+    - selection_option_group
+    - filter_panel_option_area
+    - toolbar_state_area
+  forbiddenZones:
+    - primary_action_area
+    - trading_order_submit_area
+variants:
+  confirmed: []
+  candidates:
+    - switch
+    - segmented
+    - checkbox
+    - radio
+    - icon-toggle
+states:
+  required:
+    - disabled
+  optional:
+    - on
+    - off
+    - selected
+    - unselected
+    - loading
+tokenSources:
+  - assets/tokens/switch-tokens.json
+sourceRefs:
+  - references/foundation/components-switch.md
+checklist: canon/checklists/switch-review.yaml
+figmaBindingStatus: TODO_VERIFY_WITH_FIGMA

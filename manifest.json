@@ -1,0 +1,69 @@
+{
+  "id": "zhangle-agent-design-system",
+  "name": "Zhangle Agent Design System",
+  "schemaVersion": 1,
+  "version": "0.1.0",
+  "status": "mvp",
+  "description": "Schema-first Agent-readable design-system repository for AI Zhangle / New Zhangle.",
+  "entrypoints": {
+    "skill": "SKILL.md",
+    "agents": "AGENTS.md",
+    "llms": "llms.txt",
+    "humanAuthoring": "authoring/README.md",
+    "prTemplate": ".github/PULL_REQUEST_TEMPLATE.md"
+  },
+  "authoring": {
+    "components": "authoring/components/",
+    "componentIndex": "authoring/components/index.yaml",
+    "componentBriefWorkflow": "docs/references/component-brief-workflow.md",
+    "scenarios": "authoring/scenarios/",
+    "caseStudies": "authoring/case-studies/",
+    "workflow": "docs/references/authoring-workflow.md"
+  },
+  "canonical": {
+    "tokens": "canon/foundations/tokens/",
+    "themes": "canon/foundations/themes/",
+    "components": "canon/components/",
+    "componentIndex": "canon/components/index.yaml",
+    "archetypes": "canon/archetypes/",
+    "scenarios": "canon/scenarios/",
+    "checklists": "canon/checklists/",
+    "componentChecklistIndex": "canon/checklists/index.yaml"
+  },
+  "bindings": {
+    "figma": "bindings/figma/",
+    "figmaComponents": "bindings/figma/components.yaml",
+    "criticalFigmaBindings": "bindings/figma/critical-bindings.yaml",
+    "assets": "bindings/assets/manifest.yaml"
+  },
+  "renderers": {
+    "html": "renderers/html/",
+    "componentRenderers": "renderers/html/component-renderers.yaml",
+    "pageRenderers": "renderers/html/page-renderers.yaml"
+  },
+  "schemas": {
+    "component": "schemas/component.schema.json",
+    "checklist": "schemas/checklist.schema.json",
+    "resource": "schemas/resource.schema.json",
+    "componentBriefYaml": "schemas/component-brief.schema.yaml",
+    "componentMetaYaml": "schemas/component-meta.schema.yaml",
+    "checklistYaml": "schemas/checklist.schema.yaml",
+    "schemaIndex": "schemas/index.yaml"
+  },
+  "generated": {
+    "css": "generated/css/",
+    "json": "generated/json/",
+    "markdown": "generated/markdown/",
+    "searchIndex": "generated/search-index/",
+    "componentDocsIndex": "docs/generated/components/index.md"
+  },
+  "provenance": {
+    "primarySourcePackage": "../zhangle-design-skill",
+    "fusionSourcePackage": "../各自的分支/0602xzl-design-system-fusion-version_阿琨合并版",
+    "latestYamlFusionSourcePackage": "../各自的分支/0602xzl-design-system-fusion-version_基于最新的yaml合并版",
+    "sourceNotes": "Original packages are preserved outside this folder. Selected references and assets were copied into docs/, bindings/, canon/, authoring/, and renderers/."
+  },
+  "agents": {
+    "openai": "agents/openai.yaml"
+  }
+}

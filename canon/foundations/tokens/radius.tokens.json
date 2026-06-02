@@ -1,0 +1,102 @@
+{
+  "name": "radius-tokens",
+  "description": "Global New Zhanle radius scale with semantic and numeric aliases.",
+  "allowedValuesPx": [
+    2,
+    4,
+    8,
+    16,
+    20
+  ],
+  "numericAliases": {
+    "radius/2": 2,
+    "radius/4": 4,
+    "radius/8": 8,
+    "radius/16": 16,
+    "radius/20": 20
+  },
+  "semanticTokens": {
+    "radius/tag": {
+      "value": 2,
+      "appliesTo": [
+        "tags",
+        "labels"
+      ]
+    },
+    "radius/input": {
+      "value": 4,
+      "appliesTo": [
+        "inputs",
+        "form fields"
+      ]
+    },
+    "radius/card/primary": {
+      "value": 16,
+      "appliesTo": [
+        "first-level cards",
+        "primary page modules"
+      ]
+    },
+    "radius/card/secondary": {
+      "value": 8,
+      "appliesTo": [
+        "second-level cards",
+        "nested groups"
+      ]
+    },
+    "radius/card/tertiary": {
+      "value": 8,
+      "appliesTo": [
+        "third-level cards",
+        "compact internal cards"
+      ]
+    },
+    "radius/dialog": {
+      "value": 8,
+      "appliesTo": [
+        "modal dialogs"
+      ]
+    },
+    "radius/toast": {
+      "value": 8,
+      "appliesTo": [
+        "toast"
+      ]
+    },
+    "radius/sheet": {
+      "value": 20,
+      "appliesTo": [
+        "bottom sheets",
+        "bottom popups",
+        "half-screen conversation sheets",
+        "semi-floating panels"
+      ]
+    },
+    "radius/dropdown": {
+      "value": 20,
+      "appliesTo": [
+        "dropdown popovers"
+      ]
+    },
+    "radius/work-area": {
+      "value": 20,
+      "appliesTo": [
+        "home-style work areas"
+      ]
+    }
+  },
+  "partialRadius": {
+    "bottomAttachedSheet": {
+      "topLeft": 20,
+      "topRight": 20,
+      "bottomRight": 0,
+      "bottomLeft": 0,
+      "appliesTo": [
+        "bottom sheets",
+        "bottom popups",
+        "half-screen conversation sheets"
+      ]
+    }
+  },
+  "componentPriority": "Component-specific rules may reference these tokens. If a component-specific rule conflicts with this global scale, cite the component rule as the override."
+}

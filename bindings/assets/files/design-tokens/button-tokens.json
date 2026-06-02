@@ -1,0 +1,87 @@
+{
+  "version": 1,
+  "scope": "mobile-app-buttons",
+  "radius": {
+    "all": "999px"
+  },
+  "font": {
+    "chineseFamily": "PingFang SC",
+    "frontendFontFamily": "\"PingFang SC\", -apple-system, BlinkMacSystemFont, system-ui, sans-serif",
+    "figmaFontFamily": "PingFang SC",
+    "weightName": "Medium",
+    "fontWeight": 500
+  },
+  "sizes": {
+    "large": {
+      "height": 42,
+      "fontSize": 16,
+      "horizontalPadding": 24,
+      "ordinaryIcon": [20, 20],
+      "badgeIcon": [12, 12],
+      "iconOnlyIcon": [22, 22]
+    },
+    "medium": {
+      "height": 35,
+      "fontSize": 14,
+      "horizontalPadding": 18,
+      "ordinaryIcon": [18, 18],
+      "badgeIcon": [12, 12],
+      "iconOnlyIcon": [20, 20]
+    },
+    "small": {
+      "height": 27,
+      "fontSize": 12,
+      "horizontalPadding": 12,
+      "ordinaryIcon": [16, 16],
+      "badgeIcon": [8, 8],
+      "iconOnlyIcon": [18, 18]
+    },
+    "mini": {
+      "height": 23,
+      "fontSize": 10,
+      "horizontalPadding": 10,
+      "ordinaryIcon": [14, 14],
+      "badgeIcon": [8, 8],
+      "iconOnlyIcon": [16, 16]
+    }
+  },
+  "spacing": {
+    "ordinaryIconGap": {
+      "large": 4,
+      "medium": 4,
+      "small": 4,
+      "mini": 2
+    },
+    "badgeIconGap": {
+      "large": 4,
+      "medium": 4,
+      "small": 4,
+      "mini": 2
+    },
+    "pairedButtonGap": 15
+  },
+  "iconOnly": {
+    "padding": {
+      "top": 10,
+      "right": 10,
+      "bottom": 10,
+      "left": 10
+    },
+    "square": true
+  },
+  "states": {
+    "default": {
+      "containerOpacity": 1
+    },
+    "pressed": {
+      "containerOpacity": 0.85
+    },
+    "disabled": {
+      "containerOpacity": 0.4
+    }
+  },
+  "border": {
+    "outlineWidth": 0.5,
+    "ghostOutlineWidth": 0.5
+  }
+}

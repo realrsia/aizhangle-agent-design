@@ -1,0 +1,185 @@
+# ============================================================
+# 01_HUMAN_REQUIRED
+# 人工必填区
+# ============================================================
+
+id: component.button
+name: 普通按钮
+owner: design-system
+status: draft
+
+# [HUMAN REQUIRED]
+purpose: >
+  用于新涨乐移动端中的普通操作入口，例如确认、提交、跳转、查看详情、
+  辅助操作等。普通按钮不承载买入、卖出、撤单、删除等高风险动作。
+
+# [HUMAN REQUIRED]
+usedIn:
+  - generic-form-action
+  - secondary-page-action
+  - filter-confirmation
+  - navigation-action
+
+# [HUMAN REQUIRED]
+humanRules:
+  do:
+    - 按钮必须先按业务语义选择动作类型，再选择视觉类型、尺寸、结构和状态。
+    - 普通按钮可使用 primary、assist、outline、text、link、ghost-outline、ghost-text 等视觉类型。
+    - 禁用状态必须表达不可操作，不应只依赖文案解释。
+  dont:
+    - 不要用普通按钮规则决定买入、卖出、撤单等交易行动点。
+    - 不要把 destructive 操作当成普通 primary 按钮处理。
+    - 不要在一个页面区域内堆叠多个同等强度主按钮。
+
+# [HUMAN REQUIRED]
+riskWarnings:
+  - 普通按钮可用于低/中风险动作；涉及资金、交易、撤销、删除时必须改用高风险组件或另建 brief。
+
+# [HUMAN REQUIRED]
+allowedZones:
+  - generic_card_action_area
+  - form_footer
+  - filter_sheet_footer
+  - list_secondary_action
+
+# [HUMAN REQUIRED]
+forbiddenZones:
+  - trading_order_submit_area
+  - order_cancel_confirmation
+  - ai_chat_direct_trading_action
+
+# [HUMAN REQUIRED]
+requiredPairings:
+  - action-context
+
+# [HUMAN REQUIRED]
+forbiddenPairings:
+  - buy-sell-trading-action
+  - destructive-without-confirmation
+
+# [HUMAN REQUIRED]
+examples:
+  good:
+    - assetPath: assets/examples/buttons-system.png
+      reason: 按钮类型、尺寸、结构和状态矩阵完整。
+  needsReview: []
+  bad:
+    - name: 用普通主按钮承载买入
+      reason: 买入属于交易行动点，不能用普通按钮规则决定颜色和风险边界。
+
+# ============================================================
+# 02_AGENT_EXTRACTED
+# Agent 自动读取区
+# ============================================================
+
+figma:
+  fileName: TODO_VERIFY_WITH_FIGMA
+  fileKey: TODO_VERIFY_WITH_FIGMA
+  exampleNodeId: TODO_VERIFY_WITH_FIGMA
+  exampleNodeName: TODO_VERIFY_WITH_FIGMA
+  figmaExactName: TODO_VERIFY_WITH_FIGMA
+  componentKey: TODO_VERIFY_WITH_FIGMA
+  bindingMode: must_use_library_instance
+  bindingFailurePolicy: stop_and_recheck
+  propertyHints:
+    type:
+      - primary
+      - assist
+      - outline
+      - text
+      - link
+      - ghost-outline
+      - ghost-text
+    size:
+      - large
+      - medium
+      - small
+      - mini
+
+classification:
+  primitiveFamily: button
+  componentType: action
+  riskLevel: medium
+  isOrdinaryButton: true
+  isTradingAction: false
+
+observedStructure:
+  root: TODO_VERIFY_WITH_FIGMA
+  children: []
+  typography: TODO_VERIFY_WITH_FIGMA
+  tokens:
+    source: assets/tokens/button-tokens.json
+
+variants:
+  confirmed: []
+  candidates:
+    - primary
+    - assist
+    - outline
+    - text
+    - link
+    - ghost-outline
+    - ghost-text
+
+states:
+  - id: default
+    required: true
+  - id: pressed
+    required: true
+  - id: disabled
+    required: true
+  - id: loading
+    required: false
+
+slots:
+  root:
+    description: 按钮容器。
+  label:
+    description: 按钮文案。
+    editable: true
+  icon:
+    description: leading、trailing、badge-icon 或 icon-only 图标。
+    editable: true
+
+tokens:
+  source:
+    - assets/tokens/button-tokens.json
+    - assets/tokens/token-mapping.json
+
+textOverrideFields:
+  - TODO_VERIFY_WITH_FIGMA
+
+resourceRefs:
+  - references/foundation/components-button.md
+  - assets/templates/button-output-checklist.json
+
+# ============================================================
+# 03_AGENT_EXPANSION_AND_CHECKLIST
+# Agent 扩展与自查区
+# ============================================================
+
+reviewChecklist:
+  - id: ordinary-button-not-trading-action
+    severity: P0
+    question: 是否错误地用普通按钮承载买入、卖出、撤单等交易动作？
+    passCriteria: 交易动作必须路由到 component.trading-action-button 或其他高风险组件。
+  - id: button-type-size-state-present
+    severity: P1
+    question: 是否同时定义了视觉类型、尺寸、结构和状态？
+    passCriteria: 每个按钮至少有 type、size、structure、state 四类信息。
+  - id: button-token-source-used
+    severity: P1
+    question: 是否使用按钮 token，而不是页面内自定义 raw color？
+    passCriteria: 数值来源指向 assets/tokens/button-tokens.json 或 token mapping。
+
+agentExpansion:
+  canonComponent:
+    path: canon/components/button.meta.yaml
+  checklist:
+    path: canon/checklists/button-review.yaml
+  figmaBinding:
+    path: bindings/figma/components.yaml
+  docs:
+    path: docs/generated/components/index.md
+  assetManifest:
+    path: bindings/assets/manifest.yaml

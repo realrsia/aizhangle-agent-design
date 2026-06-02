@@ -1,0 +1,15 @@
+componentId: component.overlay
+sourceBrief: authoring/components/overlay.brief.yaml
+items:
+  - id: mobile-overlay-pattern
+    severity: P1
+    question: 浮层是否使用移动端原生模式？
+    passCriteria: 位置与交互目的匹配，非 web-style dialog。
+  - id: overlay-radius-surface-valid
+    severity: P1
+    question: 浮层圆角和表面层级是否符合规则？
+    passCriteria: sheet/popover/semi-floating 使用 20px，modal dialog 使用 8px。
+  - id: keyboard-safe-area-usable
+    severity: P1
+    question: 键盘场景下标题、输入、操作和安全区是否可用？
+    passCriteria: 操作按钮不被键盘或安全区遮挡。

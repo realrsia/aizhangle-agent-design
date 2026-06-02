@@ -1,0 +1,163 @@
+# ============================================================
+# 01_HUMAN_REQUIRED
+# 人工必填区
+# ============================================================
+
+id: component.overlay
+name: 浮层
+owner: design-system
+status: draft
+
+# [HUMAN REQUIRED]
+purpose: >
+  用于移动端上下文内的底部弹层、半浮层、居中确认框、popover 和下拉面板。
+  浮层应保留页面上下文并支持快速金融操作。
+
+# [HUMAN REQUIRED]
+usedIn:
+  - bottom-sheet
+  - confirmation-dialog
+  - dropdown-panel
+  - semi-floating-panel
+
+# [HUMAN REQUIRED]
+humanRules:
+  do:
+    - 按交互目的选择 bottom sheet、centered alert、popover 或 dropdown。
+    - modal focus 需要使用 mask/default。
+    - 输入浮层必须保持键盘、安全区和操作按钮可用。
+  dont:
+    - 不要使用 web-style dialog 替代移动端浮层模式。
+    - 不要用重描边制造浮层层级。
+
+# [HUMAN REQUIRED]
+riskWarnings:
+  - 确认、取消、交易相关浮层必须保持操作层级清晰。
+
+# [HUMAN REQUIRED]
+allowedZones:
+  - mobile_overlay_layer
+  - sheet_layer
+  - popover_layer
+
+# [HUMAN REQUIRED]
+forbiddenZones:
+  - scroll_content_as_card
+
+# [HUMAN REQUIRED]
+requiredPairings:
+  - trigger-context
+  - dismiss-or-confirm-action
+
+# [HUMAN REQUIRED]
+forbiddenPairings:
+  - heavy-border-surface
+
+# [HUMAN REQUIRED]
+examples:
+  good:
+    - assetPath: assets/examples/overlays-popovers-sheets.png
+      reason: 覆盖移动端浮层、popover 和 sheet 模式。
+  needsReview: []
+  bad:
+    - name: 使用桌面网页弹窗样式
+      reason: 新涨乐移动端应使用 native-like overlay pattern。
+
+# ============================================================
+# 02_AGENT_EXTRACTED
+# Agent 自动读取区
+# ============================================================
+
+figma:
+  fileName: TODO_VERIFY_WITH_FIGMA
+  fileKey: TODO_VERIFY_WITH_FIGMA
+  exampleNodeId: TODO_VERIFY_WITH_FIGMA
+  figmaExactName: TODO_VERIFY_WITH_FIGMA
+  componentKey: TODO_VERIFY_WITH_FIGMA
+  bindingMode: must_use_library_instance
+  bindingFailurePolicy: stop_and_recheck
+  propertyHints:
+    overlayType:
+      - bottom-sheet
+      - semi-floating-panel
+      - centered-alert
+      - popover
+      - dropdown
+
+classification:
+  primitiveFamily: overlay
+  componentType: layer
+  riskLevel: medium
+  isOrdinaryButton: false
+  isTradingAction: false
+
+observedStructure:
+  root: TODO_VERIFY_WITH_FIGMA
+  children: []
+  typography: TODO_VERIFY_WITH_FIGMA
+  tokens:
+    mask: xzl/color/mask/default
+
+variants:
+  confirmed: []
+  candidates:
+    - bottom-sheet
+    - semi-floating-panel
+    - centered-alert
+    - popover
+    - dropdown
+
+states:
+  - id: default
+    required: true
+  - id: keyboard
+    required: false
+
+slots:
+  surface:
+    description: 浮层表面。
+  actions:
+    description: 主操作、取消操作或二级操作。
+
+tokens:
+  source:
+    - assets/tokens/radius-tokens.json
+    - assets/tokens/token-mapping.json
+
+textOverrideFields:
+  - TODO_VERIFY_WITH_FIGMA
+
+resourceRefs:
+  - references/foundation/components-overlay.md
+  - references/foundation/radius.md
+
+# ============================================================
+# 03_AGENT_EXPANSION_AND_CHECKLIST
+# Agent 扩展与自查区
+# ============================================================
+
+reviewChecklist:
+  - id: mobile-overlay-pattern
+    severity: P1
+    question: 浮层是否使用移动端原生模式？
+    passCriteria: 位置与交互目的匹配，非 web-style dialog。
+  - id: overlay-radius-surface-valid
+    severity: P1
+    question: 浮层圆角和表面层级是否符合规则？
+    passCriteria: sheet/popover/semi-floating 使用 20px，modal dialog 使用 8px。
+  - id: keyboard-safe-area-usable
+    severity: P1
+    question: 键盘场景下标题、输入、操作和安全区是否可用？
+    passCriteria: 操作按钮不被键盘或安全区遮挡。
+
+agentExpansion:
+  canonComponent:
+    path: canon/components/overlay.meta.yaml
+  checklist:
+    path: canon/checklists/overlay-review.yaml
+  figmaBinding:
+    path: bindings/figma/components.yaml
+  docs:
+    path: docs/generated/components/index.md
+  assetManifest:
+    path: bindings/assets/manifest.yaml

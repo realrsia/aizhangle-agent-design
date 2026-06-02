@@ -1,0 +1,30 @@
+id: scenario.ai-chat
+kind: scenario
+schemaVersion: 1
+version: 0.1.0
+status: draft
+title: AI Chat
+summary: AI conversation and message page route, including fidelity reconstruction and product-ready chat variants.
+usesArchetype: archetype.mobile-chat-page
+sourceRefs:
+  - docs/references/fidelity/chat-fidelity-reconstruction.md
+  - bindings/assets/files/design-tokens/chat-fidelity-tokens.json
+businessIntent:
+  domain: ai-assistant
+  userGoal: Ask questions, read reasoning, continue with related questions, or send follow-up input.
+requiredComponents:
+  - component.chat-input
+  - component.message-feed
+optionalComponents:
+  - component.button
+  - component.bottom-bar
+fidelityRoute:
+  sourceFileKey: QYybrg0tr5g1BMRIpGyEuo
+  priorityScreens:
+    - Screen/Chat/Light
+    - Screen/Chat/Dark
+    - Screen/Message/Dark
+review:
+  requiredChecklists:
+    - checklist.visual-review
+    - acceptanceCriteria: docs/references/fidelity/chat-fidelity-reconstruction.md

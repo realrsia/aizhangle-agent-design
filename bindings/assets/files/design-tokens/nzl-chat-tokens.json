@@ -1,0 +1,307 @@
+{
+  "$schema": "https://design-tokens.github.io/community-group/format/",
+  "meta": {
+    "name": "Chat Fidelity Reconstruction",
+    "source": "Figma QYybrg0tr5g1BMRIpGyEuo",
+    "modeCollections": {
+      "Primitives": ["Base"],
+      "Semantics": ["Light", "Dark"]
+    },
+    "pages": [
+      "Screen/Chat/Light",
+      "Screen/Chat/Dark",
+      "Screen/Message/Dark",
+      "00 Audit - Dedup",
+      "01 Foundations",
+      "02 Skill Guide"
+    ]
+  },
+  "tokens": {
+    "primitive": {
+      "color": {
+        "neutral": {
+          "0": { "$type": "color", "$value": "#FFFFFF" },
+          "50": { "$type": "color", "$value": "#F5F7FA" },
+          "100": { "$type": "color", "$value": "#F3F5F9" },
+          "200": { "$type": "color", "$value": "#D9D9D9" },
+          "300": { "$type": "color", "$value": "#9FABC4" },
+          "400": { "$type": "color", "$value": "#6D778B" },
+          "700": { "$type": "color", "$value": "#353739" },
+          "900": { "$type": "color", "$value": "#111111" },
+          "950": { "$type": "color", "$value": "#030303" },
+          "1000": { "$type": "color", "$value": "#081126" }
+        },
+        "blue": {
+          "400": { "$type": "color", "$value": "#3B84FF" },
+          "500": { "$type": "color", "$value": "#2576FF" },
+          "700": { "$type": "color", "$value": "#1C4584" }
+        },
+        "indigo": {
+          "100": { "$type": "color", "$value": "#E9F2FF" },
+          "200": { "$type": "color", "$value": "#DBE9FF" },
+          "300": { "$type": "color", "$value": "#B2CFFF" },
+          "700": { "$type": "color", "$value": "#2D3A67" }
+        },
+        "red": {
+          "500": { "$type": "color", "$value": "#F63843" }
+        }
+      }
+    },
+    "semantic": {
+      "color": {
+        "bg": {
+          "page": {
+            "$type": "color",
+            "$value": {
+              "Light": "#FFFFFF",
+              "Dark": "#081126"
+            }
+          },
+          "surface": {
+            "$type": "color",
+            "$value": {
+              "Light": "#F5F7FA",
+              "Dark": "#081126"
+            }
+          },
+          "elevated": {
+            "$type": "color",
+            "$value": {
+              "Light": "#FFFFFF",
+              "Dark": "rgba(255,255,255,0.08)"
+            }
+          },
+          "user-bubble": {
+            "$type": "color",
+            "$value": {
+              "Light": "#DBE9FF",
+              "Dark": "#2D3A67"
+            }
+          },
+          "reasoning-panel": {
+            "$type": "color",
+            "$value": {
+              "Light": "#E9F2FF",
+              "Dark": "#E9F2FF"
+            }
+          }
+        },
+        "text": {
+          "primary": {
+            "$type": "color",
+            "$value": {
+              "Light": "#030303",
+              "Dark": "rgba(255,255,255,0.9)"
+            }
+          },
+          "secondary": {
+            "$type": "color",
+            "$value": {
+              "Light": "#6D778B",
+              "Dark": "rgba(255,255,255,0.5)"
+            }
+          },
+          "tertiary": {
+            "$type": "color",
+            "$value": {
+              "Light": "#9FABC4",
+              "Dark": "#B2CFFF"
+            }
+          },
+          "action": {
+            "$type": "color",
+            "$value": {
+              "Light": "#3B84FF",
+              "Dark": "#3B84FF"
+            }
+          },
+          "cta": {
+            "$type": "color",
+            "$value": {
+              "Light": "#2D3A67",
+              "Dark": "#B2CFFF"
+            }
+          }
+        },
+        "border": {
+          "default": {
+            "$type": "color",
+            "$value": {
+              "Light": "#D9D9D9",
+              "Dark": "rgba(255,255,255,0.16)"
+            }
+          },
+          "accent": {
+            "$type": "color",
+            "$value": {
+              "Light": "#2576FF",
+              "Dark": "#2576FF"
+            }
+          },
+          "query": {
+            "$type": "color",
+            "$value": {
+              "Light": "rgba(37,118,255,0.3)",
+              "Dark": "rgba(59,132,255,0.3)"
+            }
+          }
+        },
+        "icon": {
+          "primary": {
+            "$type": "color",
+            "$value": {
+              "Light": "#2D3A67",
+              "Dark": "#B2CFFF"
+            }
+          },
+          "secondary": {
+            "$type": "color",
+            "$value": {
+              "Light": "#6D778B",
+              "Dark": "rgba(255,255,255,0.5)"
+            }
+          }
+        }
+      }
+    },
+    "space": {
+      "4": { "$type": "dimension", "$value": "4px" },
+      "6": { "$type": "dimension", "$value": "6px" },
+      "8": { "$type": "dimension", "$value": "8px" },
+      "10": { "$type": "dimension", "$value": "10px" },
+      "12": { "$type": "dimension", "$value": "12px" },
+      "16": { "$type": "dimension", "$value": "16px" },
+      "20": { "$type": "dimension", "$value": "20px" }
+    },
+    "radius": {
+      "6": { "$type": "dimension", "$value": "6px" },
+      "8": { "$type": "dimension", "$value": "8px" },
+      "20": { "$type": "dimension", "$value": "20px" }
+    },
+    "opacity": {
+      "50": { "$type": "number", "$value": 0.5 },
+      "90": { "$type": "number", "$value": 0.9 }
+    },
+    "border": {
+      "width": {
+        "1": { "$type": "dimension", "$value": "1px" }
+      }
+    },
+    "typography": {
+      "styles": {
+        "Text/Body/14/Regular": {
+          "$type": "typography",
+          "$value": {
+            "fontFamily": "Inter",
+            "fontWeight": "400",
+            "fontSize": "14px",
+            "lineHeight": "21px",
+            "letterSpacing": "0.5px"
+          }
+        },
+        "Text/Body/16/Regular": {
+          "$type": "typography",
+          "$value": {
+            "fontFamily": "Inter",
+            "fontWeight": "400",
+            "fontSize": "16px",
+            "lineHeight": "24px",
+            "letterSpacing": "0.5px"
+          }
+        },
+        "Text/Status/14/Medium": {
+          "$type": "typography",
+          "$value": {
+            "fontFamily": "Inter",
+            "fontWeight": "500",
+            "fontSize": "14px",
+            "lineHeight": "21px",
+            "letterSpacing": "0px"
+          }
+        },
+        "Text/Title/18/Semibold": {
+          "$type": "typography",
+          "$value": {
+            "fontFamily": "Inter",
+            "fontWeight": "600",
+            "fontSize": "18px",
+            "lineHeight": "26px",
+            "letterSpacing": "0px"
+          }
+        },
+        "Text/Subtitle/16/Semibold": {
+          "$type": "typography",
+          "$value": {
+            "fontFamily": "Inter",
+            "fontWeight": "600",
+            "fontSize": "16px",
+            "lineHeight": "24px",
+            "letterSpacing": "0.5px"
+          }
+        },
+        "Text/Meta/11/Regular": {
+          "$type": "typography",
+          "$value": {
+            "fontFamily": "Inter",
+            "fontWeight": "400",
+            "fontSize": "11px",
+            "lineHeight": "15px",
+            "letterSpacing": "1px"
+          }
+        },
+        "Text/Action/13/Regular": {
+          "$type": "typography",
+          "$value": {
+            "fontFamily": "Inter",
+            "fontWeight": "400",
+            "fontSize": "13px",
+            "lineHeight": "18px",
+            "letterSpacing": "0px"
+          }
+        },
+        "Text/Legal/14/Regular": {
+          "$type": "typography",
+          "$value": {
+            "fontFamily": "Inter",
+            "fontWeight": "400",
+            "fontSize": "14px",
+            "lineHeight": "21px",
+            "letterSpacing": "0.5px"
+          }
+        }
+      }
+    },
+    "styles": {
+      "paint": {
+        "Fill/Brand/Thinking": {
+          "$type": "gradient",
+          "$value": "linear(#FF3A4B, #7839FF 74%, #4EA3FF)"
+        },
+        "Fill/Avatar/Primary": {
+          "$type": "gradient",
+          "$value": "linear(rgba(122,98,255,0.5), #7A62FF)"
+        },
+        "Fill/Input/Dark": {
+          "$type": "gradient",
+          "$value": "linear(#283663, #141A34)"
+        }
+      },
+      "effect": {
+        "Effect/Avatar/Glow": {
+          "$type": "shadow",
+          "$value": {
+            "x": "0px",
+            "y": "0px",
+            "blur": "6px",
+            "spread": "0px",
+            "color": "rgba(158,174,198,0.25)"
+          }
+        },
+        "Effect/Close/BackdropBlur": {
+          "$type": "blur",
+          "$value": "9.17px"
+        }
+      }
+    }
+  }
+}

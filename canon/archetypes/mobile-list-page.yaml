@@ -1,0 +1,36 @@
+id: archetype.mobile-list-page
+kind: archetype
+schemaVersion: 1
+version: 0.1.0
+status: draft
+title: Mobile List Page
+summary: Standard 390px mobile page for dense financial list scanning.
+sourceRefs:
+  - canon/archetypes/ai-zhangle-screen-recipes.source.yaml
+  - docs/references/pages/page-structure.md
+  - docs/references/lists/table-generation-protocol.md
+shell:
+  viewport:
+    width: 390
+    height: 844
+  zones:
+    - id: page_shell
+      required: true
+    - id: top_nav
+      required: true
+    - id: top_filter
+      required: false
+    - id: list_header
+      required: true
+    - id: list_body
+      required: true
+    - id: bottom_dock
+      required: false
+layout:
+  direction: vertical
+  scrollZone: list_body
+  fixedZones:
+    - top_nav
+    - bottom_dock
+reviewDefaults:
+  - checklist.visual-review

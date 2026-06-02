@@ -1,0 +1,15 @@
+componentId: component.tag
+sourceBrief: authoring/components/tag.brief.yaml
+items:
+  - id: tag-semantic-routing-present
+    severity: P0
+    question: 是否先按标签语义分类再选择样式？
+    passCriteria: 标的、信号、风险、情绪、市场归属标签有明确 semanticType。
+  - id: dense-list-tag-secondary
+    severity: P1
+    question: 密集列表里的标签是否保持紧凑和次级权重？
+    passCriteria: 标签不破坏行高，不强于股票名、价格、盈亏等主信息。
+  - id: tag-token-source-used
+    severity: P1
+    question: 是否使用标签 token 而不是 raw color？
+    passCriteria: 样式来源指向 assets/tokens/tag-tokens.json 或 token mapping。

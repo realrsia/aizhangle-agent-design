@@ -1,0 +1,15 @@
+componentId: component.button
+sourceBrief: authoring/components/button.brief.yaml
+items:
+  - id: ordinary-button-not-trading-action
+    severity: P0
+    question: 是否错误地用普通按钮承载买入、卖出、撤单等交易动作？
+    passCriteria: 交易动作必须路由到 component.trading-action-button 或其他高风险组件。
+  - id: button-type-size-state-present
+    severity: P1
+    question: 是否同时定义了视觉类型、尺寸、结构和状态？
+    passCriteria: 每个按钮至少有 type、size、structure、state 四类信息。
+  - id: button-token-source-used
+    severity: P1
+    question: 是否使用按钮 token，而不是页面内自定义 raw color？
+    passCriteria: 数值来源指向 assets/tokens/button-tokens.json 或 token mapping。

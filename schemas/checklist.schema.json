@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://zhangle.local/schemas/checklist.schema.json",
+  "title": "Zhangle Executable Checklist",
+  "type": "object",
+  "required": ["id", "kind", "schemaVersion", "version", "status", "title", "appliesTo", "rules"],
+  "properties": {
+    "id": { "type": "string", "pattern": "^checklist\\.[a-z0-9.-]+$" },
+    "kind": { "const": "checklist" },
+    "schemaVersion": { "type": "integer", "minimum": 1 },
+    "version": { "type": "string" },
+    "status": { "enum": ["draft", "beta", "stable", "deprecated"] },
+    "title": { "type": "string" },
+    "summary": { "type": "string" },
+    "appliesTo": {
+      "type": "object",
+      "properties": {
+        "archetypes": { "type": "array", "items": { "type": "string" } },
+        "scenarios": { "type": "array", "items": { "type": "string" } },
+        "components": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "rules": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "severity", "target", "assert", "rationale"],
+        "properties": {
+          "id": { "type": "string" },
+          "severity": { "enum": ["error", "warn", "info"] },
+          "target": { "type": "string" },
+          "when": { "type": "object" },
+          "assert": { "type": "object" },
+          "rationale": { "type": "string" },
+          "autofix": { "type": "object" },
+          "sourceRefs": { "type": "array", "items": { "type": "string" } }
+        }
+      }
+    }
+  },
+  "additionalProperties": true
+}

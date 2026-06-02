@@ -1,0 +1,47 @@
+components:
+  - id: component.bottom-bar
+    brief: authoring/components/bottom-bar.brief.yaml
+    sourceRefs:
+      - references/foundation/components-bottom-bar.md
+  - id: component.button
+    brief: authoring/components/button.brief.yaml
+    sourceRefs:
+      - references/foundation/components-button.md
+  - id: component.card
+    brief: authoring/components/card.brief.yaml
+    sourceRefs:
+      - references/foundation/components-card.md
+  - id: component.divider
+    brief: authoring/components/divider.brief.yaml
+    sourceRefs:
+      - references/foundation/components-divider.md
+  - id: component.input
+    brief: authoring/components/input.brief.yaml
+    sourceRefs:
+      - references/foundation/components-input.md
+  - id: component.overlay
+    brief: authoring/components/overlay.brief.yaml
+    sourceRefs:
+      - references/foundation/components-overlay.md
+  - id: component.switch
+    brief: authoring/components/switch.brief.yaml
+    sourceRefs:
+      - references/foundation/components-switch.md
+  - id: component.tabs
+    brief: authoring/components/tabs.brief.yaml
+    sourceRefs:
+      - references/foundation/components-tabs.md
+  - id: component.tag
+    brief: authoring/components/tag.brief.yaml
+    sourceRefs:
+      - references/foundation/components-tags.md
+  - id: component.trading-action-button
+    brief: authoring/components/trading-action-button.brief.yaml
+    sourceRefs:
+      - references/foundation/components-trading-actions.md
+      - references/foundation/components-button.md
+  - id: component.trading-input
+    brief: authoring/components/trading-input.brief.yaml
+    sourceRefs:
+      - references/foundation/components-trading-inputs.md
+      - references/foundation/components-input.md

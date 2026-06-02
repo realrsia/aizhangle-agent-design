@@ -1,0 +1,9 @@
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<foreignObject x="-10" y="-10" width="44" height="44"><div xmlns="http://www.w3.org/1999/xhtml" style="backdrop-filter:blur(5px);clip-path:url(#bgblur_0_25_24760_clip_path);height:100%;width:100%"></div></foreignObject><g data-figma-bg-blur-radius="10">
+<path d="M0 12C0 5.37258 5.37258 0 12 0V0C18.6274 0 24 5.37258 24 12V12C24 18.6274 18.6274 24 12 24V24C5.37258 24 0 18.6274 0 12V12Z" fill="white" fill-opacity="0.5" style="fill:white;fill-opacity:0.5;"/>
+<path d="M15.5868 7.3134C15.8797 7.02053 16.3545 7.02054 16.6474 7.3134C16.9403 7.60629 16.9403 8.08105 16.6474 8.37395L13.0224 11.9989L16.6474 15.6239C16.9403 15.9168 16.9403 16.3926 16.6474 16.6855C16.3545 16.978 15.8796 16.9781 15.5868 16.6855L11.9609 13.0595L8.33684 16.6845C8.04395 16.9774 7.56919 16.9774 7.27629 16.6845C6.98343 16.3916 6.98341 15.9168 7.27629 15.6239L10.9003 11.9989L7.27629 8.37395C6.98362 8.08104 6.98347 7.60622 7.27629 7.3134C7.56913 7.02072 8.04398 7.02077 8.33684 7.3134L11.9618 10.9384L15.5868 7.3134Z" fill="#030303" style="fill:#030303;fill:color(display-p3 0.0118 0.0118 0.0118);fill-opacity:1;"/>
+</g>
+<defs>
+<clipPath id="bgblur_0_25_24760_clip_path" transform="translate(10 10)"><path d="M0 12C0 5.37258 5.37258 0 12 0V0C18.6274 0 24 5.37258 24 12V12C24 18.6274 18.6274 24 12 24V24C5.37258 24 0 18.6274 0 12V12Z"/>
+</clipPath></defs>
+</svg>

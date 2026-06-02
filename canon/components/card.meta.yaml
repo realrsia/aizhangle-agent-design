@@ -1,0 +1,35 @@
+id: component.card
+name: 卡片
+owner: design-system
+status: draft
+sourceBrief: authoring/components/card.brief.yaml
+classification:
+  primitiveFamily: card
+  componentType: surface
+  riskLevel: low
+  maintenanceLevel: weak
+usage:
+  allowedZones:
+    - page_content_module
+    - module_internal_group
+    - repeated_small_block
+  forbiddenZones:
+    - nested_card_inside_card
+variants:
+  confirmed: []
+  candidates:
+    - firstLevelCard
+    - secondLevelCard
+    - thirdLevelCard
+states:
+  required:
+    - default
+  optional: []
+tokenSources:
+  - assets/tokens/radius-tokens.json
+  - assets/tokens/token-mapping.json
+sourceRefs:
+  - references/foundation/components-card.md
+  - references/foundation/radius.md
+checklist: canon/checklists/card-review.yaml
+figmaBindingStatus: semantic_token_match

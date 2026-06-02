@@ -1,0 +1,92 @@
+components:
+  component.bottom-bar:
+    bindingMode: must_use_library_instance
+    status: TODO_VERIFY_WITH_FIGMA
+    sourceBrief: authoring/components/bottom-bar.brief.yaml
+    figmaExactName: TODO_VERIFY_WITH_FIGMA
+    componentKey: TODO_VERIFY_WITH_FIGMA
+    variantProperties:
+      variant:
+        - primaryPage
+        - chatPage
+        - stockQuotePage
+  component.button:
+    bindingMode: must_use_library_instance
+    status: TODO_VERIFY_WITH_FIGMA
+    sourceBrief: authoring/components/button.brief.yaml
+    figmaExactName: TODO_VERIFY_WITH_FIGMA
+    componentKey: TODO_VERIFY_WITH_FIGMA
+    variantProperties:
+      type:
+        - primary
+        - assist
+        - outline
+        - text
+        - link
+        - ghost-outline
+        - ghost-text
+      size:
+        - large
+        - medium
+        - small
+        - mini
+  component.card:
+    bindingMode: semantic_token_match
+    status: TODO_VERIFY_WITH_FIGMA
+    sourceBrief: authoring/components/card.brief.yaml
+    figmaExactName: TODO_VERIFY_WITH_FIGMA
+    componentKey: TODO_VERIFY_WITH_FIGMA
+  component.divider:
+    bindingMode: semantic_token_match
+    status: TODO_VERIFY_WITH_FIGMA
+    sourceBrief: authoring/components/divider.brief.yaml
+    figmaExactName: TODO_VERIFY_WITH_FIGMA
+    componentKey: TODO_VERIFY_WITH_FIGMA
+  component.input:
+    bindingMode: must_use_library_instance
+    status: TODO_VERIFY_WITH_FIGMA
+    sourceBrief: authoring/components/input.brief.yaml
+    figmaExactName: TODO_VERIFY_WITH_FIGMA
+    componentKey: TODO_VERIFY_WITH_FIGMA
+  component.overlay:
+    bindingMode: must_use_library_instance
+    status: TODO_VERIFY_WITH_FIGMA
+    sourceBrief: authoring/components/overlay.brief.yaml
+    figmaExactName: TODO_VERIFY_WITH_FIGMA
+    componentKey: TODO_VERIFY_WITH_FIGMA
+  component.switch:
+    bindingMode: must_use_library_instance
+    status: TODO_VERIFY_WITH_FIGMA
+    sourceBrief: authoring/components/switch.brief.yaml
+    figmaExactName: TODO_VERIFY_WITH_FIGMA
+    componentKey: TODO_VERIFY_WITH_FIGMA
+  component.tabs:
+    bindingMode: must_use_library_instance
+    status: TODO_VERIFY_WITH_FIGMA
+    sourceBrief: authoring/components/tabs.brief.yaml
+    figmaExactName: TODO_VERIFY_WITH_FIGMA
+    componentKey: TODO_VERIFY_WITH_FIGMA
+  component.tag:
+    bindingMode: must_use_library_instance
+    status: TODO_VERIFY_WITH_FIGMA
+    sourceBrief: authoring/components/tag.brief.yaml
+    figmaExactName: TODO_VERIFY_WITH_FIGMA
+    componentKey: TODO_VERIFY_WITH_FIGMA
+  component.trading-action-button:
+    bindingMode: must_use_library_instance
+    status: partial
+    sourceBrief: authoring/components/trading-action-button.brief.yaml
+    fileName: 系统控件
+    fileKey: ctuOoxsuPXdQS1DbpbjRPI
+    exampleNodeId: "24876:176203"
+    figmaExactName: 交易行动点按钮
+    componentKey: TODO_VERIFY_WITH_FIGMA
+    variantProperties:
+      property1:
+        - 双按钮买卖
+  component.trading-input:
+    bindingMode: must_use_library_instance
+    status: TODO_VERIFY_WITH_FIGMA
+    sourceBrief: authoring/components/trading-input.brief.yaml
+    figmaExactName: TODO_VERIFY_WITH_FIGMA
+    componentKey: TODO_VERIFY_WITH_FIGMA

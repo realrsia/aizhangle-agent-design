@@ -1,0 +1,15 @@
+componentId: component.card
+sourceBrief: authoring/components/card.brief.yaml
+items:
+  - id: card-hierarchy-declared
+    severity: P1
+    question: 卡片是否先声明内容层级？
+    passCriteria: 每个卡片 surface 有 firstLevelCard、secondLevelCard 或 thirdLevelCard。
+  - id: colored-card-no-border
+    severity: P1
+    question: 有背景色的卡片是否错误添加边框？
+    passCriteria: approved card background 不叠加 stroke。
+  - id: no-card-in-card
+    severity: P1
+    question: 是否出现卡片嵌套卡片？
+    passCriteria: 重复模块为 sibling 或 section，而不是 card inside card。

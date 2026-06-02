@@ -1,0 +1,20 @@
+id: binding.figma.files
+kind: figma-binding
+schemaVersion: 1
+version: 0.1.0
+status: draft
+title: Figma Files
+summary: Known Figma files referenced by the source packages.
+files:
+  - id: figma.ai-zhangle-library
+    fileKey: WVlhA7fa8R0Vxam7Q0nP0S
+    title: AI Zhangle
+    role: main_design_system_library
+    sourceRefs:
+      - docs/references/components/ai-component-registry.yaml
+  - id: figma.nzl-chat-fidelity
+    fileKey: QYybrg0tr5g1BMRIpGyEuo
+    title: NZL Chat Fidelity Source
+    role: chat_message_fidelity
+    sourceRefs:
+      - docs/references/fidelity/chat-fidelity-reconstruction.md

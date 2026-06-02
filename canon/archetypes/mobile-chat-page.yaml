@@ -1,0 +1,32 @@
+id: archetype.mobile-chat-page
+kind: archetype
+schemaVersion: 1
+version: 0.1.0
+status: draft
+title: Mobile Chat Page
+summary: AI chat and message page archetype for fidelity or product-ready chat flows.
+sourceRefs:
+  - docs/references/fidelity/chat-fidelity-reconstruction.md
+  - docs/references/pages/page-structure.md
+shell:
+  viewport:
+    width: 390
+    height: 844
+  zones:
+    - id: topbar
+      required: true
+    - id: message_feed
+      required: true
+    - id: related_questions
+      required: false
+    - id: bottom_input
+      required: true
+layout:
+  direction: vertical
+  scrollZone: message_feed
+  fixedZones:
+    - topbar
+    - bottom_input
+reviewDefaults:
+  - checklist.visual-review
+  - checklist.chat-fidelity-source

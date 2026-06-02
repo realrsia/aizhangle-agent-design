@@ -1,0 +1,227 @@
+{
+  "name": "page-output-checklist",
+  "description": "Page-level validation checklist for generated New Zhanle pages that combine multiple modules or component families.",
+  "appliesTo": [
+    "mobile app pages",
+    "multi-module pages",
+    "financial dashboards",
+    "trading pages",
+    "market pages"
+  ],
+  "resultFormat": {
+    "statusValues": [
+      "pass",
+      "fail",
+      "notApplicable"
+    ],
+    "requiredFields": [
+      "id",
+      "severity",
+      "status",
+      "evidence",
+      "fixIfFail"
+    ]
+  },
+  "checks": [
+    {
+      "id": "pageRoutesAllVisibleSurfaces",
+      "severity": "P0",
+      "mustPass": true,
+      "question": "Were all visible page surfaces routed to their matching page, module, and component references?",
+      "evidenceRequired": "Reference list showing every page module and component family loaded for the generated artifact.",
+      "fixIfFail": "Load the missing page/component/module references, revise the artifact, and rerun the applicable component and page checklist items."
+    },
+    {
+      "id": "tokenOnlyStyling",
+      "severity": "P0",
+      "mustPass": true,
+      "question": "Does the page use design-system tokens instead of raw colors, ad hoc typography, or local component styles?",
+      "evidenceRequired": "Token usage list and note that raw values appear only in token definition assets.",
+      "fixIfFail": "Load the missing page/component/module references, revise the artifact, and rerun the applicable component and page checklist items."
+    },
+    {
+      "id": "lightDarkCoverage",
+      "severity": "P1",
+      "mustPass": true,
+      "question": "Does the page include light and dark mode token resolution for used surfaces, text, icons, and states?",
+      "evidenceRequired": "Light/dark comparison for page, module, input, list, bottom bar, safe area, and component colors used in the artifact.",
+      "fixIfFail": "Load the missing page/component/module references, revise the artifact, and rerun the applicable component and page checklist items."
+    },
+    {
+      "id": "standardViewport390x844",
+      "severity": "P0",
+      "mustPass": true,
+      "question": "Does the generated page use the standard iPhone 13/14 viewport and root shell dimensions?",
+      "evidenceRequired": "Figma Frame measurement of 390x844, or HTML root container evidence with width 390px and min-height 844px.",
+      "fixIfFail": "Resize the outer page Frame/root shell to 390x844, preserve width 390px, and move excess content into the scrollable content area instead of changing the viewport."
+    },
+    {
+      "id": "scrollableContentAreaPreserved",
+      "severity": "P0",
+      "mustPass": true,
+      "question": "Does long page content scroll inside the content area while fixed chrome stays fixed?",
+      "evidenceRequired": "Layer/DOM structure showing fixed Status Bar/Header/bottom chrome outside the scrolling content area, plus bottom padding when fixed bottom chrome is present.",
+      "fixIfFail": "Create a distinct scrollable content region, keep fixed chrome outside it, and add safe bottom spacing so content is not covered."
+    },
+    {
+      "id": "platformChromeStrategyDeclared",
+      "severity": "P0",
+      "mustPass": true,
+      "question": "Does the output declare the platform chrome strategy for the delivery target?",
+      "evidenceRequired": "Output target plus `platformChromeStrategy`: `systemRendered`, `officialFigmaResource`, `systemRenderedPreview`, or `declaredStaticMockup`.",
+      "fixIfFail": "Load references/page/platform-ios-chrome.md, identify the delivery target, declare the matching platformChromeStrategy, and revise Status Bar/Home Indicator handling accordingly."
+    },
+    {
+      "id": "statusBarOwnershipMatched",
+      "severity": "P0",
+      "mustPass": true,
+      "question": "Does Status Bar ownership match the chosen platform chrome strategy?",
+      "evidenceRequired": "Ownership evidence: native/WebView uses platform-owned system rendering; Figma uses official Apple resource ownership or declares fallback/open gap; static mockup uses explicitly mockup-owned simulated chrome.",
+      "fixIfFail": "Move Status Bar/Home Indicator responsibility out of the New Zhanle business component layer, or explicitly mark the layer as a declared static mockup when the user requested one."
+    },
+    {
+      "id": "safeAreaOrPlatformResourceApplied",
+      "severity": "P0",
+      "mustPass": true,
+      "question": "Does the artifact apply safe areas or official platform resources instead of default fake system glyphs?",
+      "evidenceRequired": "For native/html system-rendered targets: reserved safe/status area exists and no fake glyphs appear in the business layer. For Figma full-device targets: official Apple Design Resources/iOS UI Kit is used or fallback/open gap declared. For static mockups: the mockup status bar is declared non-system.",
+      "fixIfFail": "For native/WebView/HTML native-expression targets, keep the 47px system-status area but remove time/signal/Wi-Fi/battery glyphs from business UI. For Figma, use official Apple resources or declare the gap. For static mockups, label simulated chrome as non-system."
+    },
+    {
+      "id": "pageBackgroundCategoryMatched",
+      "severity": "P0",
+      "mustPass": true,
+      "question": "Is the background category selected from the page hierarchy or special conversation scene rules?",
+      "evidenceRequired": "Declared background category: level 1, level 2, level 3, agent sheet, or temporary conversation sheet, with route/explicit-page/special-scene evidence.",
+      "fixIfFail": "Reclassify the page background using explicit scene first, explicit page assignment second, route depth third, and visual inference only as a declared fallback."
+    },
+    {
+      "id": "backgroundAssetAndModeMatched",
+      "severity": "P0",
+      "mustPass": true,
+      "question": "Does the page or sheet use the correct light/dark background asset or background-a token at the correct displayed size?",
+      "evidenceRequired": "Asset/token path and measurements: level 1/2 displayed at 390x844, agent sheet at 390x760, temporary sheet at 390x674, or level 3 using background-a / xzl/color/background/page.",
+      "fixIfFail": "Replace the background with the correct mode-matched asset or background-a token, display @3x assets at 1x design size, and remove wrong page-level image backgrounds from level-3 pages."
+    },
+    {
+      "id": "backgroundLayerIntegrity",
+      "severity": "P1",
+      "mustPass": true,
+      "question": "Is the background below content without extra fills, overlays, opacity changes, blur, or gradient masks?",
+      "evidenceRequired": "Layer/DOM evidence showing the background below content and no additional background color, overlay, opacity layer, blur, or gradient mask applied over the approved background.",
+      "fixIfFail": "Move the approved background to the bottom of the page/sheet stack and remove unapproved fills, overlays, opacity changes, blurs, and gradient masks."
+    },
+    {
+      "id": "headerTypeAndMetricsMatched",
+      "severity": "P0",
+      "mustPass": true,
+      "question": "Does the page use the correct header type with the required height, spacing, alignment, and elements?",
+      "evidenceRequired": "Declared header type and measurements from references/page/headers.md for home, level-2, level-3, full-screen conversation, or half-screen conversation header.",
+      "fixIfFail": "Select the correct header type from references/page/headers.md, apply its exact height/spacing/alignment rules, and remove elements that do not belong to that header type."
+    },
+    {
+      "id": "headerAssetsAndTokensMatched",
+      "severity": "P0",
+      "mustPass": true,
+      "question": "Do header icons, tab backgrounds, typography, and colors use approved assets and tokens for the active mode?",
+      "evidenceRequired": "Asset paths for header icons/tab backgrounds, typography evidence for title/description/tab text, and token list for text-a/text-b/text-c, dark-blue, or background-a as applicable.",
+      "fixIfFail": "Replace redrawn or generic icons with approved assets, use the mode-matched header/tab assets, and bind text/icon colors to the specified tokens."
+    },
+    {
+      "id": "transparentFixedHeaderBackground",
+      "severity": "P1",
+      "mustPass": true,
+      "question": "Does the fixed header remain transparent over a continuation of the current page or sheet background?",
+      "evidenceRequired": "Layer/DOM/screenshot evidence showing the header has no unrelated fill and fixed state preserves the current background crop or token continuity.",
+      "fixIfFail": "Remove unrelated header fills and make the fixed header background continue the current level/page/sheet background while preserving legibility."
+    },
+    {
+      "id": "pageTypographyScaleDeclared",
+      "severity": "P0",
+      "mustPass": true,
+      "question": "Does the output declare page-level typography styles using the approved typography scale or component override sources?",
+      "evidenceRequired": "Typography usage list naming each visible page text role, its scale id from page-typography-scale.json, or the component-specific reference/template that overrides the page scale.",
+      "fixIfFail": "Load references/page/typography.md and assets/templates/page-typography-scale.json, map each page text role to an approved scale id or component override, and rerun the page checklist."
+    },
+    {
+      "id": "pageTextUsesApprovedTypography",
+      "severity": "P0",
+      "mustPass": true,
+      "question": "Do page-level text nodes use approved font family, size, weight, and line-height values?",
+      "evidenceRequired": "Layer/DOM/style evidence showing platform text font, approved scale size, Regular/Medium weight mapping, and line-height policy for each page-level text role.",
+      "fixIfFail": "Replace ad hoc font sizes, unsupported weights, or local line-height values with the matching page typography scale entry, unless a component-specific rule defines the text."
+    },
+    {
+      "id": "multilineTextLineHeight160",
+      "severity": "P1",
+      "mustPass": true,
+      "question": "Do multiline body, article, and conversation texts use 160% line-height while single-line UI text uses auto/normal or component centering?",
+      "evidenceRequired": "Text-flow evidence identifying multiline versus single-line contexts and their line-height: 160% for multiline, auto/normal or component-defined centering for single-line text.",
+      "fixIfFail": "Apply 160% line-height to multiline body/article/conversation text; keep single-line controls at auto/normal or the component-defined vertical centering rule."
+    },
+    {
+      "id": "smallTypographyUsageJustified",
+      "severity": "P1",
+      "mustPass": true,
+      "question": "Are small typography levels restricted to approved scenarios and justified when used?",
+      "evidenceRequired": "Usage evidence for BodySmall 15, MarkLarge 13, MarkMedium 12, MarkSmall 11, or MarkXSmall 10 showing scene justification or component-specific rule source.",
+      "fixIfFail": "Promote ordinary text to a larger approved scale, or cite the component/scene rule that permits the small style; do not use 10px/11px except extreme constraints or explicit component rules."
+    },
+    {
+      "id": "componentTypographyOverridesRespected",
+      "severity": "P1",
+      "mustPass": true,
+      "question": "Are component-specific typography rules preserved instead of being overwritten by page defaults?",
+      "evidenceRequired": "Reference evidence for buttons, tags, lists, trading inputs, bottom bars, or headers when their component typography overrides or maps to the page scale.",
+      "fixIfFail": "Restore the component-specific typography source for component text, and use page typography only as the fallback for page-level text not covered by a component reference."
+    },
+    {
+      "id": "financialNumericTypographyDefaultApplied",
+      "severity": "P1",
+      "mustPass": true,
+      "question": "Do financial, quantity, time, ratio, ranking, amount, price, code, statistic, and count numeric runs use 涨乐财富体 Regular by default unless a component-specific rule says otherwise?",
+      "evidenceRequired": "Typography evidence covering visible numeric runs in titles, title-side hints, captions, auxiliary information, cards, lists, buttons, tags, inputs, and ordinary text; mixed number+Chinese-unit strings split the numeric run from the Chinese unit.",
+      "fixIfFail": "Split mixed text by content type and apply 涨乐财富体 Regular to numeric runs while keeping Chinese units and ordinary text in the platform text font."
+    },
+    {
+      "id": "financialTypographyApplied",
+      "severity": "P1",
+      "mustPass": true,
+      "question": "Do all numeric runs follow the approved run-level typography rule across page and component contexts?",
+      "evidenceRequired": "Run-level typography evidence showing numbers in counts, times, percentages, ratios, rankings, amounts, prices, stock codes, title-side hints, auxiliary text, and body copy use 涨乐财富体, while Chinese units/text use the platform text font.",
+      "fixIfFail": "Add explicit Figma text runs or HTML spans/classes for mixed text so numeric runs use 涨乐财富体 and surrounding Chinese text uses the platform text font."
+    },
+    {
+      "id": "radiusUsageDeclared",
+      "severity": "P0",
+      "mustPass": true,
+      "question": "Does the page declare radius usage for cards, sheets, dialogs, inputs, tags, media, and other rounded surfaces?",
+      "evidenceRequired": "Radius usage list with each rounded surface mapped to references/radius.md, assets/tokens/radius-tokens.json, or a cited component-specific override.",
+      "fixIfFail": "Load references/radius.md, replace ad hoc radii with approved radius tokens, cite component overrides, and rerun radius-output-checklist.json."
+    },
+    {
+      "id": "cardRadiusHierarchyMatched",
+      "severity": "P0",
+      "mustPass": true,
+      "question": "Do page-level modules and internal sub-blocks use card background and radius according to declared content hierarchy?",
+      "evidenceRequired": "Card hierarchy evidence listing each independent page module and module-internal sub-block: page-level modules use card-level-1 plus radius/card/primary 16px; internal quick entries, subgroups, local information blocks, and repeated small blocks use card-level-2 plus radius/card/secondary or tertiary 8px.",
+      "fixIfFail": "Declare each card-like surface as an independent page module or module-internal sub-block before styling, then apply the matching card background and radius tokens from components-card.md and radius-tokens.json."
+    },
+    {
+      "id": "componentChecklistsCompleted",
+      "severity": "P1",
+      "mustPass": true,
+      "question": "Were all applicable component or module output checklists completed before delivery?",
+      "evidenceRequired": "Completed checklist results for trading inputs, lists, buttons, switches, tags, or other applicable modules.",
+      "fixIfFail": "Load the missing page/component/module references, revise the artifact, and rerun the applicable component and page checklist items."
+    },
+    {
+      "id": "openGapsDeclared",
+      "severity": "P2",
+      "mustPass": true,
+      "question": "Are unspecified P1/reserved areas and product-dependent decisions explicitly marked as open gaps rather than invented?",
+      "evidenceRequired": "Open-gap list for reserved slots, pending auxiliary information, unavailable assets, or user-confirmation needs.",
+      "fixIfFail": "Load the missing page/component/module references, revise the artifact, and rerun the applicable component and page checklist items."
+    }
+  ]
+}

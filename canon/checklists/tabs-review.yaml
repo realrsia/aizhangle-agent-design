@@ -1,0 +1,11 @@
+componentId: component.tabs
+sourceBrief: authoring/components/tabs.brief.yaml
+items:
+  - id: active-tab-red
+    severity: P1
+    question: 选中态是否使用主红？
+    passCriteria: active text、underline、pill 或 indicator 使用 xzl/color/primary/red。
+  - id: inactive-token-valid
+    severity: P2
+    question: 未选中态文字是否使用已批准文本 token？
+    passCriteria: inactive 文本不使用任意灰或红色装饰。

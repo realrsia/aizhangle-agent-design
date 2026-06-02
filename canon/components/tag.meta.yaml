@@ -1,0 +1,44 @@
+id: component.tag
+name: 标签
+owner: design-system
+status: draft
+sourceBrief: authoring/components/tag.brief.yaml
+classification:
+  primitiveFamily: tag
+  componentType: display
+  riskLevel: medium
+  maintenanceLevel: strong
+usage:
+  allowedZones:
+    - stock_metadata_inline
+    - watchlist_row_metadata
+    - holdings_row_metadata
+    - signal_group_header
+    - detail_secondary_info
+  forbiddenZones:
+    - primary_price_value
+    - trading_order_submit_area
+    - bottom_navigation_item
+variants:
+  confirmed: []
+  candidates:
+    - security-neutral-outline
+    - security-brown-outline
+    - board-blue
+    - board-purple
+    - sentiment-positive
+    - sentiment-neutral
+    - sentiment-negative
+states:
+  required:
+    - default
+  optional:
+    - selected
+    - disabled
+tokenSources:
+  - assets/tokens/tag-tokens.json
+  - assets/tokens/token-mapping.json
+sourceRefs:
+  - references/foundation/components-tags.md
+checklist: canon/checklists/tag-review.yaml
+figmaBindingStatus: TODO_VERIFY_WITH_FIGMA

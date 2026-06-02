@@ -1,0 +1,130 @@
+version: 1
+registry_name: xzl_fusion_critical_figma_bindings
+source_policy:
+  maintenance_level: strong
+  figma_is_final_truth: true
+  verify_before_instantiation: true
+  stop_on_binding_failure: true
+  update_rule: "When Figma metadata differs, inspect Figma and update this registry instead of guessing."
+  source_file_key: "WVlhA7fa8R0Vxam7Q0nP0S"
+  verified_at: "from imported AI Zhangle registry; recheck before high-stakes Figma execution"
+
+binding_required_families:
+  - navigation
+  - tabs_segmented_controls
+  - tags_badges
+  - bottom_bars
+  - inputs
+  - list_headers
+  - trading_critical_controls
+
+components:
+  - id: "top_nav_secondary"
+    maintenance_level: strong
+    component_key: "5702bb2656c6c4e80cfb42d6b7ac625713521b8a"
+    display_name: "二级导航栏"
+    figma_exact_name: "二级导航栏"
+    primitive_family: "nav"
+    allowed_zones: ["top_nav"]
+    screen_archetypes: ["market_overview", "watchlist", "grouped_signal", "detail_list", "account", "settings"]
+    variant_hints:
+      分类: ["默认", "默认+tab", "交易+tab", "默认+icon"]
+      深色: ["on", "off"]
+    text_override_fields: []
+    binding_failure_policy: "stop_and_recheck"
+    notes: "High-risk top navigation shell. Do not approximate with plain frames."
+
+  - id: "top_nav_level2"
+    maintenance_level: strong
+    component_key: "0e1e3b43c7f2f5e0e236fd3a0f547be2ece6cfa3"
+    display_name: "二级页导航栏"
+    figma_exact_name: "二级页导航栏"
+    primitive_family: "nav"
+    allowed_zones: ["top_nav"]
+    screen_archetypes: ["detail_list", "account", "settings"]
+    property_hints: ["二级页标题", "文本按钮"]
+    text_override_fields: ["二级页标题#21479:0", "文本按钮#21479:1"]
+    binding_failure_policy: "stop_and_recheck"
+    notes: "Use for secondary pages and verify editable nested text targets before override."
+
+  - id: "capsule_tab"
+    maintenance_level: strong
+    component_key: "58dc5c69cfadfbaf4606e5cbde0a5a1819ee58b8"
+    display_name: "item/胶囊"
+    figma_exact_name: "item/胶囊"
+    primitive_family: "capsule_tab"
+    allowed_zones: ["top_filter", "group_filter"]
+    screen_archetypes: ["market_overview", "watchlist", "grouped_signal", "assistant_panel"]
+    property_hints: ["内容#21393:0"]
+    variant_hints:
+      选中态: ["Off", "On"]
+      场景: ["通用", "变体"]
+      Dark: ["Off", "On"]
+    text_override_fields: ["内容#21393:0"]
+    binding_failure_policy: "stop_and_recheck"
+    notes: "Top-level category switch only. Never use as primary content or tag wall."
+
+  - id: "secondary_tab"
+    maintenance_level: strong
+    component_key: "d8d2016cda4f0de1be5e45d4e0028eb753ca550a"
+    display_name: "item/二级tab"
+    figma_exact_name: "item/二级tab"
+    primitive_family: "secondary_tab"
+    allowed_zones: ["local_filter", "subsection_nav"]
+    screen_archetypes: ["grouped_signal", "detail_list", "assistant_panel"]
+    property_hints: ["标题#21518:7"]
+    variant_hints:
+      选中态: ["Off", "On"]
+      Dark: ["Off", "On"]
+    text_override_fields: ["标题#21518:7"]
+    binding_failure_policy: "stop_and_recheck"
+    notes: "Local subsection pivot under an established page archetype."
+
+  - id: "signal_tag"
+    maintenance_level: strong
+    component_key: "884a77f647c0a5b38c5d920d805f0971a07a6f5b"
+    display_name: "1月版/信号标签"
+    figma_exact_name: "1月版/信号标签"
+    primitive_family: "signal_tag"
+    allowed_zones: ["row_annotation", "inline_secondary_info", "summary_annotation"]
+    screen_archetypes: ["watchlist", "grouped_signal", "detail_list", "market_overview"]
+    property_hints: ["标签文案#64:0"]
+    variant_hints:
+      类型: ["同类领先", "正向标签", "负向标签", "中性标签", "财务预警"]
+      可点击: ["On", "Off"]
+      Dark: ["On", "Off"]
+    text_override_fields: ["标签文案#64:0"]
+    binding_failure_policy: "stop_and_recheck"
+    notes: "Annotation only. A page mostly made of signal tags is structurally wrong."
+
+  - id: "micro_tag"
+    maintenance_level: strong
+    component_key: "987889d145d4ab616978fda7107ba23942120772"
+    display_name: "1月版/小标签"
+    figma_exact_name: "1月版/小标签"
+    primitive_family: "micro_tag"
+    allowed_zones: ["row_annotation", "inline_secondary_info"]
+    screen_archetypes: ["watchlist", "grouped_signal", "detail_list", "market_overview"]
+    property_hints: ["标签文字"]
+    text_override_fields: ["标签文字#1597:0"]
+    binding_failure_policy: "stop_and_recheck"
+    notes: "Compact market qualifiers only, such as A股, 港股, ETF, 融, 停."
+
+  - id: "bottom_bar"
+    maintenance_level: strong
+    component_key: "455cf0ed17ebc34a27a7de59ff7efdc3c8818fd1"
+    display_name: "底bar"
+    figma_exact_name: "底bar"
+    primitive_family: "bottom_dock"
+    allowed_zones: ["bottom_dock", "assistant_footer", "detail_footer"]
+    screen_archetypes: ["market_overview", "watchlist", "grouped_signal", "trading_search", "assistant_panel", "detail_list", "account"]
+    variant_hints:
+      场景: ["首页", "全屏对话", "个股详情"]
+      类型: ["语音模式", "键盘模式"]
+      状态: ["打断", "默认", "上划", "关联问", "陪伴"]
+      内容: ["有", "n/a"]
+      关联问多行文本: ["false", "on"]
+      陪伴内容: ["n/a", "3行", "2行", "1行"]
+    text_override_fields: []
+    binding_failure_policy: "stop_and_recheck"
+    notes: "Primary bottom interaction structure. Verify actual full property schema in Figma before overrides."

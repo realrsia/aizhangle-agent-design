@@ -1,0 +1,224 @@
+version: 1
+registry_name: ai_zhangle_screen_recipes
+
+zone_definitions:
+  page_shell: "Full-screen structural background and safe-area shell."
+  top_nav: "Top navigation structure containing title and leading/trailing actions."
+  top_filter: "Primary category switch directly under the top navigation."
+  local_filter: "Secondary switch for an already-established section."
+  top_summary: "High-priority summary numbers or index modules."
+  breadth_summary: "Market breadth, distribution, or quick overview metrics."
+  rank_list: "Short ranked modules such as rise/fall lists or leaderboard slices. On overview screens this zone should default to horizontal swipe slices rather than a tall vertical stack."
+  list_header: "Dense sortable header row above a list body."
+  list_body: "Dense rows for watchlists, holdings, grouped signals, or account entries."
+  row_annotation: "Inline secondary signals or micro labels attached to rows."
+  bottom_dock: "Stable bottom interaction zone with voice CTA and utility actions."
+  assistant_footer: "Assistant or companion-specific footer actions."
+  detail_footer: "Precomposed footer module in detail or trading contexts."
+
+recipes:
+  - screen_archetype: "market_overview"
+    primary_job: "浏览市场总览并快速进入细分榜单或板块"
+    preferred_composition_patterns: ["index_first_dense", "breadth_first_compact", "leaderboard_preview_first_compact"]
+    default_density_mode: "high_scan"
+    first_viewport_goals: ["建立市场状态", "给出榜单入口预览", "保留快速继续浏览路径"]
+    zone_weight_targets:
+      top_summary: "0.28-0.35"
+      breadth_summary: "0.16-0.24"
+      rank_list: "0.22-0.30"
+      bottom_dock: "fixed"
+    compression_defaults:
+      - "rank_list_as_horizontal_preview_slices"
+      - "supporting_context_as_compact_summary"
+    expansion_triggers:
+      - "prompt_explicitly_requests_context_heavy_overview"
+      - "prompt_prioritizes_single_overview_metric"
+    default_hero_zone: "top_summary"
+    creative_guardrails:
+      - "vary_zone_emphasis_without_changing_required_zones"
+      - "keep_structure_finance_first_not_decor_first"
+      - "use_rank_list_as_preview_not_full_vertical_stack"
+    required_zones: ["page_shell", "top_nav", "top_filter", "top_summary", "breadth_summary", "rank_list", "bottom_dock"]
+    optional_zones: ["local_filter", "row_annotation"]
+    fallback_order:
+      - zone: "breadth_summary"
+        fallback_to: ["top_summary"]
+      - zone: "rank_list"
+        fallback_to: ["list_body"]
+    forbidden_substitutions:
+      - "signal_tag_as_primary_body"
+      - "assistant_footer_as_summary"
+      - "entry_control_as_rank_list"
+      - "vertical_leaderboard_stack_as_overview_rank_list"
+
+  - screen_archetype: "watchlist"
+    primary_job: "高密度浏览自选标的并查看行内信号"
+    preferred_composition_patterns: ["signal_dense_compact", "movement_scan_dense", "group_switch_compact"]
+    default_density_mode: "high_scan"
+    first_viewport_goals: ["快速扫持仓/自选变化", "保留行内信号", "减少无效空白"]
+    zone_weight_targets:
+      list_header: "compact_fixed"
+      list_body: "0.52-0.68"
+      top_filter: "compact"
+      bottom_dock: "fixed"
+    compression_defaults:
+      - "top_controls_compact"
+      - "signal_annotations_inline_before_secondary_expansion"
+    expansion_triggers:
+      - "prompt_explicitly_requests_context_heavy_watchlist"
+      - "prompt_prioritizes_group_switching_over_row_density"
+    default_hero_zone: "list_body"
+    creative_guardrails:
+      - "hero_variation_must_come_from_list_focus_not_extra_decoration"
+      - "keep_dense_header_and_dense_rows_as_primary_structure"
+      - "do_not_turn_signal_annotations_into_primary_cards"
+    required_zones: ["page_shell", "top_nav", "top_filter", "list_header", "list_body", "bottom_dock"]
+    optional_zones: ["row_annotation", "top_summary"]
+    fallback_order:
+      - zone: "list_header"
+        fallback_to: ["top_summary"]
+      - zone: "row_annotation"
+        fallback_to: []
+    forbidden_substitutions:
+      - "signal_tag_as_primary_row_info"
+      - "assistant_module_as_list_body"
+      - "capsule_tab_wall_as_page_body"
+
+  - screen_archetype: "grouped_signal"
+    primary_job: "按信号组浏览标的并快速切换分组"
+    default_density_mode: "high_scan"
+    first_viewport_goals: ["建立当前分组语境", "让组内信号成为主扫描面"]
+    zone_weight_targets:
+      local_filter: "0.12-0.18"
+      list_body: "0.52-0.68"
+      bottom_dock: "fixed"
+    compression_defaults:
+      - "summary_chrome_compact"
+      - "group_context_concise"
+    expansion_triggers:
+      - "prompt_explicitly_requests_group_context_explanation"
+    preferred_composition_patterns: ["group_pivot_first", "signal_stack_first"]
+    default_hero_zone: "local_filter"
+    creative_guardrails:
+      - "variation_should_come_from_group_switching_and_signal_order"
+      - "retain_list_body_as_main_scan_surface"
+    required_zones: ["page_shell", "top_nav", "top_filter", "local_filter", "list_body", "bottom_dock"]
+    optional_zones: ["list_header", "row_annotation", "top_summary"]
+    fallback_order:
+      - zone: "local_filter"
+        fallback_to: ["top_filter"]
+      - zone: "list_header"
+        fallback_to: []
+    forbidden_substitutions:
+      - "signal_tag_stack_as_whole_page"
+      - "market_overview_summary_as_group_body"
+
+  - screen_archetype: "trading_search"
+    primary_job: "搜索标的并进入交易或详情流程"
+    default_density_mode: "balanced"
+    first_viewport_goals: ["建立搜索入口", "快速展示结果列表"]
+    zone_weight_targets:
+      top_filter: "compact"
+      list_body: "0.48-0.62"
+      bottom_dock: "fixed"
+    compression_defaults:
+      - "search_chrome_compact"
+    expansion_triggers:
+      - "prompt_explicitly_requests_context_heavy_search_result"
+    preferred_composition_patterns: ["search_result_first"]
+    default_hero_zone: "list_body"
+    creative_guardrails:
+      - "optimize_search_flow_clarity_not_visual_novelty"
+    required_zones: ["page_shell", "top_nav", "top_filter", "list_body", "bottom_dock"]
+    optional_zones: ["top_summary", "detail_footer", "assistant_footer"]
+    fallback_order:
+      - zone: "top_filter"
+        fallback_to: []
+      - zone: "detail_footer"
+        fallback_to: ["assistant_footer"]
+    forbidden_substitutions:
+      - "watchlist_rank_module_as_search_result"
+      - "signal_tag_wall_as_result_list"
+
+  - screen_archetype: "assistant_panel"
+    primary_job: "以 AI 辅助为主完成问答、筛选或跟进动作"
+    default_density_mode: "context_heavy"
+    first_viewport_goals: ["建立当前对话或辅助上下文", "保留继续操作入口"]
+    zone_weight_targets:
+      list_body: "0.42-0.58"
+      bottom_dock: "fixed"
+    compression_defaults:
+      - "assistant_footer_compact_when_secondary"
+    expansion_triggers:
+      - "prompt_requests_more_assistant_context"
+    preferred_composition_patterns: ["assistant_response_first"]
+    default_hero_zone: "list_body"
+    creative_guardrails:
+      - "keep_assistant_body_primary_but_do_not_leak_into_market_overview_patterns"
+    required_zones: ["page_shell", "top_nav", "list_body", "bottom_dock"]
+    optional_zones: ["top_filter", "assistant_footer", "detail_footer"]
+    fallback_order:
+      - zone: "assistant_footer"
+        fallback_to: ["bottom_dock"]
+    forbidden_substitutions:
+      - "market_overview_rank_module_as_primary_assistant_body"
+      - "signal_tag_as_primary_answer"
+
+  - screen_archetype: "detail_list"
+    primary_job: "查看单标的或单主题详情并在上下文中切换指标"
+    default_density_mode: "balanced"
+    first_viewport_goals: ["建立主题与指标上下文", "保留明细继续浏览路径"]
+    zone_weight_targets:
+      top_summary: "0.22-0.32"
+      local_filter: "compact"
+      list_body: "0.40-0.56"
+      bottom_dock: "fixed"
+    compression_defaults:
+      - "metric_context_compact"
+    expansion_triggers:
+      - "prompt_explicitly_requests_context_heavy_detail"
+    preferred_composition_patterns: ["metric_context_first", "subject_summary_first"]
+    default_hero_zone: "top_summary"
+    creative_guardrails:
+      - "variation_should_come_from_metric_sequence_not_extra_surface_treatment"
+    required_zones: ["page_shell", "top_nav", "top_summary", "local_filter", "list_body", "bottom_dock"]
+    optional_zones: ["row_annotation", "detail_footer", "assistant_footer"]
+    fallback_order:
+      - zone: "local_filter"
+        fallback_to: ["top_filter"]
+      - zone: "detail_footer"
+        fallback_to: ["assistant_footer"]
+    forbidden_substitutions:
+      - "entry_control_as_detail_body"
+      - "capsule_tabs_as_full_body"
+
+  - screen_archetype: "account"
+    primary_job: "浏览账户信息、持仓或资金明细"
+    default_density_mode: "balanced"
+    first_viewport_goals: ["先看账户总况", "再看持仓或资金明细入口"]
+    zone_weight_targets:
+      top_summary: "0.24-0.34"
+      list_header: "compact_fixed"
+      list_body: "0.42-0.58"
+      bottom_dock: "fixed"
+    compression_defaults:
+      - "summary_clear_not_oversized"
+      - "supporting_actions_compact"
+    expansion_triggers:
+      - "prompt_prioritizes_holding_scan"
+      - "prompt_explicitly_requests_context_heavy_account"
+    preferred_composition_patterns: ["asset_summary_balanced", "holding_scan_dense"]
+    default_hero_zone: "top_summary"
+    creative_guardrails:
+      - "variation_should_come_from_summary_to_list_rhythm"
+      - "keep_account_data_primary_over_tools_or_marketing"
+    required_zones: ["page_shell", "top_nav", "top_summary", "list_header", "list_body", "bottom_dock"]
+    optional_zones: ["top_filter", "row_annotation"]
+    fallback_order:
+      - zone: "top_summary"
+        fallback_to: ["list_header"]
+      - zone: "row_annotation"
+        fallback_to: []
+    forbidden_substitutions:
+      - "assistant_module_as_account_summary"
+      - "signal_tag_as_primary_balance_info"

@@ -1,0 +1,36 @@
+id: component.input
+name: 普通输入框
+owner: design-system
+status: draft
+sourceBrief: authoring/components/input.brief.yaml
+classification:
+  primitiveFamily: input
+  componentType: input
+  riskLevel: medium
+  maintenanceLevel: strong
+usage:
+  allowedZones:
+    - generic_form_field
+    - search_area
+    - filter_panel
+  forbiddenZones:
+    - trading_order_form
+variants:
+  confirmed: []
+  candidates:
+    - filled
+    - search
+states:
+  required:
+    - default
+    - focused
+    - disabled
+  optional: []
+tokenSources:
+  - assets/tokens/radius-tokens.json
+  - assets/tokens/token-mapping.json
+sourceRefs:
+  - references/foundation/components-input.md
+  - references/foundation/radius.md
+checklist: canon/checklists/input-review.yaml
+figmaBindingStatus: TODO_VERIFY_WITH_FIGMA

@@ -1,0 +1,75 @@
+# Page Backgrounds
+
+## Rule: Classify the page background before generating content
+
+Choose the background by explicit scene first, then by explicit page list, then by route depth. If the route is unknown, infer from visible structure and declare the inference in the output.
+
+Why:
+New Zhanle page backgrounds encode page hierarchy. Guessing from visual similarity alone can assign the wrong shell to 自选, 持仓, or trading pages.
+
+Verify:
+
+- Special conversation sheet backgrounds override normal page hierarchy.
+- Explicit page assignments override route-depth inference.
+- Route-depth inference is identified as an inference when no product route is provided.
+- The output lists the selected background category and the evidence used to select it.
+
+## Rule: Use level-specific backgrounds
+
+Use these background assignments:
+
+- Level 1: home page, plus pages explicitly specified as level 1. Asset: `assets/backgrounds/page-background-level1-light.png` or `assets/backgrounds/page-background-level1-dark.png`.
+- Level 2: stock detail page, 自选, 持仓页, trading page, and pages entered from a level-1 entry. Asset: `assets/backgrounds/page-background-level2-light.png` or `assets/backgrounds/page-background-level2-dark.png`.
+- Level 3: pages entered from a level-2 page. Use the design token `background-a` (`xzl/color/background/page`, source `xzl-color-background-a`) instead of an image.
+
+Why:
+Level 1 and level 2 pages use image backgrounds; level 3 pages use the plain page background token.
+
+Verify:
+
+- 首页 uses the level-1 background unless the task explicitly specifies another level-1 page.
+- 自选 and 持仓页 are treated as level-2 tabs of the same page background category.
+- Trading pages and stock detail pages use the level-2 background.
+- Level-3 pages use `background-a` and do not use the level-1 or level-2 image assets.
+
+## Rule: Display page background images at 1x viewport size
+
+The provided background images are `@3x` assets. Place them in Figma or HTML at their `1x` design size.
+
+Why:
+Using raw pixel dimensions directly would triple the visual size and break the `390 x 844` viewport.
+
+Verify:
+
+- Level-1 and level-2 page backgrounds display at `390 x 844`.
+- Source page background assets are `1170 x 2532` or the documented `@3x` equivalent.
+- Background images are placed below the content layer.
+- Do not add a background color, overlay, opacity layer, blur, or gradient mask on top of these page backgrounds.
+
+## Rule: Use conversation sheet backgrounds only on the sheet container
+
+Agent and temporary conversation backgrounds belong to the bottom sheet or conversation panel, not the full underlying page.
+
+Why:
+Conversation sheets have their own fixed dimensions and should not replace the page-level background behind them.
+
+Verify:
+
+- Agent conversation sheet uses `assets/backgrounds/agent-sheet-background-light.png` or `assets/backgrounds/agent-sheet-background-dark.png`, displayed at `390 x 760`.
+- Temporary conversation sheet uses `assets/backgrounds/temporary-chat-sheet-background-light.png` or `assets/backgrounds/temporary-chat-sheet-background-dark.png`, displayed at `390 x 674`.
+- The active light/dark mode selects the matching sheet background asset.
+- The sheet background sits below the sheet header and sheet content.
+- Minor source-asset pixel differences caused by export rounding are allowed; displayed design dimensions must match the specified 1x size.
+
+## Rule: Keep transparent headers visually continuous with the current background
+
+Page headers are transparent by default. When fixed during scroll, the header background must be a continuation or crop of the current page or sheet background, not a new unrelated color.
+
+Why:
+The header should feel integrated with the page shell while staying legible during scroll.
+
+Verify:
+
+- Header layers do not introduce unrelated fills over level-1, level-2, or sheet backgrounds.
+- Fixed header state preserves the current background image/token area behind it.
+- Level-3 fixed headers use `background-a` continuity.

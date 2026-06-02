@@ -1,0 +1,15 @@
+componentId: component.trading-input
+sourceBrief: authoring/components/trading-input.brief.yaml
+items:
+  - id: trading-input-not-generic-input
+    severity: P0
+    question: 是否把交易输入控件简化成普通输入框？
+    passCriteria: subtype、图标节点、状态和交易表单上下文均完整。
+  - id: interactive-icons-visible
+    severity: P0
+    question: 所有交易输入交互图标是否作为可见节点存在？
+    passCriteria: minus、plus、dropdown、edit、delete 等不是备注或隐藏节点。
+  - id: order-form-context-present
+    severity: P1
+    question: 交易表单上下文是否完整？
+    passCriteria: 能看到字段标签、值/占位、状态和必要辅助信息。

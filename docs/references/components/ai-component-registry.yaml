@@ -1,0 +1,329 @@
+version: 1
+registry_name: ai_zhangle_components
+figma_library_file_key: WVlhA7fa8R0Vxam7Q0nP0S
+
+figma_binding_strategy:
+  verify_before_instantiation: true
+  required_checks: ["component_key_or_exact_name", "variant_property_names", "variant_values", "text_override_targets"]
+  fallback_rule: "if_property_names_or_variant_values_do_not_match_figma_stop_and_recheck_instead_of_guessing"
+  notes: "Agents must verify the actual Figma component instance and its property schema before instantiating or overriding a component. Do not guess variant names or property values."
+
+icon_strategy:
+  primary_library: "lucide"
+  fallback_library: "semantic_substitute_within_lucide"
+  reserve_libraries: ["tabler_icons", "iconoir", "remix_icon"]
+  default_size_px: 24
+  default_style: "outline"
+  color_binding: "semantic_tokens_only"
+  mixing_rule: "single_library_per_screen_lucide_only_by_default"
+  placement_rule: "icons_may_enter_primary_structure_only_when_allowed_by_component_or_design"
+  font_icon_policy: "not_recommended"
+  replacement_rule: "use_nearest_semantic_lucide_icon_when_exact_symbol_is_missing"
+  notes: "Use Lucide by default for clean outline consistency. If exact coverage is missing, stay inside Lucide and choose the closest semantic substitute instead of mixing libraries or introducing font icons."
+
+layout_strategy:
+  default_container_mode: "figma_auto_layout"
+  required_for: ["cards", "modules", "dense_rows", "headers", "button_groups", "bottom_docks", "chart_wrappers", "text_bearing_containers"]
+  forbidden_primary_pattern: "free_floating_text_breaking_module_bounds"
+  absolute_position_rule: "decorative_or_overlay_only"
+  text_clipping_allowed: false
+  single_line_text_vertical_alignment: "center_or_match_component_spec"
+  single_line_container_min_height_rule: "line_height_plus_vertical_padding"
+  auto_layout_text_overflow_policy: "fail_if_fixed_height_clips_text"
+  container_height_must_not_be_less_than_rendered_text_height: true
+  notes: "Primary information layout should be expressed through Auto Layout so dynamic text and data do not break the module."
+
+chart_strategy:
+  default_source: "echarts"
+  allowed_sources: ["echarts", "approved_chart_library_export"]
+  rendering_rule: "prefer_chart_library_output_over_manual_shape_drawing"
+  wrapper_rule: "chart_modules_should_use_auto_layout_for_titles_legends_metrics_and_annotations"
+  notes: "Charts should be sourced from a charting library and then placed into the design-system layout instead of being manually reconstructed with arbitrary shapes."
+
+text_node_strategy:
+  overflow_prevention_required: true
+  multiline_text_horizontal: "fill_container"
+  multiline_text_vertical: "auto_height"
+  text_clipping_allowed: false
+  multi_line_text_requires_auto_height: true
+  short_label_default: "hug_contents"
+  parent_layout_requirement: "text_inside_modules_should_live_in_auto_layout_containers"
+  notes: "When text lives inside Auto Layout and may wrap, use fill on the horizontal axis and auto height on the vertical axis to prevent overflow."
+
+components:
+  - component_key: "12bc13e4124491dfd3bf4421260e1d3e8bbaf5ef"
+    display_name: "背景/背景"
+    figma_exact_name: "背景/背景"
+    variant_hints:
+      分类: ["新版工作区/一级", "新版二级页", "新三级页", "KYC", "Agent", "临时对话浮层", "通栏卡片", "非通栏卡片", "旧一级页", "旧二级页", "大片"]
+      Dark: ["On", "Off"]
+    primitive_family: "background_shell"
+    screen_archetypes: ["market_overview", "watchlist", "grouped_signal", "trading_search", "assistant_panel", "detail_list", "account"]
+    primary_jobs: ["provide_page_shell", "carry_theme_mode", "stabilize_safe_area_structure"]
+    allowed_zones: ["page_shell"]
+    required_pairings: []
+    forbidden_pairings: ["used_as_content_card", "used_as_rank_module"]
+    theme_support: "variant_dark_light"
+    example_frame_ids: ["21654:89114", "21622:76290", "21518:130067"]
+    text_override_fields: []
+    notes: "Use as the full-screen background shell. This is structural and should not be treated as a content module."
+
+  - component_key: "5702bb2656c6c4e80cfb42d6b7ac625713521b8a"
+    display_name: "二级导航栏"
+    figma_exact_name: "二级导航栏"
+    binding_mode: "must_use_library_instance"
+    binding_failure_policy: "stop_and_recheck"
+    instance_required: true
+    verification_priority: "high"
+    property_hints: []
+    variant_hints:
+      分类: ["默认", "默认+tab", "交易+tab", "默认+icon"]
+      深色: ["on", "off"]
+    primitive_family: "nav"
+    screen_archetypes: ["market_overview", "watchlist", "grouped_signal", "detail_list", "account", "settings"]
+    primary_jobs: ["show_top_nav", "carry_title", "host_leading_icon", "host_top_tabs"]
+    allowed_zones: ["top_nav"]
+    required_pairings: []
+    forbidden_pairings: ["used_as_list_header", "used_as_bottom_dock"]
+    theme_support: "variant_dark_light"
+    example_frame_ids: ["21654:89114", "21641:81896"]
+    text_override_fields: []
+    notes: "Preferred top navigation shell for market-facing mobile screens. Verified top-level component properties are 分类 and 深色 only. If a title needs editing, recheck the actual editable nested text target in context instead of guessing."
+
+  - component_key: "0e1e3b43c7f2f5e0e236fd3a0f547be2ece6cfa3"
+    display_name: "二级页导航栏"
+    figma_exact_name: "二级页导航栏"
+    binding_mode: "must_use_library_instance"
+    binding_failure_policy: "stop_and_recheck"
+    instance_required: true
+    verification_priority: "high"
+    property_hints: ["二级页标题", "文本按钮"]
+    primitive_family: "nav"
+    screen_archetypes: ["detail_list", "account", "settings"]
+    primary_jobs: ["show_back_navigation", "show_page_title", "host_right_action"]
+    allowed_zones: ["top_nav"]
+    required_pairings: []
+    forbidden_pairings: ["used_as_market_summary", "used_as_bottom_dock"]
+    theme_support: "variant_neutral"
+    example_frame_ids: ["21479:119109", "21479:119591"]
+    text_override_fields: ["二级页标题#21479:0", "文本按钮#21479:1"]
+    notes: "Use for secondary pages. Do not substitute for overview-market tabs."
+
+  - component_key: "58dc5c69cfadfbaf4606e5cbde0a5a1819ee58b8"
+    display_name: "item/胶囊"
+    figma_exact_name: "item/胶囊"
+    binding_mode: "must_use_library_instance"
+    binding_failure_policy: "stop_and_recheck"
+    instance_required: true
+    verification_priority: "high"
+    property_hints: ["内容#21393:0"]
+    variant_hints:
+      选中态: ["Off", "On"]
+      场景: ["通用", "变体"]
+      Dark: ["Off", "On"]
+    primitive_family: "capsule_tab"
+    screen_archetypes: ["market_overview", "watchlist", "grouped_signal", "assistant_panel"]
+    primary_jobs: ["switch_top_level_category", "switch_group", "switch_market_scope"]
+    allowed_zones: ["top_filter", "group_filter"]
+    required_pairings: []
+    forbidden_pairings: ["used_as_primary_content", "stacked_as_tag_wall"]
+    theme_support: "variant_dark_light"
+    example_frame_ids: ["21654:89114", "21518:130067"]
+    text_override_fields: ["内容#21393:0"]
+    notes: "Top-level category switch only. Do not use capsule tabs to replace dense list rows or ranking modules."
+
+  - component_key: "d8d2016cda4f0de1be5e45d4e0028eb753ca550a"
+    display_name: "item/二级tab"
+    figma_exact_name: "item/二级tab"
+    binding_mode: "must_use_library_instance"
+    binding_failure_policy: "stop_and_recheck"
+    instance_required: true
+    verification_priority: "high"
+    property_hints: ["标题#21518:7"]
+    variant_hints:
+      选中态: ["Off", "On"]
+      Dark: ["Off", "On"]
+    primitive_family: "secondary_tab"
+    screen_archetypes: ["grouped_signal", "detail_list", "assistant_panel"]
+    primary_jobs: ["switch_local_subsection", "switch_sub_metric"]
+    allowed_zones: ["local_filter", "subsection_nav"]
+    required_pairings: []
+    forbidden_pairings: ["used_as_top_nav", "used_as_dense_row"]
+    theme_support: "variant_dark_light"
+    example_frame_ids: ["21518:130067", "21518:131036"]
+    text_override_fields: ["标题#21518:7"]
+    notes: "Use as a local subsection pivot under an already-established page archetype."
+
+  - component_key: "0fe68a9f7ad9253456b84792631eb0c675277092"
+    display_name: "指数模块"
+    figma_exact_name: "指数模块"
+    property_hints: ["指数", "数值1", "数值2", "数值3"]
+    variant_hints:
+      theme: ["dark", "light"]
+    primitive_family: "index_summary"
+    screen_archetypes: ["market_overview"]
+    primary_jobs: ["show_index_summary", "show_market_breadth", "provide_overview_numbers"]
+    allowed_zones: ["top_summary", "breadth_summary"]
+    required_pairings: ["top_nav"]
+    forbidden_pairings: ["used_as_watchlist_row", "used_as_tag_container"]
+    theme_support: "variant_dark_light"
+    example_frame_ids: ["4652:66651", "4652:67720", "21622:76290"]
+    text_override_fields: ["指数#13282:4", "数值1#13282:5", "数值2#13282:6", "数值3#13282:7"]
+    notes: "Preferred first summary module for a market overview screen. Use before signal tags or assistant modules."
+
+  - component_key: "2e391b46d08afd93a58cb48ccef8159e4fa53d1b"
+    display_name: "1月版/item/指数模块"
+    figma_exact_name: "1月版/item/指数模块"
+    property_hints: ["标的", "数字1", "数字2", "数字3"]
+    primitive_family: "index_summary_compact"
+    screen_archetypes: ["market_overview", "detail_list"]
+    primary_jobs: ["show_compact_index_row", "show_secondary_summary_numbers"]
+    allowed_zones: ["compact_summary", "top_summary"]
+    required_pairings: []
+    forbidden_pairings: ["used_as_bottom_dock", "used_as_watchlist_body"]
+    theme_support: "text_fields_only"
+    example_frame_ids: ["21622:76290", "21641:76795"]
+    text_override_fields: ["标的#20397:0", "数字1#20397:1", "数字2#20397:4", "数字3#20397:5"]
+    notes: "Compact summary strip. Best for secondary overview rows or compact detail contexts."
+
+  - component_key: "4b4e8579236dcbd465ae21a4de3e6ac161f12fd0"
+    display_name: "列表信息"
+    figma_exact_name: "列表信息"
+    variant_hints:
+      layout_mode: ["linked_library_variant"]
+    primitive_family: "dense_row"
+    screen_archetypes: ["watchlist", "grouped_signal", "account"]
+    primary_jobs: ["show_dense_row", "show_row_primary_info", "support_compact_numeric_scan"]
+    allowed_zones: ["list_body"]
+    required_pairings: ["dense_list_header"]
+    forbidden_pairings: ["used_as_top_summary", "used_without_list_header"]
+    theme_support: "linked_library_variant"
+    example_frame_ids: []
+    text_override_fields: []
+    notes: "Preferred dense row primitive for watchlists and grouped lists. This component currently lives in a linked library and needs standard examples added."
+
+  - component_key: "884a77f647c0a5b38c5d920d805f0971a07a6f5b"
+    display_name: "1月版/信号标签"
+    figma_exact_name: "1月版/信号标签"
+    binding_mode: "must_use_library_instance"
+    binding_failure_policy: "stop_and_recheck"
+    instance_required: true
+    verification_priority: "high"
+    property_hints: ["标签文案#64:0"]
+    variant_hints:
+      类型: ["同类领先", "正向标签", "负向标签", "中性标签", "财务预警"]
+      可点击: ["On", "Off"]
+      Dark: ["On", "Off"]
+    primitive_family: "signal_tag"
+    screen_archetypes: ["watchlist", "grouped_signal", "detail_list", "market_overview"]
+    primary_jobs: ["annotate_signal", "call_out_event", "link_to_drilldown"]
+    allowed_zones: ["row_annotation", "inline_secondary_info", "summary_annotation"]
+    required_pairings: ["dense_row_or_summary_metric"]
+    forbidden_pairings: ["used_as_primary_content", "used_as_rank_module", "stacked_as_page_body"]
+    theme_support: "variant_dark_light"
+    example_frame_ids: ["21654:89114", "21641:81896"]
+    text_override_fields: ["标签文案#64:0"]
+    notes: "Use only as an annotation. A page made mostly of signal tags is considered structurally wrong."
+
+  - component_key: "987889d145d4ab616978fda7107ba23942120772"
+    display_name: "1月版/小标签"
+    figma_exact_name: "1月版/小标签"
+    binding_mode: "must_use_library_instance"
+    binding_failure_policy: "stop_and_recheck"
+    instance_required: true
+    verification_priority: "high"
+    property_hints: ["标签文字"]
+    primitive_family: "micro_tag"
+    screen_archetypes: ["watchlist", "grouped_signal", "detail_list", "market_overview"]
+    primary_jobs: ["mark_market_type", "mark_security_qualifier", "mark_compact_attribute"]
+    allowed_zones: ["row_annotation", "inline_secondary_info"]
+    required_pairings: []
+    forbidden_pairings: ["used_as_summary_block", "used_for_long_text"]
+    theme_support: "variant_dark_light"
+    example_frame_ids: ["21654:89114", "21641:81896"]
+    text_override_fields: ["标签文字#1597:0"]
+    notes: "Reserved for compact qualifiers such as A股, 港股, ETF, 融, 停, or 科创-like labels."
+
+  - component_key: "455cf0ed17ebc34a27a7de59ff7efdc3c8818fd1"
+    display_name: "底bar"
+    figma_exact_name: "底bar"
+    binding_mode: "must_use_library_instance"
+    binding_failure_policy: "stop_and_recheck"
+    instance_required: true
+    verification_priority: "high"
+    variant_hints:
+      场景: ["首页", "全屏对话", "个股详情"]
+      类型: ["语音模式", "键盘模式"]
+      状态: ["打断", "默认", "上划", "关联问", "陪伴"]
+      内容: ["有", "n/a"]
+      关联问多行文本: ["false", "on"]
+      陪伴内容: ["n/a", "3行", "2行", "1行"]
+      链接按钮: ["false", "true"]
+      Dark: ["On", "Off"]
+    primitive_family: "bottom_dock"
+    screen_archetypes: ["market_overview", "watchlist", "grouped_signal", "assistant_panel", "detail_list"]
+    primary_jobs: ["show_voice_cta", "stabilize_bottom_interaction", "host_utility_actions"]
+    allowed_zones: ["bottom_dock"]
+    required_pairings: []
+    forbidden_pairings: ["used_as_summary_module", "used_in_list_body"]
+    theme_support: "variant_dark_light"
+    example_frame_ids: ["21622:76290", "21641:76795", "21641:70040"]
+    text_override_fields: []
+    notes: "Preferred bottom interaction shell. Verify all eight top-level variant properties before instantiation because this component is easy to mis-bind when copied by appearance only."
+
+  - component_key: "45c435d228f6593e6eb8ece5651b79b5c6fb5e62"
+    display_name: "1月版/item/陪伴/按钮"
+    figma_exact_name: "1月版/item/陪伴/按钮"
+    property_hints: ["按钮文字"]
+    primitive_family: "assistant_link_button"
+    screen_archetypes: ["assistant_panel", "detail_list"]
+    primary_jobs: ["show_assistant_link", "show_companion_cta"]
+    allowed_zones: ["bottom_dock", "assistant_footer"]
+    required_pairings: ["bottom_dock_or_assistant_context"]
+    forbidden_pairings: ["used_as_market_summary", "used_as_watchlist_filter"]
+    theme_support: "variant_dark_light"
+    example_frame_ids: ["20259:57857"]
+    text_override_fields: ["按钮文字#20050:7"]
+    notes: "Assistant-supporting control only. Do not promote into market overview primary zones."
+
+  - component_key: "46da9a723ab78178d6adc09efbf3a29df3f7333b"
+    display_name: "行情/自选"
+    figma_exact_name: "行情/自选"
+    primitive_family: "entry_control"
+    screen_archetypes: ["market_overview", "watchlist"]
+    primary_jobs: ["show_watchlist_entry_state", "toggle_watchlist_status"]
+    allowed_zones: ["top_nav_aux", "row_trailing_action", "entry_action"]
+    required_pairings: []
+    forbidden_pairings: ["used_as_dense_row", "used_as_page_summary", "used_as_rank_module"]
+    theme_support: "variant_dark_light"
+    example_frame_ids: []
+    text_override_fields: []
+    notes: "This is an entry or state control, not a list-row primitive. Treat as an auxiliary action."
+
+  - component_key: "44a39b2704fa81e8dbb3baccb2e6dd2189a877fe"
+    display_name: "行情/提醒"
+    figma_exact_name: "行情/提醒"
+    primitive_family: "entry_control"
+    screen_archetypes: ["market_overview", "watchlist", "detail_list"]
+    primary_jobs: ["show_alert_entry_state", "toggle_alert_status"]
+    allowed_zones: ["top_nav_aux", "row_trailing_action", "entry_action"]
+    required_pairings: []
+    forbidden_pairings: ["used_as_dense_row", "used_as_page_summary", "used_as_leaderboard"]
+    theme_support: "variant_dark_light"
+    example_frame_ids: []
+    text_override_fields: []
+    notes: "Alert-state control only. Do not let retrieval rank this above overview or list-body primitives."
+
+  - component_key: "131ed464ff84c24830c6b9c6dde68585366bf82f"
+    display_name: "1月版/母组件"
+    figma_exact_name: "1月版/母组件"
+    primitive_family: "composite_module"
+    screen_archetypes: ["detail_list", "assistant_panel", "trading_search"]
+    primary_jobs: ["assemble_trade_context", "assemble_detail_footer", "assemble_precomposed_module"]
+    allowed_zones: ["detail_footer", "assistant_footer", "composite_block"]
+    required_pairings: []
+    forbidden_pairings: ["used_as_market_overview_root", "used_as_watchlist_body_without_recipe"]
+    theme_support: "variant_dark_light"
+    example_frame_ids: ["21622:76290", "21641:76795", "21641:70040"]
+    text_override_fields: []
+    notes: "Composite helper. Only use when the selected screen recipe explicitly calls for a precomposed market-detail or assistant-detail block."

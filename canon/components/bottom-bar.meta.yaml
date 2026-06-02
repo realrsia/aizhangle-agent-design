@@ -1,0 +1,37 @@
+id: component.bottom-bar
+name: 底部栏
+owner: design-system
+status: draft
+sourceBrief: authoring/components/bottom-bar.brief.yaml
+classification:
+  primitiveFamily: bottom_bar
+  componentType: navigation-and-input
+  riskLevel: high
+  maintenanceLevel: strong
+usage:
+  allowedZones:
+    - mobile_frame_bottom
+    - stock_quote_bottom_action
+    - chat_page_composer
+  forbiddenZones:
+    - scroll_content_body
+    - ordinary_card_footer
+variants:
+  confirmed: []
+  candidates:
+    - primaryPage
+    - chatPage
+    - stockQuotePage
+states:
+  required:
+    - default
+  optional:
+    - focused
+    - disabled
+tokenSources:
+  - assets/templates/bottom-bar-component.json
+  - assets/templates/bottom-bar-output-checklist.json
+sourceRefs:
+  - references/foundation/components-bottom-bar.md
+checklist: canon/checklists/bottom-bar-review.yaml
+figmaBindingStatus: TODO_VERIFY_WITH_FIGMA

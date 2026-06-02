@@ -1,0 +1,41 @@
+id: component.trading-input
+name: 交易输入框组件族
+owner: design-system
+status: draft
+sourceBrief: authoring/components/trading-input.brief.yaml
+classification:
+  primitiveFamily: trading_input
+  componentType: input
+  riskLevel: high
+  maintenanceLevel: strong
+usage:
+  allowedZones:
+    - trading_order_form
+    - condition_order_form
+  forbiddenZones:
+    - generic_search_bar
+    - decorative_card_body
+variants:
+  confirmed: []
+  candidates:
+    - code-input
+    - numeric-stepper
+    - dropdown
+    - numeric-stepper-dropdown
+    - condition-input
+states:
+  required:
+    - default
+    - focus
+    - entered
+    - disabled
+  optional:
+    - read-only
+tokenSources:
+  - assets/templates/trading-input-component.json
+  - assets/templates/trading-order-form-inputs.json
+sourceRefs:
+  - references/foundation/components-trading-inputs.md
+  - references/foundation/components-input.md
+checklist: canon/checklists/trading-input-review.yaml
+figmaBindingStatus: TODO_VERIFY_WITH_FIGMA

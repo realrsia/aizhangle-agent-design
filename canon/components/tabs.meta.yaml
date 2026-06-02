@@ -1,0 +1,35 @@
+id: component.tabs
+name: 标签页
+owner: design-system
+status: draft
+sourceBrief: authoring/components/tabs.brief.yaml
+classification:
+  primitiveFamily: tabs
+  componentType: navigation
+  riskLevel: low
+  maintenanceLevel: strong
+usage:
+  allowedZones:
+    - content_section_header
+    - page_subnav_area
+  forbiddenZones:
+    - bottom_navigation_item
+    - trading_submit_area
+variants:
+  confirmed: []
+  candidates:
+    - underline
+    - pill
+    - text
+states:
+  required:
+    - active
+    - inactive
+  optional:
+    - disabled
+tokenSources:
+  - assets/tokens/token-mapping.json
+sourceRefs:
+  - references/foundation/components-tabs.md
+checklist: canon/checklists/tabs-review.yaml
+figmaBindingStatus: TODO_VERIFY_WITH_FIGMA

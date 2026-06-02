@@ -1,0 +1,176 @@
+# ============================================================
+# 01_HUMAN_REQUIRED
+# 人工必填区
+# ============================================================
+
+id: component.tag
+name: 标签
+owner: design-system
+status: draft
+
+# [HUMAN REQUIRED]
+purpose: >
+  用于在金融列表、个股信息、信号分组、风险提示等场景中表达分类、
+  市场归属、标的属性、情绪或风险状态。标签应帮助扫描，不应抢占主要价格、
+  盈亏和交易信息的视觉权重。
+
+# [HUMAN REQUIRED]
+usedIn:
+  - watchlist-row
+  - holdings-row
+  - stock-quote-detail
+  - grouped-signal
+  - market-overview
+
+# [HUMAN REQUIRED]
+humanRules:
+  do:
+    - 先按语义分类，再选择颜色和样式。
+    - 标的标签、信号标签、风险标签和情绪标签应使用各自规则。
+    - 密集列表里的标签必须保持紧凑并低于主要数据权重。
+  dont:
+    - 不要用标签色表达涨跌主语义。
+    - 不要在列表行内堆叠过多标签导致行高失控。
+    - 不要用 raw color 临时创建标签样式。
+
+# [HUMAN REQUIRED]
+riskWarnings:
+  - 风险、信用、市场归属等标签会影响用户理解，应避免错误分类或过强视觉权重。
+
+# [HUMAN REQUIRED]
+allowedZones:
+  - stock_metadata_inline
+  - watchlist_row_metadata
+  - holdings_row_metadata
+  - signal_group_header
+  - detail_secondary_info
+
+# [HUMAN REQUIRED]
+forbiddenZones:
+  - primary_price_value
+  - trading_order_submit_area
+  - bottom_navigation_item
+
+# [HUMAN REQUIRED]
+requiredPairings:
+  - semantic-category
+
+# [HUMAN REQUIRED]
+forbiddenPairings:
+  - raw-market-movement-color
+  - oversized-primary-emphasis
+
+# [HUMAN REQUIRED]
+examples:
+  good:
+    - assetPath: assets/examples/tag-system.png
+      reason: 覆盖标的、信号和状态标签的语义分组。
+  needsReview: []
+  bad:
+    - name: 用红绿标签代替涨跌数字颜色
+      reason: 标签不应替代金融红涨绿跌语义。
+
+# ============================================================
+# 02_AGENT_EXTRACTED
+# Agent 自动读取区
+# ============================================================
+
+figma:
+  fileName: TODO_VERIFY_WITH_FIGMA
+  fileKey: TODO_VERIFY_WITH_FIGMA
+  exampleNodeId: TODO_VERIFY_WITH_FIGMA
+  exampleNodeName: TODO_VERIFY_WITH_FIGMA
+  figmaExactName: TODO_VERIFY_WITH_FIGMA
+  componentKey: TODO_VERIFY_WITH_FIGMA
+  bindingMode: must_use_library_instance
+  bindingFailurePolicy: stop_and_recheck
+  propertyHints:
+    semanticType:
+      - security
+      - board
+      - signal
+      - risk
+      - sentiment
+
+classification:
+  primitiveFamily: tag
+  componentType: display
+  riskLevel: medium
+  isOrdinaryButton: false
+  isTradingAction: false
+
+observedStructure:
+  root: TODO_VERIFY_WITH_FIGMA
+  children: []
+  typography: TODO_VERIFY_WITH_FIGMA
+  tokens:
+    source: assets/tokens/tag-tokens.json
+
+variants:
+  confirmed: []
+  candidates:
+    - security-neutral-outline
+    - security-brown-outline
+    - board-blue
+    - board-purple
+    - sentiment-positive
+    - sentiment-neutral
+    - sentiment-negative
+
+states:
+  - id: default
+    required: true
+  - id: selected
+    required: false
+  - id: disabled
+    required: false
+
+slots:
+  root:
+    description: 标签容器。
+  label:
+    description: 标签文案。
+    editable: true
+
+tokens:
+  source:
+    - assets/tokens/tag-tokens.json
+    - assets/tokens/token-mapping.json
+
+textOverrideFields:
+  - TODO_VERIFY_WITH_FIGMA
+
+resourceRefs:
+  - references/foundation/components-tags.md
+  - assets/templates/tag-output-checklist.json
+
+# ============================================================
+# 03_AGENT_EXPANSION_AND_CHECKLIST
+# Agent 扩展与自查区
+# ============================================================
+
+reviewChecklist:
+  - id: tag-semantic-routing-present
+    severity: P0
+    question: 是否先按标签语义分类再选择样式？
+    passCriteria: 标的、信号、风险、情绪、市场归属标签有明确 semanticType。
+  - id: dense-list-tag-secondary
+    severity: P1
+    question: 密集列表里的标签是否保持紧凑和次级权重？
+    passCriteria: 标签不破坏行高，不强于股票名、价格、盈亏等主信息。
+  - id: tag-token-source-used
+    severity: P1
+    question: 是否使用标签 token 而不是 raw color？
+    passCriteria: 样式来源指向 assets/tokens/tag-tokens.json 或 token mapping。
+
+agentExpansion:
+  canonComponent:
+    path: canon/components/tag.meta.yaml
+  checklist:
+    path: canon/checklists/tag-review.yaml
+  figmaBinding:
+    path: bindings/figma/components.yaml
+  docs:
+    path: docs/generated/components/index.md
+  assetManifest:
+    path: bindings/assets/manifest.yaml

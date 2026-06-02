@@ -1,0 +1,224 @@
+# ============================================================
+# 01_HUMAN_REQUIRED
+# 人工必填区
+# ============================================================
+
+id: component.trading-action-button
+name: 交易行动点按钮
+owner: design-system
+status: draft
+
+# [HUMAN REQUIRED]
+purpose: >
+  用于交易相关页面中的高权重行动入口，承载买入、卖出、撤单等强操作。
+  该组件不是普通按钮，而是金融交易行为的行动点，需要严格控制使用场景、
+  视觉权重、文案和风险提示，避免误触或误导用户。
+
+# [HUMAN REQUIRED]
+usedIn:
+  - trading-order
+  - stock-quote-detail
+  - holdings
+  - order-cancel-flow
+
+# [HUMAN REQUIRED]
+humanRules:
+  do:
+    - 交易行动点只用于明确的交易行为入口。
+    - 买入和卖出并列时，两者视觉权重应保持一致。
+    - 高风险操作必须配合二次确认或风险提示。
+    - 禁用状态必须清楚表达不可操作原因。
+  dont:
+    - 不要把买入、卖出、撤单当成普通按钮处理。
+    - 不要在 AI 对话中直接给出强交易行动按钮。
+    - 不要在行情总览页中把交易按钮作为主要内容。
+    - 不要在金融列表行内使用大尺寸交易行动点。
+
+# [HUMAN REQUIRED]
+riskWarnings:
+  - id: trading-action-high-risk
+    severity: P0
+    rule: 交易行动点涉及资金和交易决策，必须避免误触、误导和错误状态。
+  - id: destructive-or-cancel-action
+    severity: P0
+    rule: 撤单、删除、取消委托等操作必须配套二次确认。
+
+# [HUMAN REQUIRED]
+allowedZones:
+  - stock_quote_bottom_action
+  - trading_order_footer
+  - order_entry_action_area
+
+# [HUMAN REQUIRED]
+forbiddenZones:
+  - market_overview_primary_body
+  - watchlist_row_inline
+  - ai_chat_message_body
+  - generic_card_action_area
+
+# [HUMAN REQUIRED]
+requiredPairings:
+  - trading-context
+  - selected-security
+  - account-state-check
+  - risk-check-when-needed
+
+# [HUMAN REQUIRED]
+forbiddenPairings:
+  - decorative-ai-card
+  - generic-dashboard-card
+  - marketing-hero-section
+  - tag-wall
+
+# [HUMAN REQUIRED]
+examples:
+  good:
+    - figmaNodeId: "24876:176203"
+      name: 交易行动点按钮 / 双按钮买卖
+      reason: 个股或交易相关上下文中的买卖操作入口。
+  needsReview:
+    - name: 行情总览页中的买卖按钮
+      reason: 可能抢占市场扫描内容，不建议作为主内容。
+  bad:
+    - name: AI 对话气泡内直接出现买入按钮
+      reason: 缺少交易上下文和合规确认流程。
+
+# ============================================================
+# 02_AGENT_EXTRACTED
+# Agent 自动读取区
+# ============================================================
+
+figma:
+  fileName: 系统控件
+  fileKey: ctuOoxsuPXdQS1DbpbjRPI
+  exampleNodeId: "24876:176203"
+  exampleNodeName: 交易行动点按钮
+  figmaExactName: 交易行动点按钮
+  componentKey: TODO_VERIFY_WITH_FIGMA
+  bindingMode: must_use_library_instance
+  bindingFailurePolicy: stop_and_recheck
+  propertyHints:
+    property1:
+      - 双按钮买卖
+
+classification:
+  primitiveFamily: trading_action
+  componentType: action
+  riskLevel: high
+  isOrdinaryButton: false
+  isTradingAction: true
+
+observedStructure:
+  root:
+    nodeId: "21418:69004"
+    layout: horizontal
+    gap: 10
+    width: 354
+    height: 42
+  children:
+    - id: buy
+      nodeId: "21418:69005"
+      name: 买入
+      width: 172
+      height: 42
+      label: 买入
+    - id: sell
+      nodeId: "21418:69006"
+      name: 卖出
+      width: 172
+      height: 42
+      label: 卖出
+  typography:
+    fontFamily: PingFang SC
+    fontWeight: Medium
+    fontSize: 16
+    lineHeight: 28
+    letterSpacing: 2
+    textAlign: center
+  tokens:
+    buyBackground: xzl/color/primary/red
+    sellBackground: xzl/color/trading/sell-button/background
+    text: xzl/color/text/on-primary
+
+variants:
+  confirmed:
+    - paired-buy-sell
+  candidates:
+    - single-buy
+    - single-sell
+    - cancel-order
+
+states:
+  - id: default
+    required: true
+  - id: pressed
+    required: true
+  - id: disabled
+    required: true
+  - id: loading
+    required: false
+
+slots:
+  root:
+    description: 横向容器，承载一个或多个交易行动按钮。
+    layout: horizontal
+    gap: 10
+  actionButton:
+    description: 单个行动按钮。
+    allowedChildren:
+      - label
+      - backgroundAsset
+  label:
+    description: 按钮文案。
+    editable: true
+    defaultValues:
+      - 买入
+      - 卖出
+
+tokens:
+  source:
+    - assets/tokens/button-tokens.json
+    - assets/tokens/token-mapping.json
+
+textOverrideFields:
+  - TODO_VERIFY_WITH_FIGMA
+
+resourceRefs:
+  - references/foundation/components-trading-actions.md
+  - references/foundation/components-button.md
+  - assets/templates/button-output-checklist.json
+
+# ============================================================
+# 03_AGENT_EXPANSION_AND_CHECKLIST
+# Agent 扩展与自查区
+# ============================================================
+
+reviewChecklist:
+  - id: trading-action-not-ordinary-button
+    severity: P0
+    question: 是否错误地把交易行动点当成普通按钮？
+    passCriteria: 必须归类为 trading_action，而不是 ordinary button。
+  - id: trading-context-present
+    severity: P0
+    question: 是否存在明确交易上下文？
+    passCriteria: 页面中能看到标的、交易方向或交易表单上下文。
+  - id: high-risk-state-covered
+    severity: P0
+    question: 高风险操作是否有确认机制？
+    passCriteria: 撤单、删除、取消委托等操作必须有二次确认。
+  - id: figma-binding-verified
+    severity: P1
+    question: 是否使用真实 Figma 组件实例？
+    passCriteria: component key、variant property 和 text override target 已确认。
+
+agentExpansion:
+  canonComponent:
+    path: canon/components/trading-action-button.meta.yaml
+  checklist:
+    path: canon/checklists/trading-action-button-review.yaml
+  figmaBinding:
+    path: bindings/figma/components.yaml
+  docs:
+    path: docs/generated/components/index.md
+  assetManifest:
+    path: bindings/assets/manifest.yaml

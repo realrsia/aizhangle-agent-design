@@ -1,0 +1,19 @@
+componentId: component.trading-action-button
+sourceBrief: authoring/components/trading-action-button.brief.yaml
+items:
+  - id: trading-action-not-ordinary-button
+    severity: P0
+    question: 是否错误地把交易行动点当成普通按钮？
+    passCriteria: 必须归类为 trading_action，而不是 ordinary button。
+  - id: trading-context-present
+    severity: P0
+    question: 是否存在明确交易上下文？
+    passCriteria: 页面中能看到标的、交易方向或交易表单上下文。
+  - id: high-risk-state-covered
+    severity: P0
+    question: 高风险操作是否有确认机制？
+    passCriteria: 撤单、删除、取消委托等操作必须有二次确认。
+  - id: sell-blue-is-action-only
+    severity: P0
+    question: 卖出蓝是否只用于明确卖出行动按钮？
+    passCriteria: 跌幅、亏损、负向行情字段仍使用金融绿语义。

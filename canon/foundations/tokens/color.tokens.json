@@ -1,0 +1,110 @@
+{
+  "$schema": "https://design-tokens.github.io/community-group/format/",
+  "$description": "MVP DTCG-style color token source extracted from zhangle-design-skill token mapping. This file is the canonical color source for first-stage Agent use.",
+  "$extensions": {
+    "zhangle": {
+      "sourceRefs": [
+        "../zhangle-design-skill/assets/design-tokens/token-mapping.json",
+        "../zhangle-design-skill/assets/design-tokens/xzl-color-tokens.csv"
+      ],
+      "financialSemantics": {
+        "red": "rising_or_positive",
+        "green": "falling_or_negative"
+      }
+    }
+  },
+  "xzl": {
+    "color": {
+      "primary": {
+        "red": {
+          "$type": "color",
+          "$value": "#F62F3F",
+          "$description": "Rising or positive Chinese financial state."
+        },
+        "green": {
+          "$type": "color",
+          "$value": "#00AB61",
+          "$description": "Falling or negative Chinese financial state."
+        },
+        "blue": {
+          "$type": "color",
+          "$value": "#105EFF",
+          "$description": "Light-mode action and AI accent."
+        },
+        "blueDark": {
+          "$type": "color",
+          "$value": "#3B84FF",
+          "$description": "Dark-mode action and AI accent."
+        }
+      },
+      "text": {
+        "primary": {
+          "$type": "color",
+          "$value": "#030303"
+        },
+        "primaryDark": {
+          "$type": "color",
+          "$value": "#FFFFFF"
+        },
+        "secondary": {
+          "$type": "color",
+          "$value": "#353739"
+        },
+        "secondaryDark": {
+          "$type": "color",
+          "$value": "#FFFFFFB3"
+        },
+        "tertiary": {
+          "$type": "color",
+          "$value": "#6D778B"
+        },
+        "tertiaryDark": {
+          "$type": "color",
+          "$value": "#FFFFFF80"
+        },
+        "onPrimary": {
+          "$type": "color",
+          "$value": "#FFFFFF"
+        }
+      },
+      "background": {
+        "page": {
+          "$type": "color",
+          "$value": "#FFFFFF"
+        },
+        "pageDark": {
+          "$type": "color",
+          "$value": "#091531"
+        },
+        "base": {
+          "$type": "color",
+          "$value": "#FFFFFF"
+        },
+        "baseDark": {
+          "$type": "color",
+          "$value": "#151823"
+        },
+        "cardLevel1": {
+          "$type": "color",
+          "$value": "#E1EDFF4D",
+          "$description": "30% E1EDFF."
+        },
+        "cardLevel1Dark": {
+          "$type": "color",
+          "$value": "#608ACE14",
+          "$description": "8% 608ACE."
+        }
+      },
+      "divider": {
+        "base": {
+          "$type": "color",
+          "$value": "#A6ACB8"
+        },
+        "baseDark": {
+          "$type": "color",
+          "$value": "#2B2D37"
+        }
+      }
+    }
+  }
+}

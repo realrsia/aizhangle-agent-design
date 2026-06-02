@@ -1,0 +1,40 @@
+$schema: https://json-schema.org/draft/2020-12/schema
+title: XZL Canon Component Meta
+type: object
+required:
+  - id
+  - name
+  - owner
+  - status
+  - sourceBrief
+  - classification
+  - usage
+  - variants
+  - states
+  - sourceRefs
+  - checklist
+properties:
+  id:
+    type: string
+    pattern: "^component\\.[a-z0-9-]+$"
+  sourceBrief:
+    type: string
+  classification:
+    type: object
+    required:
+      - primitiveFamily
+      - componentType
+      - riskLevel
+      - maintenanceLevel
+  usage:
+    type: object
+  variants:
+    type: object
+  states:
+    type: object
+  sourceRefs:
+    type: array
+    items:
+      type: string
+  checklist:
+    type: string

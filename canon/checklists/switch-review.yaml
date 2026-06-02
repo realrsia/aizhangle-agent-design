@@ -1,0 +1,15 @@
+componentId: component.switch
+sourceBrief: authoring/components/switch.brief.yaml
+items:
+  - id: switch-not-action-button
+    severity: P0
+    question: 是否错误地把状态控制当成动作按钮？
+    passCriteria: switch-family 控件表达状态或选择，不使用普通按钮规则。
+  - id: selection-model-not-mixed
+    severity: P0
+    question: 一个选项组是否混用了 radio 和 checkbox？
+    passCriteria: 单选组只用 radio，多选组只用 checkbox。
+  - id: no-invented-internal-text
+    severity: P1
+    question: 是否给非 segmented 控件发明了内部文字或图标？
+    passCriteria: 只有 segmented switch 可包含内部文字。

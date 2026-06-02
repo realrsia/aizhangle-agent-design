@@ -1,0 +1,38 @@
+id: component.overlay
+name: 浮层
+owner: design-system
+status: draft
+sourceBrief: authoring/components/overlay.brief.yaml
+classification:
+  primitiveFamily: overlay
+  componentType: layer
+  riskLevel: medium
+  maintenanceLevel: weak
+usage:
+  allowedZones:
+    - mobile_overlay_layer
+    - sheet_layer
+    - popover_layer
+  forbiddenZones:
+    - scroll_content_as_card
+variants:
+  confirmed: []
+  candidates:
+    - bottom-sheet
+    - semi-floating-panel
+    - centered-alert
+    - popover
+    - dropdown
+states:
+  required:
+    - default
+  optional:
+    - keyboard
+tokenSources:
+  - assets/tokens/radius-tokens.json
+  - assets/tokens/token-mapping.json
+sourceRefs:
+  - references/foundation/components-overlay.md
+  - references/foundation/radius.md
+checklist: canon/checklists/overlay-review.yaml
+figmaBindingStatus: TODO_VERIFY_WITH_FIGMA

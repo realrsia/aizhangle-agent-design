@@ -1,0 +1,12 @@
+components:
+  - component.bottom-bar
+  - component.button
+  - component.card
+  - component.divider
+  - component.input
+  - component.overlay
+  - component.switch
+  - component.tabs
+  - component.tag
+  - component.trading-action-button
+  - component.trading-input

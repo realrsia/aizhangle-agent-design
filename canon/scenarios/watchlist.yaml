@@ -1,0 +1,29 @@
+id: scenario.watchlist
+kind: scenario
+schemaVersion: 1
+version: 0.1.0
+status: draft
+title: Watchlist
+summary: Dense self-selected stock list with table structure, row signals, sorting, and high scan efficiency.
+usesArchetype: archetype.mobile-list-page
+sourceRefs:
+  - docs/references/lists/watchlist.md
+  - docs/references/lists/watchlist-generation.md
+  - bindings/assets/files/templates/watchlist-table-module.json
+businessIntent:
+  domain: market
+  userGoal: Scan watched securities and compare price movement quickly.
+requiredComponents:
+  - component.financial-table
+  - component.tag
+optionalComponents:
+  - component.button
+  - component.bottom-bar
+forbiddenPatterns:
+  - signal_tag_as_primary_body
+  - assistant_module_as_list_body
+  - generic_dashboard_cards
+review:
+  requiredChecklists:
+    - checklist.visual-review
+    - source: bindings/assets/files/templates/watchlist-output-checklist.json

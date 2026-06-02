@@ -1,0 +1,20 @@
+# AI Zhangle Agent Design System
+
+This repository is an Agent-readable design-system source for AI Zhangle / New Zhangle mobile screens.
+
+Start with:
+
+- `SKILL.md`
+- `manifest.json`
+- `authoring/components/index.yaml`
+- `docs/references/component-brief-workflow.md`
+- `canon/foundations/tokens/color.tokens.json`
+- `schemas/component.schema.json`
+- `schemas/component-brief.schema.yaml`
+- `canon/checklists/visual-review.yaml`
+
+Human reference material is under `docs/references/`.
+
+Generated outputs are under `generated/` and are not source of truth.
+
+For component work, treat `authoring/components/*.brief.yaml` as the human-authored input and expand it into `canon/components/`, `canon/checklists/`, `bindings/figma/components.yaml`, and `docs/generated/components/index.md`.

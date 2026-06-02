@@ -1,0 +1,20 @@
+id: theme.dark
+kind: theme
+schemaVersion: 1
+version: 0.1.0
+status: draft
+title: Dark Theme
+summary: Dark theme semantic mappings for first-stage Agent use.
+sourceRefs:
+  - canon/foundations/tokens/color.tokens.json
+mappings:
+  color.background.page: "{xzl.color.background.pageDark}"
+  color.background.base: "{xzl.color.background.baseDark}"
+  color.surface.cardLevel1: "{xzl.color.background.cardLevel1Dark}"
+  color.text.primary: "{xzl.color.text.primaryDark}"
+  color.text.secondary: "{xzl.color.text.secondaryDark}"
+  color.text.tertiary: "{xzl.color.text.tertiaryDark}"
+  color.action.primary.bg: "{xzl.color.primary.blueDark}"
+  color.action.primary.text: "{xzl.color.text.onPrimary}"
+  color.finance.rise: "{xzl.color.primary.red}"
+  color.finance.fall: "{xzl.color.primary.green}"

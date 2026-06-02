@@ -1,0 +1,35 @@
+$schema: https://json-schema.org/draft/2020-12/schema
+title: XZL Component Review Checklist
+type: object
+required:
+  - componentId
+  - sourceBrief
+  - items
+properties:
+  componentId:
+    type: string
+    pattern: "^component\\.[a-z0-9-]+$"
+  sourceBrief:
+    type: string
+  items:
+    type: array
+    items:
+      type: object
+      required:
+        - id
+        - severity
+        - question
+        - passCriteria
+      properties:
+        id:
+          type: string
+        severity:
+          enum:
+            - P0
+            - P1
+            - P2
+            - P3
+        question:
+          type: string
+        passCriteria:
+          type: string

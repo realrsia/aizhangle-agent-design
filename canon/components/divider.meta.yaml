@@ -1,0 +1,33 @@
+id: component.divider
+name: 分割线
+owner: design-system
+status: draft
+sourceBrief: authoring/components/divider.brief.yaml
+classification:
+  primitiveFamily: divider
+  componentType: separator
+  riskLevel: low
+  maintenanceLevel: weak
+usage:
+  allowedZones:
+    - sheet_section_boundary
+    - list_section_boundary
+    - module_separator
+  forbiddenZones:
+    - card_surface_border
+variants:
+  confirmed: []
+  candidates:
+    - sheet
+    - subtle
+    - strong
+states:
+  required:
+    - default
+  optional: []
+tokenSources:
+  - assets/tokens/token-mapping.json
+sourceRefs:
+  - references/foundation/components-divider.md
+checklist: canon/checklists/divider-review.yaml
+figmaBindingStatus: semantic_token_match

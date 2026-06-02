@@ -1,0 +1,171 @@
+# ============================================================
+# 01_HUMAN_REQUIRED
+# 人工必填区
+# ============================================================
+
+id: component.bottom-bar
+name: 底部栏
+owner: design-system
+status: draft
+
+# [HUMAN REQUIRED]
+purpose: >
+  用于新涨乐 AI 底部固定交互区，包括一级页面输入底栏、AI 对话输入底栏、
+  个股行情底部行动栏。底部栏是结构契约组件，必须按页面上下文和可见结构路由。
+
+# [HUMAN REQUIRED]
+usedIn:
+  - primary-page
+  - ai-chat-page
+  - stock-quote-page
+
+# [HUMAN REQUIRED]
+humanRules:
+  do:
+    - 先按页面上下文和可见结构分类为 primaryPage、chatPage 或 stockQuotePage。
+    - 底部栏固定在移动端 frame 底部并位于内容层之上。
+    - 视觉修复前必须先确认结构契约。
+  dont:
+    - 不要把一级页面交易入口和个股行情买卖撤行动混用。
+    - 不要移除官方入口、拉伸输入框或改变 scene entry 顺序来做视觉修复。
+
+# [HUMAN REQUIRED]
+riskWarnings:
+  - 个股行情底部买卖撤入口涉及交易路径，必须保持场景和结构正确。
+
+# [HUMAN REQUIRED]
+allowedZones:
+  - mobile_frame_bottom
+  - stock_quote_bottom_action
+  - chat_page_composer
+
+# [HUMAN REQUIRED]
+forbiddenZones:
+  - scroll_content_body
+  - ordinary_card_footer
+
+# [HUMAN REQUIRED]
+requiredPairings:
+  - page-context
+  - safe-area
+  - variant
+
+# [HUMAN REQUIRED]
+forbiddenPairings:
+  - generic-bottom-navigation
+  - floating-card-substitute
+
+# [HUMAN REQUIRED]
+examples:
+  good:
+    - assetPath: assets/examples/stock-detail-page.png
+      reason: 个股行情底部行动栏与页面上下文一致。
+  needsReview: []
+  bad:
+    - name: 首页交易入口使用个股买入资产
+      reason: 一级页面 scene entry 与个股 quote action 语义不同。
+
+# ============================================================
+# 02_AGENT_EXTRACTED
+# Agent 自动读取区
+# ============================================================
+
+figma:
+  fileName: TODO_VERIFY_WITH_FIGMA
+  fileKey: TODO_VERIFY_WITH_FIGMA
+  exampleNodeId: TODO_VERIFY_WITH_FIGMA
+  figmaExactName: TODO_VERIFY_WITH_FIGMA
+  componentKey: TODO_VERIFY_WITH_FIGMA
+  bindingMode: must_use_library_instance
+  bindingFailurePolicy: stop_and_recheck
+  propertyHints:
+    variant:
+      - primaryPage
+      - chatPage
+      - stockQuotePage
+
+classification:
+  primitiveFamily: bottom_bar
+  componentType: navigation-and-input
+  riskLevel: high
+  isOrdinaryButton: false
+  isTradingAction: false
+
+observedStructure:
+  root: TODO_VERIFY_WITH_FIGMA
+  children: []
+  typography: TODO_VERIFY_WITH_FIGMA
+  tokens:
+    source: assets/templates/bottom-bar-component.json
+
+variants:
+  confirmed: []
+  candidates:
+    - primaryPage
+    - chatPage
+    - stockQuotePage
+
+states:
+  - id: default
+    required: true
+  - id: focused
+    required: false
+  - id: disabled
+    required: false
+
+slots:
+  safeArea:
+    description: 底部安全区。
+  inputPill:
+    description: 输入胶囊。
+  sceneEntries:
+    description: 一级页面场景入口。
+  quoteActions:
+    description: 个股行情买卖撤等底部行动。
+
+tokens:
+  source:
+    - assets/templates/bottom-bar-component.json
+    - assets/templates/bottom-bar-output-checklist.json
+
+textOverrideFields:
+  - TODO_VERIFY_WITH_FIGMA
+
+resourceRefs:
+  - references/foundation/components-bottom-bar.md
+  - references/foundation/bottom-bar/base.md
+  - references/foundation/bottom-bar/variants.md
+  - references/foundation/bottom-bar/icons.md
+  - references/foundation/bottom-bar/states.md
+  - assets/templates/bottom-bar-component.json
+
+# ============================================================
+# 03_AGENT_EXPANSION_AND_CHECKLIST
+# Agent 扩展与自查区
+# ============================================================
+
+reviewChecklist:
+  - id: bottom-bar-context-routed
+    severity: P0
+    question: 是否按页面上下文正确路由底部栏 variant？
+    passCriteria: primaryPage、chatPage、stockQuotePage 与可见结构一致。
+  - id: quote-action-not-scene-entry
+    severity: P0
+    question: 是否混淆了一级页面交易入口和个股行情买卖撤？
+    passCriteria: sceneEntries 和 quoteActions 使用各自资产与结构。
+  - id: fixed-above-content
+    severity: P1
+    question: 底部栏是否固定在 frame 底部且高于滚动内容？
+    passCriteria: 内容保留底部间距，底栏不被滚动层覆盖。
+
+agentExpansion:
+  canonComponent:
+    path: canon/components/bottom-bar.meta.yaml
+  checklist:
+    path: canon/checklists/bottom-bar-review.yaml
+  figmaBinding:
+    path: bindings/figma/components.yaml
+  docs:
+    path: docs/generated/components/index.md
+  assetManifest:
+    path: bindings/assets/manifest.yaml

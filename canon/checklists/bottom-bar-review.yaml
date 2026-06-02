@@ -1,0 +1,15 @@
+componentId: component.bottom-bar
+sourceBrief: authoring/components/bottom-bar.brief.yaml
+items:
+  - id: bottom-bar-context-routed
+    severity: P0
+    question: 是否按页面上下文正确路由底部栏 variant？
+    passCriteria: primaryPage、chatPage、stockQuotePage 与可见结构一致。
+  - id: quote-action-not-scene-entry
+    severity: P0
+    question: 是否混淆了一级页面交易入口和个股行情买卖撤？
+    passCriteria: sceneEntries 和 quoteActions 使用各自资产与结构。
+  - id: fixed-above-content
+    severity: P1
+    question: 底部栏是否固定在 frame 底部且高于滚动内容？
+    passCriteria: 内容保留底部间距，底栏不被滚动层覆盖。

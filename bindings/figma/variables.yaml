@@ -1,0 +1,45 @@
+id: binding.figma.variables
+kind: figma-binding
+schemaVersion: 1
+version: 0.1.0
+status: draft
+title: Figma Variable Binding
+summary: First-stage variable mapping between canonical tokens and Figma variable candidates.
+sourceRefs:
+  - canon/foundations/tokens/color.tokens.json
+  - canon/foundations/tokens/xzl-token-mapping.source.json
+bindingStrategy:
+  verifyBeforeWrite: true
+  stopIfVariableMissing: true
+  doNotGuessCollectionsOrModes: true
+collections:
+  - id: figma.collection.xzl-colors
+    status: pending-verification
+    expectedModes:
+      - light
+      - dark
+variables:
+  - canonical: xzl.color.primary.red
+    cssVariable: --xzl-color-primary-red
+    figmaVariableName: xzl/color/primary/red
+    modes:
+      light: "#F62F3F"
+      dark: "#F62F3F"
+  - canonical: xzl.color.primary.green
+    cssVariable: --xzl-color-primary-green
+    figmaVariableName: xzl/color/primary/green
+    modes:
+      light: "#00AB61"
+      dark: "#00AB61"
+  - canonical: xzl.color.background.page
+    cssVariable: --xzl-color-background-page
+    figmaVariableName: xzl/color/background/page
+    modes:
+      light: "#FFFFFF"
+      dark: "#091531"
+  - canonical: xzl.color.text.primary
+    cssVariable: --xzl-color-text-primary
+    figmaVariableName: xzl/color/text/primary
+    modes:
+      light: "#030303"
+      dark: "#FFFFFF"

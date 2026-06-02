@@ -1,0 +1,154 @@
+# ============================================================
+# 01_HUMAN_REQUIRED
+# 人工必填区
+# ============================================================
+
+id: component.input
+name: 普通输入框
+owner: design-system
+status: draft
+
+# [HUMAN REQUIRED]
+purpose: >
+  用于非交易表单中的文本输入、搜索或普通表单录入。它提供轻量 filled input
+  视觉，不承载交易步进、下拉组合或条件输入结构。
+
+# [HUMAN REQUIRED]
+usedIn:
+  - generic-form
+  - search-entry
+  - filter-input
+
+# [HUMAN REQUIRED]
+humanRules:
+  do:
+    - filled input 使用输入背景 token，不添加边框。
+    - placeholder 使用 text/quaternary。
+    - 圆角使用 radius/input。
+  dont:
+    - 不要给已有背景色的输入框再加描边。
+    - 不要把交易输入控件降级成普通输入框。
+
+# [HUMAN REQUIRED]
+riskWarnings:
+  - 交易相关字段必须改用 component.trading-input。
+
+# [HUMAN REQUIRED]
+allowedZones:
+  - generic_form_field
+  - search_area
+  - filter_panel
+
+# [HUMAN REQUIRED]
+forbiddenZones:
+  - trading_order_form
+
+# [HUMAN REQUIRED]
+requiredPairings:
+  - label-or-placeholder
+
+# [HUMAN REQUIRED]
+forbiddenPairings:
+  - trading-stepper-structure
+
+# [HUMAN REQUIRED]
+examples:
+  good: []
+  needsReview: []
+  bad:
+    - name: filled input 额外加边框
+      reason: 输入框已有背景 token，不应增加视觉噪音。
+
+# ============================================================
+# 02_AGENT_EXTRACTED
+# Agent 自动读取区
+# ============================================================
+
+figma:
+  fileName: TODO_VERIFY_WITH_FIGMA
+  fileKey: TODO_VERIFY_WITH_FIGMA
+  exampleNodeId: TODO_VERIFY_WITH_FIGMA
+  figmaExactName: TODO_VERIFY_WITH_FIGMA
+  componentKey: TODO_VERIFY_WITH_FIGMA
+  bindingMode: must_use_library_instance
+  bindingFailurePolicy: stop_and_recheck
+  propertyHints: {}
+
+classification:
+  primitiveFamily: input
+  componentType: input
+  riskLevel: medium
+  isOrdinaryButton: false
+  isTradingAction: false
+
+observedStructure:
+  root: TODO_VERIFY_WITH_FIGMA
+  children: []
+  typography: TODO_VERIFY_WITH_FIGMA
+  tokens:
+    background: xzl/color/input/background
+    placeholder: xzl/color/text/quaternary
+    radius: radius/input
+
+variants:
+  confirmed: []
+  candidates:
+    - filled
+    - search
+
+states:
+  - id: default
+    required: true
+  - id: focused
+    required: true
+  - id: disabled
+    required: true
+
+slots:
+  value:
+    description: 输入值。
+  placeholder:
+    description: 未输入提示文案。
+
+tokens:
+  source:
+    - assets/tokens/radius-tokens.json
+    - assets/tokens/token-mapping.json
+
+textOverrideFields:
+  - TODO_VERIFY_WITH_FIGMA
+
+resourceRefs:
+  - references/foundation/components-input.md
+  - references/foundation/radius.md
+
+# ============================================================
+# 03_AGENT_EXPANSION_AND_CHECKLIST
+# Agent 扩展与自查区
+# ============================================================
+
+reviewChecklist:
+  - id: filled-input-no-border
+    severity: P1
+    question: filled input 是否错误添加了边框？
+    passCriteria: 使用 xzl/color/input/background 且无 stroke。
+  - id: placeholder-text-quaternary
+    severity: P1
+    question: placeholder 是否使用 text/quaternary？
+    passCriteria: placeholder 不使用 primary、secondary 或任意灰。
+  - id: input-radius-token
+    severity: P2
+    question: 输入框圆角是否使用 radius/input？
+    passCriteria: 圆角来自 radius/input 或 radius token。
+
+agentExpansion:
+  canonComponent:
+    path: canon/components/input.meta.yaml
+  checklist:
+    path: canon/checklists/input-review.yaml
+  figmaBinding:
+    path: bindings/figma/components.yaml
+  docs:
+    path: docs/generated/components/index.md
+  assetManifest:
+    path: bindings/assets/manifest.yaml

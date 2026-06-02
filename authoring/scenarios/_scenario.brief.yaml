@@ -1,0 +1,51 @@
+# ============================================================
+# 01_HUMAN_REQUIRED
+# Human required area.
+# ============================================================
+
+id: scenario.example
+name: Business Scenario Name
+owner: product-design
+status: draft
+
+# [HUMAN REQUIRED]
+purpose: >
+  TODO_HUMAN_CONFIRM
+
+# [HUMAN REQUIRED]
+primaryUserGoal: TODO_HUMAN_CONFIRM
+
+# [HUMAN REQUIRED]
+requiredContent:
+  - TODO_HUMAN_CONFIRM
+
+# [HUMAN REQUIRED]
+forbiddenPatterns:
+  - TODO_HUMAN_CONFIRM
+
+# [HUMAN REQUIRED]
+riskWarnings:
+  - TODO_HUMAN_CONFIRM
+
+# ============================================================
+# 02_AGENT_EXTRACTED
+# Agent extracted area.
+# ============================================================
+
+candidateArchetype: TODO_AGENT_FILL
+candidateComponents: []
+figmaRefs: []
+assetRefs: []
+
+# ============================================================
+# 03_AGENT_EXPANSION_AND_CHECKLIST
+# Agent expansion and self-check area.
+# ============================================================
+
+agentExpansion:
+  canonScenario:
+    path: canon/scenarios/example.yaml
+  checklist:
+    path: canon/checklists/example-scenario-review.yaml
+  docs:
+    path: docs/generated/scenarios/example.md

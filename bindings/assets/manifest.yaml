@@ -1,0 +1,175 @@
+id: binding.assets.manifest
+kind: asset-manifest
+schemaVersion: 1
+version: 0.1.0
+status: draft
+title: Local Asset Manifest
+summary: Local asset binding layer copied from zhangle-design-skill and the Akun fusion source.
+basePath: bindings/assets/files
+sourceRefs:
+  - ../zhangle-design-skill/assets
+  - ../各自的分支/0602xzl-design-system-fusion-version_阿琨合并版/assets
+  - ../各自的分支/0602xzl-design-system-fusion-version_基于最新的yaml合并版/assets
+pathAliases:
+  - alias: assets/tokens/
+    resolvesTo: bindings/assets/files/design-tokens/
+    reason: Latest component briefs keep the original fusion asset path.
+  - alias: assets/templates/
+    resolvesTo: bindings/assets/files/templates/
+    reason: Latest component briefs keep the original fusion asset path.
+  - alias: assets/examples/
+    resolvesTo: bindings/assets/files/examples/
+    reason: Latest component briefs keep the original fusion asset path.
+assetGroups:
+  - id: design-tokens
+    kind: token-source
+    path: design-tokens/
+    useFor:
+      - token-provenance
+      - component-token-source
+  - id: templates
+    kind: template
+    path: templates/
+    useFor:
+      - checklist-source
+      - component-module-contract
+  - id: icons
+    kind: icon
+    path: icons/
+    useFor:
+      - component-icon-binding
+      - header-and-table-tools
+  - id: bottom-bar
+    kind: component-assets
+    path: bottom-bar/
+    useFor:
+      - bottom-bar-backgrounds
+      - bottom-bar-icons
+      - bottom-bar-examples
+  - id: examples
+    kind: screenshot-example
+    path: examples/
+    useFor:
+      - visual-reference
+      - case-study-evidence
+  - id: fonts
+    kind: font
+    path: fonts/
+    useFor:
+      - financial-numeric-font
+  - id: fusion-files
+    kind: fusion-source-assets
+    path: ../fusion-files/
+    useFor:
+      - offline-reference
+      - prototype-fallback
+      - visual-evidence
+    notCanonicalFor:
+      - maintained-figma-component-instance
+  - id: radius-tokens
+    kind: token-source
+    path: design-tokens/radius-tokens.json
+    useFor:
+      - radius-token-provenance
+      - migration-check
+  - id: typography-scale
+    kind: template
+    path: templates/page-typography-scale.json
+    useFor:
+      - typography-token-provenance
+      - page-type-scale-reference
+resourceRefs:
+  - id: asset.font.zlcft.regular
+    type: local-asset
+    locator: bindings/assets/files/fonts/ZLCaiFuTi-Regular.ttf
+  - id: asset.template.page-output-checklist
+    type: local-asset
+    locator: bindings/assets/files/templates/page-output-checklist.json
+  - id: asset.template.button-output-checklist
+    type: local-asset
+    locator: bindings/assets/files/templates/button-output-checklist.json
+  - id: asset.tokens.button
+    type: local-asset
+    locator: bindings/assets/files/design-tokens/button-tokens.json
+  - id: asset.tokens.tag
+    type: local-asset
+    locator: bindings/assets/files/design-tokens/tag-tokens.json
+  - id: asset.tokens.switch
+    type: local-asset
+    locator: bindings/assets/files/design-tokens/switch-tokens.json
+  - id: asset.tokens.mapping
+    type: local-asset
+    locator: bindings/assets/files/design-tokens/token-mapping.json
+  - id: asset.tokens.radius
+    type: local-asset
+    locator: bindings/assets/files/design-tokens/radius-tokens.json
+    role: token-provenance
+  - id: asset.template.tag-output-checklist
+    type: local-asset
+    locator: bindings/assets/files/templates/tag-output-checklist.json
+  - id: asset.template.switch-output-checklist
+    type: local-asset
+    locator: bindings/assets/files/templates/switch-output-checklist.json
+  - id: asset.template.bottom-bar-output-checklist
+    type: local-asset
+    locator: bindings/assets/files/templates/bottom-bar-output-checklist.json
+  - id: asset.template.trading-input-component
+    type: local-asset
+    locator: bindings/assets/files/templates/trading-input-component.json
+  - id: asset.template.trading-order-form-inputs
+    type: local-asset
+    locator: bindings/assets/files/templates/trading-order-form-inputs.json
+  - id: asset.template.trading-input-output-checklist
+    type: local-asset
+    locator: bindings/assets/files/templates/trading-input-output-checklist.json
+  - id: asset.example.buttons-system
+    type: local-asset
+    locator: bindings/assets/files/examples/buttons-system.png
+  - id: asset.example.stock-detail-page
+    type: local-asset
+    locator: bindings/assets/files/examples/stock-detail-page.png
+  - id: asset.example.mobile-home-workbench
+    type: local-asset
+    locator: bindings/assets/files/examples/mobile-home-workbench.png
+  - id: asset.example.overlays-popovers-sheets
+    type: local-asset
+    locator: bindings/assets/files/examples/overlays-popovers-sheets.png
+  - id: asset.example.switch-system
+    type: local-asset
+    locator: bindings/assets/files/examples/switch-system.png
+  - id: asset.example.tag-system
+    type: local-asset
+    locator: bindings/assets/files/examples/tag-system.png
+  - id: asset.example.trading-order-page
+    type: local-asset
+    locator: bindings/assets/files/examples/trading-order-page.png
+  - id: asset.template.page-typography-scale
+    type: local-asset
+    locator: bindings/assets/files/templates/page-typography-scale.json
+    role: typography-reference
+  - id: asset.template.radius-output-checklist
+    type: local-asset
+    locator: bindings/assets/files/templates/radius-output-checklist.json
+    role: checklist-source
+  - id: icon.search-outlined
+    type: local-asset
+    assetKind: icon
+    locator: bindings/assets/files/icons/search-outlined.svg
+    role: offline-reference
+    canonicalWhen:
+      - html-prototype
+      - local-static-preview
+    notCanonicalFor:
+      - figma-component-instance
+  - id: template.bottom-bar
+    type: local-asset
+    assetKind: json-template
+    locator: bindings/assets/files/templates/bottom-bar-component.json
+    role: module-contract
+    useFor:
+      - html-prototype
+      - checklist-evidence
+      - offline-generation
+    figmaReplacement:
+      required: true
+      bindingId: component.bottom-bar

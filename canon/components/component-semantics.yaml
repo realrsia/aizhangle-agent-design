@@ -1,0 +1,76 @@
+version: 1
+registry_name: xzl_fusion_component_semantics
+source_policy:
+  maintenance_level: weak
+  purpose: "Guide component role, allowed zones, and forbidden substitutions without making every ordinary module a strong Figma-binding dependency."
+  numeric_source: "local assets/"
+
+components:
+  - id: "background_shell"
+    maintenance_level: weak
+    display_name: "背景/背景"
+    primitive_family: "background_shell"
+    allowed_zones: ["page_shell"]
+    screen_archetypes: ["market_overview", "watchlist", "grouped_signal", "trading_search", "assistant_panel", "detail_list", "account"]
+    primary_jobs: ["provide_page_shell", "carry_theme_mode", "stabilize_safe_area_structure"]
+    forbidden_pairings: ["used_as_content_card", "used_as_rank_module"]
+    notes: "Use as page shell, not content."
+
+  - id: "index_summary"
+    maintenance_level: weak
+    display_name: "指数模块"
+    primitive_family: "index_summary"
+    allowed_zones: ["top_summary", "breadth_summary"]
+    screen_archetypes: ["market_overview"]
+    primary_jobs: ["show_index_summary", "show_market_breadth", "provide_overview_numbers"]
+    forbidden_pairings: ["used_as_watchlist_row", "used_as_tag_container"]
+    notes: "Preferred first summary module for market overview."
+
+  - id: "compact_index_summary"
+    maintenance_level: weak
+    display_name: "1月版/item/指数模块"
+    primitive_family: "index_summary_compact"
+    allowed_zones: ["compact_summary", "top_summary"]
+    screen_archetypes: ["market_overview", "detail_list"]
+    primary_jobs: ["show_compact_index_row", "show_secondary_summary_numbers"]
+    forbidden_pairings: ["used_as_bottom_dock", "used_as_watchlist_body"]
+    notes: "Compact summary strip for secondary overview or detail contexts."
+
+  - id: "dense_row"
+    maintenance_level: weak
+    display_name: "列表信息"
+    primitive_family: "dense_row"
+    allowed_zones: ["list_body"]
+    screen_archetypes: ["watchlist", "grouped_signal", "account"]
+    primary_jobs: ["show_dense_row", "show_row_primary_info", "support_compact_numeric_scan"]
+    required_pairings: ["dense_list_header"]
+    forbidden_pairings: ["used_as_top_summary", "used_without_list_header"]
+    notes: "Preferred dense row primitive for watchlists and grouped lists. Use foundation list templates for implementation."
+
+  - id: "leaderboard_slice"
+    maintenance_level: weak
+    display_name: "榜单切片"
+    primitive_family: "rank_list"
+    allowed_zones: ["rank_list"]
+    screen_archetypes: ["market_overview"]
+    primary_jobs: ["preview_ranked_market_opportunities", "compare_leaderboard_categories"]
+    forbidden_pairings: ["vertical_leaderboard_stack_as_overview_rank_list"]
+    notes: "On market overview first viewport, default to compact horizontal swipe slices."
+
+  - id: "search_input"
+    maintenance_level: weak
+    display_name: "委托代码搜索"
+    primitive_family: "search_input"
+    allowed_zones: ["top_filter", "list_body"]
+    screen_archetypes: ["trading_search", "detail_list"]
+    primary_jobs: ["search_by_code_or_name", "enter_trading_or_detail_flow"]
+    notes: "Use foundation input/trading input references for numeric values and states."
+
+  - id: "voice_primary_cta"
+    maintenance_level: weak
+    display_name: "语音主 CTA"
+    primitive_family: "voice_cta"
+    allowed_zones: ["bottom_dock", "assistant_footer"]
+    screen_archetypes: ["market_overview", "watchlist", "grouped_signal", "trading_search", "assistant_panel", "detail_list", "account"]
+    primary_jobs: ["primary_assistant_affordance"]
+    notes: "Must read as central assistant action but should not overpower market/account body content."

@@ -1,0 +1,15 @@
+componentId: component.divider
+sourceBrief: authoring/components/divider.brief.yaml
+items:
+  - id: divider-sheet-token
+    severity: P2
+    question: 主要分隔是否使用 sheet divider token？
+    passCriteria: major separator 使用 xzl/color/divider/sheet。
+  - id: no-arbitrary-border-color
+    severity: P1
+    question: 是否使用了任意 border color？
+    passCriteria: 分割线颜色来自 divider token。
+  - id: divider-not-card-border
+    severity: P2
+    question: 是否用分割线替代卡片描边？
+    passCriteria: 卡片层级由 surface token 和 spacing 表达。

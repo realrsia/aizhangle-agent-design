@@ -1,0 +1,95 @@
+{
+  "name": "trading-order-form-inputs",
+  "description": "Machine-readable structure template for trading order form input rows.",
+  "appliesTo": [
+    "交易下单表单",
+    "order form inputs",
+    "代码/类型/价格/数量/金额"
+  ],
+  "requiredReferences": [
+    "references/components-trading-inputs.md",
+    "references/trading-order-form.md",
+    "references/components-trading-actions.md"
+  ],
+  "module": {
+    "type": "tradingOrderFormInputs",
+    "screenHorizontalMargin": 18,
+    "labelRegionWidth": 98,
+    "rightInputRegionWidth": 245,
+    "rightInputRegionIncludesSymbolsAndIcons": true,
+    "rows": [
+      {
+        "rowId": "code",
+        "label": "代码",
+        "component": "codeInput",
+        "requiredWhenPresent": true,
+        "auxiliaryInfoSlot": "reservedP1"
+      },
+      {
+        "rowId": "orderType",
+        "label": "类型",
+        "component": "dropdownInput",
+        "requiredWhenPresent": true
+      },
+      {
+        "rowId": "price",
+        "label": "价格",
+        "componentOptions": [
+          "numericStepperInput",
+          "numericStepperDropdownInput"
+        ],
+        "requiredWhenPresent": true,
+        "auxiliaryInfoSlot": "reservedP1"
+      },
+      {
+        "rowId": "quantity",
+        "label": "数量",
+        "labelTrailingAction": {
+          "type": "quantityAmountSwitch",
+          "icon": "assets/icons/switch-outlined.svg",
+          "size": {
+            "width": 14,
+            "height": 14
+          },
+          "colorToken": "xzl/color/text/primary",
+          "disabledOpacity": 0.4
+        },
+        "componentWhenEditable": "numericStepperInput",
+        "componentWhenReadOnly": "readOnlyText",
+        "auxiliaryInfoSlot": "reservedP1"
+      },
+      {
+        "rowId": "amount",
+        "label": "金额",
+        "componentWhenEditable": "numericStepperInput",
+        "componentWhenReadOnly": "readOnlyText",
+        "readOnlyUsesInputBackground": false,
+        "readOnlyShowsStepper": false
+      }
+    ],
+    "modeState": {
+      "allowedValues": [
+        "quantityInputMode",
+        "amountInputMode"
+      ],
+      "quantityInputMode": {
+        "quantity": "editable",
+        "amount": "readOnly"
+      },
+      "amountInputMode": {
+        "quantity": "readOnly",
+        "amount": "editable"
+      }
+    }
+  },
+  "validation": [
+    "Order form screen margins are 18px.",
+    "Left label region is 98px.",
+    "Right input region is 245px in the current mobile form.",
+    "Symbols and icons are included inside the right input region width.",
+    "Quantity and amount expose exactly one active editable mode.",
+    "Read-only amount is pure text and does not render input background or plus/minus.",
+    "Quantity/amount switch icon appears after the label and renders at 14x14.",
+    "Auxiliary information slots are reserved but not hard-specified in this version."
+  ]
+}

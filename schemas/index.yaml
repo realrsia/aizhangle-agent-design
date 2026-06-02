@@ -1,0 +1,4 @@
+schemas:
+  componentBrief: schemas/component-brief.schema.yaml
+  componentMeta: schemas/component-meta.schema.yaml
+  checklist: schemas/checklist.schema.yaml

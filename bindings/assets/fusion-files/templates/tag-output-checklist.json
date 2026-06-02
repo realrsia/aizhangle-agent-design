@@ -1,0 +1,100 @@
+{
+  "name": "tag-output-checklist",
+  "description": "Artifact-level validation checklist for generated New Zhanle tag components.",
+  "appliesTo": [
+    "security tags",
+    "market-board tags",
+    "signal tags",
+    "risk tags",
+    "sentiment tags",
+    "dense-list tags"
+  ],
+  "resultFormat": {
+    "statusValues": [
+      "pass",
+      "fail",
+      "notApplicable"
+    ],
+    "requiredFields": [
+      "id",
+      "severity",
+      "status",
+      "evidence",
+      "fixIfFail"
+    ]
+  },
+  "checks": [
+    {
+      "id": "tagSemanticRouteChosen",
+      "severity": "P0",
+      "mustPass": true,
+      "question": "Is each tag routed by semantic purpose before styling?",
+      "evidenceRequired": "Tag classification evidence: security tag, board tag, signal/risk/sentiment tag, or dense-list tag.",
+      "fixIfFail": "Load the relevant tag references, choose the semantic tag variant, and apply approved tag tokens instead of local styles."
+    },
+    {
+      "id": "tagTokensUsed",
+      "severity": "P0",
+      "mustPass": true,
+      "question": "Are tag colors, borders, radius, typography, and spacing sourced from approved tag tokens?",
+      "evidenceRequired": "Token usage list referencing assets/tokens/tag-tokens.json and canonical color tokens where applicable.",
+      "fixIfFail": "Load the relevant tag references, choose the semantic tag variant, and apply approved tag tokens instead of local styles."
+    },
+    {
+      "id": "securityTagVariantsCorrect",
+      "severity": "P1",
+      "mustPass": true,
+      "question": "Do security tags use the correct approved variant for labels such as 信用, 沪A, ETF, 科创, 港股, and 美股?",
+      "evidenceRequired": "Variant evidence from references/tags/security-tags.md; 信用 uses brown outline, 沪A/ETF use neutral outline, 科创/美股 use blue, 港股 uses purple.",
+      "fixIfFail": "Load the relevant tag references, choose the semantic tag variant, and apply approved tag tokens instead of local styles."
+    },
+    {
+      "id": "signalTagSemanticsCorrect",
+      "severity": "P1",
+      "mustPass": true,
+      "question": "Do signal, risk, and sentiment tags use the correct semantic background and text tokens?",
+      "evidenceRequired": "Variant evidence from references/tags/signal-tags.md and tag-token mappings.",
+      "fixIfFail": "Load the relevant tag references, choose the semantic tag variant, and apply approved tag tokens instead of local styles."
+    },
+    {
+      "id": "denseListTagsRemainSecondary",
+      "severity": "P1",
+      "mustPass": true,
+      "question": "In dense financial lists, do tags remain compact and secondary to core financial data?",
+      "evidenceRequired": "Rendered layout evidence showing tags do not break row alignment, inflate row height, or overpower price/profit fields.",
+      "fixIfFail": "Load the relevant tag references, choose the semantic tag variant, and apply approved tag tokens instead of local styles."
+    },
+    {
+      "id": "tagReferenceSetLoaded",
+      "severity": "P1",
+      "mustPass": true,
+      "question": "Were the shared tag base/layout/states references and the matching specialized tag reference loaded?",
+      "evidenceRequired": "Reference evidence: components-tags.md plus tags/base.md, tags/layout.md, tags/states.md, and security-tags.md or signal-tags.md when applicable.",
+      "fixIfFail": "Load the shared tag references and the semantic specialized reference before styling the tag."
+    },
+    {
+      "id": "tagNoFinancialColorMisuse",
+      "severity": "P1",
+      "mustPass": true,
+      "question": "Do tags avoid using financial red/green unless the tag explicitly represents financial movement semantics?",
+      "evidenceRequired": "Semantic evidence showing tag colors come from tag tokens; red/green movement tokens are not used as decoration or board classification.",
+      "fixIfFail": "Replace financial red/green misuse with the approved tag semantic token."
+    },
+    {
+      "id": "tagTextFitsWithoutOverlap",
+      "severity": "P1",
+      "mustPass": true,
+      "question": "Does tag text fit within the tag bounds without overlap or unintended row-height inflation?",
+      "evidenceRequired": "Rendered evidence showing tag text, padding, radius, and row placement fit the approved compact or standard tag form.",
+      "fixIfFail": "Use approved tag tokens and compact form; avoid ad hoc font scaling, clipping, or row-breaking layout."
+    },
+    {
+      "id": "tagLightDarkTokensResolve",
+      "severity": "P1",
+      "mustPass": true,
+      "question": "Do used tag tokens resolve correctly in light and dark modes?",
+      "evidenceRequired": "Light/dark token comparison for all colors used by the tags.",
+      "fixIfFail": "Load the relevant tag references, choose the semantic tag variant, and apply approved tag tokens instead of local styles."
+    }
+  ]
+}

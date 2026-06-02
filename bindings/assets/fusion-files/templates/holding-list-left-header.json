@@ -1,0 +1,101 @@
+{
+  "name": "holding-list-left-header",
+  "description": "Rendered-node template for the 持股列表 left frozen header operation area.",
+  "appliesTo": [
+    "holding list",
+    "持股列表"
+  ],
+  "notAppliesTo": [
+    "watchlist",
+    "自选列表",
+    "ordinary holdings table without 持股 left-header requirement"
+  ],
+  "node": {
+    "name": "holdingLeftHeaderTools",
+    "renderedNodeRequired": true,
+    "documentationOnly": false,
+    "width": 143,
+    "xStart": 0,
+    "fixedLayer": true,
+    "mustNotUseWatchlistHeaderTools": true,
+    "groups": [
+      {
+        "name": "marketValueSort",
+        "label": "市值",
+        "type": "labelWithSortIcon",
+        "required": true,
+        "labelTextRequired": true,
+        "icon": {
+          "asset": "assets/icons/table-sort-arrows.svg",
+          "size": {
+            "width": 6,
+            "height": 12
+          },
+          "clickable": true,
+          "defaultColorToken": "xzl/color/text/tertiary",
+          "activeDirectionColorToken": "xzl/color/primary/red"
+        }
+      },
+      {
+        "name": "edit",
+        "label": "编辑",
+        "type": "iconLabelAction",
+        "required": true,
+        "icon": {
+          "asset": "assets/icons/watchlist-header-edit.svg",
+          "size": {
+            "width": 16,
+            "height": 16
+          },
+          "clickable": false
+        }
+      },
+      {
+        "name": "multiStock",
+        "label": "多股",
+        "type": "iconLabelAction",
+        "required": true,
+        "icon": {
+          "asset": "assets/icons/watchlist-header-multi-stock.svg",
+          "size": {
+            "width": 16,
+            "height": 16
+          },
+          "clickable": false
+        }
+      }
+    ],
+    "assetFidelityRequired": true,
+    "standaloneHtmlIconRendering": {
+      "preferInlineSvg": true,
+      "allowCopiedRelativeAssets": true,
+      "forbidHandDrawnApproximation": true,
+      "forbidExternalAbsoluteSvgOnly": true,
+      "forbidCssMaskOnly": true,
+      "visibleGeometryRequired": true
+    }
+  },
+  "layout": {
+    "containerWidth": 143,
+    "xStart": 0,
+    "groupGap": 6,
+    "text": {
+      "fontFamily": "PingFang SC",
+      "fontSize": 12,
+      "fontWeight": "regular",
+      "cssFontWeight": 400,
+      "colorToken": "xzl/color/text/tertiary"
+    },
+    "iconColorToken": "xzl/color/text/tertiary"
+  },
+  "validation": [
+    "This template applies to 持股列表 only.",
+    "The left header must render 市值+筛选图标, 编辑图标+编辑, and 多股图标+多股.",
+    "The template must not be replaced by the 自选 watchlistHeaderTools four-icon template.",
+    "Only the 市值 sort/filter icon is clickable for sorting/filtering; its active direction uses primary red.",
+    "All three groups start at x=0 within the 143px frozen header area and use 6px group gaps.",
+    "Header icons must use the real approved design-system assets, not hand-drawn approximations.",
+    "Standalone HTML/file:// output must render header icons visibly using inline SVG or copied relative assets.",
+    "Validation checks visual shape consistency with the approved icon assets."
+  ]
+}

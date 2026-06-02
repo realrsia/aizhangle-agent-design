@@ -1,0 +1,652 @@
+{
+  "name": "bottom-bar-output-checklist",
+  "description": "Artifact-level validation checklist for generated New Zhanle AI bottom bars.",
+  "appliesTo": [
+    "primary-page bottom bars",
+    "AI chat bottom bars",
+    "stock quote bottom action bars"
+  ],
+  "resultFormat": {
+    "statusValues": [
+      "pass",
+      "fail",
+      "notApplicable"
+    ],
+    "requiredFields": [
+      "id",
+      "severity",
+      "status",
+      "evidence",
+      "fixIfFail"
+    ]
+  },
+  "checks": [
+    {
+      "id": "bottomBarVariantDeclared",
+      "severity": "P0",
+      "mustPass": true,
+      "question": "Does the artifact declare the correct bottom-bar variant for the page context?",
+      "evidenceRequired": "variant value: primaryPage, chatPage, or stockQuotePage, plus matching page context evidence.",
+      "group": "core",
+      "fixIfFail": "Reclassify the page context, apply the correct bottom-bar variant, and update the rendered structure and declared variant."
+    },
+    {
+      "id": "usesApprovedBackgroundAsset",
+      "severity": "P0",
+      "mustPass": true,
+      "question": "Does the bottom bar use the approved background/shadow asset for the declared variant and mode?",
+      "evidenceRequired": "Mode-matched asset path from assets/bottom-bar/backgrounds rendered in the artifact.",
+      "group": "assetsAndIcons",
+      "fixIfFail": "Use the approved bottom-bar asset and mode-specific binding from references/components-bottom-bar.md and assets/templates/bottom-bar-component.json."
+    },
+    {
+      "id": "lightDarkAssetsNotMixed",
+      "severity": "P0",
+      "mustPass": true,
+      "question": "Are light and dark bottom-bar assets kept mode-specific without cross-mode mixing?",
+      "evidenceRequired": "Light mode uses *-light assets and dark mode uses *-dark assets for bottom-bar backgrounds and state icons.",
+      "group": "assetsAndIcons",
+      "fixIfFail": "Use the approved bottom-bar asset and mode-specific binding from references/components-bottom-bar.md and assets/templates/bottom-bar-component.json."
+    },
+    {
+      "id": "variantMetricsApplied",
+      "severity": "P1",
+      "mustPass": true,
+      "question": "Does the artifact apply the declared variant's body, shadow, input, safe-area, and optional row heights?",
+      "evidenceRequired": "Measurement, style, Figma layer, DOM, or template binding evidence for the metrics in bottom-bar-component.json.",
+      "group": "core",
+      "fixIfFail": "Reclassify the page context, apply the correct bottom-bar variant, and update the rendered structure and declared variant."
+    },
+    {
+      "id": "safeAreaRendered",
+      "severity": "P1",
+      "mustPass": true,
+      "question": "Does the bottom bar include the 34px iOS safe-area extension below the business controls?",
+      "evidenceRequired": "Named safeArea node or measured bottom extension reaching the frame bottom without business controls.",
+      "group": "core",
+      "fixIfFail": "Place the bottom bar flush to the frame bottom and keep the 34px safe area inside the component below business controls."
+    },
+    {
+      "id": "contentGapToBody20",
+      "severity": "P1",
+      "mustPass": true,
+      "question": "Does content preserve 20px spacing to the bottom-bar body, excluding shadow?",
+      "evidenceRequired": "Layout or measurement evidence showing content gap to body top; shadow overlap is excluded.",
+      "group": "core",
+      "fixIfFail": "Apply the relevant bottom-bar reference rule, revise the artifact, and provide concrete DOM/Figma/measurement evidence for this check."
+    },
+    {
+      "id": "inputTypographyTokens",
+      "severity": "P1",
+      "mustPass": true,
+      "question": "Does input text use the correct mode-specific bottom-bar typography and tokens?",
+      "evidenceRequired": "Voice default: PingFang SC Medium 16px, 按住说话, xzl/color/primary/dark-blue. Text default: PingFang SC Regular 16px, 提问或搜索, xzl/color/text/quaternary resolving to dark #FFFFFF 30%; entered text uses xzl/color/text/primary.",
+      "group": "inputPillAndMode",
+      "fixIfFail": "Apply the bottom-bar typography rules and global financial numeric font rules, then verify rendered text runs."
+    },
+    {
+      "id": "inputModeStateDeclared",
+      "severity": "P1",
+      "mustPass": true,
+      "question": "Is voice or text input mode declared and reflected by the correct icon asset?",
+      "evidenceRequired": "inputMode value plus mode-matched voice/keyboard asset path and rendered node.",
+      "group": "inputPillAndMode",
+      "fixIfFail": "Apply the relevant bottom-bar reference rule, revise the artifact, and provide concrete DOM/Figma/measurement evidence for this check."
+    },
+    {
+      "id": "sceneEntryStateCorrect",
+      "severity": "P1",
+      "mustPass": true,
+      "question": "Are scene-entry default and selected states represented by approved assets?",
+      "evidenceRequired": "selectedSceneEntry state when applicable and rendered bottom-bar-entry asset paths.",
+      "group": "entriesAndActions",
+      "fixIfFail": "Apply the relevant bottom-bar reference rule, revise the artifact, and provide concrete DOM/Figma/measurement evidence for this check."
+    },
+    {
+      "id": "thinkingModeStateCorrect",
+      "severity": "P1",
+      "mustPass": true,
+      "question": "If thinking mode appears, is selected/unselected state explicit?",
+      "evidenceRequired": "thinkingMode state plus visible selected-state evidence for the chip/icon.",
+      "group": "variant.chatPage.agentChips",
+      "fixIfFail": "Apply the relevant bottom-bar reference rule, revise the artifact, and provide concrete DOM/Figma/measurement evidence for this check."
+    },
+    {
+      "id": "quoteActionsUseBottomBarAssets",
+      "severity": "P1",
+      "mustPass": true,
+      "question": "On stock quote pages, do buy/sell/cancel use bottom-bar round assets instead of ordinary CTA buttons?",
+      "evidenceRequired": "quoteActions structure with buy/sell/cancel asset paths and 48x48 rendered/hit metrics.",
+      "group": "entriesAndActions",
+      "fixIfFail": "Use the approved bottom-bar asset and mode-specific binding from references/components-bottom-bar.md and assets/templates/bottom-bar-component.json."
+    },
+    {
+      "id": "iconsUseApprovedAssets",
+      "severity": "P1",
+      "mustPass": true,
+      "question": "Do all bottom-bar icons use approved PNG/SVG assets rather than hand-drawn approximations?",
+      "evidenceRequired": "Asset paths, component bindings, or rendered nodes for entry, mode, pause, agent, and quote action icons.",
+      "group": "assetsAndIcons",
+      "fixIfFail": "Use the approved bottom-bar asset and mode-specific binding from references/components-bottom-bar.md and assets/templates/bottom-bar-component.json."
+    },
+    {
+      "id": "iconMetricsCorrect",
+      "severity": "P1",
+      "mustPass": true,
+      "question": "Do icons and hit areas match the approved bottom-bar metrics?",
+      "evidenceRequired": "Measurements for 48x48 scene-entry layout/hit boxes, 86x86 selected visual bounds anchored to the 48x48 center, 48x48 quote actions, 30x30 mode toggle, 13x16 voice icon, pause metrics, 14x14 agent/right-expand, and 18x18 up/down icons.",
+      "group": "assetsAndIcons",
+      "fixIfFail": "Apply the relevant bottom-bar reference rule, revise the artifact, and provide concrete DOM/Figma/measurement evidence for this check."
+    },
+    {
+      "id": "renderedIconsVisible",
+      "severity": "P1",
+      "mustPass": true,
+      "question": "Are required bottom-bar icons visibly rendered in the final artifact?",
+      "evidenceRequired": "Visible rendered SVG/path/image geometry, screenshot evidence, or non-zero visible pixel/bounding-box proof.",
+      "group": "assetsAndIcons",
+      "fixIfFail": "Apply the relevant bottom-bar reference rule, revise the artifact, and provide concrete DOM/Figma/measurement evidence for this check."
+    },
+    {
+      "id": "stockQuoteNumericFont",
+      "severity": "P1",
+      "mustPass": true,
+      "question": "If quote info values appear, do financial numeric runs use 涨乐财富体?",
+      "evidenceRequired": "Text-run evidence for quote prices, amounts, or percentages using the bundled financial numeric font.",
+      "group": "variant.stockQuotePage",
+      "fixIfFail": "Apply the bottom-bar typography rules and global financial numeric font rules, then verify rendered text runs."
+    },
+    {
+      "id": "tradeEntryAssetGuard",
+      "severity": "P0",
+      "mustPass": true,
+      "question": "On primaryPage, is 交易入口 rendered as a scene entry with entry-trade assets instead of quote action assets?",
+      "evidenceRequired": "primaryPage variant plus bottom-bar-entry-trade-* asset paths; evidence that bottom-bar-action-buy/sell/cancel assets are not used for the trade entry.",
+      "group": "entriesAndActions",
+      "fixIfFail": "Use the approved bottom-bar asset and mode-specific binding from references/components-bottom-bar.md and assets/templates/bottom-bar-component.json."
+    },
+    {
+      "id": "quoteActionContextGuard",
+      "severity": "P0",
+      "mustPass": true,
+      "question": "Are buy/sell/cancel quoteActions used only in stockQuotePage or an explicit quote-detail bottom action bar context?",
+      "evidenceRequired": "stockQuotePage variant or explicit quote-detail context before any quoteActions; no quoteActions in primaryPage sceneEntries.",
+      "group": "entriesAndActions",
+      "fixIfFail": "Apply the relevant bottom-bar reference rule, revise the artifact, and provide concrete DOM/Figma/measurement evidence for this check."
+    },
+    {
+      "id": "paperTradeExplicitOnly",
+      "severity": "P1",
+      "mustPass": true,
+      "question": "Is paperTrade shown only when explicitly required by context or user request?",
+      "evidenceRequired": "Rendered scene entry list and rationale for paperTrade; notApplicable when 模拟交易 is not requested or not part of page context.",
+      "group": "entriesAndActions",
+      "fixIfFail": "Apply the relevant bottom-bar reference rule, revise the artifact, and provide concrete DOM/Figma/measurement evidence for this check."
+    },
+    {
+      "id": "sceneEntrySelectedVisualBounds",
+      "severity": "P1",
+      "mustPass": true,
+      "question": "Do selected scene entries use 86x86 visual bounds while retaining a 48x48 layout box and hit area?",
+      "evidenceRequired": "Measurement or structure evidence distinguishing selected visual bounds from layout box and hit area.",
+      "group": "entriesAndActions",
+      "fixIfFail": "Apply the relevant bottom-bar reference rule, revise the artifact, and provide concrete DOM/Figma/measurement evidence for this check."
+    },
+    {
+      "id": "sceneEntryActiveAnchorStable",
+      "severity": "P1",
+      "mustPass": true,
+      "question": "Is the selected 86x86 visual anchored to the center of the 48x48 scene-entry layout box without moving the entry position?",
+      "evidenceRequired": "Center-point, Figma constraint, DOM geometry, or structure evidence showing the entry center and spacing remain stable across default/selected states.",
+      "group": "entriesAndActions",
+      "fixIfFail": "Apply the relevant bottom-bar reference rule, revise the artifact, and provide concrete DOM/Figma/measurement evidence for this check."
+    },
+    {
+      "id": "iconOnlyDefaultEntry",
+      "severity": "P2",
+      "mustPass": true,
+      "question": "Do default scene entries show icon-only labels unless text-label entry assets are explicitly requested?",
+      "evidenceRequired": "Default scene-entry asset paths use icon-default assets, or explicit requirement for text-default assets.",
+      "group": "assetsAndIcons",
+      "fixIfFail": "Apply the relevant bottom-bar reference rule, revise the artifact, and provide concrete DOM/Figma/measurement evidence for this check."
+    },
+    {
+      "id": "inputPillShapeAndHeight",
+      "severity": "P1",
+      "mustPass": true,
+      "question": "Does the primaryPage bottom-bar input pill use 48px height and 999px radius?",
+      "evidenceRequired": "Style, Figma measurement, DOM geometry, or template binding evidence for 48px height and 999px radius.",
+      "group": "inputPillAndMode",
+      "fixIfFail": "Apply the relevant bottom-bar reference rule, revise the artifact, and provide concrete DOM/Figma/measurement evidence for this check."
+    },
+    {
+      "id": "inputPillMaterialByModeAndState",
+      "severity": "P1",
+      "mustPass": true,
+      "question": "Does the input pill use the approved material for light mode and dark voice mode instead of only replacing text?",
+      "evidenceRequired": "Light material #FFFFFF 60% -> #FFFFFF 90% with 0.6px #CDDCF5 border; dark voice includes the three approved gradient layers, #FFFFFF 80% -> #FFFFFF 29% border, and 0 0 4px rgba(62,65,122,0.24) inset shadow.",
+      "group": "inputPillAndMode",
+      "fixIfFail": "Apply the relevant bottom-bar reference rule, revise the artifact, and provide concrete DOM/Figma/measurement evidence for this check."
+    },
+    {
+      "id": "darkTextInputMaterial",
+      "severity": "P1",
+      "mustPass": true,
+      "question": "Does dark text-input mode use the approved quiet translucent material distinct from dark voice mode?",
+      "evidenceRequired": "Dark text input background #FFFFFF 8% and border #FFFFFF 8% -> #FFFFFF 3%; evidence that the dark voice gradient material is not used for text/default.",
+      "group": "inputPillAndMode",
+      "fixIfFail": "Apply the relevant bottom-bar reference rule, revise the artifact, and provide concrete DOM/Figma/measurement evidence for this check."
+    },
+    {
+      "id": "inputModeToggleSemanticIcon",
+      "severity": "P1",
+      "mustPass": true,
+      "question": "Does the input-mode toggle icon represent the next available input mode?",
+      "evidenceRequired": "inputMode: text shows the voice toggle asset bottom-bar-mode-voice-light.svg or bottom-bar-mode-voice-dark.svg; inputMode: voice shows the keyboard toggle asset bottom-bar-mode-keyboard-light.svg or bottom-bar-mode-keyboard-dark.svg. Evidence includes props/layers/DOM and rendered asset path.",
+      "fixIfFail": "Bind inputModeToggle by next available mode: text -> voice asset, voice -> keyboard asset.",
+      "group": "inputPillAndMode"
+    },
+    {
+      "id": "inputModeToggleNextModeAssetBinding",
+      "severity": "P1",
+      "mustPass": true,
+      "question": "Is inputModeToggle asset binding based on the next available input mode rather than the current mode?",
+      "evidenceRequired": "Current inputMode text with 提问或搜索 uses bottom-bar-mode-voice-light.svg or bottom-bar-mode-voice-dark.svg. Current inputMode voice with 按住说话 uses bottom-bar-mode-keyboard-light.svg or bottom-bar-mode-keyboard-dark.svg. Dark text/default must not use bottom-bar-mode-keyboard-dark.svg.",
+      "fixIfFail": "Rebind inputModeToggle: text -> voice asset, voice -> keyboard asset; do not bind keyboard asset to text/default state.",
+      "group": "inputPillAndMode"
+    },
+    {
+      "id": "inputModeAssetMatchesColorMode",
+      "severity": "P1",
+      "mustPass": true,
+      "question": "Do input-mode toggle assets match light/dark mode and render at 30x30 in dark mode?",
+      "evidenceRequired": "For the mapped next-mode asset, light uses *-light.svg and dark uses *-dark.svg; dark text/default uses bottom-bar-mode-voice-dark.svg at 30x30, not bottom-bar-mode-keyboard-dark.svg.",
+      "fixIfFail": "Use the mode-matched asset from assetWhenCurrentModeIsText/Voice and keep dark toggle size 30x30.",
+      "group": "inputPillAndMode"
+    },
+    {
+      "id": "textInputTypographyToken",
+      "severity": "P1",
+      "mustPass": true,
+      "question": "Does text/default input use PingFang SC Regular 16px and xzl/color/text/quaternary, not Medium 500?",
+      "evidenceRequired": "Text default placeholder 提问或搜索 uses Regular 400, 16px, xzl/color/text/quaternary; dark mode resolves to #FFFFFF 30%.",
+      "group": "inputPillAndMode",
+      "fixIfFail": "Apply the bottom-bar typography rules and global financial numeric font rules, then verify rendered text runs."
+    },
+    {
+      "id": "voiceInputContentCentered",
+      "severity": "P1",
+      "mustPass": true,
+      "question": "Is voice/default input content centered as a combined voice-icon plus 按住说话 text group?",
+      "evidenceRequired": "Layout evidence showing the 13x16 voice icon and text group centered inside the pill, not only text-align on the label.",
+      "group": "inputPillAndMode",
+      "fixIfFail": "Apply the relevant bottom-bar reference rule, revise the artifact, and provide concrete DOM/Figma/measurement evidence for this check."
+    },
+    {
+      "id": "voiceInputGroupCenteredInPill",
+      "severity": "P1",
+      "mustPass": true,
+      "appliesOnlyWhen": "bottom bar contains inputPill and inputMode is voice",
+      "question": "Is the voice icon plus 按住说话 text centered as one combined group against the full inputPill bounds?",
+      "evidenceRequired": "Measurement or DOM/Figma evidence showing the combined voice icon + text group center equals the full inputPill center; inputModeToggle is excluded from the centering calculation.",
+      "fixIfFail": "Center the combined voice content group against the full inputPill and avoid shrinking the content area or using asymmetric padding to compensate for inputModeToggle.",
+      "group": "inputPillAndMode"
+    },
+    {
+      "id": "textInputPlaceholderLeftInset16",
+      "severity": "P1",
+      "mustPass": true,
+      "appliesOnlyWhen": "bottom bar contains inputPill and inputMode is text",
+      "question": "Does the text input placeholder 提问或搜索 start 16px from the inputPill left edge?",
+      "evidenceRequired": "Measurement or DOM/Figma evidence showing placeholder left edge is 16px from the inputPill left edge; right-side toggle reserve space does not alter this left inset.",
+      "fixIfFail": "Set text input placeholder left inset to 16px and constrain overflow on the right side without changing the left start position.",
+      "group": "inputPillAndMode"
+    },
+    {
+      "id": "primaryPageHorizontalLayout",
+      "severity": "P1",
+      "mustPass": true,
+      "question": "Does 首页 primaryPage use the approved horizontal layout with trade on the left, adaptive input in the center, and watchHold on the right?",
+      "evidenceRequired": "390x130 frame; body bottom 34px height 48px; trade x=16 size 48x48; watchHold right=21 size 48x48; input auto width between entries; 16px gaps on both sides of input; for 390px frame input width resolves to 225px.",
+      "fixIfFail": "Apply the primaryPage horizontal layout contract instead of approximate spacing or grouping entries after the input.",
+      "group": "variant.primaryPage"
+    },
+    {
+      "id": "primaryPageEntryOrder",
+      "severity": "P1",
+      "mustPass": true,
+      "question": "Are trade and watchHold placed around the input instead of grouped after the input?",
+      "evidenceRequired": "DOM/Figma/layer order or measured x positions showing trade / input / watchHold.",
+      "fixIfFail": "Move trade to the left of input and watchHold to the right of input.",
+      "group": "variant.primaryPage"
+    },
+    {
+      "id": "prototypeInteractionStates",
+      "severity": "P2",
+      "mustPass": true,
+      "question": "For standalone bottom-bar prototypes, are input mode and scene-entry selected states clickable when relevant assets exist?",
+      "evidenceRequired": "Clicking inputModeToggle changes inputMode and mode toggle asset; clicking sceneEntry changes selectedSceneEntry and uses approved active/default assets.",
+      "fixIfFail": "Add prototype interaction handlers and bind state to approved mode and entry assets.",
+      "group": "prototype"
+    },
+    {
+      "id": "prototypeComponentFirst",
+      "severity": "P2",
+      "mustPass": true,
+      "question": "Does a component prototype lead with the bottom-bar component itself rather than large fake page content or checklist panels?",
+      "evidenceRequired": "The component frame is the primary visible output; optional phone preview and checklist are secondary.",
+      "fixIfFail": "Move explanatory content below and remove unnecessary fake page modules or measurement markers.",
+      "group": "prototype"
+    },
+    {
+      "id": "stockQuoteIndexInfoStructure",
+      "severity": "P1",
+      "mustPass": true,
+      "appliesOnlyWhen": "stockQuotePage includes quoteInfoRow or indexInfo",
+      "question": "When stockQuotePage includes indexInfo, does it use the one-line index information structure?",
+      "evidenceRequired": "One-line structure: 指数名称 + 点位 + 涨跌额 + 涨跌幅 + 展开/收起箭头. No 上证指数 / 深证成指 two-column card.",
+      "fixIfFail": "Remove the two-column index card and render the one-line index information structure.",
+      "group": "variant.stockQuotePage.indexInfo"
+    },
+    {
+      "id": "stockQuoteIndexTypography",
+      "severity": "P1",
+      "mustPass": true,
+      "appliesOnlyWhen": "stockQuotePage includes quoteInfoRow or indexInfo",
+      "question": "When stockQuotePage includes indexInfo, do the index name, numbers, and arrow use the approved typography, size, and color?",
+      "evidenceRequired": "Index name: PingFang SC Regular 400, 13px, xzl/color/text/primary. Values: ZLCaiFuTi Regular 13px with red-up/green-down tokens. Arrow: shared xzl-arrow-up/down component-library shape, 18x18, xzl/color/text/tertiary resolving to light #6D778B and dark 50% #FFFFFF.",
+      "fixIfFail": "Apply stock quote index typography and financial red/green semantics.",
+      "group": "variant.stockQuotePage.indexInfo"
+    },
+    {
+      "id": "stockQuoteIndexSpacing",
+      "severity": "P1",
+      "mustPass": true,
+      "appliesOnlyWhen": "stockQuotePage includes quoteInfoRow or indexInfo",
+      "question": "When stockQuotePage includes indexInfo, do the index row, divider, and operation spacing match the indexInfo reference?",
+      "evidenceRequired": "Index left/right 18px; number-arrow gap 12px; top-to-index 7px; index-to-divider 7px; divider-to-actions 15px; full-width 0.5px divider using xzl/color/input/background.",
+      "fixIfFail": "Apply the index row spacing contract and full-width divider.",
+      "group": "variant.stockQuotePage.indexInfo"
+    },
+    {
+      "id": "stockQuoteControlsAboveSafeArea",
+      "severity": "P1",
+      "mustPass": true,
+      "appliesOnlyWhen": "stockQuotePage includes quoteInfoRow or indexInfo",
+      "question": "When stockQuotePage includes indexInfo, are controls directly above the 34px safe area with no extra internal blank space?",
+      "evidenceRequired": "Box model shows business content height equals declared rows/gaps/divider/action height; bottom-bar container bottom is 0; safeArea is 34px inside the container and contains no business controls.",
+      "fixIfFail": "Remove undeclared internal blank space and keep only the 34px safe area below the operation layer.",
+      "group": "variant.stockQuotePage.indexInfo"
+    },
+    {
+      "id": "stockQuoteIndexBackgroundMaterial",
+      "severity": "P1",
+      "mustPass": true,
+      "appliesOnlyWhen": "stockQuotePage includes quoteInfoRow or indexInfo",
+      "question": "When stockQuotePage includes indexInfo, does the bottom bar use the approved index-info background material?",
+      "evidenceRequired": "Layered structure: independent 179px backgroundAsset/shadow layer below quotePanel and unclipped; quotePanel has radius 20px 20px 0 0. Light panel uses 190deg white gradient, 0 0 20px rgba(107,186,240,0.25), blur(15px), two independent blurred shape layers, and independent 0.5px 190deg gradient stroke. Dark panel uses Figma Inspect background layers linear-gradient(160deg, rgba(36,54,103,0.40) -7.33%, rgba(18,26,54,0.01) 52.57%) plus #051027, with independent 180deg transparent white gradient stroke.",
+      "fixIfFail": "Separate the background/shadow layer from quotePanel, keep shadow unclipped, and apply mode-correct panel material/stroke.",
+      "group": "variant.stockQuotePage.indexInfo"
+    },
+    {
+      "id": "stockQuoteLightBlurShapesSeparate",
+      "severity": "P1",
+      "mustPass": true,
+      "appliesOnlyWhen": "stockQuotePage includes quoteInfoRow or indexInfo in light mode",
+      "question": "Does the light quotePanel render the two approved blurred shape layers as separate layers?",
+      "evidenceRequired": "Shape 1 is 218x106 #758AA0 opacity 0.5 blur 100; shape 2 is 259.854x106 #BACCDF opacity 0.4 blur 60; both are inside quotePanel, below content and stroke. Figma uses independent shape nodes; HTML uses independent DOM layers such as .light-blob.one and .light-blob.two.",
+      "fixIfFail": "Create two independent blurred shape layers and remove radial-gradient, merged glow, box-shadow, or ordinary background approximations.",
+      "group": "variant.stockQuotePage.indexInfo"
+    },
+    {
+      "id": "stockQuoteLightNoRadialGradientApproximation",
+      "severity": "P1",
+      "mustPass": true,
+      "appliesOnlyWhen": "stockQuotePage includes quoteInfoRow or indexInfo in light mode",
+      "question": "Does the light quotePanel avoid radial-gradient or single-background approximations for the two glows?",
+      "evidenceRequired": "No radial-gradient or merged background is used to represent the two approved blur shapes; separate nodes/layers are inspectable.",
+      "fixIfFail": "Replace radial-gradient or merged background approximations with the two approved independent blur layers.",
+      "group": "variant.stockQuotePage.indexInfo"
+    },
+    {
+      "id": "stockQuoteDarkPanelFigmaInspectMaterial",
+      "severity": "P1",
+      "mustPass": true,
+      "appliesOnlyWhen": "stockQuotePage includes quoteInfoRow or indexInfo in dark mode",
+      "question": "Does the dark quotePanel use the approved Figma Inspect background material?",
+      "evidenceRequired": "Dark quotePanel background is linear-gradient(160deg, rgba(36,54,103,0.40) -7.33%, rgba(18,26,54,0.01) 52.57%) over #051027, with radius 20px 20px 0 0.",
+      "fixIfFail": "Apply the approved dark background layers; do not approximate with a flat color, light material, or white panel.",
+      "group": "variant.stockQuotePage.indexInfo"
+    },
+    {
+      "id": "stockQuoteDarkStrokeNotSolid",
+      "severity": "P1",
+      "mustPass": true,
+      "appliesOnlyWhen": "stockQuotePage includes quoteInfoRow or indexInfo in dark mode",
+      "question": "Is the dark quotePanel stroke an independent transparent white gradient instead of a solid white border?",
+      "evidenceRequired": "Stroke is independent linear-gradient(180deg, rgba(255,255,255,0.10), rgba(255,255,255,0)); it does not cover or replace the #051027 panel background.",
+      "fixIfFail": "Replace solid white borders or white overlay mistakes with the approved independent gradient stroke.",
+      "group": "variant.stockQuotePage.indexInfo"
+    },
+    {
+      "id": "stockQuoteCollapsedIndexArrowUp",
+      "severity": "P1",
+      "mustPass": true,
+      "appliesOnlyWhen": "stockQuotePage includes quoteInfoRow or indexInfo collapsed state",
+      "question": "Does the collapsed indexInfo state use the up arrow when tapping expands upward?",
+      "evidenceRequired": "Collapsed indexInfo state references assets/icons/xzl-arrow-up.svg; direction is chosen by next motion upward, not by a generic collapsed/down convention.",
+      "fixIfFail": "Use xzl-arrow-up.svg for the collapsed upward-expand stockQuote indexInfo state.",
+      "group": "variant.stockQuotePage.indexInfo"
+    },
+    {
+      "id": "htmlPrototypeInlineArrowCurrentColorTrace",
+      "severity": "P1",
+      "mustPass": true,
+      "appliesOnlyWhen": "standalone HTML/file:// stockQuote indexInfo bottom-bar prototype",
+      "question": "Does the HTML prototype render the indexInfo arrow with inline approved SVG path, currentColor, and asset trace?",
+      "evidenceRequired": "Arrow inline SVG path is copied from assets/icons/xzl-arrow-up.svg or xzl-arrow-down.svg, uses fill/stroke currentColor, wrapper uses var(--xzl-color-text-tertiary), and markup keeps asset trace such as data-asset. It does not rely on external <use> for file:// rendering.",
+      "fixIfFail": "Inline the approved SVG path with currentColor and an asset trace; avoid external-use-only rendering for file:// prototypes.",
+      "group": "prototype"
+    },
+    {
+      "id": "stockQuoteShadowNotRoundedOrClipped",
+      "severity": "P1",
+      "mustPass": true,
+      "appliesOnlyWhen": "stockQuotePage includes quoteInfoRow or indexInfo",
+      "question": "Is the stockQuote indexInfo shadow/background asset free from top rounded-corner clipping?",
+      "evidenceRequired": "backgroundAsset/shadow layer is independent from quotePanel; outer container does not use overflow:hidden plus border-radius that clips the shadow top.",
+      "fixIfFail": "Split shadow/background layer from quotePanel and apply top radius only to quotePanel.",
+      "group": "variant.stockQuotePage.indexInfo"
+    },
+    {
+      "id": "stockQuotePanelRoundedOnly",
+      "severity": "P1",
+      "mustPass": true,
+      "appliesOnlyWhen": "stockQuotePage includes quoteInfoRow or indexInfo",
+      "question": "Is the top radius applied only to quotePanel/body panel?",
+      "evidenceRequired": "quotePanel has 20px 20px 0 0 radius; shadow/background asset is not rounded or clipped.",
+      "fixIfFail": "Remove rounded clipping from the shadow/background layer and keep radius on quotePanel only.",
+      "group": "variant.stockQuotePage.indexInfo"
+    },
+    {
+      "id": "stockQuoteStrokeDirection",
+      "severity": "P1",
+      "mustPass": true,
+      "appliesOnlyWhen": "stockQuotePage includes quoteInfoRow or indexInfo",
+      "question": "Are light/dark quotePanel stroke directions correct?",
+      "evidenceRequired": "Light stroke uses an independent 0.5px gradient stroke with 190deg direction; dark stroke uses independent top-to-bottom #FFFFFF 10% -> #FFFFFF 0% gradient stroke.",
+      "fixIfFail": "Replace plain border with an independent stroke layer and correct the mode-specific stroke direction.",
+      "group": "variant.stockQuotePage.indexInfo"
+    },
+    {
+      "id": "stockQuoteExpandIconAssetColor",
+      "severity": "P1",
+      "mustPass": true,
+      "appliesOnlyWhen": "stockQuotePage includes quoteInfoRow or indexInfo",
+      "question": "Does the expand/collapse arrow use the component-library arrow asset and bind to text-d?",
+      "evidenceRequired": "Uses assets/icons/xzl-arrow-up.svg for the collapsed indexInfo state that expands upward, or assets/icons/xzl-arrow-down.svg for expanded state collapse; color is bound to xzl/color/text/tertiary; light resolves #6D778B and dark resolves 50% #FFFFFF.",
+      "fixIfFail": "Use the shared component-library arrow shape with currentColor/token binding; collapsed upward-expand stockQuote indexInfo uses xzl-arrow-up.svg, not down.",
+      "group": "variant.stockQuotePage.indexInfo"
+    },
+    {
+      "id": "stockQuoteExpandIconSize",
+      "severity": "P1",
+      "mustPass": true,
+      "appliesOnlyWhen": "stockQuotePage includes quoteInfoRow or indexInfo",
+      "question": "Is the expand/collapse arrow rendered at 18x18?",
+      "evidenceRequired": "Rendered icon visual size is 18x18, matching bottom-bar-component.json iconMetrics.upDownExpand.visualSize.",
+      "fixIfFail": "Change the stockQuote indexInfo arrow from 13x13 to 18x18.",
+      "group": "variant.stockQuotePage.indexInfo"
+    },
+    {
+      "id": "htmlPrototypeNoMaskOnlyCriticalIcon",
+      "severity": "P1",
+      "mustPass": true,
+      "appliesOnlyWhen": "standalone HTML/file:// bottom-bar prototype",
+      "question": "Do critical icons avoid CSS-mask-only rendering?",
+      "evidenceRequired": "Expand/collapse arrow and other P1 icons render through inline approved SVG path plus currentColor token binding with asset trace, or through a visible copied asset; they are not mask-only or external-use-only in file:// prototypes.",
+      "fixIfFail": "Use inline component-library SVG path plus currentColor token binding and asset trace, or a visible copied asset instead of mask-only/external-use-only rendering.",
+      "group": "prototype"
+    },
+    {
+      "id": "chatPageHorizontalLayout",
+      "severity": "P1",
+      "mustPass": true,
+      "appliesOnlyWhen": "chatPage bottom bar",
+      "question": "Does chatPage use the approved horizontal layout with trade on the left, adaptive input in the center, and watchHold on the right?",
+      "evidenceRequired": "Horizontal model left 16 + trade 48 + gap 16 + input auto + gap 16 + watchHold 48 + right 21; input resolves to 225px in a 390px frame; inputModeToggle/pause stay inside the input pill.",
+      "fixIfFail": "Apply the chatPage horizontal layout contract and move inputModeToggle/pause inside the input pill.",
+      "group": "variant.chatPage.layout"
+    },
+    {
+      "id": "chatPageRowOrder",
+      "severity": "P1",
+      "mustPass": true,
+      "appliesOnlyWhen": "chatPage bottom bar",
+      "question": "Does chatPage place the input row above the agent row?",
+      "evidenceRequired": "390x171 frame, body 89px, safe area 34px, input row 48px above agent row 26px, with 15px gap from input row to agent row.",
+      "fixIfFail": "Place input row above the agent row and preserve the chatPage row heights.",
+      "group": "variant.chatPage.layout"
+    },
+    {
+      "id": "agentChipMaterial",
+      "severity": "P1",
+      "mustPass": true,
+      "appliesOnlyWhen": "chatPage includes agent chips",
+      "question": "Do agent chips use the approved capsule material?",
+      "evidenceRequired": "Background #799FFF 10%; default state has no border.",
+      "fixIfFail": "Apply the approved agent chip background and remove default borders.",
+      "group": "variant.chatPage.agentChips"
+    },
+    {
+      "id": "agentRowCentered",
+      "severity": "P1",
+      "mustPass": true,
+      "appliesOnlyWhen": "chatPage includes agent row/chips",
+      "question": "chatPage 的 agent row 在 chips 总宽度小于可视宽度时是否整体居中？",
+      "evidenceRequired": "390px frame 内 agent row 内容组中心与 frame 中心对齐；或 Figma/DOM/CSS 证明使用居中布局。仅在内容超宽时允许横向滚动或裁切策略。",
+      "fixIfFail": "将 agent row 内容组改为居中布局；仅在内容超宽时允许横向滚动。",
+      "group": "variant.chatPage.agentChips"
+    },
+    {
+      "id": "agentIconsColorBoundByMode",
+      "severity": "P1",
+      "mustPass": true,
+      "appliesOnlyWhen": "chatPage includes ordinary agent chips",
+      "question": "普通 agent chip 图标是否与文字同色，并按 light/dark 绑定正确模式色？",
+      "evidenceRequired": "Light 图标/文字为 #2D3A67，Dark 图标/文字为 #B2CFFF；HTML 原型中 currentColor SVG 不得仅通过 <img> 引入，并保留 asset trace。",
+      "fixIfFail": "使用 inline SVG、symbol/use + currentColor，或可验证的 token-color binding，并保留 asset trace。",
+      "group": "variant.chatPage.agentChips"
+    },
+    {
+      "id": "taskAssistantArrowColorBound",
+      "severity": "P1",
+      "mustPass": true,
+      "appliesOnlyWhen": "chatPage includes 任务助手 chip",
+      "question": "任务助手右箭头是否使用 shared arrow 资产并绑定 agent chip 当前模式色？",
+      "evidenceRequired": "使用 assets/icons/xzl-right-outlined.svg 的原始形状/路径；尺寸 14x14；Light 为 #2D3A67，Dark 为 #B2CFFF；HTML 中不是固定白色 <img>。",
+      "fixIfFail": "改为 inline approved SVG path + currentColor，并保留 data-asset。",
+      "group": "variant.chatPage.agentChips"
+    },
+    {
+      "id": "deepThinkingUnselectedColorBound",
+      "severity": "P1",
+      "mustPass": true,
+      "appliesOnlyWhen": "chatPage includes 深度思考 chip in unselected state",
+      "question": "深度思考未选中态图标是否按模式绑定颜色？",
+      "evidenceRequired": "unselected 使用 bottom-bar-agent-deep-thinking.svg 原始形状；Light 为 #2D3A67，Dark 为 #B2CFFF；HTML 原型通过 currentColor 等方式绑定，而不是 img-only。",
+      "fixIfFail": "未选中态改为 currentColor 渲染，不要直接 <img> 引入 currentColor SVG。",
+      "group": "variant.chatPage.agentChips"
+    },
+    {
+      "id": "deepThinkingStateIconExclusive",
+      "severity": "P1",
+      "mustPass": true,
+      "appliesOnlyWhen": "chatPage includes 深度思考 chip",
+      "question": "深度思考 selected/unselected 图标是否互斥显示？",
+      "evidenceRequired": "selected 时只显示 selected asset；unselected 时只显示 unselected asset；CSS/Figma variant/DOM 状态可证明两者不会同时渲染可见。",
+      "fixIfFail": "增加互斥状态、variant 条件或高优先级显隐规则，避免默认 icon display 规则覆盖隐藏规则。",
+      "group": "variant.chatPage.agentChips"
+    },
+    {
+      "id": "currentColorSvgNotImgOnly",
+      "severity": "P1",
+      "mustPass": true,
+      "appliesOnlyWhen": "standalone HTML/file:// prototype uses mode-colored SVG icons",
+      "question": "需要继承模式色的 currentColor SVG 是否避免仅用 <img> 引入？",
+      "evidenceRequired": "HTML 原型中需要模式变色的 SVG 使用 inline/currentColor/symbol/use 或可验证 token binding；固定色 <img> 仅用于模式色已完全正确的资源；inline SVG 保留原始 asset trace。",
+      "fixIfFail": "替换为可继承颜色的渲染方式，并保留原始 asset trace。",
+      "group": "prototype"
+    },
+    {
+      "id": "agentChipTypographyAndSpacing",
+      "severity": "P1",
+      "mustPass": true,
+      "appliesOnlyWhen": "chatPage includes agent chips",
+      "question": "Do agent chips use the approved typography, padding, icon size, and icon-text spacing?",
+      "evidenceRequired": "PingFang SC Regular 12px; padding left/right 12px and top/bottom 4px; SVG icon renders 14x14; icon-text gap 2px.",
+      "fixIfFail": "Apply the approved agent chip typography and spacing metrics.",
+      "group": "variant.chatPage.agentChips"
+    },
+    {
+      "id": "agentChipModeColors",
+      "severity": "P1",
+      "mustPass": true,
+      "appliesOnlyWhen": "chatPage includes agent chips",
+      "question": "Do agent chip text and icons use the approved light/dark colors?",
+      "evidenceRequired": "Light text/icon color #2D3A67; dark text/icon color #B2CFFF. Ordinary agent SVG icons are color-bound through Figma variables or verifiable HTML currentColor/symbol/use binding; not img-only currentColor inheritance.",
+      "fixIfFail": "Bind agent text and icons to the approved mode color, using inline SVG/currentColor or another verifiable token binding for HTML prototypes.",
+      "group": "variant.chatPage.agentChips"
+    },
+    {
+      "id": "thinkingChipSelectedState",
+      "severity": "P1",
+      "mustPass": true,
+      "appliesOnlyWhen": "chatPage includes 深度思考 chip",
+      "question": "Does 深度思考 selected state keep the background, add the approved border, and use the dedicated selected SVG asset?",
+      "evidenceRequired": "thinkingMode selected/unselected declared; selected background remains #799FFF 10%; selected border 0.5px with light #2D3A67 or dark #B2CFFF; selected icon uses deep-thinking-selected-light.svg or deep-thinking-selected-dark.svg; selected and unselected icons are not both visible.",
+      "fixIfFail": "Declare thinkingMode and use the dedicated selected SVG instead of generic check assets or hand-drawn icons.",
+      "group": "variant.chatPage.agentChips"
+    },
+    {
+      "id": "assistantChipDividerAndArrow",
+      "severity": "P1",
+      "mustPass": true,
+      "appliesOnlyWhen": "chatPage includes 任务助手 chip",
+      "question": "Does 任务助手 chip render agent icon + text + divider + right arrow with approved metrics and colors?",
+      "evidenceRequired": "Divider 12px high and 0.5px thick; text-divider gap 6px; divider-arrow gap 6px; arrow renders 14x14; light #2D3A67 and dark #B2CFFF colors; arrow uses original shape/path from shared assets/icons/xzl-right-outlined.svg with currentColor/token binding, not fixed-white img rendering.",
+      "fixIfFail": "Apply the task-assistant chip internal structure, divider metrics, and shared icon-library arrow asset.",
+      "group": "variant.chatPage.agentChips"
+    },
+    {
+      "id": "usesDirectFileAssetsForAgentIcons",
+      "severity": "P1",
+      "mustPass": true,
+      "appliesOnlyWhen": "chatPage includes agent chips or standalone HTML bottom-bar prototype",
+      "question": "Do agent icons, 深度思考 selected icons, and task-assistant arrow use approved direct file/component assets instead of inline SVG, CSS mask, or hand-drawn substitutes?",
+      "evidenceRequired": "Agent icons use approved assets/bottom-bar/icons/bottom-bar-agent-*.svg shapes with mode color binding; currentColor SVGs that need mode color are not img-only in HTML. 深度思考 selected references deep-thinking-selected-*.svg as file assets; task arrow uses shared assets/icons/xzl-right-outlined.svg shape with token binding. No CSS mask, hand-drawn, emoji, lucide, PNG substitute, or anonymous inline path.",
+      "fixIfFail": "Replace substitutes with approved file/component assets and relative prototype asset references.",
+      "group": "variant.chatPage.agentChips"
+    }
+  ]
+}
