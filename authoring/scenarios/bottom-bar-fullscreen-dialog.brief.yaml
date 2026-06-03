@@ -1,0 +1,95 @@
+# ============================================================
+# 01_HUMAN_REQUIRED
+# 人工必填区
+# ============================================================
+
+id: scenario.bottom-bar.fullscreen-dialog
+name: 全屏对话场景 Bottom Bar
+owner: product-design
+status: draft
+
+# [HUMAN REQUIRED]
+purpose: >
+  定义 APP 内全屏 AI 对话或助手对话页面的底部输入区规则。该场景支持语音输入、
+  文字输入、任务助手展开和 AI 生成内容提示。
+
+# [HUMAN REQUIRED]
+primaryUserGoal: >
+  用户在全屏对话页中继续输入、追问或展开任务助手，同时保持底部输入区稳定可识别。
+
+# [HUMAN REQUIRED]
+requiredContent:
+  - "真实 `bottom bar/母组件` 对话场景变体。"
+  - "黑版使用 `chat-dark`，白版使用 `chat-light`。"
+  - "`bottom bar/item/输入胶囊` 子组件。"
+  - Agent 建议胶囊或任务助手入口。
+  - AI 生成内容提示，除非有人工确认的隐藏规则。
+  - iOS home indicator / safe area。
+
+# [HUMAN REQUIRED]
+allowedZones:
+  - ai_chat_page_composer
+  - assistant_conversation_bottom
+  - fullscreen_dialog_bottom_composer
+
+# [HUMAN REQUIRED]
+forbiddenPatterns:
+  - 不要用于首页入口、个股行情页或交易行动区。
+  - 不要用于 H5 页面、账户页、搜索页、弹窗底部或二三级子页面。
+  - 不要把 Bottom Bar 本体塞进消息气泡或正文内嵌内容块。
+  - 不要在全屏对话 Bottom Bar 中加入买 / 卖 / 撤交易行动。
+
+# [HUMAN REQUIRED]
+riskWarnings:
+  - id: ai-disclosure
+    severity: P1
+    rule: 全屏对话或 AI 建议胶囊可见时，应保留 AI 生成内容提示或给出人工确认。
+  - id: scene-context-vs-placement
+    severity: P1
+    rule: AI 对话正文属于全屏对话场景上下文，但 Bottom Bar 只能放在底部输入区。
+
+# ============================================================
+# 02_AGENT_EXTRACTED
+# Agent 自动读取区
+# ============================================================
+
+candidateArchetype: fullscreen-ai-dialog-bottom-composer
+candidateComponents:
+  - component.bottom-bar
+  - bottom-bar.main
+  - bottom-bar.input-pill
+figmaRefs:
+  - fileName: 设计仓库
+    fileKey: pbxELN7TYDDguIgbXfc1zB
+    pageName: bottom bar
+    componentSetNodeId: "12:10172"
+    relatedVariants:
+      - chat-dark
+      - chat-light
+    usageExamples:
+      - bottom bar/全屏对话场景/语音-默认状态
+      - bottom bar/全屏对话场景/语音-展开任务助手
+      - bottom bar/全屏对话场景
+      - bottom bar/全屏对话场景/文字-展开任务助手
+assetRefs: []
+
+# ============================================================
+# 03_AGENT_EXPANSION_AND_CHECKLIST
+# Agent 扩展与自查区
+# ============================================================
+
+reviewChecklist:
+  - id: fullscreen-dialog-scene-only
+    question: 是否只在全屏对话底部输入区使用该场景？
+    passCriteria: 只允许出现在全屏对话页底部 composer，不得进入首页、个股、H5、弹窗或正文内嵌区域。
+  - id: input-pill-state-valid
+    question: 输入胶囊状态是否来自 `bottom bar/item/输入胶囊` 真实变体？
+    passCriteria: 语音 / 文字、默认 / 展开任务助手、黑版 / 白版必须对应真实组件状态。
+
+agentExpansion:
+  canonScenario:
+    path: canon/scenarios/bottom-bar-fullscreen-dialog.yaml
+  checklist:
+    path: canon/checklists/bottom-bar-fullscreen-dialog-review.yaml
+  docs:
+    path: docs/generated/scenarios/bottom-bar-fullscreen-dialog.md

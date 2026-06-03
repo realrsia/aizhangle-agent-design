@@ -13,6 +13,7 @@ Use these paths by responsibility:
 
 - `manifest.json`: machine-readable index for the whole repository. Load this first to discover entrypoints, canonical folders, schemas, bindings, and generated outputs.
 - `SKILL.md`: Agent task router. Use it to decide what to load for generation, review, repair, Figma lookup, component work, page work, or token lookup.
+- `DESIGN.md`: aesthetic system entrypoint. Use it for visual generation, visual review, design tasting, hierarchy, density, atmosphere, and source-priority decisions between Akun foundation rules and Dengpeng visual-language rules.
 - `AGENTS.md`: repository-level Agent behavior rules. Use it for editing discipline, source-of-truth rules, and human-owned fields.
 - `llms.txt`: short external LLM index. Use it when a lightweight overview is needed instead of the full repository.
 - `README.md`: human-facing overview. Use it to understand what this package is and how it differs from `zhangle-design-skill`.
@@ -38,6 +39,8 @@ Use these paths by responsibility:
 - `canon/foundations/tokens/`: token source of truth. Use it for colors, typography, spacing, radius, and future design-token groups.
 - `canon/foundations/tokens/color.tokens.json`: first-stage canonical color tokens. Use this instead of raw colors.
 - `canon/foundations/tokens/xzl-token-mapping.source.json`: copied source mapping from the old package. Use only for provenance or migration checks.
+- `canon/foundations/tokens/typography.tokens.json`: typography token source imported from the Akun foundation flow.
+- `canon/foundations/tokens/radius.tokens.json`: radius token source imported from the Akun foundation flow.
 - `canon/foundations/themes/`: theme mappings. Use this to resolve light/dark semantic roles.
 - `canon/foundations/themes/light.theme.yaml`: light-mode semantic token mapping.
 - `canon/foundations/themes/dark.theme.yaml`: dark-mode semantic token mapping.
@@ -78,6 +81,11 @@ Use these paths by responsibility:
 - `docs/references/`: copied reference documents from the old package. Use when prose detail is needed after canonical files.
 - `docs/references/authoring-workflow.md`: human/Agent component brief workflow. Use it to understand how brief files become formal repo files.
 - `docs/references/component-brief-workflow.md`: latest component brief workflow from the YAML fusion version. Use this as the current source for component brief zone format and expansion rules.
+- `docs/references/foundations/tokens.md`: Akun foundation token usage rules. Use this as the primary prose rule for token use.
+- `docs/references/foundations/typography.md`: Akun foundation typography and financial numeric font rules. Use this as the primary prose rule for font implementation.
+- `docs/references/foundations/visual-language.md`: Dengpeng visual language and aesthetic reference. Use this for atmosphere, composition, density, hierarchy, icon policy, and design intent after foundation values are loaded.
+- `docs/references/process/design-taster.md`: Dengpeng design-tasting review process adapted for AI Zhangle. Use this after the archetype and component set are selected.
+- `docs/references/process/impeccable-adaptation.md`: AI Zhangle-specific aesthetic anti-pattern lens.
 - `docs/references/git-collaboration.md`: Git branch and PR workflow for multi-person collaboration.
 - `docs/references/figma-binding-policy.md`: strong/weak/archive Figma binding policy imported from the Akun fusion source.
 - `docs/references/source-boundaries.md`: source precedence and conflict-resolution rules from the Akun fusion source.
@@ -111,10 +119,12 @@ Use these paths by responsibility:
    - component or scenario brief authoring
    - H5 / HTML low-fidelity prototype generation
    - token lookup
+   - visual generation or aesthetic review
 2. Load `manifest.json`.
-3. Load only the matching canonical files from `canon/`.
-4. Resolve Figma or local assets through `bindings/`.
-5. Run the relevant checklist from `canon/checklists/`.
+3. Load `DESIGN.md` when the task involves visual generation, visual review, aesthetic direction, design tasting, hierarchy, density, polish, or "does this look right".
+4. Load only the matching canonical files from `canon/`.
+5. Resolve Figma or local assets through `bindings/`.
+6. Run the relevant checklist from `canon/checklists/`.
 
 ## Load By Task
 
@@ -155,12 +165,29 @@ Keep `01_HUMAN_REQUIRED` fields human-authored or human-approved. Agents may dra
 
 Load:
 
+- `DESIGN.md` when the task asks for visual generation, redesign, aesthetic direction, or a complete screen.
+- `docs/references/foundations/visual-language.md`: applies AI Zhangle atmosphere, density, hierarchy, dark/light posture, icon policy, and composition rules.
+- `docs/references/foundations/tokens.md` and `docs/references/foundations/typography.md`: apply Akun foundation token and font rules before visual polish.
 - `authoring/scenarios/*.brief.yaml` when the scenario is new or human intent is being revised: provides product-owned scenario judgment.
 - `canon/archetypes/*.yaml`: provides page skeletons and zone structure.
 - `canon/scenarios/*.yaml`: maps business intent to archetypes, components, and constraints.
 - matching `canon/components/*.meta.yaml`: provides the component-level rules needed by the page.
 - `bindings/assets/manifest.yaml`: resolves local assets such as icons, fonts, backgrounds, templates, and examples.
 - `canon/checklists/visual-review.yaml`: validates the full page or scenario output.
+
+### Aesthetic Direction Or Design Tasting
+
+Load:
+
+- `DESIGN.md`: aesthetic source priority and route.
+- `docs/references/foundations/visual-language.md`: visual language, atmosphere, layout, density, hierarchy, typography principles, iconography, and composition rules.
+- `docs/references/process/design-taster.md`: structured design-tasting workflow and polish order.
+- `docs/references/process/impeccable-adaptation.md`: AI Zhangle-specific aesthetic anti-patterns.
+- `docs/references/visual-audit-chain.md`: review chain for intent, visual audit, evidence, and repair brief.
+- `docs/references/anti-patterns.md`: named visual and structural issues.
+- `docs/references/foundations/tokens.md`, `docs/references/foundations/typography.md`, `canon/foundations/tokens/*.json`, and theme files before changing any color, font, radius, or spacing.
+
+Source priority: use Akun foundation files for numeric values and implementation rules; use Dengpeng visual-language files for aesthetic judgment and missing composition guidance.
 
 ### H5 Or HTML Low-Fidelity Prototype
 
@@ -179,9 +206,12 @@ Load:
 
 Load:
 
+- `DESIGN.md`: aesthetic review route and source priority.
 - `canon/checklists/visual-review.yaml`: provides executable review rules.
 - matching component, archetype, and scenario files: provides the expected source rules for the reviewed surface.
 - `docs/references/foundations/review-report.md`: provides the human-readable report format and severity language.
+- `docs/references/process/design-taster.md`: provides hierarchy, density, layout, typography, icon, theme, chart, and polish checks.
+- `docs/references/foundations/visual-language.md`: provides AI Zhangle aesthetic intent and composition rules.
 
 ### Token Or Theme Lookup
 

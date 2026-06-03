@@ -1,0 +1,100 @@
+# ============================================================
+# 01_HUMAN_REQUIRED
+# 人工必填区
+# ============================================================
+
+id: scenario.bottom-bar.home-entry-expanded
+name: 首页场景 Bottom Bar 入口展开态
+owner: product-design
+status: draft
+
+# [HUMAN REQUIRED]
+purpose: >
+  定义 APP 首页体系中 Bottom Bar 入口展开后的使用规则。该场景用于
+  交易页左侧入口展开和“我的 / 自选”二级页右侧入口展开，不等同于买 / 卖 / 撤下单行动区。
+
+# [HUMAN REQUIRED]
+primaryUserGoal: >
+  用户在首页体系页面底部展开某个入口后，可以通过同侧向下箭头快速收起，
+  同时继续保留语音输入胶囊和底部安全区。
+
+# [HUMAN REQUIRED]
+requiredContent:
+  - "真实 `bottom bar/母组件` 首页场景变体。"
+  - "`bottom bar/item/输入胶囊` 子组件。"
+  - iOS home indicator / safe area。
+  - 交易页展开态：左侧入口触发，左侧圆形按钮显示向下箭头收起。
+  - 我的/自选二级页展开态：右侧入口触发，右侧“自选”按钮切换为向下箭头收起。
+  - 我的/模拟二级页：可出现模拟入口状态，默认使用文字按钮。
+
+# [HUMAN REQUIRED]
+allowedZones:
+  - app_trade_entry_expanded_bottom_composer
+  - app_watchlist_entry_expanded_bottom_composer
+  - app_my_secondary_tab_bottom_composer
+
+# [HUMAN REQUIRED]
+forbiddenPatterns:
+  - 不要把交易页展开态当成买 / 卖 / 撤下单行动底栏。
+  - 不要把我的/自选二级页展开态的右侧收起按钮继续显示为“自选”。
+  - 不要把自选、触发、模拟、持股当作独立于“我的”的一级页面。
+  - 不要在自选、触发或持股二级页使用模拟入口按钮。
+  - 不要把左右入口的展开方向互换。
+  - 不要把该展开态用于全屏对话、弹窗底部或普通卡片 footer。
+
+# [HUMAN REQUIRED]
+riskWarnings:
+  - id: home-entry-collapse-side
+    severity: P1
+    rule: 展开态收起按钮所在侧错误，会导致用户无法理解当前展开的是哪个入口。
+  - id: trade-entry-not-order-action
+    severity: P0
+    rule: 交易页入口展开态只是首页入口展开，不是下单交易行动区。
+
+# ============================================================
+# 02_AGENT_EXTRACTED
+# Agent 自动读取区
+# ============================================================
+
+candidateArchetype: fixed-bottom-composer-entry-expanded
+candidateComponents:
+  - component.bottom-bar
+  - bottom-bar.main
+  - bottom-bar.input-pill
+figmaRefs:
+  - fileName: 设计仓库
+    fileKey: pbxELN7TYDDguIgbXfc1zB
+    pageName: bottom bar
+    componentSetNodeId: "12:10172"
+    relatedVariants:
+      - default-dark
+      - default-light
+    exampleNodeIds:
+      - TODO_VERIFY_WITH_FIGMA
+assetRefs:
+  - /Users/penn/Downloads/IMG_5422.PNG
+  - /Users/penn/Downloads/IMG_5423.PNG
+
+# ============================================================
+# 03_AGENT_EXPANSION_AND_CHECKLIST
+# Agent 扩展与自查区
+# ============================================================
+
+reviewChecklist:
+  - id: home-entry-collapse-side-correct
+    question: 交易页和我的/自选二级页展开态的收起按钮是否在正确侧？
+    passCriteria: 交易页左侧入口展开后左侧为向下箭头；我的/自选二级页右侧入口展开后右侧为向下箭头。
+  - id: not-trading-action-bar
+    question: 是否误把交易页入口展开态当成买 / 卖 / 撤交易行动底栏？
+    passCriteria: 展开态中不得出现买 / 卖 / 撤行动按钮，也不得替代下单确认区。
+  - id: simulation-entry-only-in-my-simulation
+    question: 模拟入口按钮是否只在“我的 / 模拟”二级页出现？
+    passCriteria: 自选、触发、持股二级页不得使用模拟入口；默认显示文字状态，除非用户明确要求图标状态。
+
+agentExpansion:
+  canonScenario:
+    path: canon/scenarios/bottom-bar-home-entry-expanded.yaml
+  checklist:
+    path: canon/checklists/bottom-bar-home-entry-expanded-review.yaml
+  docs:
+    path: docs/generated/scenarios/bottom-bar-home-entry-expanded.md

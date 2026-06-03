@@ -1,0 +1,105 @@
+# ============================================================
+# 01_HUMAN_REQUIRED
+# 人工必填区
+# ============================================================
+
+id: scenario.bottom-bar.stock-detail-and-pretrade
+name: 个股详情与预交易 Bottom Bar
+owner: product-design
+status: draft
+
+# [HUMAN REQUIRED]
+purpose: >
+  定义个股相关 Bottom Bar 的两个使用语义：个股详情和预交易。个股详情用于
+  个股、ETF 等场内交易标的；预交易用于“我的”页面下自选、触发、模拟、持股四个二级页。
+
+# [HUMAN REQUIRED]
+primaryUserGoal: >
+  用户在个股或 ETF 详情页中理解当前标的上下文，在“我的”二级页中通过预交易底栏
+  查看指数信息并进入后续交易准备流程。
+
+# [HUMAN REQUIRED]
+requiredContent:
+  - "真实 `bottom bar/母组件` 个股相关变体。"
+  - 个股详情：明确的个股、ETF 或其他场内交易标的上下文。
+  - 预交易：必须展示指数模块。
+  - 指数名称、指数数据、指数现价、当日涨跌额、当日涨跌幅度。
+  - 输入胶囊和 iOS home indicator / safe area。
+
+# [HUMAN REQUIRED]
+allowedZones:
+  - stock_detail_bottom_composer
+  - stock_quote_bottom_action
+  - pretrade_bottom_composer
+  - app_my_secondary_tab_bottom_composer
+
+# [HUMAN REQUIRED]
+forbiddenPatterns:
+  - 不要把预交易用于首页普通入口或全屏对话。
+  - 不要把预交易直接当成下单确认区。
+  - 不要删除指数模块来压缩底栏高度。
+  - 不要把指数数值字段用普通文案样式替代。
+
+# [HUMAN REQUIRED]
+riskWarnings:
+  - id: pretrade-index-required
+    severity: P1
+    rule: 预交易区别于普通 Bottom Bar 的关键在于指数模块信息，不应省略。
+  - id: stock-target-context
+    severity: P1
+    rule: 个股详情必须绑定明确标的上下文，不能用于无标的页面。
+
+# ============================================================
+# 02_AGENT_EXTRACTED
+# Agent 自动读取区
+# ============================================================
+
+candidateArchetype: stock-detail-and-pretrade-bottom-composer
+candidateComponents:
+  - component.bottom-bar
+  - bottom-bar.main
+  - bottom-bar.input-pill
+figmaRefs:
+  - fileName: 设计仓库
+    fileKey: pbxELN7TYDDguIgbXfc1zB
+    pageName: bottom bar
+    componentSetNodeId: "12:10172"
+    relatedVariants:
+      - trading-dark
+      - trading-light
+      - trading-related-dark
+      - trading-related-light
+      - stock-index-dark
+      - stock-plain-light
+      - trading-index-dark
+      - trading-index-light
+      - trading-related-index-dark
+      - trading-related-index-light
+    usageExampleCount: 10
+    exampleNodeIds:
+      - TODO_VERIFY_WITH_FIGMA
+assetRefs: []
+
+# ============================================================
+# 03_AGENT_EXPANSION_AND_CHECKLIST
+# Agent 扩展与自查区
+# ============================================================
+
+reviewChecklist:
+  - id: stock-detail-target-context-valid
+    question: 个股详情是否用于明确的个股、ETF 等场内交易标的？
+    passCriteria: 页面必须有明确标的上下文，不能用于普通首页或无标的页面。
+  - id: pretrade-only-in-my-secondary-tabs
+    question: 预交易是否只用于“我的”下自选、触发、模拟、持股四个二级页？
+    passCriteria: 预交易不能用于全屏对话、首页普通入口、弹窗底部或下单确认区。
+  - id: pretrade-index-fields-complete
+    question: 预交易指数模块字段是否完整？
+    passCriteria: 必须包含指数名称、指数数据、指数现价、当日涨跌额、当日涨跌幅度。
+
+agentExpansion:
+  canonScenario:
+    path: canon/scenarios/bottom-bar-stock-detail-and-pretrade.yaml
+  checklist:
+    path: canon/checklists/bottom-bar-stock-detail-and-pretrade-review.yaml
+  docs:
+    path: docs/generated/scenarios/bottom-bar-stock-detail-and-pretrade.md

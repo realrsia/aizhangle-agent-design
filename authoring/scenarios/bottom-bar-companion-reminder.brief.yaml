@@ -1,0 +1,140 @@
+# ============================================================
+# 01_HUMAN_REQUIRED
+# 人工必填区
+# ============================================================
+
+id: scenario.bottom-bar.companion-reminder
+name: 陪伴场景 Bottom Bar 提醒
+owner: product-design
+status: draft
+
+# [HUMAN REQUIRED]
+purpose: >
+  定义 Bottom Bar 陪伴模块的使用方式：在首页、预交易或个股详情中，
+  通过陪伴人物、提醒文案、可选详情链接和可选操作按钮，引导用户查看权益、
+  处理当前事项或分析个股状态。
+
+# [HUMAN REQUIRED]
+primaryUserGoal: >
+  用户在底部区域看到与当前页面相关的轻量提醒，并能通过按钮或详情链接继续操作，
+  但不会被误导成交易指令或确定性投资建议。
+
+# [HUMAN REQUIRED]
+requiredContent:
+  - "真实 `bottom bar/母组件` 陪伴变体。"
+  - 陪伴人物或陪伴入口形象。
+  - 陪伴提醒文案。
+  - 可选详情链接。
+  - 可选操作按钮，单按钮或多按钮均左对齐。
+  - 输入胶囊和 iOS home indicator / safe area。
+
+# [HUMAN REQUIRED]
+allowedZones:
+  - primary_page_bottom_companion_area
+  - app_my_secondary_tab_bottom_companion_area
+  - pretrade_bottom_companion_area
+  - stock_detail_bottom_companion_area
+  - stock_quote_bottom_action
+
+# [HUMAN REQUIRED]
+forbiddenPatterns:
+  - 不要把陪伴模块放进全屏对话正文或 AI 消息气泡。
+  - 不要把陪伴按钮当成买 / 卖 / 撤下单按钮。
+  - 不要在没有可处理事项时强行展示操作按钮。
+  - 不要让陪伴气泡遮挡指数模块、输入胶囊或交易风险信息。
+
+# [HUMAN REQUIRED]
+companionContexts:
+  - id: home-companion
+    name: 首页陪伴
+    rule: 用于首页权益领取、功能上线、任务提醒等轻量引导。
+    copyExamples:
+      - 你有免费的 Level 2 待领取，快去领取
+      - 新功能已上线，去看看
+  - id: pretrade-companion
+    name: 预交易陪伴
+    rule: 用于“我的”体系或预交易场景中需要用户处理、点击或查看的事项。
+    copyExamples:
+      - 当前有待处理的交易相关事项，去看看
+      - 自选分组有新提醒，去处理
+  - id: stock-detail-companion
+    name: 个股详情陪伴
+    rule: 用于个股或 ETF 详情页中对当前标的状态做分析引导。
+    copyExamples:
+      - 当前个股股价低于 200 日价格，去分析一下原因
+      - 当前个股出现明显波动，看看可能原因
+
+# [HUMAN REQUIRED]
+buttonRules:
+  - 两个操作选项时展示两个按钮。
+  - 只有一个操作选项时，只保留左侧按钮。
+  - 按钮必须左对齐，不要居中或右对齐。
+  - 按钮文案可使用“去看看”“去领取”“去分析”等动作表达。
+
+# ============================================================
+# 02_AGENT_EXTRACTED
+# Agent 自动读取区
+# ============================================================
+
+candidateArchetype: bottom-bar-companion-reminder
+candidateComponents:
+  - component.bottom-bar
+  - bottom-bar.main
+  - bottom-bar.input-pill
+figmaRefs:
+  - fileName: 设计仓库
+    fileKey: pbxELN7TYDDguIgbXfc1zB
+    pageName: Bottom bar + Alert
+    componentSetNodeId: "12:10172"
+    selectedCount: 18
+    motherVariantNodeIds:
+      - "12:10198"
+      - "12:10207"
+      - "12:10325"
+      - "12:10341"
+      - "12:10261"
+      - "12:10276"
+    usageExampleNodeIds:
+      - "12:9237"
+      - "12:9240"
+      - "12:9238"
+      - "12:9239"
+      - "12:9241"
+      - "12:9242"
+      - "12:9243"
+      - "12:9247"
+      - "12:9244"
+      - "12:9246"
+      - "12:9245"
+      - "12:9248"
+assetRefs: []
+
+# ============================================================
+# 03_AGENT_EXPANSION_AND_CHECKLIST
+# Agent 扩展与自查区
+# ============================================================
+
+reviewChecklist:
+  - id: companion-context-matches-page
+    question: 陪伴场景是否与页面上下文一致？
+    passCriteria: 首页、预交易、个股详情三类陪伴文案和用途不得混用。
+  - id: companion-buttons-left-aligned
+    question: 操作按钮是否左对齐，并正确处理单按钮 / 多按钮？
+    passCriteria: 单按钮只保留左侧按钮，多按钮保持左对齐，不留空占位。
+  - id: companion-link-not-primary-action
+    question: 详情链接是否只用于查看提醒或文案详情？
+    passCriteria: 详情链接不能替代主按钮，也不能作为下单或交易动作。
+  - id: companion-copy-not-investment-advice
+    question: 个股详情陪伴文案是否避免确定性投资建议？
+    passCriteria: 可以引导分析原因，但不得承诺收益、直接建议买卖或替用户决策。
+  - id: companion-height-accounted
+    question: 陪伴模块高度和页面避让是否正确？
+    passCriteria: 陪伴模块不得遮挡指数、输入胶囊、交易风险信息或 home indicator。
+
+agentExpansion:
+  canonScenario:
+    path: canon/scenarios/bottom-bar-companion-reminder.yaml
+  checklist:
+    path: canon/checklists/bottom-bar-companion-reminder-review.yaml
+  docs:
+    path: docs/generated/scenarios/bottom-bar-companion-reminder.md

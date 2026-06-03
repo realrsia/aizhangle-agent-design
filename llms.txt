@@ -6,6 +6,7 @@ Start with:
 
 - `SKILL.md`
 - `manifest.json`
+- `DESIGN.md`
 - `authoring/components/index.yaml`
 - `docs/references/component-brief-workflow.md`
 - `canon/foundations/tokens/color.tokens.json`
@@ -18,3 +19,5 @@ Human reference material is under `docs/references/`.
 Generated outputs are under `generated/` and are not source of truth.
 
 For component work, treat `authoring/components/*.brief.yaml` as the human-authored input and expand it into `canon/components/`, `canon/checklists/`, `bindings/figma/components.yaml`, and `docs/generated/components/index.md`.
+
+For visual generation or aesthetic review, start with `DESIGN.md`. Akun foundation files own base values; Dengpeng visual-language files supplement atmosphere, hierarchy, density, and design tasting.

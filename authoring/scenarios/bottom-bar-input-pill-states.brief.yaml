@@ -1,0 +1,99 @@
+# ============================================================
+# 01_HUMAN_REQUIRED
+# 人工必填区
+# ============================================================
+
+id: scenario.bottom-bar.input-pill-states
+name: Bottom Bar 输入胶囊状态
+owner: product-design
+status: draft
+
+# [HUMAN REQUIRED]
+purpose: >
+  定义 `bottom bar/item/输入胶囊` 在 Bottom Bar 内的状态选择规则。输入胶囊是
+  Bottom Bar 内部子组件，不应单独脱离 Bottom Bar 使用。
+
+# [HUMAN REQUIRED]
+primaryUserGoal: >
+  用户可以清楚识别当前是语音输入、键盘输入、未输入、已输入、暂停或消息提醒状态。
+
+# [HUMAN REQUIRED]
+requiredContent:
+  - "真实 `bottom bar/item/输入胶囊` 组件集。"
+  - 输入方式：语音输入 / 键盘输入。
+  - 状态：未输入 / 已输入 / 暂停。
+  - 场景：默认 / 交易。
+  - 有消息提示、有关联问、Dark。
+  - 文案覆盖字段：关联问、键盘输入文字。
+
+# [HUMAN REQUIRED]
+allowedZones:
+  - bottom_bar_control_row
+  - primary_page_bottom_composer
+  - ai_chat_page_composer
+  - fullscreen_dialog_bottom_composer
+  - stock_quote_bottom_action
+  - trading_page_bottom_action
+
+# [HUMAN REQUIRED]
+forbiddenPatterns:
+  - 不要把输入胶囊单独作为页面底栏使用。
+  - 不要把输入胶囊放进正文、卡片或列表行。
+  - 不要把交易场景输入胶囊用于全屏对话或首页。
+  - 不要用占位长文本作为正式文案。
+
+# [HUMAN REQUIRED]
+riskWarnings:
+  - id: input-mode-state-confusion
+    severity: P1
+    rule: 输入方式和状态混用会导致用户误解当前能否输入、发送或停止回复。
+  - id: text-override-placeholder
+    severity: P2
+    rule: 关联问和键盘输入文字属于文本覆盖字段，正式规范中不能保留占位长文本。
+
+# ============================================================
+# 02_AGENT_EXTRACTED
+# Agent 自动读取区
+# ============================================================
+
+candidateArchetype: bottom-bar-input-pill-state
+candidateComponents:
+  - bottom-bar.input-pill
+figmaRefs:
+  - fileName: 设计仓库
+    fileKey: pbxELN7TYDDguIgbXfc1zB
+    pageName: bottom bar
+    componentSetNodeId: "12:8494"
+    componentSetName: bottom bar/item/输入胶囊
+    variantCount: 26
+    variantProperties:
+      - 输入方式
+      - 状态
+      - 场景
+      - 有消息提示
+      - 有关联问
+      - Dark
+      - 关联问
+      - 键盘输入文字
+assetRefs: []
+
+# ============================================================
+# 03_AGENT_EXPANSION_AND_CHECKLIST
+# Agent 扩展与自查区
+# ============================================================
+
+reviewChecklist:
+  - id: input-pill-real-component
+    question: 是否使用真实 `bottom bar/item/输入胶囊` 组件集？
+    passCriteria: 输出对象能对应到 Figma 节点 `12:8494` 的某个真实变体。
+  - id: input-pill-not-standalone
+    question: 输入胶囊是否被错误地单独作为页面底栏？
+    passCriteria: 输入胶囊只能作为 Bottom Bar 的内部子组件出现。
+
+agentExpansion:
+  canonScenario:
+    path: canon/scenarios/bottom-bar-input-pill-states.yaml
+  checklist:
+    path: canon/checklists/bottom-bar-input-pill-states-review.yaml
+  docs:
+    path: docs/generated/scenarios/bottom-bar-input-pill-states.md

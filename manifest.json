@@ -7,6 +7,7 @@
   "description": "Schema-first Agent-readable design-system repository for AI Zhangle / New Zhangle.",
   "entrypoints": {
     "skill": "SKILL.md",
+    "design": "DESIGN.md",
     "agents": "AGENTS.md",
     "llms": "llms.txt",
     "humanAuthoring": "authoring/README.md",
@@ -22,7 +23,10 @@
   },
   "canonical": {
     "tokens": "canon/foundations/tokens/",
+    "typographyTokens": "canon/foundations/tokens/typography.tokens.json",
+    "radiusTokens": "canon/foundations/tokens/radius.tokens.json",
     "themes": "canon/foundations/themes/",
+    "semantics": "canon/foundations/semantics/",
     "components": "canon/components/",
     "componentIndex": "canon/components/index.yaml",
     "archetypes": "canon/archetypes/",
@@ -57,10 +61,23 @@
     "searchIndex": "generated/search-index/",
     "componentDocsIndex": "docs/generated/components/index.md"
   },
+  "aesthetics": {
+    "entrypoint": "DESIGN.md",
+    "visualLanguage": "docs/references/foundations/visual-language.md",
+    "designTaster": "docs/references/process/design-taster.md",
+    "impeccableAdaptation": "docs/references/process/impeccable-adaptation.md",
+    "visualAuditChain": "docs/references/visual-audit-chain.md",
+    "antiPatterns": "docs/references/anti-patterns.md",
+    "foundationTokens": "docs/references/foundations/tokens.md",
+    "foundationTypography": "docs/references/foundations/typography.md",
+    "sourcePriority": "Akun foundation/component files own numeric values and implementation rules. Dengpeng design-generation files supplement visual language, composition, hierarchy, density, and design-tasting review."
+  },
   "provenance": {
     "primarySourcePackage": "../zhangle-design-skill",
     "fusionSourcePackage": "../各自的分支/0602xzl-design-system-fusion-version_阿琨合并版",
     "latestYamlFusionSourcePackage": "../各自的分支/0602xzl-design-system-fusion-version_基于最新的yaml合并版",
+    "akunFoundationSourcePackage": "../各自的分支/阿坤-组件搭建",
+    "dengpengDesignGenerationSourcePackage": "../各自的分支/邓鹏-设计生成repo",
     "sourceNotes": "Original packages are preserved outside this folder. Selected references and assets were copied into docs/, bindings/, canon/, authoring/, and renderers/."
   },
   "agents": {
