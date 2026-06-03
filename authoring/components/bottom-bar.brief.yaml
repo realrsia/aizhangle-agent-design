@@ -10,60 +10,1566 @@ status: draft
 
 # [HUMAN REQUIRED]
 purpose: >
-  用于新涨乐 AI 底部固定交互区，包括一级页面输入底栏、AI 对话输入底栏、
-  个股行情底部行动栏。底部栏是结构契约组件，必须按页面上下文和可见结构路由。
+  用于新涨乐 / AI 涨乐移动端页面底部固定交互区，承载语音输入、
+  AI 助手入口、页面场景入口、个股指数模块预览、个股买卖撤行动入口、
+  AI 生成内容提示和 iOS home indicator。该组件不是普通按钮组；
+  它是页面底部区域的结构契约组件，必须根据页面上下文、
+  交易风险、AI 内容披露和 light / dark 主题选择真实 Figma 组件变体。
 
 # [HUMAN REQUIRED]
 usedIn:
   - primary-page
+  - app-home-zhaochu-page
+  - app-home-market-page
+  - app-home-morning-audio-page
+  - app-home-reminder-page
+  - app-home-task-page
   - ai-chat-page
   - stock-quote-page
+  - trading-page
+  - market-or-index-aware-page
+  - "TODO_HUMAN_CONFIRM: 是否还用于账户、持仓、搜索等非个股页面"
 
 # [HUMAN REQUIRED]
 humanRules:
   do:
-    - 先按页面上下文和可见结构分类为 primaryPage、chatPage 或 stockQuotePage。
-    - 底部栏固定在移动端 frame 底部并位于内容层之上。
-    - 视觉修复前必须先确认结构契约。
+    - 先按截图分类选择场景变体：首页场景、全屏对话场景、个股场景、个股场景关联问或陪伴场景。
+    - 再按页面状态选择是否显示关联问、陪伴、指数模块和 Dark 主题。
+    - 首页场景目前适用于 APP 首页体系下的出招、大盘、早点听、提醒和任务页面。
+    - 底部栏必须固定在移动端 frame 底部，并为滚动内容预留遮挡安全距离。
+    - 全屏对话场景若展示 AI 建议胶囊或 AI 生成内容，应保留“内容由AI生成”提示。
+    - 个股场景必须区分指数信息、陪伴模块和买 / 卖 / 撤行动入口；交易入口属于个股场景下的交易上下文。
+    - light / dark 模式必须使用真实变体，不要只替换背景色。
   dont:
-    - 不要把一级页面交易入口和个股行情买卖撤行动混用。
-    - 不要移除官方入口、拉伸输入框或改变 scene entry 顺序来做视觉修复。
+    - 不要把普通按钮、tabs、列表行操作区或内容区胶囊当作 bottom bar 使用。
+    - 不要在 AI 对话正文中放置买、卖、撤等交易行动按钮。
+    - 不要在个股场景的交易上下文中使用首页场景的右侧助手图标替代买 / 卖 / 撤行动。
+    - 不要删除 home indicator、安全区或 AI 内容披露文案来压缩高度。
+    - 不要用手绘 frame 近似强维护底栏组件。
 
 # [HUMAN REQUIRED]
 riskWarnings:
-  - 个股行情底部买卖撤入口涉及交易路径，必须保持场景和结构正确。
+  - id: bottom-bar-structure-contract
+    severity: P0
+    rule: 底部栏定义页面底部固定交互结构，误用会导致页面导航、输入或交易入口语义错误。
+  - id: trading-actions-in-bottom-bar
+    severity: P0
+    rule: 个股场景中的买、卖、撤入口涉及资金和交易路径，必须有明确标的和交易上下文。
+  - id: ai-generated-disclosure
+    severity: P1
+    rule: 全屏对话或 AI 建议内容出现时，需要确认是否保留“内容由AI生成”披露文案。
 
 # [HUMAN REQUIRED]
 allowedZones:
   - mobile_frame_bottom
+  - primary_page_bottom_composer
+  - ai_chat_page_composer
   - stock_quote_bottom_action
-  - chat_page_composer
+  - trading_page_bottom_action
+  - market_index_bottom_summary
 
 # [HUMAN REQUIRED]
 forbiddenZones:
   - scroll_content_body
   - ordinary_card_footer
+  - content_section_tab_area
+  - list_row_action_area
+  - ai_chat_message_body
+  - generic_form_footer
+  - marketing_or_banner_area
 
 # [HUMAN REQUIRED]
 requiredPairings:
   - page-context
   - safe-area
-  - variant
+  - figma-variant
+  - light-or-dark-theme
+  - voice-input-or-action-context
+  - ai-disclosure-when-ai-content-visible
+  - trading-context-when-buy-sell-cancel-visible
 
 # [HUMAN REQUIRED]
 forbiddenPairings:
   - generic-bottom-navigation
+  - tabs-component-as-bottom-bar
+  - ordinary-button-group-as-bottom-bar
+  - trading-action-without-selected-security
+  - ai-message-body-with-direct-trade-action
   - floating-card-substitute
 
 # [HUMAN REQUIRED]
 examples:
   good:
-    - assetPath: assets/examples/stock-detail-page.png
-      reason: 个股行情底部行动栏与页面上下文一致。
-  needsReview: []
+    - figmaNodeId: "12:10173"
+      name: bottom bar/母组件 / 首页场景 / Dark
+      reason: 首页场景底部固定输入栏，包含左侧场景图标、语音输入胶囊、右侧助手入口和 home indicator。
+    - figmaNodeId: "12:10180"
+      name: bottom bar/母组件 / 全屏对话场景 / Dark
+      reason: 全屏对话场景在输入栏上方显示 Agent 助手胶囊，并保留 AI 生成内容提示。
+    - figmaNodeId: "12:10325"
+      name: bottom bar/母组件 / 个股场景 / 有陪伴 / 有指数 / Dark
+      reason: 个股场景的交易上下文包含陪伴模块、指数模块、语音输入和买 / 卖 / 撤行动入口。
+  needsReview:
+    - name: "TODO_HUMAN_CONFIRM: 是否需要为传统五项底部导航另建 brief"
+      reason: 本文件本轮只记录当前选中的 bottom bar/母组件及 20 个变体，不纳入其他未选中的底部导航组件。
   bad:
-    - name: 首页交易入口使用个股买入资产
-      reason: 一级页面 scene entry 与个股 quote action 语义不同。
+    - name: 用 tabs 组件模拟底部栏
+      reason: tabs 只负责同级内容切换，不承载页面底部固定输入、AI 披露和安全区。
+    - name: AI 对话正文内直接出现买入按钮
+      reason: 买卖撤行动必须在交易上下文底栏或交易表单内出现，不能作为普通 AI 回复内容。
+    - name: 个股场景交易上下文使用首页场景三按钮底栏
+      reason: 首页场景右侧助手入口不能替代买 / 卖 / 撤行动。
+
+# [HUMAN REQUIRED]
+componentHumanRules:
+  ruleScope: component-family-board
+  appliesTo:
+    figmaPage: bottom bar
+    componentId: component.bottom-bar
+    confirmedFamilyCount: "TODO_VERIFY_WITH_FIGMA"
+  definition: >
+    这里记录 bottom bar 画板级规则：这个画板下的所有母组件都先作为
+    独立 `componentFamilies` 登记，每个母组件 family 再拥有自己的变体组
+    和变体人工规则。`bottom bar/母组件` 的 20 个变体继续写入
+    `variantGroups` 和 `variantHumanRules`；其他母组件，例如
+    `bottom bar/item/长按语音输入` 的 8 个变体，写入
+    `familyVariantGroups` 和 `familyVariantHumanRules`。页面截图、H5 demo
+    或临时组合只写入 `usageInstanceGroups`。
+  humanEditableFields:
+    - purpose
+    - usedIn
+    - humanRules
+    - allowedZones
+    - forbiddenZones
+    - requiredPairings
+    - forbiddenPairings
+    - riskWarnings
+    - examples
+  do:
+    - 先判断新增对象是不是 Figma 里的母组件 / component set；如果是，就先登记为 component family。
+    - 每个 component family 都要有自己的大致使用场景、允许区域、禁用区域和风险边界。
+    - 每个 family 下面的子变体都要能单独补充人工规则。
+  dont:
+    - 不要把真实母组件降级成普通使用实例或交互状态。
+    - 不要把所有母组件的规则合并进一个笼统的 bottom bar 总规则里。
+    - 不要把页面示例、H5 demo、交互过程截图直接当成新的母组件 family。
+    - 不要让 `authoring/scenarios` 反向覆盖组件本身的允许 / 禁止使用边界。
+
+# [HUMAN REQUIRED]
+extensionModel:
+  principle: >
+    本 brief 先按 Figma 画板里的母组件分类，再按每个母组件的变体展开。
+    `componentFamilies` 是所有母组件的目录；每个 family 都可以拥有自己的
+    variant groups 和 variant human rules。`bottom bar/母组件` 作为主要 bottom bar
+    family，沿用 `variantGroups` / `variantHumanRules`；其他 family 使用
+    `familyVariantGroups` / `familyVariantHumanRules`。页面截图、H5 表现、
+    prototype 状态或使用示例只写入 `usageInstanceGroups`。场景编排规则只在
+    `authoring/scenarios` 中做跨组件组合说明。
+  addNewComponentFamilyWhen:
+    - Figma bottom bar 画板中新增了一个母组件、component set 或可复用组件族。
+    - 新增对象下面还有多个可切换子变体，或后续需要为每个子变体写人工规则。
+    - 示例：`bottom bar/母组件`、`bottom bar/item/长按语音输入`、`bottom bar/item/Agent助手/母组件`。
+  requiredForNewComponentFamily:
+    - familyId
+    - displayName
+    - figmaComponentName
+    - familyType
+    - sourceStatus
+    - usedIn
+    - allowedZones
+    - forbiddenZones
+    - humanRules
+    - variantRuleSource
+  addNewMotherVariantWhen:
+    - Figma 中某个 component family 下新增了真实 variant。
+    - 新增项拥有明确的 property 组合，例如 场景 / 有关联问 / 有陪伴 / 有指数 / Dark。
+    - 新增项应同步进入该 family 对应的 variant group 和 variant human rules。
+  requiredForNewFamilyVariant:
+    - familyId
+    - variantId
+    - figmaNodeId
+    - figmaNodeName
+    - variantProperties
+    - usedIn
+    - allowedZones
+    - forbiddenZones
+    - humanRules
+    - reviewChecklistRefs
+  addNewUsageInstanceWhen:
+    - 新增项是某个 bottom bar 变体的使用示例。
+    - 新增项来自页面截图、局部 frame、prototype 状态、H5 demo 或非母组件 variant。
+    - 新增项只用于说明“这个 component family 或某个变体在页面里怎么出现”，不承载完整组件规则。
+  requiredForNewUsageInstance:
+    - groupId
+    - displayName
+    - instanceType
+    - relatedComponentFamily
+    - relatedSlots
+    - usedIn
+    - allowedZones
+    - forbiddenZones
+    - humanRules
+    - figmaSelection
+    - reviewChecklistRefs
+
+# [HUMAN REQUIRED]
+componentFamilies:
+  - familyId: bottom-bar.main
+    displayName: Bottom Bar 主母组件
+    figmaComponentName: bottom bar/母组件
+    familyType: bottom-bar-container-component-set
+    sourceStatus: confirmed-from-selected-figma-component
+    variantCount: 20
+    variantRuleSource:
+      variantGroups: variantGroups
+      variantHumanRules: variantHumanRules
+      extractedVariants: variants.confirmed
+    usedIn:
+      - primary-page
+      - app-home-zhaochu-page
+      - app-home-market-page
+      - app-home-morning-audio-page
+      - app-home-reminder-page
+      - app-home-task-page
+      - ai-chat-page
+      - stock-quote-page
+      - trading-page
+      - market-or-index-aware-page
+      - "TODO_HUMAN_CONFIRM: 是否还用于账户、持仓、搜索等非个股页面"
+    allowedZones:
+      - mobile_frame_bottom
+      - primary_page_bottom_composer
+      - ai_chat_page_composer
+      - stock_quote_bottom_action
+      - trading_page_bottom_action
+    forbiddenZones:
+      - scroll_content_body
+      - ordinary_card_footer
+      - content_section_tab_area
+      - list_row_action_area
+      - ai_chat_message_body
+    humanRules:
+      do:
+        - 作为页面底部固定交互区使用。
+        - 按页面上下文选择首页场景、全屏对话场景、个股场景、个股场景关联问或陪伴场景变体。
+        - 首页场景优先覆盖出招、大盘、早点听、提醒和任务这 5 个 APP 首页入口页。
+        - 保留安全区、home indicator、输入入口和必要的 AI / 交易语义。
+      dont:
+        - 不要用普通按钮组、tabs 或卡片 footer 替代。
+        - 不要把页面示例 frame 当作该 family 的新增变体。
+
+  - familyId: bottom-bar.voice-input
+    displayName: 长按语音输入
+    figmaComponentName: bottom bar/item/长按语音输入
+    familyType: voice-input-component-set
+    sourceStatus: observed-from-current-figma-board-selection
+    variantCount: 8
+    variantRuleSource:
+      variantGroups: familyVariantGroups
+      variantHumanRules: familyVariantHumanRules
+      extractedVariants: "TODO_VERIFY_WITH_FIGMA: 需要补充真实 nodeId / componentKey"
+    usedIn:
+      - primary-page
+      - ai-chat-page
+      - stock-quote-page
+      - trading-page
+      - h5-prototype
+      - "TODO_HUMAN_CONFIRM: 是否允许账户页和持仓页使用长按语音输入"
+    allowedZones:
+      - voice_input_interaction_overlay
+      - bottom_bar_voice_feedback_layer
+      - h5_voice_input_feedback
+    forbiddenZones:
+      - scroll_content_body
+      - list_row_action_area
+      - trading_action_button_area
+      - ai_chat_message_body
+    humanRules:
+      do:
+        - 作为长按语音输入期间的独立组件 family 维护。
+        - 每个发送状态、场景类型和 Dark 组合都要能单独定义规则。
+        - 通用场景和 H5 场景需要区分，不要混用真实组件和 prototype 表达。
+      dont:
+        - 不要把这 8 个变体只当作 bottom bar 的使用实例。
+        - 不要把 H5 视觉等价状态当成原生底栏容器变体。
+        - 不要在交易行动按钮区域复用长按语音反馈样式。
+
+  - familyId: bottom-bar.input-pill
+    displayName: 输入胶囊
+    figmaComponentName: bottom bar/item/输入胶囊
+    familyType: input-composer-component
+    sourceStatus: observed-from-figma-layer-list-needs-verification
+    variantCount: TODO_VERIFY_WITH_FIGMA
+    variantRuleSource:
+      variantGroups: "TODO_VERIFY_WITH_FIGMA"
+      variantHumanRules: "TODO_HUMAN_CONFIRM: 是否需要为输入胶囊单独展开变体规则"
+    usedIn:
+      - bottom-bar.main
+      - bottom-bar.voice-input
+    allowedZones:
+      - bottom_bar_control_row
+      - primary_page_bottom_composer
+      - ai_chat_page_composer
+      - stock_quote_bottom_action
+      - trading_page_bottom_action
+    forbiddenZones:
+      - scroll_content_body
+      - list_row_action_area
+      - ai_chat_message_body
+    humanRules:
+      do:
+        - 作为 bottom bar 输入入口使用。
+        - 保留麦克风图标、输入文案和右侧输入模式入口。
+      dont:
+        - 不要单独脱离 bottom bar 放进正文、卡片或列表行。
+
+  - familyId: bottom-bar.agent-assistant
+    displayName: Agent 助手母组件
+    figmaComponentName: bottom bar/item/Agent助手/母组件
+    familyType: assistant-entry-component-set
+    sourceStatus: observed-from-figma-layer-list-needs-verification
+    variantCount: "TODO_VERIFY_WITH_FIGMA: 截图可见 icon版 / 选中态 / Dark 组合"
+    variantRuleSource:
+      variantGroups: "TODO_VERIFY_WITH_FIGMA"
+      variantHumanRules: "TODO_HUMAN_CONFIRM: 是否需要在本 brief 内展开"
+    usedIn:
+      - primary-page
+      - ai-chat-page
+      - companion-scene
+    allowedZones:
+      - bottom_bar_control_row
+      - assistant_entry_area
+    forbiddenZones:
+      - ai_chat_message_body
+      - trading_action_button_area
+      - list_row_action_area
+    humanRules:
+      do:
+        - 用于 bottom bar 中的 Agent 助手入口或助手胶囊。
+      dont:
+        - 不要用它替代交易买 / 卖 / 撤行动入口。
+
+  - familyId: bottom-bar.trading-entry
+    displayName: 首页场景交易入口
+    figmaComponentName: bottom bar/item/默认场景/交易
+    familyType: bottom-bar-entry-component-set
+    sourceStatus: observed-from-figma-layer-list-needs-verification
+    variantCount: "TODO_VERIFY_WITH_FIGMA: 截图可见 icon版 / 选中态 / Dark 组合"
+    variantRuleSource:
+      variantGroups: "TODO_VERIFY_WITH_FIGMA"
+      variantHumanRules: "TODO_HUMAN_CONFIRM: 是否需要在本 brief 内展开"
+    usedIn:
+      - primary-page
+      - stock-quote-page
+      - "TODO_HUMAN_CONFIRM: 是否用于首页场景内的交易快捷入口；Figma 组件原名仍包含“默认场景”。"
+    allowedZones:
+      - bottom_bar_control_row
+      - primary_page_bottom_composer
+    forbiddenZones:
+      - order_submit_confirmation
+      - ai_chat_message_body
+    humanRules:
+      do:
+        - 作为首页场景中的交易入口展示，不直接等同下单确认按钮。
+      dont:
+        - 不要在没有交易上下文时表现成强交易行动。
+
+  - familyId: bottom-bar.other-observed-item-families
+    displayName: 其他已观察到的 item 母组件
+    figmaComponentName:
+      - bottom bar/item/bottom-bar
+      - bottom bar/item/指数模块
+      - bottom bar/item/默认场景/我的
+      - bottom bar/item/消息提示
+      - bottom bar/item/陪伴/按钮
+      - bottom bar/item/陪伴气泡
+      - bottom bar/item/陪伴母组件
+      - bottom bar/item/交易场景
+      - bottom bar/item/背景阴影
+      - bottom bar/item/Agent助手/icon
+      - bottom bar/item/Agent助手/胶囊
+    familyType: observed-component-family-backlog
+    sourceStatus: observed-from-figma-layer-list-needs-verification
+    variantCount: TODO_VERIFY_WITH_FIGMA
+    variantRuleSource:
+      variantGroups: "TODO_VERIFY_WITH_FIGMA"
+      variantHumanRules: "TODO_HUMAN_CONFIRM: 需要逐个选中后再展开"
+    usedIn:
+      - bottom-bar.main
+      - "TODO_HUMAN_CONFIRM: 逐个确认使用范围"
+    allowedZones:
+      - bottom_bar_control_row
+      - bottom_bar_optional_module
+      - market_index_bottom_summary
+      - companion_bottom_area
+    forbiddenZones:
+      - ai_chat_message_body
+      - generic_card_footer
+      - list_row_action_area
+    humanRules:
+      do:
+        - 作为后续分批抽取的母组件 backlog。
+        - 每次选中一个母组件后，再独立补齐 family 和 variant rules。
+      dont:
+        - 不要在未选中核验前猜测 nodeId、componentKey 或完整 variant property。
+
+# [HUMAN REQUIRED]
+scenarioTaxonomy:
+  - id: homepage-scene
+    displayName: 首页场景
+    mapsTo:
+      scene: 首页场景
+      primaryVariantGroup: 首页场景
+      legacyFigmaSceneValue: 默认
+    description: 一级落地页、首页或普通入口页的底部输入和入口组合。
+    typicalVariants:
+      - default-dark
+      - default-light
+      - default-companion-dark
+      - default-companion-light
+    expectedSlots:
+      - inputPill
+      - leftEntryIcon
+      - rightAssistantIcon
+      - homeIndicator
+  - id: fullscreen-chat-scene
+    displayName: 全屏对话场景
+    mapsTo:
+      scene: 全屏对话场景
+      primaryVariantGroup: 全屏对话场景
+      legacyFigmaSceneValue: 对话
+    description: AI 对话页底部输入区，可展示 Agent 建议胶囊和 AI 生成内容提示。
+    typicalVariants:
+      - chat-dark
+      - chat-light
+    expectedSlots:
+      - inputPill
+      - agentSuggestionChips
+      - aiGeneratedDisclosure
+      - homeIndicator
+  - id: stock-scene
+    displayName: 个股场景
+    mapsTo:
+      scene: 个股场景
+      primaryVariantGroup: 个股场景
+      legacyFigmaSceneValues:
+        - 个股
+        - 交易场景
+    description: 个股行情或详情页底部区域，主要处理个股上下文、指数模块、陪伴模块和交易入口；旧 Figma property 中的“交易场景”按个股场景的交易上下文处理。
+    typicalVariants:
+      - stock-index-dark
+      - stock-index-companion-dark
+      - stock-index-companion-light
+      - stock-plain-light
+    expectedSlots:
+      - inputPill
+      - indexModule
+      - companionModule
+      - homeIndicator
+  - id: stock-related-question-scene
+    displayName: 个股场景关联问
+    mapsTo:
+      scene: 个股场景
+      modifier: 有关联问
+    description: 个股上下文中的关联问或追问入口。
+    typicalVariants:
+      - trading-related-dark
+      - trading-related-light
+      - trading-related-index-dark
+      - trading-related-index-light
+    expectedSlots:
+      - inputPill
+      - relatedQuestionEntry
+      - homeIndicator
+  - id: companion-scene
+    displayName: 陪伴场景
+    mapsTo:
+      modifier: 有陪伴
+    description: 带人物陪伴、文本气泡和建议按钮的底部增强形态，可叠加首页场景或个股场景。
+    typicalVariants:
+      - default-companion-dark
+      - default-companion-light
+      - stock-index-companion-dark
+      - stock-index-companion-light
+      - trading-index-companion-dark
+      - trading-index-companion-light
+    expectedSlots:
+      - companionModule
+      - inputPill
+      - homeIndicator
+  - id: long-press-voice-input
+    displayName: 长按语音输入
+    mapsTo:
+      componentFamily: bottom-bar.voice-input
+      slot: inputPill
+      instanceType: family-variant-set
+    description: 长按语音输入期间的反馈状态，是 `bottom bar/item/长按语音输入` 这个母组件 family 下的 8 个子变体，不是页面使用实例。
+    typicalVariants:
+      - voice-input-send-on-generic-dark
+      - voice-input-send-off-generic-dark
+      - voice-input-send-on-h5-dark
+      - voice-input-send-off-h5-dark
+      - voice-input-send-on-generic-light
+      - voice-input-send-off-generic-light
+      - voice-input-send-on-h5-light
+      - voice-input-send-off-h5-light
+      - "TODO_VERIFY_WITH_FIGMA: 需要记录当前选中 8 个长按语音输入组件的真实 nodeId"
+    expectedSlots:
+      - inputPill
+      - voiceWaveform
+      - gestureInstruction
+  - id: h5-scene
+    displayName: H5场景
+    mapsTo:
+      renderer: h5-prototype
+      instanceType: implementation-surface
+    description: H5 或 HTML prototype 中对 bottom bar / 长按语音状态的低保真或视觉等价表达。
+    typicalVariants:
+      - "TODO_VERIFY_WITH_FIGMA: 需要记录当前选中 H5 长按语音输入组件的真实 nodeId"
+    expectedSlots:
+      - voiceWaveform
+      - gestureInstruction
+      - h5SafeAreaFallback
+
+# [HUMAN REQUIRED]
+familyVariantGroups:
+  - familyId: bottom-bar.main
+    displayName: Bottom Bar 主母组件变体组
+    figmaComponentName: bottom bar/母组件
+    variantCount: 20
+    ruleLocation:
+      groups: variantGroups
+      perVariantRules: variantHumanRules
+      extractedFacts: variants.confirmed
+    note: >
+      为了兼容当前文件中已经完整展开的 20 个 bottom bar 变体，本 family
+      继续沿用 `variantGroups` 和 `variantHumanRules`。后续如果要统一命名，
+      可由 Agent 批量迁移为 `familyVariantHumanRules`。
+
+  - familyId: bottom-bar.voice-input
+    displayName: 长按语音输入变体组
+    figmaComponentName: bottom bar/item/长按语音输入
+    variantCount: 8
+    variantProperties:
+      - property: 发送状态
+        values:
+          "On":
+            description: 语音采集中或松开发送状态。
+            humanRule: 必须明确反馈正在录音、可松开发送或继续长按。
+          "Off":
+            description: 取消发送、非发送或危险反馈状态。
+            humanRule: 必须和发送状态有明显视觉差异，避免误发。
+      - property: 场景类型
+        propertyNameStatus: "TODO_VERIFY_WITH_FIGMA: Figma 图层中显示为“通用 / H5”，需要确认真实 property 名称。"
+        values:
+          通用:
+            description: App 原生或通用 bottom bar 场景。
+            humanRule: 按真实 bottom bar 输入反馈处理。
+          H5:
+            description: H5 或 prototype 视觉等价表达。
+            humanRule: 必须标记为 H5 表达，不能声称是原生 Figma 组件实例。
+      - property: Dark
+        values:
+          "On":
+            description: 深色模式。
+            humanRule: 使用真实 Dark=On 变体，不要手动改色。
+          "Off":
+            description: 浅色模式。
+            humanRule: 使用真实 Dark=Off 变体，不要手动改色。
+    usedIn:
+      - primary-page
+      - ai-chat-page
+      - stock-quote-page
+      - trading-page
+      - h5-prototype
+      - "TODO_HUMAN_CONFIRM: 是否允许账户页和持仓页使用长按语音输入"
+    allowedZones:
+      - voice_input_interaction_overlay
+      - bottom_bar_voice_feedback_layer
+      - h5_voice_input_feedback
+    forbiddenZones:
+      - scroll_content_body
+      - list_row_action_area
+      - trading_action_button_area
+      - ai_chat_message_body
+    riskWarnings:
+      - id: voice-input-recording-feedback
+        severity: P1
+        rule: 长按语音输入必须明确反馈当前是采集中、可松开发送，还是上滑取消，避免误发语音。
+      - id: voice-input-h5-equivalence
+        severity: P2
+        rule: H5 场景可以做视觉等价表达，但不能声称是 Figma 原生组件实例。
+    humanRules:
+      do:
+        - 作为 `bottom bar/item/长按语音输入` 母组件 family 维护。
+        - 8 个发送状态 / 场景类型 / Dark 组合都要单独定义人工规则。
+        - 通用场景和 H5 场景需要分别记录，不要混用原生组件和 H5 prototype 表达。
+      dont:
+        - 不要把这 8 个变体只当作 bottom bar 的使用示例。
+        - 不要把语音采集中的覆盖层放进滚动内容正文。
+        - 不要在交易按钮区域中复用长按语音反馈样式。
+
+# [HUMAN REQUIRED]
+familyVariantHumanRules:
+  - familyId: bottom-bar.voice-input
+    variantId: voice-input-send-on-generic-dark
+    figmaNodeId: TODO_VERIFY_WITH_FIGMA
+    figmaNodeName: 发送状态=On, 通用, Dark=On
+    variantProperties:
+      发送状态: "On"
+      场景类型: 通用
+      Dark: "On"
+    usedIn:
+      - primary-page
+      - ai-chat-page
+      - stock-quote-page
+      - trading-page
+    allowedZones:
+      - voice_input_interaction_overlay
+      - bottom_bar_voice_feedback_layer
+    forbiddenZones:
+      - scroll_content_body
+      - trading_action_button_area
+      - ai_chat_message_body
+    humanRules:
+      do:
+        - 用于深色通用场景下的语音发送中状态。
+        - 保留发送中提示、波形或同等反馈。
+      dont:
+        - 不要用于 H5 prototype 表达。
+    reviewChecklistRefs:
+      - voice-input-state-clear
+      - voice-input-copy-verified
+
+  - familyId: bottom-bar.voice-input
+    variantId: voice-input-send-off-generic-dark
+    figmaNodeId: TODO_VERIFY_WITH_FIGMA
+    figmaNodeName: 发送状态=Off, 通用, Dark=On
+    variantProperties:
+      发送状态: "Off"
+      场景类型: 通用
+      Dark: "On"
+    usedIn:
+      - primary-page
+      - ai-chat-page
+      - stock-quote-page
+      - trading-page
+    allowedZones:
+      - voice_input_interaction_overlay
+      - bottom_bar_voice_feedback_layer
+    forbiddenZones:
+      - scroll_content_body
+      - trading_action_button_area
+      - ai_chat_message_body
+    humanRules:
+      do:
+        - 用于深色通用场景下的取消发送或非发送状态。
+        - 取消态需要和发送态有清晰视觉差异。
+      dont:
+        - 不要和发送中状态共用同一反馈文案。
+    reviewChecklistRefs:
+      - voice-input-state-clear
+      - voice-input-copy-verified
+
+  - familyId: bottom-bar.voice-input
+    variantId: voice-input-send-on-h5-dark
+    figmaNodeId: TODO_VERIFY_WITH_FIGMA
+    figmaNodeName: 发送状态=On, H5, Dark=On
+    variantProperties:
+      发送状态: "On"
+      场景类型: H5
+      Dark: "On"
+    usedIn:
+      - h5-prototype
+    allowedZones:
+      - h5_voice_input_feedback
+    forbiddenZones:
+      - native_bottom_bar_instance_claim
+      - trading_action_button_area
+      - ai_chat_message_body
+    humanRules:
+      do:
+        - 用于深色 H5 场景的发送中视觉等价表达。
+        - 明确标记为 H5 或 prototype 表达。
+      dont:
+        - 不要声称它是原生 bottom bar 组件实例。
+    reviewChecklistRefs:
+      - voice-input-h5-not-figma-instance
+      - voice-input-copy-verified
+
+  - familyId: bottom-bar.voice-input
+    variantId: voice-input-send-off-h5-dark
+    figmaNodeId: TODO_VERIFY_WITH_FIGMA
+    figmaNodeName: 发送状态=Off, H5, Dark=On
+    variantProperties:
+      发送状态: "Off"
+      场景类型: H5
+      Dark: "On"
+    usedIn:
+      - h5-prototype
+    allowedZones:
+      - h5_voice_input_feedback
+    forbiddenZones:
+      - native_bottom_bar_instance_claim
+      - trading_action_button_area
+      - ai_chat_message_body
+    humanRules:
+      do:
+        - 用于深色 H5 场景的取消发送或非发送视觉等价表达。
+      dont:
+        - 不要把 H5 取消态反向套用到原生通用场景。
+    reviewChecklistRefs:
+      - voice-input-h5-not-figma-instance
+      - voice-input-copy-verified
+
+  - familyId: bottom-bar.voice-input
+    variantId: voice-input-send-on-generic-light
+    figmaNodeId: TODO_VERIFY_WITH_FIGMA
+    figmaNodeName: 发送状态=On, 通用, Dark=Off
+    variantProperties:
+      发送状态: "On"
+      场景类型: 通用
+      Dark: "Off"
+    usedIn:
+      - primary-page
+      - ai-chat-page
+      - stock-quote-page
+      - trading-page
+    allowedZones:
+      - voice_input_interaction_overlay
+      - bottom_bar_voice_feedback_layer
+    forbiddenZones:
+      - scroll_content_body
+      - trading_action_button_area
+      - ai_chat_message_body
+    humanRules:
+      do:
+        - 用于浅色通用场景下的语音发送中状态。
+        - 检查浅色背景上的提示文案和波形可读性。
+      dont:
+        - 不要只把深色变体手动改色后使用。
+    reviewChecklistRefs:
+      - voice-input-state-clear
+      - voice-input-copy-verified
+
+  - familyId: bottom-bar.voice-input
+    variantId: voice-input-send-off-generic-light
+    figmaNodeId: TODO_VERIFY_WITH_FIGMA
+    figmaNodeName: 发送状态=Off, 通用, Dark=Off
+    variantProperties:
+      发送状态: "Off"
+      场景类型: 通用
+      Dark: "Off"
+    usedIn:
+      - primary-page
+      - ai-chat-page
+      - stock-quote-page
+      - trading-page
+    allowedZones:
+      - voice_input_interaction_overlay
+      - bottom_bar_voice_feedback_layer
+    forbiddenZones:
+      - scroll_content_body
+      - trading_action_button_area
+      - ai_chat_message_body
+    humanRules:
+      do:
+        - 用于浅色通用场景下的取消发送或非发送状态。
+        - 确认取消态在浅色背景中足够明确。
+      dont:
+        - 不要和浅色发送态共用相同视觉反馈。
+    reviewChecklistRefs:
+      - voice-input-state-clear
+      - voice-input-copy-verified
+
+  - familyId: bottom-bar.voice-input
+    variantId: voice-input-send-on-h5-light
+    figmaNodeId: TODO_VERIFY_WITH_FIGMA
+    figmaNodeName: 发送状态=On, H5, Dark=Off
+    variantProperties:
+      发送状态: "On"
+      场景类型: H5
+      Dark: "Off"
+    usedIn:
+      - h5-prototype
+    allowedZones:
+      - h5_voice_input_feedback
+    forbiddenZones:
+      - native_bottom_bar_instance_claim
+      - trading_action_button_area
+      - ai_chat_message_body
+    humanRules:
+      do:
+        - 用于浅色 H5 场景的发送中视觉等价表达。
+      dont:
+        - 不要声称它是原生 bottom bar 组件实例。
+    reviewChecklistRefs:
+      - voice-input-h5-not-figma-instance
+      - voice-input-copy-verified
+
+  - familyId: bottom-bar.voice-input
+    variantId: voice-input-send-off-h5-light
+    figmaNodeId: TODO_VERIFY_WITH_FIGMA
+    figmaNodeName: 发送状态=Off, H5, Dark=Off
+    variantProperties:
+      发送状态: "Off"
+      场景类型: H5
+      Dark: "Off"
+    usedIn:
+      - h5-prototype
+    allowedZones:
+      - h5_voice_input_feedback
+    forbiddenZones:
+      - native_bottom_bar_instance_claim
+      - trading_action_button_area
+      - ai_chat_message_body
+    humanRules:
+      do:
+        - 用于浅色 H5 场景的取消发送或非发送视觉等价表达。
+      dont:
+        - 不要把 H5 取消态反向套用到原生通用场景。
+    reviewChecklistRefs:
+      - voice-input-h5-not-figma-instance
+      - voice-input-copy-verified
+
+# [HUMAN REQUIRED]
+usageInstanceGroups:
+  - groupId: long-press-voice-input-examples
+    displayName: 长按语音输入使用实例
+    instanceType: usage-example
+    relatedComponentFamily: bottom-bar.voice-input
+    relatedVariantRules:
+      - voice-input-send-on-generic-dark
+      - voice-input-send-off-generic-dark
+      - voice-input-send-on-h5-dark
+      - voice-input-send-off-h5-dark
+      - voice-input-send-on-generic-light
+      - voice-input-send-off-generic-light
+      - voice-input-send-on-h5-light
+      - voice-input-send-off-h5-light
+    relatedSlots:
+      - inputPill
+      - voiceWaveform
+      - gestureInstruction
+    sourceStatus: selected-in-figma-but-node-ids-not-yet-recorded
+    figmaSelection:
+      sourceName: bottom bar/item/长按语音输入
+      selectedCount: 8
+      selectedNodeIds:
+        - TODO_VERIFY_WITH_FIGMA
+      selectedNodeNames:
+        - "TODO_VERIFY_WITH_FIGMA: 通用场景长按语音输入使用实例"
+        - "TODO_VERIFY_WITH_FIGMA: H5 场景长按语音输入使用实例"
+    usedIn:
+      - generic-usage
+      - h5-prototype
+      - "TODO_HUMAN_CONFIRM: 是否还需要拆成首页、全屏对话、个股、个股交易、陪伴等页面示例组"
+    exampleTypes:
+      - id: generic-listening
+        description: 通用场景采集中示例。
+        relatedState: listening
+      - id: generic-cancel-or-danger
+        description: 通用场景取消或危险反馈示例。
+        relatedState: cancel-or-danger
+      - id: h5-listening
+        description: H5 场景采集中视觉等价示例。
+        relatedState: h5-listening
+      - id: h5-cancel-or-danger
+        description: H5 场景取消或危险反馈视觉等价示例。
+        relatedState: h5-cancel-or-danger
+    humanRules:
+      do:
+        - 只把这里作为示例集合维护，组件本身规则以 `componentFamilies` 和 `familyVariantHumanRules` 为准。
+        - 通用场景和 H5 场景需要分别标记，避免混用真实 Figma 组件和 prototype 表达。
+      dont:
+        - 不要在这里定义新的组件边界或新增母组件 variant。
+        - 不要让 H5 示例反向覆盖 Figma 组件规则。
+    reviewChecklistRefs:
+      - voice-input-state-clear
+      - voice-input-h5-not-figma-instance
+      - voice-input-copy-verified
+
+# [HUMAN REQUIRED]
+variantGroups:
+  - scene: 首页场景
+    description: APP 首页体系下的底部固定输入与入口区，目前覆盖出招、大盘、早点听、提醒和任务页面。
+    usedIn:
+      - primary-page
+      - app-home-zhaochu-page
+      - app-home-market-page
+      - app-home-morning-audio-page
+      - app-home-reminder-page
+      - app-home-task-page
+      - "TODO_HUMAN_CONFIRM: 首页场景是否还包含账户、持仓、搜索等页面"
+    allowedZones:
+      - primary_page_bottom_composer
+      - app_home_bottom_composer
+      - generic_ai_entry_bottom
+    forbiddenZones:
+      - trading_page_bottom_action
+      - ai_chat_message_body
+      - content_section_tab_area
+      - list_row_action_area
+    riskWarnings:
+      - id: default-scene-no-trading-action
+        severity: P1
+        rule: 首页场景不应出现买、卖、撤等交易行动入口。
+    humanRules:
+      do:
+        - 用于 APP 首页体系下的出招、大盘、早点听、提醒和任务页面底部输入与入口组合。
+        - 按真实 Figma 变体选择黑版 Dark=On 或白版 Dark=Off，不要手动改色。
+        - 保持语音输入胶囊、左右入口和安全区完整。
+      dont:
+        - 不要用于明确交易页底部行动区。
+        - 不要把首页场景当成全屏对话页的建议胶囊底栏。
+  - scene: 全屏对话场景
+    description: AI 对话页底部输入区，支持 Agent 建议胶囊和 AI 生成内容提示。
+    usedIn:
+      - ai-chat-page
+      - assistant-conversation-page
+      - ai-answer-followup-page
+    allowedZones:
+      - ai_chat_page_composer
+      - assistant_conversation_bottom
+    forbiddenZones:
+      - primary_page_bottom_composer
+      - trading_page_bottom_action
+      - ai_chat_message_body
+      - stock_quote_bottom_action
+    riskWarnings:
+      - id: chat-scene-ai-disclosure
+        severity: P1
+        rule: 全屏对话场景出现 AI 建议胶囊时，需要确认是否显示“内容由AI生成”。
+    humanRules:
+      do:
+        - 用于 AI 对话页底部输入、追问和任务助手入口。
+        - 保留 Agent 建议胶囊的选中态、未选中态和展开箭头语义。
+      dont:
+        - 不要在对话正文中直接出现买、卖、撤交易行动。
+        - 不要把全屏对话场景底栏用于普通一级落地页。
+  - scene: 个股场景
+    description: 个股详情或行情页底部区域，支持指数模块和陪伴模块，但不直接等同交易行动区。
+    aliases:
+      - 交易场景
+      - 个股交易
+    usedIn:
+      - stock-quote-page
+      - stock-detail-page
+      - quote-analysis-page
+    allowedZones:
+      - stock_quote_bottom_action
+      - stock_detail_bottom_composer
+      - market_index_bottom_summary
+    forbiddenZones:
+      - ai_chat_message_body
+      - primary_page_bottom_composer
+      - generic_card_footer
+    riskWarnings:
+      - id: stock-scene-not-order-submit
+        severity: P1
+        rule: 个股场景可承载行情和指数信息，但不应直接替代交易下单确认区。
+    humanRules:
+      do:
+        - 用于有明确个股或行情上下文的底部输入、指数和陪伴组合。
+        - 有指数模块时，必须保持指数名称、数值、涨跌额和涨跌幅的金融语义。
+      dont:
+        - 不要把个股场景底栏放到普通账户页或无标的页面。
+        - 不要在缺少明确标的、账户状态或交易上下文时显示买 / 卖 / 撤行动底栏。
+  - scene: 个股场景
+    subContext: 交易入口
+    aliases:
+      - 交易场景
+      - 个股交易
+    description: 个股场景中的交易上下文底部行动区，可出现买、卖、撤操作；历史命名“交易场景”在本 brief 中按“个股场景 / 交易入口”处理。
+    usedIn:
+      - trading-page
+      - order-entry-page
+      - stock-trading-action-area
+      - order-cancel-flow
+    allowedZones:
+      - trading_page_bottom_action
+      - order_entry_action_area
+      - stock_quote_trade_entry
+    forbiddenZones:
+      - primary_page_bottom_composer
+      - ai_chat_page_composer
+      - ai_chat_message_body
+      - generic_ai_entry_bottom
+    riskWarnings:
+      - id: trading-scene-high-risk
+        severity: P0
+        rule: 个股场景中的交易入口涉及资金和交易决策，出现买、卖、撤时必须有明确标的、账户状态和交易上下文。
+    humanRules:
+      do:
+        - 仅用于明确交易或委托上下文。
+        - 买、卖、撤行动必须保持真实 Figma 变体和图标语义。
+      dont:
+        - 不要用于一级落地页、账户总览页或 AI 对话正文。
+        - 不要删除交易动作之外的安全区、输入胶囊或必要上下文。
+
+# [HUMAN REQUIRED]
+variantModifiers:
+  - property: 有关联问
+    values:
+      "On":
+        description: 个股场景中存在关联问或相关追问入口。
+        humanRule: "TODO_HUMAN_CONFIRM: 需要确认关联问在页面中的业务含义和触发条件。"
+      "Off":
+        description: 不展示关联问入口。
+  - property: 有陪伴
+    values:
+      "On":
+        description: 展示陪伴模块，底栏高度升高，内容区必须增加底部避让。
+        humanRule: 陪伴模块出现时，应保留人物形象、文本气泡和建议按钮结构。
+      "Off":
+        description: 不展示陪伴模块，使用较低高度的底栏变体。
+  - property: 有指数
+    values:
+      "On":
+        description: 展示指数模块，包含名称、数值、涨跌额、涨跌幅和展开入口。
+        humanRule: 指数数值必须使用金融语义 token，不得使用普通文字色。
+      "Off":
+        description: 不展示指数模块。
+  - property: Dark
+    values:
+      "On":
+        description: 深色模式，使用深色渐变背景、深色圆形图标容器和白色 home indicator。
+        humanRule: 必须使用真实 Dark=On 变体，不要手动替换颜色模拟。
+      "Off":
+        description: 浅色模式，使用浅色渐变背景、白色半透明图标容器和深色 home indicator。
+        humanRule: 必须使用真实 Dark=Off 变体，不要手动替换颜色模拟。
+
+# [HUMAN REQUIRED]
+variantHumanRules:
+  - variantId: default-dark
+    figmaNodeId: "12:10173"
+    scene: 首页场景
+    modifiers:
+      有关联问: "Off"
+      有陪伴: "Off"
+      有指数: "Off"
+      Dark: "On"
+    usedIn:
+      - primary-page
+      - app-home-zhaochu-page
+      - app-home-market-page
+      - app-home-morning-audio-page
+      - app-home-reminder-page
+      - app-home-task-page
+      - generic-ai-entry-page
+    allowedZones:
+      - primary_page_bottom_composer
+      - app_home_bottom_composer
+    forbiddenZones:
+      - trading_page_bottom_action
+      - ai_chat_message_body
+    riskWarnings:
+      - severity: P1
+        rule: 首页场景深色底栏不应承载买、卖、撤交易行动。
+    humanRules:
+      do:
+        - 用于 APP 首页体系下出招、大盘、早点听、提醒和任务页面的深色底栏。
+        - 作为首页场景黑版基础母组件变体使用。
+      dont:
+        - 不要用于交易页底部行动区。
+  - variantId: default-light
+    figmaNodeId: "12:10216"
+    scene: 首页场景
+    modifiers:
+      有关联问: "Off"
+      有陪伴: "Off"
+      有指数: "Off"
+      Dark: "Off"
+    usedIn:
+      - primary-page
+      - app-home-zhaochu-page
+      - app-home-market-page
+      - app-home-morning-audio-page
+      - app-home-reminder-page
+      - app-home-task-page
+      - generic-ai-entry-page
+    allowedZones:
+      - primary_page_bottom_composer
+      - app_home_bottom_composer
+    forbiddenZones:
+      - trading_page_bottom_action
+      - ai_chat_message_body
+    riskWarnings:
+      - severity: P1
+        rule: 首页场景浅色底栏不应承载买、卖、撤交易行动。
+    humanRules:
+      do:
+        - 用于 APP 首页体系下出招、大盘、早点听、提醒和任务页面的浅色底栏。
+        - 作为首页场景白版基础母组件变体使用。
+      dont:
+        - 不要只把 default-dark 改色后当作该变体。
+  - variantId: default-companion-dark
+    figmaNodeId: "12:10198"
+    scene: 首页场景
+    modifiers:
+      有关联问: "Off"
+      有陪伴: "On"
+      有指数: "Off"
+      Dark: "On"
+    usedIn:
+      - primary-page
+      - landing-page
+      - companion-entry-page
+    allowedZones:
+      - primary_page_bottom_composer
+      - companion_bottom_area
+    forbiddenZones:
+      - trading_page_bottom_action
+      - ai_chat_message_body
+    riskWarnings:
+      - severity: P2
+        rule: 有陪伴模块会提高底栏高度，页面内容必须预留底部避让。
+    humanRules:
+      do:
+        - 用于深色首页场景中需要陪伴模块的页面。
+      dont:
+        - 不要在没有陪伴内容策略的页面开启该变体。
+  - variantId: default-companion-light
+    figmaNodeId: "12:10207"
+    scene: 首页场景
+    modifiers:
+      有关联问: "Off"
+      有陪伴: "On"
+      有指数: "Off"
+      Dark: "Off"
+    usedIn:
+      - primary-page
+      - landing-page
+      - companion-entry-page
+    allowedZones:
+      - primary_page_bottom_composer
+      - companion_bottom_area
+    forbiddenZones:
+      - trading_page_bottom_action
+      - ai_chat_message_body
+    riskWarnings:
+      - severity: P2
+        rule: 浅色陪伴模块需要检查背景对比度和文字可读性。
+    humanRules:
+      do:
+        - 用于浅色首页场景中需要陪伴模块的页面。
+      dont:
+        - 不要只把 default-companion-dark 改色后当作该变体。
+  - variantId: chat-dark
+    figmaNodeId: "12:10180"
+    scene: 全屏对话场景
+    modifiers:
+      有关联问: "Off"
+      有陪伴: "Off"
+      有指数: "Off"
+      Dark: "On"
+    usedIn:
+      - ai-chat-page
+      - assistant-conversation-page
+    allowedZones:
+      - ai_chat_page_composer
+      - assistant_conversation_bottom
+    forbiddenZones:
+      - trading_page_bottom_action
+      - primary_page_bottom_composer
+      - ai_chat_message_body
+    riskWarnings:
+      - severity: P1
+        rule: 全屏对话底栏需要保留 AI 建议胶囊和 AI 生成内容提示的展示逻辑。
+    humanRules:
+      do:
+        - 用于深色 AI 对话页底部输入区。
+      dont:
+        - 不要在该变体中加入买、卖、撤行动。
+  - variantId: chat-light
+    figmaNodeId: "12:10189"
+    scene: 全屏对话场景
+    modifiers:
+      有关联问: "Off"
+      有陪伴: "Off"
+      有指数: "Off"
+      Dark: "Off"
+    usedIn:
+      - ai-chat-page
+      - assistant-conversation-page
+    allowedZones:
+      - ai_chat_page_composer
+      - assistant_conversation_bottom
+    forbiddenZones:
+      - trading_page_bottom_action
+      - primary_page_bottom_composer
+      - ai_chat_message_body
+    riskWarnings:
+      - severity: P1
+        rule: 浅色全屏对话底栏需要确认 AI 生成内容提示在浅色背景上的可读性。
+    humanRules:
+      do:
+        - 用于浅色 AI 对话页底部输入区。
+      dont:
+        - 不要只把 chat-dark 改色后当作该变体。
+  - variantId: trading-dark
+    figmaNodeId: "12:10222"
+    scene: 个股场景
+    modifiers:
+      有关联问: "Off"
+      有陪伴: "Off"
+      有指数: "Off"
+      Dark: "On"
+    usedIn:
+      - trading-page
+      - order-entry-page
+      - stock-trading-action-area
+    allowedZones:
+      - trading_page_bottom_action
+      - order_entry_action_area
+    forbiddenZones:
+      - primary_page_bottom_composer
+      - ai_chat_message_body
+    riskWarnings:
+      - severity: P0
+        rule: 买、卖、撤行动必须有明确标的和交易上下文。
+    humanRules:
+      do:
+        - 用于深色交易页底部行动区。
+      dont:
+        - 不要用于一级落地页或 AI 对话页。
+  - variantId: trading-light
+    figmaNodeId: "12:10230"
+    scene: 个股场景
+    modifiers:
+      有关联问: "Off"
+      有陪伴: "Off"
+      有指数: "Off"
+      Dark: "Off"
+    usedIn:
+      - trading-page
+      - order-entry-page
+      - stock-trading-action-area
+    allowedZones:
+      - trading_page_bottom_action
+      - order_entry_action_area
+    forbiddenZones:
+      - primary_page_bottom_composer
+      - ai_chat_message_body
+    riskWarnings:
+      - severity: P0
+        rule: 浅色交易页中的买、卖、撤仍按高风险交易行动处理。
+    humanRules:
+      do:
+        - 用于浅色交易页底部行动区。
+      dont:
+        - 不要只把 trading-dark 改色后当作该变体。
+  - variantId: trading-related-dark
+    figmaNodeId: "12:10237"
+    scene: 个股场景
+    modifiers:
+      有关联问: "On"
+      有陪伴: "Off"
+      有指数: "Off"
+      Dark: "On"
+    usedIn:
+      - trading-page
+      - order-entry-page
+      - related-question-trading-flow
+    allowedZones:
+      - trading_page_bottom_action
+      - order_entry_action_area
+    forbiddenZones:
+      - primary_page_bottom_composer
+      - ai_chat_message_body
+    riskWarnings:
+      - severity: P0
+        rule: 关联问不能削弱买、卖、撤的交易风险提示。
+    humanRules:
+      do:
+        - 用于需要关联问入口的深色交易流程。
+      dont:
+        - 不要在无交易上下文时开启关联问交易变体。
+  - variantId: trading-related-light
+    figmaNodeId: "12:10243"
+    scene: 个股场景
+    modifiers:
+      有关联问: "On"
+      有陪伴: "Off"
+      有指数: "Off"
+      Dark: "Off"
+    usedIn:
+      - trading-page
+      - order-entry-page
+      - related-question-trading-flow
+    allowedZones:
+      - trading_page_bottom_action
+      - order_entry_action_area
+    forbiddenZones:
+      - primary_page_bottom_composer
+      - ai_chat_message_body
+    riskWarnings:
+      - severity: P0
+        rule: 浅色关联问交易底栏仍需要明确标的和账户状态。
+    humanRules:
+      do:
+        - 用于需要关联问入口的浅色交易流程。
+      dont:
+        - 不要只把 trading-related-dark 改色后当作该变体。
+  - variantId: stock-index-dark
+    figmaNodeId: "12:10248"
+    scene: 个股场景
+    modifiers:
+      有关联问: "Off"
+      有陪伴: "Off"
+      有指数: "On"
+      Dark: "On"
+    usedIn:
+      - stock-quote-page
+      - stock-detail-page
+    allowedZones:
+      - stock_quote_bottom_action
+      - market_index_bottom_summary
+    forbiddenZones:
+      - trading_page_bottom_action
+      - ai_chat_message_body
+    riskWarnings:
+      - severity: P1
+        rule: 个股指数底栏不应直接替代交易下单区。
+    humanRules:
+      do:
+        - 用于深色个股行情页，展示指数信息。
+      dont:
+        - 不要加入买、卖、撤行动。
+  - variantId: stock-index-companion-dark
+    figmaNodeId: "12:10261"
+    scene: 个股场景
+    modifiers:
+      有关联问: "Off"
+      有陪伴: "On"
+      有指数: "On"
+      Dark: "On"
+    usedIn:
+      - stock-quote-page
+      - stock-detail-page
+      - quote-analysis-page
+    allowedZones:
+      - stock_quote_bottom_action
+      - market_index_bottom_summary
+      - companion_bottom_area
+    forbiddenZones:
+      - trading_page_bottom_action
+      - ai_chat_message_body
+    riskWarnings:
+      - severity: P1
+        rule: 陪伴建议不能被理解为交易指令。
+    humanRules:
+      do:
+        - 用于深色个股页中同时展示陪伴模块和指数模块。
+      dont:
+        - 不要在陪伴文本中直接承诺收益或触发交易动作。
+  - variantId: stock-index-companion-light
+    figmaNodeId: "12:10276"
+    scene: 个股场景
+    modifiers:
+      有关联问: "Off"
+      有陪伴: "On"
+      有指数: "On"
+      Dark: "Off"
+    usedIn:
+      - stock-quote-page
+      - stock-detail-page
+      - quote-analysis-page
+    allowedZones:
+      - stock_quote_bottom_action
+      - market_index_bottom_summary
+      - companion_bottom_area
+    forbiddenZones:
+      - trading_page_bottom_action
+      - ai_chat_message_body
+    riskWarnings:
+      - severity: P1
+        rule: 浅色个股陪伴模块需要确认人物、气泡和指数区域的层级不遮挡内容。
+    humanRules:
+      do:
+        - 用于浅色个股页中同时展示陪伴模块和指数模块。
+      dont:
+        - 不要只把 stock-index-companion-dark 改色后当作该变体。
+  - variantId: stock-plain-light
+    figmaNodeId: "12:10387"
+    scene: 个股场景
+    modifiers:
+      有关联问: "Off"
+      有陪伴: "Off"
+      有指数: "Off"
+      Dark: "Off"
+    usedIn:
+      - stock-quote-page
+      - stock-detail-page
+    allowedZones:
+      - stock_quote_bottom_action
+    forbiddenZones:
+      - trading_page_bottom_action
+      - ai_chat_message_body
+    riskWarnings:
+      - severity: P2
+        rule: 无指数个股底栏需要确认是否仍满足该页面的信息密度要求。
+    humanRules:
+      do:
+        - 用于不展示指数和陪伴模块的浅色个股页。
+      dont:
+        - 不要用于需要交易动作的页面。
+  - variantId: trading-index-dark
+    figmaNodeId: "12:10294"
+    scene: 个股场景
+    modifiers:
+      有关联问: "Off"
+      有陪伴: "Off"
+      有指数: "On"
+      Dark: "On"
+    usedIn:
+      - trading-page
+      - order-entry-page
+    allowedZones:
+      - trading_page_bottom_action
+      - market_index_bottom_summary
+    forbiddenZones:
+      - primary_page_bottom_composer
+      - ai_chat_message_body
+    riskWarnings:
+      - severity: P0
+        rule: 指数信息不能遮挡或弱化买、卖、撤交易行动。
+    humanRules:
+      do:
+        - 用于深色交易页中同时展示指数模块和交易行动。
+      dont:
+        - 不要在无标的交易上下文时使用。
+  - variantId: trading-index-light
+    figmaNodeId: "12:10308"
+    scene: 个股场景
+    modifiers:
+      有关联问: "Off"
+      有陪伴: "Off"
+      有指数: "On"
+      Dark: "Off"
+    usedIn:
+      - trading-page
+      - order-entry-page
+    allowedZones:
+      - trading_page_bottom_action
+      - market_index_bottom_summary
+    forbiddenZones:
+      - primary_page_bottom_composer
+      - ai_chat_message_body
+    riskWarnings:
+      - severity: P0
+        rule: 浅色交易指数底栏仍需保持买、卖、撤高风险行动清晰可见。
+    humanRules:
+      do:
+        - 用于浅色交易页中同时展示指数模块和交易行动。
+      dont:
+        - 不要只把 trading-index-dark 改色后当作该变体。
+  - variantId: trading-index-companion-dark
+    figmaNodeId: "12:10325"
+    scene: 个股场景
+    modifiers:
+      有关联问: "Off"
+      有陪伴: "On"
+      有指数: "On"
+      Dark: "On"
+    usedIn:
+      - trading-page
+      - order-entry-page
+      - trading-assistant-flow
+    allowedZones:
+      - trading_page_bottom_action
+      - market_index_bottom_summary
+      - companion_bottom_area
+    forbiddenZones:
+      - primary_page_bottom_composer
+      - ai_chat_message_body
+    riskWarnings:
+      - severity: P0
+        rule: 交易陪伴建议不得替代用户确认或风险提示。
+    humanRules:
+      do:
+        - 用于深色交易页中同时展示陪伴、指数和买 / 卖 / 撤行动。
+      dont:
+        - 不要让陪伴模块遮挡交易行动或引导无确认交易。
+  - variantId: trading-index-companion-light
+    figmaNodeId: "12:10341"
+    scene: 个股场景
+    modifiers:
+      有关联问: "Off"
+      有陪伴: "On"
+      有指数: "On"
+      Dark: "Off"
+    usedIn:
+      - trading-page
+      - order-entry-page
+      - trading-assistant-flow
+    allowedZones:
+      - trading_page_bottom_action
+      - market_index_bottom_summary
+      - companion_bottom_area
+    forbiddenZones:
+      - primary_page_bottom_composer
+      - ai_chat_message_body
+    riskWarnings:
+      - severity: P0
+        rule: 浅色交易陪伴模块不得弱化交易行动和风险确认。
+    humanRules:
+      do:
+        - 用于浅色交易页中同时展示陪伴、指数和买 / 卖 / 撤行动。
+      dont:
+        - 不要只把 trading-index-companion-dark 改色后当作该变体。
+  - variantId: trading-related-index-dark
+    figmaNodeId: "12:10360"
+    scene: 个股场景
+    modifiers:
+      有关联问: "On"
+      有陪伴: "Off"
+      有指数: "On"
+      Dark: "On"
+    usedIn:
+      - trading-page
+      - order-entry-page
+      - related-question-trading-flow
+    allowedZones:
+      - trading_page_bottom_action
+      - market_index_bottom_summary
+    forbiddenZones:
+      - primary_page_bottom_composer
+      - ai_chat_message_body
+    riskWarnings:
+      - severity: P0
+        rule: 关联问和指数信息不能分散对交易行动风险的注意。
+    humanRules:
+      do:
+        - 用于深色交易页中同时展示关联问、指数和交易行动。
+      dont:
+        - 不要把关联问作为交易建议确认流程。
+  - variantId: trading-related-index-light
+    figmaNodeId: "12:10372"
+    scene: 个股场景
+    modifiers:
+      有关联问: "On"
+      有陪伴: "Off"
+      有指数: "On"
+      Dark: "Off"
+    usedIn:
+      - trading-page
+      - order-entry-page
+      - related-question-trading-flow
+    allowedZones:
+      - trading_page_bottom_action
+      - market_index_bottom_summary
+    forbiddenZones:
+      - primary_page_bottom_composer
+      - ai_chat_message_body
+    riskWarnings:
+      - severity: P0
+        rule: 浅色关联问指数交易底栏必须保持交易行动和指数信息可读。
+    humanRules:
+      do:
+        - 用于浅色交易页中同时展示关联问、指数和交易行动。
+      dont:
+        - 不要只把 trading-related-index-dark 改色后当作该变体。
 
 # ============================================================
 # 02_AGENT_EXTRACTED
@@ -71,65 +1577,459 @@ examples:
 # ============================================================
 
 figma:
-  fileName: TODO_VERIFY_WITH_FIGMA
-  fileKey: TODO_VERIFY_WITH_FIGMA
-  exampleNodeId: TODO_VERIFY_WITH_FIGMA
-  figmaExactName: TODO_VERIFY_WITH_FIGMA
+  fileName: 设计仓库
+  fileKey: pbxELN7TYDDguIgbXfc1zB
+  sourceUrl: https://www.figma.com/design/pbxELN7TYDDguIgbXfc1zB/%E8%AE%BE%E8%AE%A1%E4%BB%93%E5%BA%93?node-id=12-10172
+  sectionNodeId: "12:6783"
+  sectionNodeName: 3.3 底bar组件
+  exampleNodeId: "12:10172"
+  exampleNodeName: bottom bar/母组件
+  figmaExactName: bottom bar/母组件
   componentKey: TODO_VERIFY_WITH_FIGMA
   bindingMode: must_use_library_instance
   bindingFailurePolicy: stop_and_recheck
+  extractionStatus:
+    metadata: confirmed_page_and_main_component
+    designContext: partial
+    componentKey: TODO_VERIFY_WITH_FIGMA
+    codeConnect: unavailable_without_figma_developer_seat
+  selectionScope:
+    source: current-figma-selection-plus-page-metadata
+    currentSelectionCount: 2
+    selectedComponentFamilies:
+      - familyId: bottom-bar.main
+        nodeId: "12:10172"
+        name: bottom bar/母组件
+        role: component-set
+        selectedStatus: confirmed-by-page-metadata
+        selectedVariantCount: 20
+      - familyId: bottom-bar.voice-input
+        nodeId: TODO_VERIFY_WITH_FIGMA
+        name: bottom bar/item/长按语音输入
+        role: component-or-component-set
+        selectedStatus: observed-in-current-figma-selection
+        selectedVariantCount: 8
+      - familyId: bottom-bar.input-pill
+        nodeId: TODO_VERIFY_WITH_FIGMA
+        name: bottom bar/item/输入胶囊
+        role: component
+        selectedStatus: observed-in-current-figma-layer-list
+        selectedVariantCount: TODO_VERIFY_WITH_FIGMA
+    excluded:
+      - 未选中的旧版底栏实例
+      - 未选中的页面示例 frame
+      - 未选中的传统底部导航或 tabs 组件
   propertyHints:
-    variant:
-      - primaryPage
-      - chatPage
-      - stockQuotePage
+    场景:
+      - 首页场景
+      - 全屏对话场景
+      - 个股场景
+      - 个股场景关联问
+      - 陪伴场景
+    sceneAliases:
+      首页场景:
+        legacyFigmaValues:
+          - 默认
+      全屏对话场景:
+        legacyFigmaValues:
+          - 对话
+      个股场景:
+        legacyFigmaValues:
+          - 个股
+          - 交易场景
+        note: 旧 Figma property 中的“交易场景”在本 brief 中按“个股场景 / 交易入口”处理。
+      个股场景关联问:
+        derivedFrom:
+          scene: 个股场景
+          modifier: 有关联问
+      陪伴场景:
+        derivedFrom:
+          modifier: 有陪伴
+    有关联问:
+      - "On"
+      - "Off"
+    有陪伴:
+      - "On"
+      - "Off"
+    有指数:
+      - "On"
+      - "Off"
+    Dark:
+      - "On"
+      - "Off"
 
 classification:
   primitiveFamily: bottom_bar
-  componentType: navigation-and-input
+  componentType: fixed-bottom-composer-and-action-bar
   riskLevel: high
   isOrdinaryButton: false
   isTradingAction: false
+  maintenanceLevel: strong
 
 observedStructure:
-  root: TODO_VERIFY_WITH_FIGMA
-  children: []
-  typography: TODO_VERIFY_WITH_FIGMA
+  root:
+    componentSetNodeId: "12:10172"
+    name: bottom bar/母组件
+    width: 8578
+    height: 342
+    variantFrameWidth: 390
+    layout: variant-set
+    positioning: fixed-to-mobile-frame-bottom
+  commonGeometry:
+    mobileFrameWidth: 390
+    controlRowHeight: 48
+    bottomSafeAreaHeight: 34
+    homeIndicator:
+      width: 134
+      height: 5
+      bottom: 9
+      radius: 100
+    controlGap:
+      normal: 16
+      trading: 16
+      agentChips: 8
+  children:
+    - id: backgroundShadow
+      role: bottom-gradient-background
+      confirmedNodeExamples:
+        - "12:10174"
+        - "12:10181"
+        - "12:10262"
+        - "12:10326"
+      behavior: height changes by scene and optional modules.
+    - id: inputPill
+      role: voice-input-or-composer
+      confirmedNodeExamples:
+        - "12:8495"
+        - "12:8519"
+        - "12:8631"
+        - "12:8661"
+      observedWidths:
+        default: 220
+        trading: 168
+      observedHeight: 48
+      label: 按住说话
+      includes:
+        - microphone-icon
+        - keyboard-or-grid-icon
+        - voice-input-label
+    - id: leftEntryIcon
+      role: scene-entry-or-ordinary-entry
+      confirmedNodeExamples:
+        - "12:7884"
+        - "12:7903"
+      observedSize: 48
+    - id: rightAssistantIcon
+      role: assistant-or-companion-entry
+      confirmedNodeExamples:
+        - "12:7965"
+        - "12:7996"
+      observedSize: 48
+    - id: tradingActions
+      role: buy-sell-cancel-actions
+      confirmedNodeExamples:
+        - "12:8966"
+        - "12:8976"
+        - "12:8985"
+        - "12:8995"
+        - "12:9005"
+        - "12:9011"
+      observedSize: 48
+      labels:
+        - 买
+        - 卖
+        - 撤
+      onlyWhen:
+        场景: 个股场景
+        subContext: 交易入口
+    - id: agentSuggestionChips
+      role: ai-agent-suggestion-row
+      confirmedNodeExamples:
+        - "12:10187"
+        - "12:10196"
+      labels:
+        - 深度思考
+        - 收藏问题
+        - 任务助手
+      onlyWhen:
+        场景: 全屏对话场景
+    - id: aiGeneratedDisclosure
+      role: ai-content-disclosure
+      confirmedNodeExamples:
+        - "12:9185"
+        - "12:10197"
+      label: 内容由AI生成
+      onlyWhen:
+        ai: "On"
+    - id: indexModule
+      role: market-index-summary
+      confirmedNodeExamples:
+        - "12:9187"
+      observedHeight: 34
+      fields:
+        - indexName
+        - indexValue
+        - changeValue
+        - changePercent
+      onlyWhen:
+        有指数: "On"
+    - id: companionModule
+      role: ai-companion-or-related-answer-card
+      confirmedNodeExamples:
+        - "12:8428"
+      observedHeight: 129
+      onlyWhen:
+        有陪伴: "On"
+  typography:
+    voiceInput:
+      fontFamily: PingFang SC
+      fontWeight: Medium
+      fontSize: 16
+      lineHeight: 100
+      token: Body Medium 16/Medium
+    agentChip:
+      fontFamily: PingFang SC
+      fontWeight: Regular
+      fontSize: 13
+      lineHeight: 100
+      token: MarkLarge 13/Regular
+    companionText:
+      fontFamily: PingFang SC
+      fontWeight: Regular
+      fontSize: 14
+      lineHeight: 1.6
+      token: BodyXSmall 14/Regular 1.6
+    aiDisclosure:
+      fontFamily: PingFang SC
+      fontWeight: Regular
+      fontSize: 9
+      opacity: 0.5
   tokens:
+    confirmedVariableDefs:
+      "color/xzl-color-primary-dark blue": "#2d3a67"
+      "color/xzl-color-text-a": "#ffffff"
+      "zl-text-a #111": "#111111"
+      "color/xzl-color-text-e": "#ffffff4d"
+      "color/xzl-color-primary-red": "#f62f3f"
+      "xzl-color-special-red": "#fc404f"
+      "xzl-color-click-blue": "#5998ff"
+      "color/xzl-color-primary-blue": "#3b84ff"
+      "color/xzl-color-bar": "#cae0f8"
+      "color/xzl-color-input": "#59608e4d"
+      "页面背景色/三级文字": "#80858D"
     source: assets/templates/bottom-bar-component.json
+  themeDifferences:
+    darkOn:
+      background: dark gradient ending near "#071025"
+      iconContainer: dark circular glass button
+      homeIndicator: color/xzl-color-text-a
+      aiDisclosure: color/xzl-color-text-e
+    darkOff:
+      background: light gradient ending near "#f3f5f9"
+      iconContainer: white translucent gradient button
+      homeIndicator: zl-text-a #111
+      assistantChipText: color/xzl-color-primary-dark blue
 
 variants:
-  confirmed: []
-  candidates:
-    - primaryPage
-    - chatPage
-    - stockQuotePage
+  confirmed:
+    - id: default-dark
+      nodeId: "12:10173"
+      name: 场景=首页场景, 有关联问=Off, 有陪伴=Off, 有指数=Off, Dark=On
+      height: 130
+    - id: default-light
+      nodeId: "12:10216"
+      name: 场景=首页场景, 有关联问=Off, 有陪伴=Off, 有指数=Off, Dark=Off
+      height: 130
+    - id: default-companion-dark
+      nodeId: "12:10198"
+      name: 场景=首页场景, 有关联问=Off, 有陪伴=On, 有指数=Off, Dark=On
+      height: 227
+    - id: default-companion-light
+      nodeId: "12:10207"
+      name: 场景=首页场景, 有关联问=Off, 有陪伴=On, 有指数=Off, Dark=Off
+      height: 227
+    - id: chat-dark
+      nodeId: "12:10180"
+      name: 场景=全屏对话场景, 有关联问=Off, 有陪伴=Off, 有指数=Off, Dark=On
+      height: 171
+    - id: chat-light
+      nodeId: "12:10189"
+      name: 场景=全屏对话场景, 有关联问=Off, 有陪伴=Off, 有指数=Off, Dark=Off
+      height: 171
+    - id: trading-dark
+      nodeId: "12:10222"
+      name: 场景=个股场景, 有关联问=Off, 有陪伴=Off, 有指数=Off, Dark=On
+      height: 130
+    - id: trading-light
+      nodeId: "12:10230"
+      name: 场景=个股场景, 有关联问=Off, 有陪伴=Off, 有指数=Off, Dark=Off
+      height: 130
+    - id: trading-related-dark
+      nodeId: "12:10237"
+      name: 场景=个股场景, 有关联问=On, 有陪伴=Off, 有指数=Off, Dark=On
+      height: 130
+    - id: trading-related-light
+      nodeId: "12:10243"
+      name: 场景=个股场景, 有关联问=On, 有陪伴=Off, 有指数=Off, Dark=Off
+      height: 130
+    - id: stock-index-dark
+      nodeId: "12:10248"
+      name: 场景=个股场景, 有关联问=Off, 有陪伴=Off, 有指数=On, Dark=On
+      height: 131
+    - id: stock-index-companion-dark
+      nodeId: "12:10261"
+      name: 场景=个股场景, 有关联问=Off, 有陪伴=On, 有指数=On, Dark=On
+      height: 260
+    - id: stock-index-companion-light
+      nodeId: "12:10276"
+      name: 场景=个股场景, 有关联问=Off, 有陪伴=On, 有指数=On, Dark=Off
+      height: 260
+    - id: stock-plain-light
+      nodeId: "12:10387"
+      name: 场景=个股场景, 有关联问=Off, 有陪伴=Off, 有指数=Off, Dark=Off
+      height: 131
+    - id: trading-index-dark
+      nodeId: "12:10294"
+      name: 场景=个股场景, 有关联问=Off, 有陪伴=Off, 有指数=On, Dark=On
+      height: 131
+    - id: trading-index-light
+      nodeId: "12:10308"
+      name: 场景=个股场景, 有关联问=Off, 有陪伴=Off, 有指数=On, Dark=Off
+      height: 131
+    - id: trading-index-companion-dark
+      nodeId: "12:10325"
+      name: 场景=个股场景, 有关联问=Off, 有陪伴=On, 有指数=On, Dark=On
+      height: 260
+    - id: trading-index-companion-light
+      nodeId: "12:10341"
+      name: 场景=个股场景, 有关联问=Off, 有陪伴=On, 有指数=On, Dark=Off
+      height: 260
+    - id: trading-related-index-dark
+      nodeId: "12:10360"
+      name: 场景=个股场景, 有关联问=On, 有陪伴=Off, 有指数=On, Dark=On
+      height: 131
+    - id: trading-related-index-light
+      nodeId: "12:10372"
+      name: 场景=个股场景, 有关联问=On, 有陪伴=Off, 有指数=On, Dark=Off
+      height: 131
+  candidates: []
 
 states:
   - id: default
     required: true
+  - id: dark
+    required: true
+  - id: light
+    required: true
+  - id: ai-disclosure-visible
+    required: false
+  - id: agent-chips-visible
+    required: false
+  - id: companion-visible
+    required: false
+  - id: index-visible
+    required: false
+  - id: related-question-visible
+    required: false
+  - id: trading-actions-visible
+    required: false
   - id: focused
     required: false
+    verification: TODO_VERIFY_WITH_FIGMA
   - id: disabled
     required: false
+    verification: TODO_VERIFY_WITH_FIGMA
 
 slots:
-  safeArea:
-    description: 底部安全区。
+  root:
+    description: 底部栏根容器，宽度 390，固定在移动端 frame 底部。
+  backgroundShadow:
+    description: 底部渐变背景，按场景高度变化。
+  controlRow:
+    description: 承载输入胶囊、场景入口、助手入口或交易行动按钮的主操作行。
   inputPill:
-    description: 输入胶囊。
-  sceneEntries:
-    description: 一级页面场景入口。
-  quoteActions:
-    description: 个股行情买卖撤等底部行动。
+    description: 语音输入胶囊，默认文案为“按住说话”。
+    editable: true
+  leftEntryIcon:
+    description: 首页场景 / 全屏对话场景 / 个股场景左侧入口图标。
+    editable: true
+  rightAssistantIcon:
+    description: 首页场景 / 全屏对话场景 / 个股场景右侧助手入口图标。
+    editable: true
+  tradingActions:
+    description: 个股场景交易上下文中的买、卖、撤三个行动入口。
+    editable: false
+    allowedLabels:
+      - 买
+      - 卖
+      - 撤
+  agentSuggestionChips:
+    description: 全屏对话场景的 AI 助手建议胶囊。
+    editable: true
+    defaultValues:
+      - 深度思考
+      - 收藏问题
+      - 任务助手
+  companionModule:
+    description: 陪伴模块，包含人物形象、文本气泡和建议按钮。
+    editable: true
+  indexModule:
+    description: 指数摘要模块，包含名称、数值、涨跌额、涨跌幅和展开箭头。
+    editable: true
+  aiGeneratedDisclosure:
+    description: AI 内容披露文案“内容由AI生成”。
+    editable: false
+  homeIndicator:
+    description: iOS home indicator 安全区，宽 134、高 5、底部 9。
 
 tokens:
   source:
     - assets/templates/bottom-bar-component.json
     - assets/templates/bottom-bar-output-checklist.json
+    - assets/tokens/token-mapping.json
+  figmaVariables:
+    - color/xzl-color-primary-dark blue
+    - color/xzl-color-text-a
+    - zl-text-a #111
+    - color/xzl-color-text-e
+    - color/xzl-color-primary-red
+    - color/xzl-color-primary-blue
+    - color/xzl-color-bar
+    - color/xzl-color-input
+    - font family/Text
+    - font size/BodyMedium16
+    - font size/MarkLarge 13
+    - font size/BodyXSmall 14
 
 textOverrideFields:
-  - TODO_VERIFY_WITH_FIGMA
+  - field: inputPill.label
+    defaultValue: 按住说话
+    figmaTarget: TODO_VERIFY_WITH_FIGMA
+  - field: agentSuggestionChips.labels
+    defaultValue:
+      - 深度思考
+      - 收藏问题
+      - 任务助手
+    figmaTarget: TODO_VERIFY_WITH_FIGMA
+  - field: companionModule.body
+    defaultValue: 文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字文字
+    figmaTarget: TODO_VERIFY_WITH_FIGMA
+  - field: companionModule.buttonLabels
+    defaultValue:
+      - 按钮文字
+    figmaTarget: TODO_VERIFY_WITH_FIGMA
+  - field: indexModule.name
+    defaultValue: 文字文字
+    figmaTarget: TODO_VERIFY_WITH_FIGMA
+  - field: indexModule.values
+    defaultValue:
+      - "1000.00"
+      - "1000.00"
+      - "1000.00"
+    figmaTarget: TODO_VERIFY_WITH_FIGMA
+  - field: aiGeneratedDisclosure.label
+    defaultValue: 内容由AI生成
+    figmaTarget: TODO_VERIFY_WITH_FIGMA
 
 resourceRefs:
   - references/foundation/components-bottom-bar.md
@@ -138,6 +2038,8 @@ resourceRefs:
   - references/foundation/bottom-bar/icons.md
   - references/foundation/bottom-bar/states.md
   - assets/templates/bottom-bar-component.json
+  - assets/templates/bottom-bar-output-checklist.json
+  - bindings/assets/manifest.yaml
 
 # ============================================================
 # 03_AGENT_EXPANSION_AND_CHECKLIST
@@ -145,18 +2047,58 @@ resourceRefs:
 # ============================================================
 
 reviewChecklist:
-  - id: bottom-bar-context-routed
+  - id: bottom-bar-real-figma-component-used
     severity: P0
-    question: 是否按页面上下文正确路由底部栏 variant？
-    passCriteria: primaryPage、chatPage、stockQuotePage 与可见结构一致。
-  - id: quote-action-not-scene-entry
+    question: "是否使用了 Figma 中真实的 `bottom bar/母组件` 底部栏变体？"
+    passCriteria: "输出或审核对象能对应到 `12:10172` 组件集中的一个 confirmed variant；componentKey 未确认时必须保留 TODO_VERIFY_WITH_FIGMA。"
+  - id: bottom-bar-not-tabs-or-button-group
     severity: P0
-    question: 是否混淆了一级页面交易入口和个股行情买卖撤？
-    passCriteria: sceneEntries 和 quoteActions 使用各自资产与结构。
-  - id: fixed-above-content
+    question: 是否把普通按钮、tabs、列表操作区或内容区胶囊误当成 bottom bar？
+    passCriteria: 底栏必须包含固定底部结构、controlRow 和 safeArea / homeIndicator；tabs 只能用于内容切换，普通按钮组不能替代底栏。
+  - id: scene-property-matches-page-context
+    severity: P0
+    question: "`场景` 属性是否与页面上下文一致？"
+    passCriteria: 首页场景、全屏对话场景、个股场景、个股场景关联问、陪伴场景不能混用；旧 Figma property 中的“默认 / 对话 / 交易场景”必须映射到对应新分类。
+  - id: trading-actions-context-safe
+    severity: P0
+    question: 买、卖、撤行动是否只出现在明确交易上下文的底栏中？
+    passCriteria: "买 / 卖 / 撤仅在 `场景=个股场景` 且页面存在标的或交易表单上下文时出现，不得出现在 AI 对话正文或普通页面默认底栏。"
+  - id: ai-disclosure-kept-when-needed
     severity: P1
-    question: 底部栏是否固定在 frame 底部且高于滚动内容？
-    passCriteria: 内容保留底部间距，底栏不被滚动层覆盖。
+    question: 全屏对话或 AI 建议内容出现时，是否正确保留 AI 生成内容披露？
+    passCriteria: 全屏对话场景或 AI 建议胶囊可见时，底部安全区应显示或按规范处理“内容由AI生成”；若隐藏需有人工确认。
+  - id: theme-variant-not-color-patched
+    severity: P1
+    question: light / dark 模式是否使用真实变体，而不是只替换颜色？
+    passCriteria: "`Dark=On` 和 `Dark=Off` 对应 Figma 变体；背景、图标容器、homeIndicator、文字 token 均随变体变化。"
+  - id: safe-area-and-home-indicator-present
+    severity: P1
+    question: 底部安全区和 home indicator 是否保留？
+    passCriteria: 底部保留 34px safe area，home indicator 为 134x5、底部 9px，且不被内容或按钮遮挡。
+  - id: optional-modules-height-accounted
+    severity: P1
+    question: 有陪伴、有指数、有关联问等可选模块出现时，底栏高度和内容避让是否正确？
+    passCriteria: 130 / 131 / 171 / 227 / 260 等不同高度变体不能强行压缩；滚动内容应预留对应底部空间。
+  - id: input-pill-structure-valid
+    severity: P2
+    question: 语音输入胶囊是否保留图标、文案和右侧输入模式入口？
+    passCriteria: 输入胶囊包含麦克风图标、“按住说话”文案和右侧键盘 / 网格入口；个股场景交易上下文中的宽度变化不得造成文案截断。
+  - id: index-module-financial-tokens-valid
+    severity: P2
+    question: 指数模块是否使用金融语义 token？
+    passCriteria: 指数数值、涨跌额、涨跌幅使用已确认金融色彩变量；不得用普通文字色或任意 raw color 替代。
+  - id: voice-input-state-clear
+    severity: P1
+    question: 长按语音输入状态是否清楚表达当前操作？
+    passCriteria: 采集中、松开发送、上滑取消或取消发送状态必须有清晰文案、波形或颜色反馈，不得让用户误发语音。
+  - id: voice-input-h5-not-figma-instance
+    severity: P2
+    question: H5 长按语音输入是否被正确标记为 prototype 表达？
+    passCriteria: H5 场景只能声明为视觉等价或低保真表达，不能声称使用真实 Figma 组件实例。
+  - id: voice-input-copy-verified
+    severity: P2
+    question: 长按语音输入的提示文案是否来自 Figma 或人工确认？
+    passCriteria: 例如“松开结束，上滑取消”“松开取消发送”等文案必须记录真实 Figma 节点或标记 TODO_VERIFY_WITH_FIGMA。
 
 agentExpansion:
   canonComponent:
