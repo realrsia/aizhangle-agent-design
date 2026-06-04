@@ -33,7 +33,7 @@ Agent 容易把 Figma 页面样例误写成新的组件定义，或者把 GUI阅
 
 ## Related Rules
 
-- Scenario: `scenario.action-sheet.modal-usage`
+- Scenario: `scenario.action-sheet-modal-usage`
 - Component: `component.action-sheet`
 - Usage groups:
   - `action-sheet.usage.gui-reading-market-overview-dark`

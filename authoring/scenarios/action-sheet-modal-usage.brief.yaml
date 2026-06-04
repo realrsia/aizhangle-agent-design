@@ -3,7 +3,7 @@
 # 人工必填区
 # ============================================================
 
-id: scenario.action-sheet.modal-usage
+id: scenario.action-sheet-modal-usage
 name: Action Sheet 弹窗使用场景
 owner: product-design
 status: draft
@@ -140,9 +140,13 @@ reviewChecklist:
     passCriteria: 这些 Figma frame 只能进入 usageInstanceGroups / scenario / case study，不进入 componentFamilies 或 variantGroups。
 
 agentExpansion:
+  status: planned
   canonScenario:
     path: canon/scenarios/action-sheet-modal-usage.yaml
+    status: TODO_AGENT_FILL
   checklist:
     path: canon/checklists/action-sheet-modal-usage-review.yaml
+    status: TODO_AGENT_FILL
   docs:
     path: docs/generated/scenarios/action-sheet-modal-usage.md
+    status: TODO_AGENT_FILL
