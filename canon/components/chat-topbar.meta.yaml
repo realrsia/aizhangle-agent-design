@@ -1,0 +1,121 @@
+id: component.chat-topbar
+name: 对话顶部导航栏
+owner: design-system
+status: draft
+sourceBrief: authoring/components/chat-topbar.brief.yaml
+classification:
+  primitiveFamily: chat_topbar
+  componentType: navigation
+  riskLevel: high
+  isOrdinaryHeader: false
+purpose: >
+  Fixed top navigation for full-screen conversation pages. It contains the iOS
+  status region, a compact conversation header, a left close action, and right
+  message/play icon actions.
+usage:
+  usedIn:
+    - ai-chat-page
+    - message-page
+  allowedZones:
+    - topbar
+    - full-screen-conversation-header
+  forbiddenZones:
+    - message_feed
+    - bottom_input
+    - ordinary-card-header
+  requiredPairings:
+    - iOS-status-region
+    - component.message-feed
+    - component.chat-input
+  forbiddenPairings:
+    - level-2-title-header
+    - tabbed-navigation
+composition:
+  aiChatScenario:
+    source: authoring/scenarios/ai-chat.brief.yaml
+    role: fixed topbar outside message-feed scrolling
+    rule: Do not replace with ordinary secondary page title header, search header, tab header, or trading Stock Header.
+riskBoundaries:
+  - id: chat-topbar-fullscreen-type
+    severity: P0
+    rule: The topbar must remain a full-screen conversation header, not an ordinary second-level page header.
+  - id: chat-topbar-formal-source-pending
+    severity: P1
+    rule: Formal design-repository source is not confirmed; use the dialog GUI instance as draft evidence and keep repository source verification open.
+componentFamilies:
+  - familyId: chat-topbar.fullscreen-conversation
+    displayName: 全屏对话导航栏
+    fileName: 对话流GUI与规范实测
+    fileKey: 4lMpPyfchpoWK0wE0nyJzw
+    figmaNodeId: "5524:134998"
+    canonicalName: 全屏对话导航栏
+    sourceFigmaExactName: 1月版全屏对话导航栏
+    sourceNameStatus: legacy_name_in_figma_needs_rename
+    componentKey: d6c27504e793aea744afe4c816200fbcce914c5a
+    mainComponentKey: eac35c8abbd87e668ac8857cffaae0e5b0d9b4db
+    familyType: component_set_instance
+    bindingMode: must_use_library_instance
+    bindingFailurePolicy: stop_and_recheck
+    status: draft-use-dialog-gui-instance-pending-formal-repository-component
+    componentPropertyHints:
+      展开:
+        - "Off"
+      胶囊数量:
+        - "0"
+      Dark:
+        - "On"
+        - "Off"
+variants:
+  confirmed:
+    - id: chat-topbar-default-dark
+      familyId: chat-topbar.fullscreen-conversation
+      figmaExactName: 展开=Off, 胶囊数量=0, Dark=On
+      componentKey: eac35c8abbd87e668ac8857cffaae0e5b0d9b4db
+      variantProperties:
+        展开: "Off"
+        胶囊数量: "0"
+        Dark: "On"
+  candidates:
+    - id: chat-topbar-default-light
+      figmaExactName: 展开=Off, 胶囊数量=0, Dark=Off
+      componentKey: 86119071f8fc5b0509977f44780c5c431c7f1fbf
+      status: TODO_VERIFY_WITH_FIGMA
+states:
+  required:
+    - default
+slots:
+  statusRegion:
+    required: true
+    height: 47
+  conversationHeader:
+    required: true
+    height: 44
+  closeAction:
+    description: 左侧关闭按钮。
+  messageAction:
+    description: 右侧消息入口。
+    order: 1
+  playAction:
+    description: 右侧播放入口。
+    order: 2
+tokens:
+  source:
+    - docs/references/pages/page-headers.md
+    - docs/references/pages/page-backgrounds.md
+assetRefs: []
+textOverrideFields: []
+repositorySearchNotes:
+  - source: figma://N0GqvW0qr9niOnWxjzyulU/12:6783
+    name: 3.3 底bar组件
+    result: bottom_bar_section_with_trading_header_examples
+    decision: not_formal_chat_topbar_source
+    fallbackPolicy: use_dialog_gui_instance_and_mark_pending_do_not_create_original_header
+sourceRefs:
+  - authoring/components/chat-topbar.brief.yaml
+  - authoring/scenarios/ai-chat.brief.yaml
+  - docs/references/pages/page-headers.md
+  - docs/references/fidelity/chat-fidelity-reconstruction.md
+figmaBinding:
+  path: bindings/figma/components.yaml
+reviewChecklist:
+  path: canon/checklists/chat-topbar-review.yaml

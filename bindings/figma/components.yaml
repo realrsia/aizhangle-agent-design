@@ -185,6 +185,297 @@ components:
     verificationGaps:
       - Body, button, and source text override targets are confirmed as semantic fields; exact override property IDs still need Figma verification before automated override.
       - Figma image hashes for decoration images are confirmed in authoring but are not local asset files.
+  component.chat-background:
+    bindingMode: must_use_library_instance
+    bindingFailurePolicy: stop_and_recheck
+    status: confirmed
+    sourceBrief: authoring/components/chat-background.brief.yaml
+    fileName: 设计仓库
+    fileKey: N0GqvW0qr9niOnWxjzyulU
+    sectionNodeId: "23:17482"
+    sectionName: 元素组件
+    groupNodeId: "7:6911"
+    groupName: 背景
+    componentKey: 57900b6e064fd94b5c32a1efe9feff70bea8e4d9
+    componentPropertyDefinitions:
+      页面:
+        type: VARIANT
+        variantOptions:
+          - 1屏
+          - 全屏
+      dark:
+        type: VARIANT
+        variantOptions:
+          - "on"
+          - "off"
+    confirmedVariants:
+      - variantId: chat-background-one-screen-dark
+        nodeId: "7:6308"
+        componentKey: 8fc63b06eaaeb352df3ce3ca38969f00923d5e5d
+        figmaExactName: 页面=1屏, dark=on
+      - variantId: chat-background-full-screen-dark
+        nodeId: "31:18747"
+        componentKey: eb6f8da9e8da594be4425a5a3304391ab0b4b3b0
+        figmaExactName: 页面=全屏, dark=on
+      - variantId: chat-background-one-screen-light
+        nodeId: "7:6910"
+        componentKey: e8e966317feacf946bec7c575a41ca935887c4c4
+        figmaExactName: 页面=1屏, dark=off
+      - variantId: chat-background-full-screen-light
+        nodeId: "31:18755"
+        componentKey: 86c486150135c86e46456c2fc842a16b25b09b3a
+        figmaExactName: 页面=全屏, dark=off
+    verificationGaps:
+      - Design repository background variable/token binding is described by authoring but still needs exact Figma variable verification before treating token values as facts.
+  component.chat-input:
+    bindingMode: must_use_library_instance
+    bindingFailurePolicy: stop_and_recheck
+    status: partial
+    sourceBrief: authoring/components/chat-input.brief.yaml
+    fileName: 对话流GUI与规范实测
+    fileKey: 4lMpPyfchpoWK0wE0nyJzw
+    exampleNodeId: "5509:131783"
+    canonicalName: bottom bar/母组件
+    sourceFigmaExactName: 1月版/母组件
+    sourceNameStatus: legacy_name_in_figma_needs_rename
+    componentKey: 6c67c07391c697e6658e10a591063b31017a622f
+    mainComponentKey: ceda34ec270acdbe0377ac8d917e5c499ac6c9a5
+    relatedRepositoryFileKey: N0GqvW0qr9niOnWxjzyulU
+    repositoryComponentSetNodeId: "12:10172"
+    repositoryComponentSetName: bottom bar/母组件
+    repositoryComponentSetKey: 8cbb729a37926f3ff74f84f60bee46a009e4de04
+    formalComponentAlias: component.bottom-bar
+    variantProperties:
+      场景:
+        - 对话
+        - 默认
+        - 交易场景
+        - 个股
+      有关联问:
+        - "On"
+        - "Off"
+      有陪伴:
+        - "On"
+        - "Off"
+      有指数:
+        - "On"
+        - "Off"
+      Dark:
+        - "On"
+        - "Off"
+    familyBindings:
+      - familyId: chat-input.dialog-bottom-bar-instance
+        nodeId: "5509:131783"
+        figmaExactName: 1月版/母组件
+        componentKey: 6c67c07391c697e6658e10a591063b31017a622f
+        mainComponentKey: ceda34ec270acdbe0377ac8d917e5c499ac6c9a5
+        status: draft-page-instance
+      - familyId: chat-input.repository-bottom-bar
+        nodeId: "12:10172"
+        figmaExactName: bottom bar/母组件
+        componentKey: 8cbb729a37926f3ff74f84f60bee46a009e4de04
+        status: formal-component-source
+    confirmedVariants:
+      - variantId: chat-input-dialog-dark
+        nodeId: "12:10180"
+        componentKey: 73fa7c55a7adc008e563959371c3e6c53623cfb7
+        figmaExactName: 场景=对话, 有关联问=Off, 有陪伴=Off, 有指数=Off, Dark=On
+      - variantId: chat-input-dialog-light
+        nodeId: "12:10189"
+        componentKey: 294d923f164d688d89fc2d2693aeabc04651126e
+        figmaExactName: 场景=对话, 有关联问=Off, 有陪伴=Off, 有指数=Off, Dark=Off
+    candidateStates:
+      - voice
+      - keyboard
+      - interruption
+      - upward-swipe
+      - related-question
+      - companion
+      - index
+    textOverrideTargets:
+      inputPlaceholder:
+        status: TODO_VERIFY_WITH_FIGMA
+      voiceHoldLabel:
+        status: TODO_VERIFY_WITH_FIGMA
+      keyboardInputText:
+        status: TODO_VERIFY_WITH_FIGMA
+      deepAnswerChipLabel:
+        status: TODO_VERIFY_WITH_FIGMA
+      advisorAnswerChipLabel:
+        status: TODO_VERIFY_WITH_FIGMA
+      assistantSelectorLabel:
+        status: TODO_VERIFY_WITH_FIGMA
+      aiDisclosureText:
+        status: TODO_VERIFY_WITH_FIGMA
+    verificationGaps:
+      - Non-default chat input states need Figma node/property verification before promotion.
+      - Exact text override targets for input/chip/disclosure copy are not confirmed.
+  component.chat-topbar:
+    bindingMode: must_use_library_instance
+    bindingFailurePolicy: stop_and_recheck
+    status: partial
+    sourceBrief: authoring/components/chat-topbar.brief.yaml
+    fileName: 对话流GUI与规范实测
+    fileKey: 4lMpPyfchpoWK0wE0nyJzw
+    exampleNodeId: "5524:134998"
+    canonicalName: 全屏对话导航栏
+    sourceFigmaExactName: 1月版全屏对话导航栏
+    sourceNameStatus: legacy_name_in_figma_needs_rename
+    componentKey: d6c27504e793aea744afe4c816200fbcce914c5a
+    mainComponentKey: eac35c8abbd87e668ac8857cffaae0e5b0d9b4db
+    darkVariantComponentKey: eac35c8abbd87e668ac8857cffaae0e5b0d9b4db
+    lightVariantComponentKey: 86119071f8fc5b0509977f44780c5c431c7f1fbf
+    propertyHints:
+      展开:
+        - "Off"
+      胶囊数量:
+        - "0"
+      Dark:
+        - "On"
+        - "Off"
+    familyBindings:
+      - familyId: chat-topbar.fullscreen-conversation
+        nodeId: "5524:134998"
+        figmaExactName: 1月版全屏对话导航栏
+        componentKey: d6c27504e793aea744afe4c816200fbcce914c5a
+        mainComponentKey: eac35c8abbd87e668ac8857cffaae0e5b0d9b4db
+        status: draft-use-dialog-gui-instance-pending-formal-repository-component
+    confirmedVariants:
+      - variantId: chat-topbar-default-dark
+        componentKey: eac35c8abbd87e668ac8857cffaae0e5b0d9b4db
+        figmaExactName: 展开=Off, 胶囊数量=0, Dark=On
+    candidateVariants:
+      - variantId: chat-topbar-default-light
+        componentKey: 86119071f8fc5b0509977f44780c5c431c7f1fbf
+        figmaExactName: 展开=Off, 胶囊数量=0, Dark=Off
+        status: TODO_VERIFY_WITH_FIGMA
+    repositorySearchNotes:
+      - source: figma://N0GqvW0qr9niOnWxjzyulU/12:6783
+        result: bottom_bar_section_with_trading_header_examples
+        decision: not_formal_chat_topbar_source
+    verificationGaps:
+      - Formal design-repository chat topbar component source still needs confirmation.
+      - Light variant node identity and exact property binding need Figma verification before promotion.
+  component.message-feed:
+    bindingMode: semantic_structure_match
+    bindingFailurePolicy: stop_and_recheck
+    status: partial
+    sourceBrief: authoring/components/message-feed.brief.yaml
+    fileName: 对话流GUI与规范实测
+    fileKey: 4lMpPyfchpoWK0wE0nyJzw
+    exampleNodeId: "2684:56257"
+    figmaExactName: 对话-黑版
+    componentKey: not_a_component_instance
+    priorityFrameNodeId: "2684:56257"
+    familyBindings:
+      - familyId: message-feed.user-input
+        nodeId: "2833:51139"
+        figmaExactName: 用户输入
+        componentSetKey: d7188f12d4ad14bb02c4cd19b9b7f256ac8d90f6
+        mainComponentKey: 2e8952d988afa4e8d09f31fb71cfaca955a33be0
+        status: draft-component-set-instance
+      - familyId: message-feed.assistant-avatar
+        nodeId: "2684:56277"
+        figmaExactName: 智能体输出/AI头像
+        componentSetKey: 9dd3bb3033c39dc9fdf1afcf55561f0ea12901f6
+        mainComponentKey: c31a2eea7b451d9a5a021590037369db86451ee4
+        status: draft-component-set-instance
+      - familyId: message-feed.answer-status
+        nodeId: "2684:56281"
+        figmaExactName: 智能体输出/回答状态
+        componentSetKey: e0b01d695002624f8f675556763eb99fec510e27
+        mainComponentKey: c151d85e43fc52d3e54d35fdae7d92249efa7a1c
+        status: draft-component-set-instance
+      - familyId: message-feed.answer-body
+        nodeId: "2684:56362"
+        figmaExactName: 智能体输出/内容/正文
+        componentSetKey: 7d286f187e60b5c4b26a45009e71c4f5e7b7a04c
+        mainComponentKey: 4a5b3be332dccc50dc09e51b5f60166da3f52c33
+        status: draft-component-set-instance
+      - familyId: message-feed.related-question
+        nodeId: "2684:56396"
+        figmaExactName: 关联问
+        componentSetKey: c576349cfc03b9cd032b46ed658b22bc839ddca3
+        mainComponentKey: 90d4a50a7da35de7572a6d0bd18dbad4d0f4fa88
+        status: draft-component-set-instance
+      - familyId: message-feed.reasoning-panel
+        nodeId: "516:20882"
+        figmaExactName: 智能体输出/思考链
+        candidateNodeId: "516:20924"
+        candidateComponentKey: a2050605b8db580891c60b370e4c38f7af9961e3
+        status: TODO_VERIFY_WITH_FIGMA
+    businessContentComponentRefs:
+      - id: message-feed.market-index
+        nodeId: "7:6302"
+        figmaExactName: 指数
+        componentKey: 2c8497856e210074e83c2183bcf545ce863041d1
+      - id: message-feed.market-movement
+        nodeId: "7:6303"
+        figmaExactName: A股异动
+        componentKey: 3255456fccafa816bf6c55f489fd6838b8233773
+        status: variant-details-need-verification
+      - id: message-feed.auction
+        nodeId: "7:6305"
+        figmaExactName: 竞价
+        componentKey: eb51e27c77855c0da3c2d75c57084f868f333f9e
+      - id: message-feed.news-sector
+        nodeId: "7:6307"
+        figmaExactName: 分类=板块
+        componentSetKey: e2a6f4fcf59d06d2b7b3ed4e4b9e5a30e38ec130
+        componentKey: 1a5170acfe89f8d8f92e27b6cc46e9b3d577ed66
+      - id: message-feed.news-market-movement
+        nodeId: "3:5699"
+        figmaExactName: 分类=行情异动
+        componentSetKey: e2a6f4fcf59d06d2b7b3ed4e4b9e5a30e38ec130
+        componentKey: 12bb01f84286e97abf2197e09e691a395153a2fe
+      - id: message-feed.news-market-brief
+        nodeId: "3:5701"
+        figmaExactName: 分类=行情速览
+        componentSetKey: e2a6f4fcf59d06d2b7b3ed4e4b9e5a30e38ec130
+        componentKey: e994ef9cdac9229c834264a41feb12d08f3709ba
+    usageInstanceGroups:
+      - groupId: message-feed.dialog-black-demo
+        nodeId: "2684:56257"
+        figmaExactName: 对话-黑版
+        usageType: demo_frame
+      - groupId: message-feed.dialog-white-demo
+        nodeId: "5829:15305"
+        figmaExactName: 对话-白版
+        usageType: demo_frame
+      - groupId: message-feed.message-black-page
+        nodeId: "3835:60192"
+        figmaExactName: 查看历史消息
+        usageType: message_page_frame
+      - groupId: message-feed.message-white-page
+        nodeId: "3835:66310"
+        figmaExactName: 消息
+        usageType: message_page_frame
+    textOverrideTargets:
+      userQuestionText:
+        status: TODO_VERIFY_WITH_FIGMA
+      assistantName:
+        status: TODO_VERIFY_WITH_FIGMA
+      reasoningStatusText:
+        status: TODO_VERIFY_WITH_FIGMA
+      reasoningStepText:
+        status: TODO_VERIFY_WITH_FIGMA
+      answerTitle:
+        status: TODO_VERIFY_WITH_FIGMA
+      answerBody:
+        status: TODO_VERIFY_WITH_FIGMA
+      answerListItems:
+        status: TODO_VERIFY_WITH_FIGMA
+      disclaimerText:
+        status: TODO_VERIFY_WITH_FIGMA
+      relatedQuestionText:
+        status: TODO_VERIFY_WITH_FIGMA
+      actionLabels:
+        status: TODO_VERIFY_WITH_FIGMA
+    verificationGaps:
+      - Message feed itself is a semantic scroll structure, not a single confirmed component instance.
+      - Reasoning panel component ownership needs Figma verification before promotion.
+      - Exact text override targets are not confirmed.
+      - Stock cards, K-line charts, and table content remain fallback unless a formal component binding is added.
   component.bottom-bar:
     bindingMode: must_use_library_instance
     bindingFailurePolicy: stop_and_recheck

@@ -1,0 +1,154 @@
+id: component.chat-input
+name: 对话输入栏
+owner: design-system
+status: draft
+sourceBrief: authoring/components/chat-input.brief.yaml
+classification:
+  primitiveFamily: chat_input
+  componentType: navigation-and-input
+  riskLevel: high
+  isOrdinaryInput: false
+purpose: >
+  Fixed bottom composer for AI Chat and message pages. It provides the full-screen
+  conversation input entry and should use the repository Bottom Bar dialog
+  variants instead of a generic form input or generic bottom navigation.
+usage:
+  usedIn:
+    - ai-chat-page
+    - message-page
+  allowedZones:
+    - bottom_input
+    - chat_page_composer
+    - assistant_footer
+  forbiddenZones:
+    - message_feed
+    - ordinary_card_footer
+    - reasoning_panel
+  requiredPairings:
+    - component.bottom-bar
+    - safe-area
+    - component.chat-topbar
+  forbiddenPairings:
+    - generic-form-input
+    - generic-bottom-navigation
+composition:
+  aiChatScenario:
+    source: authoring/scenarios/ai-chat.brief.yaml
+    role: fixed bottom input above the page background and outside message-feed scrolling
+    rule: Message content must reserve bottom space so long answers, charts, or cards do not sit under the input bar.
+  formalSource:
+    componentId: component.bottom-bar
+    rule: Use `bottom bar/母组件` dialog variants as the formal component source for default dark/light chat input.
+riskBoundaries:
+  - id: chat-input-fixed-bottom
+    severity: P0
+    rule: Chat input must stay fixed at the bottom and must not scroll with message_feed.
+  - id: chat-input-dialog-bottom-bar
+    severity: P0
+    rule: Default AI Chat input uses Bottom Bar dialog structure, not a generic input field.
+  - id: chat-input-state-verification
+    severity: P1
+    rule: Voice, keyboard, interruption, upward-swipe, related-question, companion, and index states remain candidates until verified in Figma.
+componentFamilies:
+  - familyId: chat-input.dialog-bottom-bar-instance
+    displayName: 对话页底部输入栏实例
+    fileName: 对话流GUI与规范实测
+    fileKey: 4lMpPyfchpoWK0wE0nyJzw
+    figmaNodeId: "5509:131783"
+    canonicalName: bottom bar/母组件
+    sourceFigmaExactName: 1月版/母组件
+    sourceNameStatus: legacy_name_in_figma_needs_rename
+    familyType: component_set_instance
+    bindingMode: must_use_library_instance
+    bindingFailurePolicy: stop_and_recheck
+    status: draft-page-instance
+  - familyId: chat-input.repository-bottom-bar
+    displayName: 设计仓库 Bottom Bar 对话态正式来源
+    fileName: 设计仓库
+    fileKey: N0GqvW0qr9niOnWxjzyulU
+    figmaNodeId: "12:10172"
+    figmaExactName: bottom bar/母组件
+    componentKey: 8cbb729a37926f3ff74f84f60bee46a009e4de04
+    familyType: component_set
+    bindingMode: must_use_library_instance
+    bindingFailurePolicy: stop_and_recheck
+    status: formal-component-source
+variants:
+  confirmed:
+    - id: chat-input-dialog-dark
+      familyId: chat-input.repository-bottom-bar
+      figmaNodeId: "12:10180"
+      componentKey: 73fa7c55a7adc008e563959371c3e6c53623cfb7
+      figmaExactName: 场景=对话, 有关联问=Off, 有陪伴=Off, 有指数=Off, Dark=On
+      variantProperties:
+        场景: 对话
+        有关联问: "Off"
+        有陪伴: "Off"
+        有指数: "Off"
+        Dark: "On"
+    - id: chat-input-dialog-light
+      familyId: chat-input.repository-bottom-bar
+      figmaNodeId: "12:10189"
+      componentKey: 294d923f164d688d89fc2d2693aeabc04651126e
+      figmaExactName: 场景=对话, 有关联问=Off, 有陪伴=Off, 有指数=Off, Dark=Off
+      variantProperties:
+        场景: 对话
+        有关联问: "Off"
+        有陪伴: "Off"
+        有指数: "Off"
+        Dark: "Off"
+  candidates:
+    - 有关联问=On
+    - 有陪伴=On
+    - 有指数=On
+    - 交易场景
+    - 个股
+states:
+  required:
+    - default
+  optionalPendingFigma:
+    - voice
+    - keyboard
+    - interruption
+slots:
+  inputPill:
+    description: 输入胶囊或语音按住说话区域。
+  utilityActions:
+    description: 交易、我的、模式切换等辅助动作。
+  agentChips:
+    description: 深度回答、投顾回答、选助手等对话快捷入口。
+  safeArea:
+    description: iOS 底部安全区与 AI 生成提示。
+tokens:
+  source:
+    - bindings/assets/files/templates/bottom-bar-component.json
+    - bindings/assets/files/templates/bottom-bar-output-checklist.json
+assetRefs:
+  - template.bottom-bar
+  - asset.template.bottom-bar-output-checklist
+textOverrideFields:
+  - field: inputPlaceholder
+    status: TODO_VERIFY_WITH_FIGMA
+  - field: voiceHoldLabel
+    status: TODO_VERIFY_WITH_FIGMA
+  - field: keyboardInputText
+    status: TODO_VERIFY_WITH_FIGMA
+  - field: deepAnswerChipLabel
+    status: TODO_VERIFY_WITH_FIGMA
+  - field: advisorAnswerChipLabel
+    status: TODO_VERIFY_WITH_FIGMA
+  - field: assistantSelectorLabel
+    status: TODO_VERIFY_WITH_FIGMA
+  - field: aiDisclosureText
+    status: TODO_VERIFY_WITH_FIGMA
+sourceRefs:
+  - authoring/components/chat-input.brief.yaml
+  - authoring/scenarios/ai-chat.brief.yaml
+  - authoring/components/bottom-bar.brief.yaml
+  - docs/references/bottom-bar/variants.md
+  - docs/references/bottom-bar/agent-chips.md
+  - docs/references/fidelity/chat-fidelity-reconstruction.md
+figmaBinding:
+  path: bindings/figma/components.yaml
+reviewChecklist:
+  path: canon/checklists/chat-input-review.yaml

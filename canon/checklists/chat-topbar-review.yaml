@@ -1,0 +1,32 @@
+componentId: component.chat-topbar
+sourceBrief: authoring/components/chat-topbar.brief.yaml
+sourceScenario: authoring/scenarios/ai-chat.brief.yaml
+items:
+  - id: chat-topbar-fullscreen-type
+    severity: P0
+    question: 是否使用全屏对话 header，而不是普通二级页 header？
+    passCriteria: 结构为 47px 状态区 + 44px 对话 header，无标题、搜索、tab 或底部分割线。
+  - id: chat-topbar-fixed
+    severity: P0
+    question: 顶部导航是否固定在页面顶部并独立于 message_feed？
+    passCriteria: topbar 不进入滚动内容，message_feed 从 topbar 下方开始。
+  - id: chat-topbar-not-trading-header
+    severity: P0
+    question: 是否没有用交易页 Stock Header、普通 header 或 tabbed navigation 替代对话顶部导航？
+    passCriteria: 设计仓库 3.3 中的交易页头部示例不得被登记为 chat-topbar 正式来源。
+  - id: chat-topbar-actions-order
+    severity: P1
+    question: 右侧图标顺序是否为消息、播放？
+    passCriteria: 消息图标在左，播放图标在右，左侧保留关闭入口。
+  - id: chat-topbar-height-structure
+    severity: P1
+    question: 是否保留完整 91px 顶部结构？
+    passCriteria: 顶部 47px iOS 状态区和 44px 对话 header 都存在。
+  - id: chat-topbar-formal-source-marked
+    severity: P2
+    question: 正式设计仓库来源未确认时，是否明确标记为对话流实例来源？
+    passCriteria: 使用 `对话流GUI与规范实测` 实例时保留 pending formal source 说明，不原创对话 header。
+  - id: chat-topbar-light-variant-verified
+    severity: P3
+    question: 白版 Dark=Off 变体是否已完成 Figma 验证？
+    passCriteria: 未确认前作为 candidate 或 `TODO_VERIFY_WITH_FIGMA`，不能当作完整已验证 variant。

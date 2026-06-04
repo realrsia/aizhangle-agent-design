@@ -104,6 +104,13 @@ resourceRefs:
     type: local-asset
     locator: bindings/assets/files/design-tokens/radius-tokens.json
     role: token-provenance
+  - id: asset.tokens.chat-fidelity
+    type: local-asset
+    locator: bindings/assets/files/design-tokens/chat-fidelity-tokens.json
+    role: ai-chat-fidelity-token-source
+    sourceRefs:
+      - authoring/components/message-feed.brief.yaml
+      - authoring/scenarios/ai-chat.brief.yaml
   - id: asset.template.tag-output-checklist
     type: local-asset
     locator: bindings/assets/files/templates/tag-output-checklist.json

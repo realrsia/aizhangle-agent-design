@@ -1,0 +1,36 @@
+componentId: component.chat-input
+sourceBrief: authoring/components/chat-input.brief.yaml
+sourceScenario: authoring/scenarios/ai-chat.brief.yaml
+items:
+  - id: chat-input-fixed-bottom
+    severity: P0
+    question: 对话输入栏是否固定在 frame 底部，并位于滚动内容之上？
+    passCriteria: 输入栏不随 message_feed 滚动，消息内容区为底部输入栏预留空间。
+  - id: chat-input-uses-dialog-bottom-bar
+    severity: P0
+    question: 是否复用了对话态 Bottom Bar 结构，而不是普通输入框或通用底部导航？
+    passCriteria: 使用 `bottom bar/母组件` 的对话态，结构包含输入行、agent row、安全区和 AI 生成提示。
+  - id: chat-input-not-in-message-feed
+    severity: P0
+    question: bottom input 是否没有被放进 message_feed 滚动区？
+    passCriteria: chat_input 是固定底部区域，不是消息流 block、footer 或卡片内容。
+  - id: chat-input-default-theme-variant
+    severity: P1
+    question: 默认对话态是否按主题使用正确 Dark 变体？
+    passCriteria: 黑版使用 `场景=对话 ... Dark=On`；白版使用 `场景=对话 ... Dark=Off`。
+  - id: chat-input-state-declared
+    severity: P1
+    question: 语音、键盘、默认、打断等状态是否声明为已验证或待验证？
+    passCriteria: 默认态已绑定；语音/键盘/打断等未验证状态必须保留 `TODO_VERIFY_WITH_FIGMA` 或 candidate 标记。
+  - id: chat-input-safe-area-retained
+    severity: P1
+    question: 是否保留底部安全区与 AI 生成提示？
+    passCriteria: 不移除 bottom safe area，不让主要输入控件贴到屏幕边缘。
+  - id: chat-input-text-overrides-verified
+    severity: P2
+    question: 输入占位、语音按住文案、快捷 chip 和 AI 提示文案的覆盖目标是否经过 Figma 验证？
+    passCriteria: 未确认 exact override property 前不得自动改写实例文本。
+  - id: chat-input-no-generic-footer
+    severity: P2
+    question: 是否没有把 chat input 替换成 ordinary_card_footer 或 generic-form-input？
+    passCriteria: 组件身份仍是对话态 Bottom Bar，而不是普通表单底部。

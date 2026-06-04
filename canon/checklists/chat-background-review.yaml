@@ -1,0 +1,32 @@
+componentId: component.chat-background
+sourceBrief: authoring/components/chat-background.brief.yaml
+sourceScenario: authoring/scenarios/ai-chat.brief.yaml
+items:
+  - id: chat-background-uses-library
+    severity: P0
+    question: 页面背景是否使用设计仓库背景组件或变量，而不是手写色块？
+    passCriteria: 背景来源可追溯到 `设计仓库 / 元素组件 / 背景` 或已记录的 Figma background variant。
+  - id: chat-background-not-screenshot
+    severity: P0
+    question: 是否没有把页面截图、普通矩形或近似色块当成可复用背景？
+    passCriteria: 背景不是 screenshot_background、hand_drawn_solid_rect 或普通 card/background frame。
+  - id: chat-background-theme-match
+    severity: P0
+    question: 黑版/白版是否使用正确 dark 变体？
+    passCriteria: 黑版使用 `dark=on`，白版使用 `dark=off`。
+  - id: chat-background-height-match
+    severity: P1
+    question: 长页面是否使用全屏背景变体？
+    passCriteria: 长回答页、表格页等内容高度超过一屏时使用 `页面=全屏`，不使用 `页面=1屏`。
+  - id: chat-background-layer-root
+    severity: P1
+    question: 背景是否位于页面根层底部，而没有进入 message_feed、topbar 或 bottom_input？
+    passCriteria: 背景在 chat page root 下方，topbar、message_feed、chat_input 位于其上层。
+  - id: chat-background-required-pairings
+    severity: P2
+    question: AI Chat 页面是否同时存在 topbar、message_feed 和 chat_input？
+    passCriteria: 背景作为页面 shell 背景使用，不单独生成空背景页。
+  - id: chat-background-token-source-verified
+    severity: P3
+    question: 背景变量或组件 token 来源是否已完成 Figma 验证？
+    passCriteria: 若变量未读到，保留 `TODO_VERIFY_WITH_FIGMA`，不要写死新色值。

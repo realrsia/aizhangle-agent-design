@@ -12,3 +12,7 @@ Use `authoring/components/index.yaml` as the primary component entry point.
 
 - `component.action-sheet` -> `canon/components/action-sheet.meta.yaml`, `canon/checklists/action-sheet-review.yaml`
 - `component.bottom-bar` -> `canon/components/bottom-bar.meta.yaml`, `canon/checklists/bottom-bar-review.yaml`
+- `component.chat-background` -> `canon/components/chat-background.meta.yaml`, `canon/checklists/chat-background-review.yaml`
+- `component.chat-input` -> `canon/components/chat-input.meta.yaml`, `canon/checklists/chat-input-review.yaml`
+- `component.chat-topbar` -> `canon/components/chat-topbar.meta.yaml`, `canon/checklists/chat-topbar-review.yaml`
+- `component.message-feed` -> `canon/components/message-feed.meta.yaml`, `canon/checklists/message-feed-review.yaml`

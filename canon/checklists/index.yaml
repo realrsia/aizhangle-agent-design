@@ -3,8 +3,12 @@ checklists:
   - canon/checklists/bottom-bar-review.yaml
   - canon/checklists/button-review.yaml
   - canon/checklists/card-review.yaml
+  - canon/checklists/chat-background-review.yaml
+  - canon/checklists/chat-input-review.yaml
+  - canon/checklists/chat-topbar-review.yaml
   - canon/checklists/divider-review.yaml
   - canon/checklists/input-review.yaml
+  - canon/checklists/message-feed-review.yaml
   - canon/checklists/overlay-review.yaml
   - canon/checklists/switch-review.yaml
   - canon/checklists/tabs-review.yaml

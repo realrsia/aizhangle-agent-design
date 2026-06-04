@@ -1,0 +1,254 @@
+id: component.message-feed
+name: 对话消息流
+owner: design-system
+status: draft
+sourceBrief: authoring/components/message-feed.brief.yaml
+classification:
+  primitiveFamily: message_feed
+  componentType: content-layout
+  riskLevel: high
+  isOrdinaryCard: false
+purpose: >
+  Main vertical scroll region for AI Chat and message pages. It contains user
+  messages, assistant identity, answer status, reasoning, answer body,
+  disclaimers, actions, and related questions.
+usage:
+  usedIn:
+    - ai-chat-page
+    - message-page
+  allowedZones:
+    - message_feed
+    - conversation_stack
+    - assistant_content_stack
+  forbiddenZones:
+    - topbar
+    - bottom_input
+    - bottom_dock
+  requiredPairings:
+    - component.chat-topbar
+    - component.chat-input
+    - scroll-container
+  forbiddenPairings:
+    - generic-card-grid
+    - market-dashboard-module
+composition:
+  aiChatScenario:
+    source: authoring/scenarios/ai-chat.brief.yaml
+    role: only primary scroll zone between fixed chat-topbar and fixed chat-input
+    rule: Topbar and bottom input stay fixed; long answers, tables, charts, and related questions scroll inside message_feed and must not overlap fixed zones.
+    requiredContent:
+      - user question bubble
+      - AI avatar or identity row
+      - AI answer or reasoning status
+      - AI answer body
+      - bottom composer outside this component
+      - financial cards or charts only when business content requires them
+riskBoundaries:
+  - id: message-feed-scroll-zone
+    severity: P0
+    rule: Message feed is the only main scrolling zone; topbar and chat input cannot be children of it.
+  - id: message-feed-chat-hierarchy
+    severity: P0
+    rule: Keep shell, layout, block, item, content, and action hierarchy; numbered frames are not semantic sources.
+  - id: message-feed-fallback
+    severity: P0
+    rule: Stock cards, K-line charts, reasoning panels, or unverified business content may be fallback only when clearly marked as non-canonical.
+  - id: message-feed-financial-disclaimer
+    severity: P1
+    rule: Financial answers involving stocks, prices, K-lines, or risk prompts must preserve example/non-investment-advice semantics.
+componentFamilies:
+  - familyId: message-feed.user-input
+    figmaNodeId: "2833:51139"
+    figmaExactName: 用户输入
+    componentSetKey: d7188f12d4ad14bb02c4cd19b9b7f256ac8d90f6
+    mainComponentKey: 2e8952d988afa4e8d09f31fb71cfaca955a33be0
+    familyType: component_set_instance
+    humanUse: draft_user_question_bubble
+    variantProperties:
+      Dark: "On"
+  - familyId: message-feed.assistant-avatar
+    figmaNodeId: "2684:56277"
+    figmaExactName: 智能体输出/AI头像
+    componentSetKey: 9dd3bb3033c39dc9fdf1afcf55561f0ea12901f6
+    mainComponentKey: c31a2eea7b451d9a5a021590037369db86451ee4
+    familyType: component_set_instance
+    humanUse: draft_assistant_identity
+    variantProperties:
+      类型: 智能体
+      场景: 对话通用
+      Dark: "Off"
+  - familyId: message-feed.answer-status
+    figmaNodeId: "2684:56281"
+    figmaExactName: 智能体输出/回答状态
+    componentSetKey: e0b01d695002624f8f675556763eb99fec510e27
+    mainComponentKey: c151d85e43fc52d3e54d35fdae7d92249efa7a1c
+    familyType: component_set_instance
+    humanUse: draft_answer_status_or_reasoning_entry
+    variantProperties:
+      状态: 深度思考
+      是否展开: "Off"
+      Dark: "Off"
+  - familyId: message-feed.answer-body
+    figmaNodeId: "2684:56362"
+    figmaExactName: 智能体输出/内容/正文
+    componentSetKey: 7d286f187e60b5c4b26a45009e71c4f5e7b7a04c
+    mainComponentKey: 4a5b3be332dccc50dc09e51b5f60166da3f52c33
+    familyType: component_set_instance
+    humanUse: draft_answer_body
+    variantProperties:
+      Property 1: 无序号
+      Dark: "On"
+  - familyId: message-feed.related-question
+    figmaNodeId: "2684:56396"
+    figmaExactName: 关联问
+    componentSetKey: c576349cfc03b9cd032b46ed658b22bc839ddca3
+    mainComponentKey: 90d4a50a7da35de7572a6d0bd18dbad4d0f4fa88
+    familyType: component_set_instance
+    humanUse: draft_related_question
+    variantProperties:
+      Property 1: 默认
+      Property 2: 默认
+      Dark: "On"
+  - familyId: message-feed.reasoning-panel
+    figmaNodeId: "516:20882"
+    figmaExactName: 智能体输出/思考链
+    familyType: spec_frame_with_component_instance_candidate
+    humanUse: reasoning_chain_panel_do_not_render_as_generic_card
+    specNodeId: "2:34475"
+    specExactName: 思维链规范
+    variantCandidateNodeId: "516:20924"
+    variantCandidateExactName: 智能体输出/思考链/完成态/Off/On
+    variantCandidateComponentKey: a2050605b8db580891c60b370e4c38f7af9961e3
+    status: TODO_VERIFY_WITH_FIGMA
+variants:
+  confirmed: []
+  candidates:
+    - chat-page
+    - message-page
+    - long-answer
+    - short-answer
+    - related-page-opened
+states:
+  required:
+    - default
+  optional:
+    - reasoning-expanded
+    - reasoning-collapsed
+    - answer-complete
+slots:
+  userMessage:
+    description: 用户输入气泡。
+  assistantIdentity:
+    description: AI 头像和身份行。
+  reasoningPanel:
+    description: 思维链步骤、展开收起和检索内容。
+  answerBody:
+    description: 标题、正文、列表、表格等回答正文。
+  answerFooter:
+    description: 免责声明、来源、辅助功能。
+  relatedQuestions:
+    description: 关联问列表，位于回答内容之后，不进入底部输入栏。
+tokens:
+  source:
+    - bindings/assets/files/design-tokens/chat-fidelity-tokens.json
+  reasoningChain:
+    specNodeId: "2:34475"
+    fontSize: 14px Regular
+    textColor: xzl-color-text-a 70% / #FFFFFF 70%
+    lineHeight: 1.5x
+    letterSpacing: 0.5px
+    panelBackground: xzl-color-primary-blue / 5998FF 10%
+assetRefs:
+  - asset.tokens.chat-fidelity
+textOverrideFields:
+  - field: userQuestionText
+    status: TODO_VERIFY_WITH_FIGMA
+  - field: assistantName
+    status: TODO_VERIFY_WITH_FIGMA
+  - field: reasoningStatusText
+    status: TODO_VERIFY_WITH_FIGMA
+  - field: reasoningStepText
+    status: TODO_VERIFY_WITH_FIGMA
+  - field: answerTitle
+    status: TODO_VERIFY_WITH_FIGMA
+  - field: answerBody
+    status: TODO_VERIFY_WITH_FIGMA
+  - field: answerListItems
+    status: TODO_VERIFY_WITH_FIGMA
+  - field: disclaimerText
+    status: TODO_VERIFY_WITH_FIGMA
+  - field: relatedQuestionText
+    status: TODO_VERIFY_WITH_FIGMA
+  - field: actionLabels
+    status: TODO_VERIFY_WITH_FIGMA
+usageInstanceGroups:
+  - groupId: message-feed.dialog-black-demo
+    figmaNodeId: "2684:56257"
+    figmaExactName: 对话-黑版
+    usageType: demo_frame
+  - groupId: message-feed.new-conversation-black-state
+    figmaNodeId: "2684:56814"
+    figmaExactName: 开启新对话
+    usageType: state_frame
+  - groupId: message-feed.message-black-page
+    figmaNodeId: "3835:60192"
+    figmaExactName: 查看历史消息
+    usageType: message_page_frame
+  - groupId: message-feed.dialog-white-demo
+    figmaNodeId: "5829:15305"
+    figmaExactName: 对话-白版
+    usageType: demo_frame
+  - groupId: message-feed.message-white-page
+    figmaNodeId: "3835:66310"
+    figmaExactName: 消息
+    usageType: message_page_frame
+businessContentComponentRefs:
+  - id: message-feed.market-index
+    figmaNodeId: "7:6302"
+    figmaExactName: 指数
+    componentKey: 2c8497856e210074e83c2183bcf545ce863041d1
+    usageType: answer_embedded_business_content
+  - id: message-feed.market-movement
+    figmaNodeId: "7:6303"
+    figmaExactName: A股异动
+    componentKey: 3255456fccafa816bf6c55f489fd6838b8233773
+    usageType: answer_embedded_business_content
+    status: variant-details-need-verification
+  - id: message-feed.auction
+    figmaNodeId: "7:6305"
+    figmaExactName: 竞价
+    componentKey: eb51e27c77855c0da3c2d75c57084f868f333f9e
+    usageType: answer_embedded_business_content
+  - id: message-feed.news-sector
+    figmaNodeId: "7:6307"
+    figmaExactName: 分类=板块
+    componentSetKey: e2a6f4fcf59d06d2b7b3ed4e4b9e5a30e38ec130
+    componentKey: 1a5170acfe89f8d8f92e27b6cc46e9b3d577ed66
+    usageType: answer_embedded_business_content
+    variantProperties:
+      分类: 板块
+  - id: message-feed.news-market-movement
+    figmaNodeId: "3:5699"
+    figmaExactName: 分类=行情异动
+    componentSetKey: e2a6f4fcf59d06d2b7b3ed4e4b9e5a30e38ec130
+    componentKey: 12bb01f84286e97abf2197e09e691a395153a2fe
+    usageType: answer_embedded_business_content
+    variantProperties:
+      分类: 行情异动
+  - id: message-feed.news-market-brief
+    figmaNodeId: "3:5701"
+    figmaExactName: 分类=行情速览
+    componentSetKey: e2a6f4fcf59d06d2b7b3ed4e4b9e5a30e38ec130
+    componentKey: e994ef9cdac9229c834264a41feb12d08f3709ba
+    usageType: answer_embedded_business_content
+    variantProperties:
+      分类: 行情速览
+sourceRefs:
+  - authoring/components/message-feed.brief.yaml
+  - authoring/scenarios/ai-chat.brief.yaml
+  - docs/references/fidelity/chat-fidelity-reconstruction.md
+  - canon/archetypes/mobile-chat-page.yaml
+figmaBinding:
+  path: bindings/figma/components.yaml
+reviewChecklist:
+  path: canon/checklists/message-feed-review.yaml

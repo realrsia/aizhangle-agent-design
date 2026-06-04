@@ -1,0 +1,142 @@
+id: component.chat-background
+name: 对话页背景
+owner: design-system
+status: draft
+sourceBrief: authoring/components/chat-background.brief.yaml
+classification:
+  primitiveFamily: page_background
+  componentType: page-shell-foundation
+  riskLevel: high
+purpose: >
+  Background component group for AI Chat and message pages. It provides dark/light
+  and one-screen/full-screen page backgrounds and must be used instead of
+  hand-drawn color rectangles or screenshot backgrounds.
+usage:
+  usedIn:
+    - ai-chat-page
+    - message-page
+  allowedZones:
+    - page_background
+    - app_shell_background
+    - ai_chat_page_root
+  forbiddenZones:
+    - message_feed
+    - chat_topbar
+    - bottom_input
+    - content_card
+  requiredPairings:
+    - component.chat-topbar
+    - component.message-feed
+    - component.chat-input
+  forbiddenPairings:
+    - ordinary_card_background
+    - screenshot_background
+    - hand_drawn_solid_rect
+composition:
+  aiChatScenario:
+    source: authoring/scenarios/ai-chat.brief.yaml
+    role: fixed page root background below topbar, message feed, and chat input
+    layerOrder:
+      - chat-background
+      - message-feed
+      - chat-topbar
+      - chat-input
+    rule: Background stays at page root and never enters the message feed scroll container.
+riskBoundaries:
+  - id: chat-background-library-source
+    severity: P0
+    rule: Do not replace the repository background component or variable with a hand-drawn rectangle.
+  - id: chat-background-theme-height
+    severity: P1
+    rule: Theme and page height must select the matching dark/light and one-screen/full-screen variant.
+componentFamilies:
+  - familyId: chat-background.repository-background
+    displayName: 设计仓库背景组件组
+    fileName: 设计仓库
+    fileKey: N0GqvW0qr9niOnWxjzyulU
+    groupNodeId: "7:6911"
+    sectionNodeId: "23:17482"
+    componentKey: 57900b6e064fd94b5c32a1efe9feff70bea8e4d9
+    bindingMode: must_use_library_instance
+    bindingFailurePolicy: stop_and_recheck
+    componentPropertyDefinitions:
+      页面:
+        type: VARIANT
+        variantOptions:
+          - 1屏
+          - 全屏
+      dark:
+        type: VARIANT
+        variantOptions:
+          - "on"
+          - "off"
+variants:
+  confirmed:
+    - id: chat-background-one-screen-dark
+      familyId: chat-background.repository-background
+      figmaNodeId: "7:6308"
+      figmaExactName: 页面=1屏, dark=on
+      componentKey: 8fc63b06eaaeb352df3ce3ca38969f00923d5e5d
+      variantProperties:
+        页面: 1屏
+        dark: "on"
+      humanUse: dark_theme_short_page_background
+    - id: chat-background-full-screen-dark
+      familyId: chat-background.repository-background
+      figmaNodeId: "31:18747"
+      figmaExactName: 页面=全屏, dark=on
+      componentKey: eb6f8da9e8da594be4425a5a3304391ab0b4b3b0
+      variantProperties:
+        页面: 全屏
+        dark: "on"
+      humanUse: dark_theme_long_page_background
+    - id: chat-background-one-screen-light
+      familyId: chat-background.repository-background
+      figmaNodeId: "7:6910"
+      figmaExactName: 页面=1屏, dark=off
+      componentKey: e8e966317feacf946bec7c575a41ca935887c4c4
+      variantProperties:
+        页面: 1屏
+        dark: "off"
+      humanUse: light_theme_short_page_background
+    - id: chat-background-full-screen-light
+      familyId: chat-background.repository-background
+      figmaNodeId: "31:18755"
+      figmaExactName: 页面=全屏, dark=off
+      componentKey: 86c486150135c86e46456c2fc842a16b25b09b3a
+      variantProperties:
+        页面: 全屏
+        dark: "off"
+      humanUse: light_theme_long_page_background
+states:
+  required:
+    - dark-one-screen
+    - dark-full-screen
+    - light-one-screen
+    - light-full-screen
+slots:
+  pageRoot:
+    required: true
+    description: Full-page background layer below all AI Chat content.
+  theme:
+    required: true
+    values:
+      dark: dark=on
+      light: dark=off
+  height:
+    required: true
+    values:
+      shortPage: 页面=1屏
+      longPage: 页面=全屏
+tokens:
+  source: 设计仓库背景变量/组件待确认
+  status: TODO_VERIFY_WITH_FIGMA
+assetRefs: []
+sourceRefs:
+  - authoring/components/chat-background.brief.yaml
+  - authoring/scenarios/ai-chat.brief.yaml
+  - docs/references/component-brief-workflow.md
+figmaBinding:
+  path: bindings/figma/components.yaml
+reviewChecklist:
+  path: canon/checklists/chat-background-review.yaml
