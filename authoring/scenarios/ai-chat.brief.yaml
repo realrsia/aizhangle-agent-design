@@ -1,0 +1,177 @@
+# ============================================================
+# 01_HUMAN_REQUIRED
+# 人工必填区
+# ============================================================
+
+id: scenario.ai-chat
+name: AI 对话页
+owner: product-design
+status: draft
+
+# [HUMAN REQUIRED]
+purpose: >
+  用于新涨乐 AI 对话模块页面生成与还原实测，覆盖用户提问、智能体思考、
+  回答正文、相关问题和底部继续输入。页面结构以对话流GUI与规范实测为当前模块来源。
+
+# [HUMAN REQUIRED]
+primaryUserGoal: >
+  用户在 AI 对话页中提出金融相关问题，并阅读 AI 的思考过程、回答结果、
+  风险提示或后续可追问内容。
+
+# [HUMAN REQUIRED]
+requiredContent:
+  - 页面背景。
+  - 固定顶部对话导航栏。
+  - 用户问题气泡。
+  - AI 头像/身份行。
+  - AI 回答状态或思考状态。
+  - AI 回答正文。
+  - 底部对话输入栏。
+  - 金融数据卡片或图表仅在业务问题需要时出现；无正式组件时允许 fallback，但必须标清不是正式组件。
+
+# [HUMAN REQUIRED]
+forbiddenPatterns:
+  - 不要用手写色块替代设计仓库背景组件。
+  - 不要用普通二级页 header 替代对话顶部导航。
+  - 不要用普通输入框或通用底部导航替代对话底部输入栏。
+  - 不要把 bottom input 放进滚动消息流。
+  - 不要把思考过程画成任意普通卡片；必须先确认是否有真实组件或语义结构。
+  - 不要让 K 线图、数据卡片、长正文压住底部输入栏。
+  - 不要把 Figma demo/prototype frame 当成母组件 family。
+
+# [HUMAN REQUIRED]
+riskWarnings:
+  - 涉及股票走势、价格、K 线、风险提示时，页面需要保留“示例/非投资建议”语义。
+  - 对话结构错误会导致 AI 页面看起来像普通金融 dashboard，而不是对话模块。
+  - 深色/浅色背景、文字、描边等颜色必须优先使用设计仓库变量；读不到变量时标记待 Figma 验证，不直接写死色值。
+
+# [HUMAN REQUIRED]
+manualReviewQuestions:
+  - id: ai-chat-standard-source
+    question: 对话流GUI与规范实测是否作为本模块当前页面结构标准来源？
+    currentDraftAnswer: draft_yes_for_module_structure
+  - id: thinking-process-component
+    question: 思考过程是独立 Figma 母组件、回答状态变体，还是页面内语义组合？
+    currentDraftAnswer: pending_further_confirmation_do_not_render_as_generic_card
+  - id: stock-card-chart-fallback
+    question: 股票基础信息卡和 K 线图是否已有正式组件？如果没有，实测中是否允许 fallback 绘制？
+    currentDraftAnswer: fallback_allowed_when_no_formal_component_mark_as_non_canonical
+  - id: component-library-binding
+    question: 设计仓库中的 bottom bar 是否应作为团队正式组件库绑定来源？
+    currentDraftAnswer: draft_yes_bottom_bar_component_set_12_10172
+  - id: design-token-binding
+    question: 对话模块生成时，深色/浅色背景、文字、描边等颜色是否必须优先使用设计仓库变量，不能写死色值？
+    currentDraftAnswer: draft_yes_prefer_design_repository_tokens_no_hardcoded_colors
+  - id: font-environment
+    question: 是否需要在 Figma MCP/执行环境中安装 PingFang SC 与 SF Pro Text，避免组件文本编辑失败？
+    currentDraftAnswer: needs_environment_check_before_text_override
+
+# ============================================================
+# 02_AGENT_EXTRACTED
+# Agent 自动读取区
+# ============================================================
+
+candidateArchetype: archetype.mobile-chat-page
+candidateComponents:
+  - component.chat-background
+  - component.chat-topbar
+  - component.message-feed
+  - component.chat-input
+  - component.bottom-bar
+  - component.card
+figmaRefs:
+  - fileName: 对话流GUI与规范实测
+    fileKey: 4lMpPyfchpoWK0wE0nyJzw
+    role: dialog_module_test_source
+    priorityFrameNodeId: "2684:56257"
+    priorityFrameName: 对话-黑版
+    relatedFrames:
+      - nodeId: "2684:56814"
+        name: 开启新对话
+        role: dark_theme_new_conversation_financial_content_state
+      - nodeId: "3835:60192"
+        name: 查看历史消息
+        role: dark_theme_message_history_page_reference
+      - nodeId: "5509:126694"
+        name: 开启新对话
+        role: dark_theme_table_content_reference
+      - nodeId: "2934:57654"
+        name: 对话消息
+        role: dark_theme_logged_out_message_reference
+      - nodeId: "5829:15305"
+        name: 对话-白版
+        role: light_theme_primary_chat_reference
+      - nodeId: "2378:59929"
+        name: 开启新对话
+        role: light_theme_new_conversation_state
+      - nodeId: "3835:66310"
+        name: 消息
+        role: light_theme_message_page_reference
+      - nodeId: "5509:125464"
+        name: 表格
+        role: light_theme_table_content_reference
+      - nodeId: "2934:58669"
+        name: 消息-白版
+        role: light_theme_logged_out_message_reference
+  - fileName: 设计仓库
+    fileKey: N0GqvW0qr9niOnWxjzyulU
+    role: component_repository_reference
+    priorityNodeId: "12:10172"
+    priorityNodeName: bottom bar/母组件
+    relatedNodes:
+      - nodeId: "23:17482"
+        name: 元素组件
+        role: background_and_market_content_component_section
+      - nodeId: "12:6783"
+        name: 3.3 底bar组件
+        role: checked_bottom_bar_section_not_confirmed_as_chat_topbar_or_avatar_source
+      - nodeId: "7:6911"
+        name: 背景
+        role: page_background_component_group
+      - nodeId: "31:18747"
+        name: 页面=全屏, dark=on
+        role: dark_theme_long_page_background
+      - nodeId: "31:18755"
+        name: 页面=全屏, dark=off
+        role: light_theme_long_page_background
+assetRefs:
+  - docs/references/fidelity/chat-fidelity-reconstruction.md
+  - docs/references/bottom-bar/base.md
+  - docs/references/bottom-bar/agent-chips.md
+
+knownGenerationFailures:
+  - id: primitive-first-output
+    summary: 首版页面主要由手绘 primitive 构成，没有复用真实组件。
+  - id: fallback-overlap-output
+    summary: 第二版虽然保留部分组件，但思考区和股票图表仍为 fallback，且出现底部栏压住内容的问题。
+  - id: missing-fonts
+    summary: 跨页克隆或改写组件文字时遇到 PingFang SC / SF Pro Text 字体不可用。
+
+# ============================================================
+# 03_AGENT_EXPANSION_AND_CHECKLIST
+# Agent 扩展与自查区
+# ============================================================
+
+agentExpansion:
+  canonScenario:
+    path: canon/scenarios/ai-chat.yaml
+  archetype:
+    path: canon/archetypes/mobile-chat-page.yaml
+  checklist:
+    path: canon/checklists/ai-chat-scenario-review.yaml
+  docs:
+    path: docs/references/fidelity/dialog-flow-gui-restoration-test.md
+
+reviewChecklist:
+  - id: ai-chat-required-components-exist
+    severity: P0
+    question: ai-chat 场景引用的组件是否都有 authoring brief、canon meta 和 binding 入口？
+    passCriteria: chat-topbar、message-feed、chat-input 至少有 draft 级入口。
+  - id: ai-chat-fixed-zones
+    severity: P0
+    question: topbar 和 bottom_input 是否固定，message_feed 是否为主要滚动区？
+    passCriteria: 内容不会覆盖顶部或底部固定组件。
+  - id: ai-chat-fallback-declared
+    severity: P1
+    question: 股票卡、K线图、思考步骤等 fallback 内容是否被明确声明？
+    passCriteria: 没有把 fallback 当成真实 Figma 组件。

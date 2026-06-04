@@ -11,6 +11,24 @@ components:
     brief: authoring/components/card.brief.yaml
     sourceRefs:
       - references/foundation/components-card.md
+  - id: component.chat-input
+    brief: authoring/components/chat-input.brief.yaml
+    sourceRefs:
+      - authoring/scenarios/ai-chat.brief.yaml
+      - authoring/components/bottom-bar.brief.yaml
+  - id: component.chat-background
+    brief: authoring/components/chat-background.brief.yaml
+    sourceRefs:
+      - authoring/scenarios/ai-chat.brief.yaml
+      - figma://N0GqvW0qr9niOnWxjzyulU/7:6911
+  - id: component.chat-topbar
+    brief: authoring/components/chat-topbar.brief.yaml
+    sourceRefs:
+      - authoring/scenarios/ai-chat.brief.yaml
+  - id: component.message-feed
+    brief: authoring/components/message-feed.brief.yaml
+    sourceRefs:
+      - authoring/scenarios/ai-chat.brief.yaml
   - id: component.divider
     brief: authoring/components/divider.brief.yaml
     sourceRefs:
