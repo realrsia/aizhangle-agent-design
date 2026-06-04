@@ -1,4 +1,8 @@
 components:
+  - id: component.action-sheet
+    brief: authoring/components/action-sheet.brief.yaml
+    sourceRefs:
+      - references/foundation/components-overlay.md
   - id: component.bottom-bar
     brief: authoring/components/bottom-bar.brief.yaml
     sourceRefs:

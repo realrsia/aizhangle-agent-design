@@ -1,0 +1,146 @@
+# ============================================================
+# 01_HUMAN_REQUIRED
+# 人工必填区
+# ============================================================
+
+id: scenario.bottom-bar.long-press-voice-input
+name: 长按语音输入
+owner: product-design
+status: draft
+
+# [HUMAN REQUIRED]
+purpose: >
+  定义用户在 Bottom Bar 的输入胶囊上长按后出现的语音输入交互。
+  该状态是 `bottom bar/item/长按语音输入` 组件集的独立覆盖态，
+  出现时原 Bottom Bar 必须消失，两者不会同时出现。
+
+# [HUMAN REQUIRED]
+primaryUserGoal: >
+  用户可以清楚识别当前正在长按语音输入、是否可发送，以及是否处于取消发送或非发送状态。
+
+# [HUMAN REQUIRED]
+requiredContent:
+  - "真实 `bottom bar/item/长按语音输入` 组件集。"
+  - 发送状态：On / Off。
+  - 场景：通用 / H5。
+  - Dark：On / Off。
+  - 语音输入反馈文案、波形或等价反馈。
+  - 背景覆盖视觉。
+
+# [HUMAN REQUIRED]
+interactionModel:
+  trigger: long-press-on-bottom-bar-input-pill
+  replacementRule: bottom-bar-disappears-while-voice-input-is-visible
+  visibilityRule: Bottom Bar 和长按语音输入不会同时出现。
+
+# [HUMAN REQUIRED]
+platformRules:
+  app:
+    variants:
+      - voice-input-send-on-generic-dark
+      - voice-input-send-off-generic-dark
+      - voice-input-send-on-generic-light
+      - voice-input-send-off-generic-light
+    rule: APP 使用通用场景变体，支持深色版和浅色版。
+  h5:
+    variants:
+      - voice-input-send-on-h5-dark
+      - voice-input-send-off-h5-dark
+      - voice-input-send-on-h5-light
+      - voice-input-send-off-h5-light
+    rule: H5 使用 H5 场景变体；H5 没有真正深色版，Dark=On / Off 只表示背景覆盖颜色差异。
+
+# [HUMAN REQUIRED]
+allowedZones:
+  - voice_input_interaction_overlay
+  - bottom_bar_voice_feedback_layer
+  - h5_voice_input_feedback
+
+# [HUMAN REQUIRED]
+forbiddenPatterns:
+  - 不要让 Bottom Bar 和长按语音输入同屏叠加。
+  - 不要把 H5 的 Dark=On / Off 当成 APP 原生深浅主题。
+  - 不要把长按语音输入放进滚动正文、列表行或交易按钮区域。
+  - 不要把长按语音输入当作普通 Bottom Bar 变体。
+
+# ============================================================
+# 02_AGENT_EXTRACTED
+# Agent 自动读取区
+# ============================================================
+
+candidateArchetype: bottom-bar-long-press-voice-input
+candidateComponents:
+  - bottom-bar.voice-input
+figmaRefs:
+  - fileName: 设计仓库
+    fileKey: pbxELN7TYDDguIgbXfc1zB
+    pageName: Bottom bar + Alert
+    componentSetNodeId: "12:7621"
+    componentSetName: bottom bar/item/长按语音输入
+    componentKey: 4d772fd4a13f5179bfdf787d562be0940ab08358
+    bindingMode: must_use_library_instance
+    bindingFailurePolicy: stop_and_recheck
+    variantCount: 8
+    variantProperties:
+      发送状态:
+        - "Off"
+        - "On"
+      场景:
+        - 通用
+        - H5
+      Dark:
+        - "On"
+        - "Off"
+    variants:
+      - nodeId: "12:7622"
+        componentKey: f0b0c5ab6674f5940e1abf38559aa9b4492b3e3c
+        figmaExactName: "发送状态=On, 场景=通用,Dark=On "
+      - nodeId: "12:7660"
+        componentKey: 623f7729c0036f5d7aaab17a64905dad6b3610e2
+        figmaExactName: "发送状态=Off, 场景=通用, Dark=On"
+      - nodeId: "12:7699"
+        componentKey: da821814d183a6f7bd5465449604215f5c5daceb
+        figmaExactName: "发送状态=On, 场景=H5,Dark=On"
+      - nodeId: "12:7736"
+        componentKey: 61e2906844dc20af75ed4c6800a3084565b74977
+        figmaExactName: "发送状态=Off, 场景=H5,Dark=On"
+      - nodeId: "12:7774"
+        componentKey: 5327fbb1a7a827639c3d8b2a6d066ce9323d174b
+        figmaExactName: "发送状态=On, 场景=通用,Dark=Off "
+      - nodeId: "12:7814"
+        componentKey: 2f2cc3f023a3b359fca7d516c032360191d8412c
+        figmaExactName: "发送状态=Off, 场景=通用, Dark=Off"
+      - nodeId: "12:7816"
+        componentKey: b930261c23491bbb4547ab9218d5b2cc89eb26d1
+        figmaExactName: "发送状态=On, 场景=H5,Dark=Off"
+      - nodeId: "12:7855"
+        componentKey: efc93a8c943ec03217632c048965e5b3f2173670
+        figmaExactName: "发送状态=Off, 场景=H5,Dark=Off"
+assetRefs: []
+
+# ============================================================
+# 03_AGENT_EXPANSION_AND_CHECKLIST
+# Agent 扩展与自查区
+# ============================================================
+
+reviewChecklist:
+  - id: voice-input-state-clear
+    question: 长按语音输入状态是否清楚表达当前操作？
+    passCriteria: On / Off 状态必须有清楚的发送、取消或非发送反馈。
+  - id: voice-input-replaces-bottom-bar
+    question: 长按语音输入出现时，Bottom Bar 是否已经消失？
+    passCriteria: Bottom Bar 和长按语音输入不能同屏同时出现。
+  - id: voice-input-h5-not-figma-instance
+    question: H5 变体是否被正确理解为背景覆盖视觉，而不是 APP 深浅主题？
+    passCriteria: H5 没有真正深色版；Dark=On / Off 只表示背景覆盖颜色差异。
+  - id: voice-input-copy-verified
+    question: 长按语音输入提示文案是否来自 Figma 或人工确认？
+    passCriteria: 提示文案必须来自真实节点或人工确认，不得随意猜测。
+
+agentExpansion:
+  canonScenario:
+    path: canon/scenarios/bottom-bar-long-press-voice-input.yaml
+  checklist:
+    path: canon/checklists/bottom-bar-long-press-voice-input-review.yaml
+  docs:
+    path: docs/generated/scenarios/bottom-bar-long-press-voice-input.md

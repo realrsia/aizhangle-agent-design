@@ -1,4 +1,5 @@
 checklists:
+  - canon/checklists/action-sheet-review.yaml
   - canon/checklists/bottom-bar-review.yaml
   - canon/checklists/button-review.yaml
   - canon/checklists/card-review.yaml

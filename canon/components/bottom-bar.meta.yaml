@@ -5,33 +5,386 @@ status: draft
 sourceBrief: authoring/components/bottom-bar.brief.yaml
 classification:
   primitiveFamily: bottom_bar
-  componentType: navigation-and-input
+  componentType: fixed-bottom-composer-and-action-bar
   riskLevel: high
   maintenanceLevel: strong
+  isOrdinaryButton: false
+  isTradingAction: false
+purpose: >
+  New Zhangle / AI Zhangle mobile fixed bottom interaction contract for voice input,
+  AI assistant entry, page-scene entry, market/index preview, stock trade actions,
+  AI-content disclosure, and iOS safe area. It is not a generic button group,
+  tab bar, or card footer.
 usage:
+  usedIn:
+    - primary-page
+    - app-home-出招-page
+    - app-home-大盘-page
+    - app-home-早点听-page
+    - app-home-提醒-page
+    - app-home-任务-page
+    - ai-chat-page
+    - stock-quote-page
+    - trading-page
+    - market-or-index-aware-page
+    - account-page
+    - position-page
+    - app-my-position-page
   allowedZones:
     - mobile_frame_bottom
+    - primary_page_bottom_composer
+    - ai_chat_page_composer
     - stock_quote_bottom_action
-    - chat_page_composer
+    - trading_page_bottom_action
+    - market_index_bottom_summary
   forbiddenZones:
     - scroll_content_body
     - ordinary_card_footer
+    - content_section_tab_area
+    - list_row_action_area
+    - ai_chat_message_body
+    - generic_form_footer
+    - marketing_or_banner_area
+  requiredPairings:
+    - page-context
+    - safe-area
+    - figma-variant
+    - light-or-dark-theme
+    - voice-input-or-action-context
+    - ai-disclosure-when-ai-content-visible
+    - trading-context-when-buy-sell-cancel-visible
+  forbiddenPairings:
+    - generic-bottom-navigation
+    - tabs-component-as-bottom-bar
+    - ordinary-button-group-as-bottom-bar
+    - trading-action-without-selected-security
+    - ai-message-body-with-direct-trade-action
+    - floating-card-substitute
+layoutContract:
+  zIndex:
+    semanticLayer: foremost-page-ui-layer
+    allowedAbove:
+      - system_keyboard
+      - modal_or_sheet_when_explicitly_opened
+      - toast_or_alert_when_explicitly_opened
+      - long_press_voice_input_replacement_state
+    forbiddenAbove:
+      - scroll_content_body
+      - chart_layer
+      - list_content
+      - ordinary_card
+      - companion_bubble_when_part_of_bottom_bar
+      - generic_floating_button
+  yAxis:
+    anchor: screen-bottom
+    requiredAlignment:
+      - bottom_edge_to_frame_bottom
+      - safe_area_preserved
+      - home_indicator_visible_when_app_frame
+riskBoundaries:
+  - id: bottom-bar-structure-contract
+    severity: P0
+    rule: Misusing Bottom Bar breaks fixed bottom navigation, input, or trading-entry semantics.
+  - id: trading-actions-in-bottom-bar
+    severity: P0
+    rule: Buy, sell, and cancel actions require a selected security and explicit trading context.
+  - id: ai-generated-disclosure
+    severity: P1
+    rule: Fullscreen dialog or AI suggestion content should keep AI-generated disclosure unless hidden by human-approved rule.
+  - id: bottom-bar-layer-and-position
+    severity: P0
+    rule: Bottom Bar must sit at the screen bottom and in the foremost persistent page layer.
+componentFamilies:
+  - familyId: bottom-bar.main
+    displayName: Bottom Bar 主母组件
+    figmaComponentName: bottom bar/母组件
+    figmaNodeId: "12:10172"
+    componentKey: 8cbb729a37926f3ff74f84f60bee46a009e4de04
+    bindingMode: must_use_library_instance
+    bindingFailurePolicy: stop_and_recheck
+    variantCount: 20
+  - familyId: bottom-bar.voice-input
+    displayName: 长按语音输入
+    figmaComponentName: bottom bar/item/长按语音输入
+    figmaNodeId: "12:7621"
+    componentKey: 4d772fd4a13f5179bfdf787d562be0940ab08358
+    bindingMode: must_use_library_instance
+    bindingFailurePolicy: stop_and_recheck
+    variantCount: 8
+  - familyId: bottom-bar.input-pill
+    displayName: 输入胶囊
+    figmaComponentName: bottom bar/item/输入胶囊
+    figmaNodeId: "12:8494"
+    componentKey: 7bb41b2a29a8e317c295ce1d29cab8c5d9e5ce10
+    bindingMode: must_use_library_instance
+    variantCount: 26
+  - familyId: bottom-bar.agent-assistant
+    displayName: Agent 助手母组件
+    figmaComponentName: bottom bar/item/Agent助手/母组件
+    figmaNodeId: "12:9147"
+    componentKey: 48583bdd4463369e7e0f3d34acc9f58c83e5a3ea
+    bindingMode: must_use_library_instance
+    variantCount: 4
+  - familyId: bottom-bar.trading-entry
+    displayName: 首页场景交易入口
+    figmaComponentName: bottom bar/item/默认场景/交易
+    figmaNodeId: "12:7883"
+    componentKey: 979257884447e9b798f53427acfe94ff8aac99fd
+    bindingMode: must_use_library_instance
+    variantCount: 10
+  - familyId: bottom-bar.my-entry
+    displayName: 我的入口
+    figmaComponentName: bottom bar/item/默认场景/我的
+    figmaNodeId: "12:7964"
+    componentKey: 7a7479615d72fbd5630c168f25048bfd78f1c249
+    bindingMode: must_use_library_instance
+    variantCount: 6
+  - familyId: bottom-bar.other-observed-item-families
+    displayName: 其他已观察到的 item 母组件
+    status: partially-confirmed
+    figmaComponentName:
+      - bottom bar/item/bottom-bar
+      - bottom bar/item/指数模块
+      - bottom bar/item/消息提示
+      - bottom bar/item/陪伴/按钮
+      - bottom bar/item/陪伴气泡
+      - bottom bar/item/陪伴母组件
+      - bottom bar/item/交易场景
+      - bottom bar/item/背景阴影
+      - bottom bar/item/Agent助手/icon
+      - bottom bar/item/Agent助手/胶囊
+    verification: TODO_VERIFY_WITH_FIGMA
+scenarios:
+  - id: homepage-scene
+    displayName: 首页场景
+    variants:
+      - default-dark
+      - default-light
+      - default-companion-dark
+      - default-companion-light
+    usedIn:
+      - app-home-出招-page
+      - app-home-大盘-page
+      - app-home-早点听-page
+      - app-home-提醒-page
+      - app-home-任务-page
+      - app-trade-entry-expanded-page
+      - app-watchlist-entry-expanded-page
+  - id: fullscreen-chat-scene
+    displayName: 全屏对话场景
+    variants:
+      - chat-dark
+      - chat-light
+    allowedZones:
+      - ai_chat_page_composer
+      - assistant_conversation_bottom
+      - fullscreen_dialog_bottom_composer
+  - id: stock-scene
+    displayName: 个股场景
+    aliases:
+      - 交易场景
+      - 个股交易
+    variants:
+      - trading-dark
+      - trading-light
+      - stock-index-dark
+      - stock-plain-light
+      - trading-index-dark
+      - trading-index-light
+  - id: stock-related-question-scene
+    displayName: 个股场景关联问
+    variants:
+      - trading-related-dark
+      - trading-related-light
+      - trading-related-index-dark
+      - trading-related-index-light
+  - id: companion-scene
+    displayName: 陪伴场景
+    variants:
+      - default-companion-dark
+      - default-companion-light
+      - stock-index-companion-dark
+      - stock-index-companion-light
+      - trading-index-companion-dark
+      - trading-index-companion-light
+  - id: long-press-voice-input
+    displayName: 长按语音输入
+    componentFamily: bottom-bar.voice-input
+    replacementRule: bottom-bar-disappears-while-voice-input-is-visible
 variants:
-  confirmed: []
-  candidates:
-    - primaryPage
-    - chatPage
-    - stockQuotePage
+  confirmed:
+    - id: default-dark
+      nodeId: "12:10173"
+      height: 130
+      scene: 首页场景
+      modifiers: { 有关联问: "Off", 有陪伴: "Off", 有指数: "Off", Dark: "On" }
+    - id: default-light
+      nodeId: "12:10216"
+      height: 130
+      scene: 首页场景
+      modifiers: { 有关联问: "Off", 有陪伴: "Off", 有指数: "Off", Dark: "Off" }
+    - id: default-companion-dark
+      nodeId: "12:10198"
+      height: 227
+      scene: 首页场景
+      modifiers: { 有关联问: "Off", 有陪伴: "On", 有指数: "Off", Dark: "On" }
+    - id: default-companion-light
+      nodeId: "12:10207"
+      height: 227
+      scene: 首页场景
+      modifiers: { 有关联问: "Off", 有陪伴: "On", 有指数: "Off", Dark: "Off" }
+    - id: chat-dark
+      nodeId: "12:10180"
+      height: 171
+      scene: 全屏对话场景
+      modifiers: { 有关联问: "Off", 有陪伴: "Off", 有指数: "Off", Dark: "On" }
+    - id: chat-light
+      nodeId: "12:10189"
+      height: 171
+      scene: 全屏对话场景
+      modifiers: { 有关联问: "Off", 有陪伴: "Off", 有指数: "Off", Dark: "Off" }
+    - id: trading-dark
+      nodeId: "12:10222"
+      height: 130
+      scene: 个股场景
+      modifiers: { 有关联问: "Off", 有陪伴: "Off", 有指数: "Off", Dark: "On" }
+    - id: trading-light
+      nodeId: "12:10230"
+      height: 130
+      scene: 个股场景
+      modifiers: { 有关联问: "Off", 有陪伴: "Off", 有指数: "Off", Dark: "Off" }
+    - id: trading-related-dark
+      nodeId: "12:10237"
+      height: 130
+      scene: 个股场景
+      modifiers: { 有关联问: "On", 有陪伴: "Off", 有指数: "Off", Dark: "On" }
+    - id: trading-related-light
+      nodeId: "12:10243"
+      height: 130
+      scene: 个股场景
+      modifiers: { 有关联问: "On", 有陪伴: "Off", 有指数: "Off", Dark: "Off" }
+    - id: stock-index-dark
+      nodeId: "12:10248"
+      height: 131
+      scene: 个股场景
+      modifiers: { 有关联问: "Off", 有陪伴: "Off", 有指数: "On", Dark: "On" }
+    - id: stock-index-companion-dark
+      nodeId: "12:10261"
+      height: 260
+      scene: 个股场景
+      modifiers: { 有关联问: "Off", 有陪伴: "On", 有指数: "On", Dark: "On" }
+    - id: stock-index-companion-light
+      nodeId: "12:10276"
+      height: 260
+      scene: 个股场景
+      modifiers: { 有关联问: "Off", 有陪伴: "On", 有指数: "On", Dark: "Off" }
+    - id: stock-plain-light
+      nodeId: "12:10387"
+      height: 131
+      scene: 个股场景
+      modifiers: { 有关联问: "Off", 有陪伴: "Off", 有指数: "Off", Dark: "Off" }
+    - id: trading-index-dark
+      nodeId: "12:10294"
+      height: 131
+      scene: 个股场景
+      modifiers: { 有关联问: "Off", 有陪伴: "Off", 有指数: "On", Dark: "On" }
+    - id: trading-index-light
+      nodeId: "12:10308"
+      height: 131
+      scene: 个股场景
+      modifiers: { 有关联问: "Off", 有陪伴: "Off", 有指数: "On", Dark: "Off" }
+    - id: trading-index-companion-dark
+      nodeId: "12:10325"
+      height: 260
+      scene: 个股场景
+      modifiers: { 有关联问: "Off", 有陪伴: "On", 有指数: "On", Dark: "On" }
+    - id: trading-index-companion-light
+      nodeId: "12:10341"
+      height: 260
+      scene: 个股场景
+      modifiers: { 有关联问: "Off", 有陪伴: "On", 有指数: "On", Dark: "Off" }
+    - id: trading-related-index-dark
+      nodeId: "12:10360"
+      height: 131
+      scene: 个股场景
+      modifiers: { 有关联问: "On", 有陪伴: "Off", 有指数: "On", Dark: "On" }
+    - id: trading-related-index-light
+      nodeId: "12:10372"
+      height: 131
+      scene: 个股场景
+      modifiers: { 有关联问: "On", 有陪伴: "Off", 有指数: "On", Dark: "Off" }
+  candidates: []
 states:
   required:
     - default
+    - dark
+    - light
   optional:
+    - ai-disclosure-visible
+    - agent-chips-visible
+    - companion-visible
+    - index-visible
+    - related-question-visible
+    - trading-actions-visible
     - focused
     - disabled
-tokenSources:
-  - assets/templates/bottom-bar-component.json
-  - assets/templates/bottom-bar-output-checklist.json
+  notes:
+    focused: not-exposed-as-bottom-bar-main-variant
+    disabled: not-exposed-as-bottom-bar-main-variant
+slots:
+  root: 底部栏根容器，宽度 390，固定在移动端 frame 底部。
+  backgroundShadow: 底部渐变背景，按场景和可选模块高度变化。
+  controlRow: 承载输入胶囊、入口、助手或交易行动的主操作行。
+  inputPill: 语音或键盘输入胶囊；真实子组件为 `bottom bar/item/输入胶囊`。
+  leftEntryIcon: 首页/对话/个股左侧入口。
+  rightAssistantIcon: 首页/对话/个股右侧助手入口。
+  collapseEntryButton: 首页入口展开后的向下箭头收起按钮。
+  tradingActions: 个股交易上下文中的买、卖、撤行动入口。
+  agentSuggestionChips: 全屏对话场景的 AI 助手建议胶囊。
+  companionModule: 陪伴人物、提醒文案、可选详情链接和左对齐操作按钮。
+  indexModule: 指数名称、代码、现价、涨跌额、涨跌幅。
+  relatedQuestionToast: 用户空闲后的关联问 Toast。
+  aiGeneratedDisclosure: AI 内容披露文案“内容由AI生成”。
+  homeIndicator: iOS home indicator 和底部安全区。
+tokens:
+  source:
+    - assets/templates/bottom-bar-component.json
+    - assets/templates/bottom-bar-output-checklist.json
+    - assets/tokens/token-mapping.json
+  figmaVariables:
+    - color/xzl-color-primary-dark blue
+    - color/xzl-color-text-a
+    - zl-text-a #111
+    - color/xzl-color-text-e
+    - color/xzl-color-primary-red
+    - color/xzl-color-primary-blue
+    - color/xzl-color-bar
+    - color/xzl-color-input
+    - font family/Text
+    - font size/BodyMedium16
+    - font size/MarkLarge 13
+    - font size/BodyXSmall 14
+assetRefs:
+  - asset.template.bottom-bar-output-checklist
+  - template.bottom-bar
+  - asset.bottom-bar.backgrounds
+  - asset.bottom-bar.icons
+  - asset.bottom-bar.examples
 sourceRefs:
-  - references/foundation/components-bottom-bar.md
+  - authoring/components/bottom-bar.brief.yaml
+  - authoring/scenarios/bottom-bar-fullscreen-dialog.brief.yaml
+  - authoring/scenarios/bottom-bar-home-entry-expanded.brief.yaml
+  - authoring/scenarios/bottom-bar-input-pill-states.brief.yaml
+  - authoring/scenarios/bottom-bar-long-press-voice-input.brief.yaml
+  - authoring/scenarios/bottom-bar-stock-detail-and-pretrade.brief.yaml
+  - authoring/scenarios/bottom-bar-companion-reminder.brief.yaml
+  - authoring/scenarios/bottom-bar-stock-related-question-idle-toast.brief.yaml
+  - authoring/case-studies/bottom-bar-global-layer-and-visual-references.md
+  - authoring/case-studies/bottom-bar-input-pill-component-set.md
+  - authoring/case-studies/bottom-bar-long-press-voice-input.md
+  - docs/references/bottom-bar/base.md
+  - docs/references/bottom-bar/variants.md
+  - docs/references/bottom-bar/icons.md
+  - docs/references/bottom-bar/states.md
 checklist: canon/checklists/bottom-bar-review.yaml
-figmaBindingStatus: TODO_VERIFY_WITH_FIGMA
+figmaBinding: bindings/figma/components.yaml#components.component.bottom-bar

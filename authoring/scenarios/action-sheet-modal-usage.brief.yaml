@@ -1,0 +1,152 @@
+# ============================================================
+# 01_HUMAN_REQUIRED
+# 人工必填区
+# ============================================================
+
+id: scenario.action-sheet-modal-usage
+name: Action Sheet 弹窗使用场景
+owner: product-design
+status: draft
+
+# [HUMAN REQUIRED]
+purpose: >
+  定义 Action Sheet 在 APP 页面中的典型使用场景，包括 GUI阅读型底部栏上下文、
+  GUI任务型常规模态弹窗、带装饰协议确认、AI 结果说明、输入任务和高风险交易确认。
+  本场景只描述页面用法，不定义新的 Action Sheet 母组件或变体。
+
+# [HUMAN REQUIRED]
+primaryUserGoal: >
+  用户在不中断业务理解的前提下，阅读信息、完成选择或输入、确认协议和交易风险，
+  并能清楚区分低风险阅读型浮层与需要明确操作的常规模态弹窗。
+
+# [HUMAN REQUIRED]
+requiredContent:
+  - "真实 `Action sheet/母组件`、`Action sheet/遮罩` 或对应 Area 组件实例。"
+  - GUI阅读型必须保留 Bottom Bar 上下文和阅读型遮罩。
+  - GUI任务型、LUI对话型和 Dialog弹窗必须使用常规模态遮罩。
+  - 高风险交易确认必须保留风险提示、订单明细、明确主按钮和取消 / 返回路径。
+  - AI 结果说明必须保留来源、限制或免责声明语义。
+  - 带装饰协议确认必须保留装饰区语义；删除装饰图像后回退到非装饰变体。
+
+# [HUMAN REQUIRED]
+allowedZones:
+  - action_sheet_layer
+  - bottom_bar_context
+  - trading_task_modal
+  - agreement_modal_layer
+  - ai_chat_modal_layer
+  - task_input_modal
+  - trading_confirmation_modal
+
+# [HUMAN REQUIRED]
+forbiddenPatterns:
+  - 不要把页面 frame、样例截图或 prototype frame 当作 Action Sheet 母组件。
+  - 不要把 GUI阅读型的 Bottom Bar 场景套用到常规模态弹窗。
+  - 不要用普通阅读型 Action Sheet 承载交易确认、撤单、协议同意或 AI 免责声明。
+  - 不要在高风险确认中自动关闭、弱化主按钮或隐藏取消路径。
+  - 不要手工拼装 lookalike frame 代替 Figma library instance。
+
+# [HUMAN REQUIRED]
+riskWarnings:
+  - id: action-sheet-usage-vs-component-definition
+    severity: P0
+    rule: 页面样例只能作为 usage / scenario，不得反向登记为真实 component family 或 variant。
+  - id: action-sheet-high-risk-confirmation
+    severity: P0
+    rule: 撤买、撤单、批量订单确认等交易动作必须要求用户明确确认。
+  - id: action-sheet-ai-result-disclosure
+    severity: P1
+    rule: AI 结果说明、来源展开或免责声明必须表达来源和限制，不得呈现为确定收益承诺。
+  - id: action-sheet-mask-context
+    severity: P1
+    rule: GUI阅读型使用阅读型遮罩和 Bottom Bar 上下文；其他常规模态使用 full modal 遮罩。
+
+# ============================================================
+# 02_AGENT_EXTRACTED
+# Agent 自动读取区
+# ============================================================
+
+candidateArchetype: action-sheet-modal-usage
+candidateComponents:
+  - component.action-sheet
+  - action-sheet.main
+  - action-sheet.mask
+  - action-sheet.title-area
+  - action-sheet.content-area
+  - action-sheet.button-area
+  - action-sheet.decoration
+figmaRefs:
+  - fileName: 设计仓库
+    fileKey: pbxELN7TYDDguIgbXfc1zB
+    pageName: Bottom bar + Alert
+    sectionName: 3.9 ActionSheet
+    componentAreaNodeId: "99:55261"
+    usageExamples:
+      - exampleId: action-sheet.usage.gui-reading-market-overview-dark
+        nodeId: "99:57080"
+        frameName: 行情速览浮层
+        scenarioType: gui-reading-bottom-bar-context
+        expectedMainVariant: action-sheet-main-gui-reading
+        expectedMaskVariant: action-sheet-mask-reading-dark
+      - exampleId: action-sheet.usage.position-action-buy-sheet-dark
+        nodeId: "99:57174"
+        frameName: 持仓列表-标的操作栏弹层-买入
+        scenarioType: regular-full-modal-gui-task
+        expectedMainVariant: action-sheet-main-gui-task-plain
+        expectedMaskVariant: action-sheet-mask-regular-dark
+      - exampleId: action-sheet.usage.market-overview-agreement-decorated-dark
+        nodeId: "99:57161"
+        frameName: 行情速览浮层
+        scenarioType: regular-full-modal-decorated-agreement
+        expectedMainVariant: action-sheet-main-gui-task-decorated
+        expectedMaskVariant: action-sheet-mask-regular-dark
+      - exampleId: action-sheet.usage.ai-stock-selection-result-dialog-dark
+        nodeId: "99:57358"
+        frameName: 我的
+        scenarioType: regular-full-modal-ai-result-explanation
+        expectedMainVariant: action-sheet-main-dialog-plain
+        expectedMaskVariant: action-sheet-mask-regular-dark
+      - exampleId: action-sheet.usage.watchlist-input-task-sheet-dark
+        nodeId: "99:57484"
+        frameName: 我的
+        scenarioType: regular-full-modal-input-task
+        expectedMainVariant: action-sheet-main-gui-task-plain
+        expectedMaskVariant: action-sheet-mask-regular-dark
+      - exampleId: action-sheet.usage.batch-cancel-order-confirm-dark
+        nodeId: "99:57631"
+        frameName: 撤买确认
+        scenarioType: regular-full-modal-high-risk-trading-confirmation
+        expectedMainVariant: action-sheet-main-gui-task-plain
+        expectedMaskVariant: action-sheet-mask-regular-dark
+assetRefs: []
+
+# ============================================================
+# 03_AGENT_EXPANSION_AND_CHECKLIST
+# Agent 扩展与自查区
+# ============================================================
+
+reviewChecklist:
+  - id: action-sheet-scenario-uses-library-instance
+    question: 页面里的 Action Sheet 是否来自真实 Figma library instance？
+    passCriteria: 主体、遮罩、标题区、内容区、按钮区和装饰区应使用已确认的 Action Sheet component family 或其实例。
+  - id: action-sheet-scenario-mask-context-valid
+    question: 遮罩是否匹配 GUI阅读型或常规模态弹窗场景？
+    passCriteria: GUI阅读型使用 reading mask；其余 Action Sheet 场景使用 regular full modal mask。
+  - id: action-sheet-scenario-high-risk-explicit-confirmation
+    question: 高风险交易或协议类场景是否要求用户明确确认？
+    passCriteria: 交易、协议、授权、AI 免责声明场景必须有清楚的风险文案和明确操作路径。
+  - id: action-sheet-scenario-not-component-definition
+    question: 是否避免把样例 frame 写成组件定义？
+    passCriteria: 这些 Figma frame 只能进入 usageInstanceGroups / scenario / case study，不进入 componentFamilies 或 variantGroups。
+
+agentExpansion:
+  status: planned
+  canonScenario:
+    path: canon/scenarios/action-sheet-modal-usage.yaml
+    status: TODO_AGENT_FILL
+  checklist:
+    path: canon/checklists/action-sheet-modal-usage-review.yaml
+    status: TODO_AGENT_FILL
+  docs:
+    path: docs/generated/scenarios/action-sheet-modal-usage.md
+    status: TODO_AGENT_FILL
