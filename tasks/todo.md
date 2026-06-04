@@ -1,3 +1,30 @@
+# Figma Font Availability Audit
+
+## Done Criteria
+- Query Figma runtime fonts with `figma.listAvailableFontsAsync()`.
+- Check whether `PingFang SC` and `涨乐财富体` are callable in Figma generation.
+- Compare callable Figma fonts with local macOS font locations where possible.
+- Produce a clear list grouped by system/default availability vs user/custom installation.
+- Record the limitation and future generation rule in `tasks/lessons.md`.
+
+## Plan
+- [x] Query Figma available fonts and styles.
+- [x] Inspect local macOS font sources.
+- [x] Classify practical font choices for Chinese UI text and numeric text.
+- [x] Update lessons and task review.
+
+## Review
+- Figma MCP reports `7739` font entries across `1723` families.
+- Confirmed `PingFang SC` fails `figma.loadFontAsync()` in this environment.
+- Confirmed `涨乐财富体` and `ZLCaiFuTi` fail `figma.loadFontAsync()` in this environment.
+- Local machine inspection shows `PingFang SC` exists as macOS reserved/system asset and `涨乐财富体` exists in `/Users/penn/Library/Fonts/EagleApp/`, but Figma MCP still cannot call them.
+- Confirmed callable CJK fallbacks: `Noto Sans SC`, `Noto Sans HK`, `Noto Sans TC`, `Noto Sans JP`, `Noto Sans KR`.
+- Confirmed callable numeric/display candidates: `Noto Sans HK`, `Digital Numbers`, `Roboto Mono`, `IBM Plex Mono`.
+- Added `tasks/figma-font-availability.md` with the practical font list and future generation rule.
+- Updated `tasks/lessons.md` so future Figma generation checks exact font availability before claiming typography compliance.
+
+---
+
 # Bottom Bar Figma Test Data And Naming Correction
 
 ## Done Criteria
