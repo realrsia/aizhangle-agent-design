@@ -195,7 +195,13 @@ tokens:
     - bindings/assets/files/templates/bottom-bar-output-checklist.json
 
 textOverrideFields:
-  - TODO_VERIFY_WITH_FIGMA
+  - inputPlaceholder
+  - voiceHoldLabel
+  - keyboardInputText
+  - deepAnswerChipLabel
+  - advisorAnswerChipLabel
+  - assistantSelectorLabel
+  - aiDisclosureText
 
 resourceRefs:
   - docs/references/fidelity/chat-fidelity-reconstruction.md

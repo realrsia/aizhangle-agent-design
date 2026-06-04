@@ -327,7 +327,16 @@ tokens:
     panelBackground: xzl-color-primary-blue / 5998FF 10%
 
 textOverrideFields:
-  - TODO_VERIFY_WITH_FIGMA
+  - userQuestionText
+  - assistantName
+  - reasoningStatusText
+  - reasoningStepText
+  - answerTitle
+  - answerBody
+  - answerListItems
+  - disclaimerText
+  - relatedQuestionText
+  - actionLabels
 
 resourceRefs:
   - docs/references/fidelity/chat-fidelity-reconstruction.md
