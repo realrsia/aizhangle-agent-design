@@ -1,15 +1,143 @@
 components:
   component.bottom-bar:
     bindingMode: must_use_library_instance
-    status: TODO_VERIFY_WITH_FIGMA
+    bindingFailurePolicy: stop_and_recheck
+    status: partial
     sourceBrief: authoring/components/bottom-bar.brief.yaml
-    figmaExactName: TODO_VERIFY_WITH_FIGMA
-    componentKey: TODO_VERIFY_WITH_FIGMA
+    fileName: 设计仓库
+    fileKey: pbxELN7TYDDguIgbXfc1zB
+    sourceUrl: https://www.figma.com/design/pbxELN7TYDDguIgbXfc1zB/%E8%AE%BE%E8%AE%A1%E4%BB%93%E5%BA%93?node-id=12-10172
+    sectionNodeId: "12:6783"
+    sectionNodeName: 3.3 底bar组件
+    componentSetNodeId: "12:10172"
+    figmaExactName: bottom bar/母组件
+    componentKey: 8cbb729a37926f3ff74f84f60bee46a009e4de04
+    extractionStatus:
+      metadata: confirmed_page_and_main_component
+      designContext: partial
+      componentKey: confirmed_from_figma_plugin_api
+      codeConnect: unavailable_without_figma_developer_seat
     variantProperties:
-      variant:
-        - primaryPage
-        - chatPage
-        - stockQuotePage
+      场景:
+        - 默认
+        - 对话
+        - 个股
+        - 交易场景
+      有关联问:
+        - "On"
+        - "Off"
+      有陪伴:
+        - "On"
+        - "Off"
+      有指数:
+        - "On"
+        - "Off"
+      Dark:
+        - "On"
+        - "Off"
+    sceneAliases:
+      默认: 首页场景
+      对话: 全屏对话场景
+      个股: 个股场景
+      交易场景: 个股场景 / 交易入口
+    familyBindings:
+      - familyId: bottom-bar.main
+        figmaExactName: bottom bar/母组件
+        nodeId: "12:10172"
+        componentKey: 8cbb729a37926f3ff74f84f60bee46a009e4de04
+        bindingMode: must_use_library_instance
+        bindingFailurePolicy: stop_and_recheck
+        source: authoring/components/bottom-bar.brief.yaml
+      - familyId: bottom-bar.voice-input
+        figmaExactName: bottom bar/item/长按语音输入
+        nodeId: "12:7621"
+        componentKey: 4d772fd4a13f5179bfdf787d562be0940ab08358
+        bindingMode: must_use_library_instance
+        bindingFailurePolicy: stop_and_recheck
+        source: authoring/components/bottom-bar.brief.yaml
+      - familyId: bottom-bar.input-pill
+        figmaExactName: bottom bar/item/输入胶囊
+        nodeId: "12:8494"
+        componentKey: 7bb41b2a29a8e317c295ce1d29cab8c5d9e5ce10
+        bindingMode: must_use_library_instance
+        source: authoring/components/bottom-bar.brief.yaml
+      - familyId: bottom-bar.agent-assistant
+        figmaExactName: bottom bar/item/Agent助手/母组件
+        nodeId: "12:9147"
+        componentKey: 48583bdd4463369e7e0f3d34acc9f58c83e5a3ea
+        bindingMode: must_use_library_instance
+        source: authoring/components/bottom-bar.brief.yaml
+      - familyId: bottom-bar.trading-entry
+        figmaExactName: bottom bar/item/默认场景/交易
+        nodeId: "12:7883"
+        componentKey: 979257884447e9b798f53427acfe94ff8aac99fd
+        bindingMode: must_use_library_instance
+        source: authoring/components/bottom-bar.brief.yaml
+      - familyId: bottom-bar.my-entry
+        figmaExactName: bottom bar/item/默认场景/我的
+        nodeId: "12:7964"
+        componentKey: 7a7479615d72fbd5630c168f25048bfd78f1c249
+        bindingMode: must_use_library_instance
+        source: authoring/components/bottom-bar.brief.yaml
+      - familyId: bottom-bar.other-observed-item-families
+        figmaExactName: TODO_VERIFY_WITH_FIGMA
+        nodeId: TODO_VERIFY_WITH_FIGMA
+        componentKey: TODO_VERIFY_WITH_FIGMA
+        status: partially-confirmed-backlog
+    confirmedVariants:
+      - variantId: default-dark
+        nodeId: "12:10173"
+        componentKey: 76461340cd40213529701619e118084ca0affba7
+        figmaExactName: "场景=默认, 有关联问=Off, 有陪伴=Off, 有指数=Off, Dark=On"
+      - variantId: default-light
+        nodeId: "12:10216"
+        componentKey: 392f2a45b038459a6a2621d058109cbf90f67397
+        figmaExactName: "场景=默认, 有关联问=Off, 有陪伴=Off, 有指数=Off, Dark=Off"
+      - variantId: trading-related-dark
+        nodeId: "12:10237"
+        componentKey: c5b0068c364cd8da88ffb15b78f9ad83ba5a00de
+        figmaExactName: "场景=交易场景, 有关联问=On, 有陪伴=Off, 有指数=Off, Dark=On"
+      - variantId: trading-related-light
+        nodeId: "12:10243"
+        componentKey: 69d1feb23d5dfe007b17c58c95f136466c5230de
+        figmaExactName: "场景=交易场景, 有关联问=On, 有陪伴=Off, 有指数=Off, Dark=Off"
+      - variantId: trading-related-index-dark
+        nodeId: "12:10360"
+        componentKey: 711d75a3c355177d2b16f444c412cf366a8f1afc
+        figmaExactName: "场景=交易场景, 有关联问=On, 有陪伴=Off, 有指数=On, Dark=On"
+      - variantId: trading-related-index-light
+        nodeId: "12:10372"
+        componentKey: 3fca782b6aa249f463f9e0f07df6d3a673ee3820
+        figmaExactName: "场景=交易场景, 有关联问=On, 有陪伴=Off, 有指数=On, Dark=Off"
+    variantVerificationGaps:
+      - Some main Bottom Bar variant component keys are not listed in `figma.componentKeyMap`; verify before treating missing variant keys as facts.
+      - Home entry expanded frame node IDs remain TODO_VERIFY_WITH_FIGMA / NEEDS_FIGMA_SELECTION in authoring.
+      - Stock detail and pretrade scenario example node IDs include TODO_VERIFY_WITH_FIGMA in scenario briefs.
+      - Other observed item families are backlog entries; do not guess their node IDs, component keys, or full variant properties.
+    textOverrideTargets:
+      inputPill.label:
+        componentSetNodeId: "12:8494"
+        status: partial
+      agentSuggestionChips.labels:
+        componentSetNodeId: "12:9115"
+        componentProperty: "胶囊文字#20368:0"
+        status: partial
+      companionModule.body:
+        componentNodeId: "12:8428"
+        status: partial
+      companionModule.linkLabel:
+        componentNodeId: "12:8428"
+        status: TODO_VERIFY_WITH_FIGMA
+      indexModule:
+        componentNodeId: "12:9187"
+        status: partial
+      relatedQuestionToast.label:
+        componentSetNodeId: "12:8494"
+        componentProperty: "关联问#20259:0"
+        status: partial
+      aiGeneratedDisclosure.label:
+        textNodeId: "12:9185"
+        status: partial
   component.button:
     bindingMode: must_use_library_instance
     status: TODO_VERIFY_WITH_FIGMA

@@ -1979,6 +1979,7 @@ usageInstanceGroups:
       - 当前个股创 200 日新高，去分析一下
       - 当前个股异动明显，看看可能原因
       - 要不要分析一下这只个股的趋势变化
+      - 你盯这只股票好久啦！不如先模拟交易试试。
     exampleTypes:
       - id: related-question-primary-idle-dark
         name: 一级页面 / 空闲关联问提示黑版
@@ -3679,6 +3680,7 @@ textOverrideFields:
       - 当前个股创 200 日新高，去分析一下
       - 当前个股异动明显，看看可能原因
       - 要不要分析一下这只个股的趋势变化
+      - 你盯这只股票好久啦！不如先模拟交易试试。
     figmaTarget:
       componentSetNodeId: "12:8494"
       componentProperty: "关联问#20259:0"

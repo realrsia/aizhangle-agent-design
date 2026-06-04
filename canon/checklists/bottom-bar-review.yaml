@@ -1,15 +1,147 @@
 componentId: component.bottom-bar
 sourceBrief: authoring/components/bottom-bar.brief.yaml
 items:
-  - id: bottom-bar-context-routed
+  - id: bottom-bar-real-figma-component-used
     severity: P0
-    question: 是否按页面上下文正确路由底部栏 variant？
-    passCriteria: primaryPage、chatPage、stockQuotePage 与可见结构一致。
-  - id: quote-action-not-scene-entry
+    question: 是否使用了 Figma 中真实的 `bottom bar/母组件` 底部栏变体？
+    passCriteria: 输出对象必须对应到 `12:10172` 组件集和已确认的 exact name / variant；不能用手绘 frame、普通按钮组或旧底栏近似替代。
+  - id: bottom-bar-not-tabs-or-button-group
     severity: P0
-    question: 是否混淆了一级页面交易入口和个股行情买卖撤？
-    passCriteria: sceneEntries 和 quoteActions 使用各自资产与结构。
-  - id: fixed-above-content
+    question: 是否把普通按钮、tabs、列表操作区或内容区胶囊误当成 Bottom Bar？
+    passCriteria: 底栏必须包含固定底部结构、control row、safe area 和 home indicator；tabs 只负责内容切换，普通按钮组不能替代底栏。
+  - id: scene-property-matches-page-context
+    severity: P0
+    question: "`场景` 属性是否与页面上下文一致？"
+    passCriteria: 首页、全屏对话、个股、关联问、陪伴场景不得混用；旧 Figma 值“默认 / 对话 / 交易场景”必须映射到 authoring 中确认的新分类。
+  - id: bottom-bar-layer-foremost
+    severity: P0
+    question: Bottom Bar 是否处于页面常驻交互层最前方？
+    passCriteria: 除系统键盘、明确打开的弹窗/Toast 和长按语音输入替代态外，正文、图表、列表、普通卡片和普通浮层都不能覆盖 Bottom Bar。
+  - id: bottom-bar-y-axis-screen-bottom
+    severity: P0
+    question: Bottom Bar 的 Y 轴位置是否贴合整体屏幕最下方？
+    passCriteria: 必须贴合移动端 frame 底部并保留 safe area / home indicator；不得悬浮在页面中部、被裁切或被滚动内容挤走。
+  - id: trading-actions-context-safe
+    severity: P0
+    question: 买、卖、撤行动是否只出现在明确交易上下文的底栏中？
+    passCriteria: 买 / 卖 / 撤仅在个股场景且页面存在标的或交易表单上下文时出现，不得进入 AI 对话正文或普通首页底栏。
+  - id: home-entry-collapse-side-correct
     severity: P1
-    question: 底部栏是否固定在 frame 底部且高于滚动内容？
-    passCriteria: 内容保留底部间距，底栏不被滚动层覆盖。
+    question: 首页场景展开态的收起按钮是否出现在正确侧？
+    passCriteria: 交易页左侧入口展开后左侧按钮为向下箭头；我的/自选二级页右侧入口展开后右侧“自选”按钮变为向下箭头。
+  - id: my-entry-secondary-page-mapping-valid
+    severity: P1
+    question: 自选、触发、模拟、持股是否都按“我的”页面下的二级页处理？
+    passCriteria: 这四个入口不得被登记为独立一级场景；自选展开态应理解为“我的 / 自选”二级页。
+  - id: simulation-entry-only-in-my-simulation
+    severity: P1
+    question: 模拟入口按钮是否只在“我的 / 模拟”二级页出现？
+    passCriteria: 模拟入口只在用户进入“我的”页面并点击“模拟”二级页后出现；自选、触发、持股二级页不得使用模拟按钮。
+  - id: stock-detail-target-context-valid
+    severity: P1
+    question: 个股详情 Bottom Bar 是否用于明确的个股、ETF 等场内交易标的？
+    passCriteria: 页面必须有明确标的上下文；不能用于普通首页、账户页或无标的页面。
+  - id: pretrade-only-in-my-secondary-tabs
+    severity: P1
+    question: 预交易 Bottom Bar 是否只用于“我的”页面下自选、触发、模拟、持股四个二级页？
+    passCriteria: 预交易不得用于首页普通入口、全屏对话、弹窗底部或下单确认区。
+  - id: pretrade-index-fields-complete
+    severity: P1
+    question: 预交易中的指数模块字段是否完整？
+    passCriteria: 必须包含指数名称、指数数据、指数现价、当日涨跌额、当日涨跌幅度；没有真实数据时可以虚构，但必须保持现有格式。
+  - id: related-question-index-default-valid
+    severity: P1
+    question: 个股场景关联问是否默认优先使用带指数模块的黑白版变体？
+    passCriteria: 个股详情或个股场景下默认参考 `trading-related-index-dark` / `trading-related-index-light`；一级页面或明确无指数需求时才用不带指数变体。
+  - id: related-question-idle-toast-copy-safe
+    severity: P1
+    question: 关联问 Toast 文案是否只是引导，而不是投资建议或收益承诺？
+    passCriteria: 文案可以提示系统预测、功能操作、个股分析等方向，但不得承诺收益、替用户做交易决策或暗示确定性结果。
+  - id: stock-detail-related-question-actions-collapsed
+    severity: P1
+    question: 个股详情空闲关联问出现时，交易动作是否被正确收起？
+    passCriteria: 交易 / 买 / 卖 / 撤应收成一个入口按钮；不得同时展开多个交易动作按钮。
+  - id: idle-toast-not-during-active-input
+    severity: P1
+    question: 关联问 Toast 是否避开正在输入、语音采集或下单确认状态？
+    passCriteria: 用户正在键盘输入、长按语音、录音、松开发送、订单确认或交易表单提交时，不得弹出空闲关联问 Toast。
+  - id: companion-context-matches-page
+    severity: P1
+    question: 陪伴场景是否与页面上下文一致？
+    passCriteria: 首页陪伴用于权益领取或功能引导；预交易陪伴用于“我的”体系或预交易事项；个股详情陪伴用于当前标的分析提醒，不得混用。
+  - id: companion-copy-not-investment-advice
+    severity: P1
+    question: 陪伴提醒文案是否避免确定性投资建议或收益承诺？
+    passCriteria: 可以引导分析原因，但不得承诺收益、直接建议买卖或替用户做交易决策。
+  - id: companion-height-accounted
+    severity: P1
+    question: 陪伴模块出现后，底栏高度和页面底部避让是否正确？
+    passCriteria: 227 / 260 等陪伴高度变体不能被压缩；页面内容、指数模块、输入胶囊和 home indicator 不得被遮挡。
+  - id: ai-disclosure-kept-when-needed
+    severity: P1
+    question: 全屏对话或 AI 建议内容出现时，是否保留 AI 生成内容披露？
+    passCriteria: 全屏对话场景或 AI 建议胶囊可见时，应显示或按人工确认规则处理“内容由AI生成”；隐藏需有人工确认。
+  - id: theme-variant-not-color-patched
+    severity: P1
+    question: light / dark 模式是否使用真实变体，而不是只替换颜色？
+    passCriteria: "`Dark=On` 和 `Dark=Off` 必须对应 Figma 变体；背景、图标容器、home indicator 和文字 token 均随变体变化。"
+  - id: safe-area-and-home-indicator-present
+    severity: P1
+    question: 底部安全区和 home indicator 是否保留？
+    passCriteria: 底部保留 safe area 和 home indicator，且不被内容、按钮或陪伴模块遮挡。
+  - id: optional-modules-height-accounted
+    severity: P1
+    question: 有陪伴、有指数、有关联问等模块出现时，底栏高度和内容避让是否正确？
+    passCriteria: 130 / 131 / 171 / 227 / 260 等不同高度变体不能强行压缩；滚动内容应预留对应底部空间。
+  - id: voice-input-state-clear
+    severity: P1
+    question: 长按语音输入状态是否清楚表达当前操作？
+    passCriteria: 采集中、松开发送、上滑取消或取消发送状态必须有清晰文案、波形或颜色反馈，不能让用户误发语音。
+  - id: voice-input-replaces-bottom-bar
+    severity: P1
+    question: 长按语音输入出现时，Bottom Bar 是否已经消失？
+    passCriteria: 用户长按输入胶囊后应切换到长按语音输入覆盖态；Bottom Bar 和长按语音输入不能同屏同时出现。
+  - id: entry-button-default-text-state
+    severity: P2
+    question: 我的入口和交易入口是否默认使用文字状态？
+    passCriteria: 未经用户明确要求时，入口按钮默认使用文字版；icon 版只在用户明确提出或规范明确要求时使用。
+  - id: idle-toast-persist-until-closed
+    severity: P2
+    question: 关联问 Toast 出现后是否持续存在直到用户点击关闭？
+    passCriteria: Toast 不应自动消失；必须提供关闭入口，用户点击关闭后本次提示消失。
+  - id: companion-buttons-left-aligned
+    severity: P2
+    question: 陪伴场景的操作按钮是否左对齐，并正确处理单按钮 / 多按钮？
+    passCriteria: 两个操作选项时展示两个按钮；只有一个操作选项时保留左侧按钮，不能居中、右对齐或保留空按钮占位。
+  - id: companion-link-not-primary-action
+    severity: P2
+    question: 陪伴场景中的超链接是否只用于查看详情？
+    passCriteria: 超链接只能用于查看提醒或文案详情，不能替代“去看看”“去领取”“去分析”等主操作按钮。
+  - id: visual-reference-theme-pairing-valid
+    severity: P2
+    question: 视觉生成参考是否按黑白主题一一配对使用？
+    passCriteria: 14 个参考案例中 1-7 为深色、8-14 为浅色；使用时应按 1/8、2/9、3/10、4/11、5/12、6/13、7/14 配对。
+  - id: visual-reference-duplicate-not-prioritized
+    severity: P2
+    question: 重复的 AI 对话参考是否被正确去重？
+    passCriteria: 第 2 / 9 组和第 3 / 10 组均为 AI 对话参考，后续视觉生成只优先保留一组；重复组不得当作新场景。
+  - id: input-pill-structure-valid
+    severity: P2
+    question: 输入胶囊是否使用真实 `bottom bar/item/输入胶囊` 子组件并保留必要结构？
+    passCriteria: 输入胶囊来自 `12:8494`，包含麦克风图标、输入文案和右侧输入模式入口；不得单独脱离 Bottom Bar 使用。
+  - id: index-module-financial-tokens-valid
+    severity: P2
+    question: 指数模块是否使用金融语义 token？
+    passCriteria: 指数数值、涨跌额、涨跌幅使用已确认金融色彩变量；不得用普通文字色或任意 raw color 替代。
+  - id: voice-input-h5-not-figma-instance
+    severity: P2
+    question: H5 长按语音输入是否被正确理解为 H5 视觉状态，而不是 APP 深浅主题？
+    passCriteria: H5 使用真实 `bottom bar/item/长按语音输入` 变体，但 Dark=On / Off 只表示背景覆盖颜色差异，不得当作 APP 原生主题。
+  - id: voice-input-copy-verified
+    severity: P2
+    question: 长按语音输入的提示文案是否来自 Figma 或人工确认？
+    passCriteria: 提示文案必须记录真实 Figma 节点；若不是来自 Figma，必须标记为人工确认文案。
+  - id: TODO_VERIFY_WITH_FIGMA-home-entry-expanded-example-nodes
+    severity: P3
+    question: 首页入口展开态使用实例的具体 frame nodeId 是否已经重新从 Figma 选中确认？
+    passCriteria: 当前 authoring 中仍有 `TODO_VERIFY_WITH_FIGMA` / `NEEDS_FIGMA_SELECTION`，确认前不得把这些 frame nodeId 当成事实。
