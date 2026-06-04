@@ -539,231 +539,6 @@ componentFamilies:
         severity: P1
         rule: 装饰图像存在与否决定是否使用带装饰 Action Sheet 变体；删除装饰图像后必须回退到非装饰变体。
 
-  - familyId: action-sheet.reading-dialog
-    displayName: 股票列表阅读型弹窗
-    figmaComponentName: NEEDS_FIGMA_SELECTION
-    figmaNodeId: NEEDS_FIGMA_SELECTION
-    componentKey: NEEDS_FIGMA_SELECTION
-    figmaExactName: NEEDS_FIGMA_SELECTION
-    bindingMode: must_use_library_instance
-    bindingFailurePolicy: stop_and_recheck
-    variantCount: TODO_VERIFY_WITH_FIGMA
-    sourceStatus: human-described-needs-figma-selection
-    usedIn:
-      - stock-list-reading-dialog
-      - market-reading-flow
-    allowedZones:
-      - mobile_modal_layer
-      - stock_list_modal_layer
-    forbiddenZones:
-      - trading_order_submit_area
-      - agreement_consent_layer
-      - ai_chat_message_body_inline
-    humanRules:
-      do:
-        - 用于股票列表、行情列表或阅读型内容的模态说明。
-        - 保持阅读内容清楚，不把只读说明伪装成交易确认。
-      dont:
-        - 不要承载买入、卖出、撤单或协议同意。
-    riskWarnings:
-      - id: reading-dialog-not-confirmation
-        severity: P2
-        rule: 阅读型弹窗不应替代高风险确认流程。
-
-  - familyId: action-sheet.action-sheet
-    displayName: Action Sheet 操作弹窗
-    figmaComponentName: NEEDS_FIGMA_SELECTION
-    figmaNodeId: NEEDS_FIGMA_SELECTION
-    componentKey: NEEDS_FIGMA_SELECTION
-    figmaExactName: NEEDS_FIGMA_SELECTION
-    bindingMode: must_use_library_instance
-    bindingFailurePolicy: stop_and_recheck
-    variantCount: TODO_VERIFY_WITH_FIGMA
-    sourceStatus: human-described-needs-figma-selection
-    usedIn:
-      - action-sheet
-      - mobile-option-picker
-      - contextual-operation-menu
-    allowedZones:
-      - action_sheet_layer
-      - mobile_modal_layer
-    forbiddenZones:
-      - scroll_content_body
-      - bottom_bar_control_row
-      - ai_chat_message_body_inline
-    humanRules:
-      do:
-        - 用于一组上下文操作选择，必须保留触发来源。
-        - 破坏性或交易相关选项需要单独风险提示或二次确认。
-      dont:
-        - 不要把 Action Sheet 当作普通列表或卡片内容。
-        - 不要把高风险操作藏在低权重选项里。
-    riskWarnings:
-      - id: actionsheet-destructive-option
-        severity: P1
-        rule: Action Sheet 中出现删除、撤销、交易或授权选项时必须升级审核。
-
-  - familyId: action-sheet.gui-task-dialog
-    displayName: GUI 任务型操作弹窗
-    figmaComponentName: NEEDS_FIGMA_SELECTION
-    figmaNodeId: NEEDS_FIGMA_SELECTION
-    componentKey: NEEDS_FIGMA_SELECTION
-    figmaExactName: NEEDS_FIGMA_SELECTION
-    bindingMode: must_use_library_instance
-    bindingFailurePolicy: stop_and_recheck
-    variantCount: TODO_VERIFY_WITH_FIGMA
-    sourceStatus: human-described-needs-figma-selection
-    usedIn:
-      - gui-task-dialog
-      - operation-confirmation
-      - task-step-confirmation
-    allowedZones:
-      - app_dialog_layer
-      - mobile_modal_layer
-    forbiddenZones:
-      - ai_chat_message_body_inline
-      - list_row_action_area
-      - tab_navigation_area
-    humanRules:
-      do:
-        - 用于需要用户执行或确认 GUI 任务的模态流程。
-        - 主按钮、取消按钮和任务结果必须表达清楚。
-      dont:
-        - 不要在未说明后果时要求用户确认操作。
-    riskWarnings:
-      - id: task-dialog-action-clarity
-        severity: P1
-        rule: 任务型弹窗必须说明用户操作会带来的状态变化。
-
-  - familyId: action-sheet.agreement-ip-dialog
-    displayName: 带 IP 装饰的协议操作弹窗
-    figmaComponentName: NEEDS_FIGMA_SELECTION
-    figmaNodeId: NEEDS_FIGMA_SELECTION
-    componentKey: NEEDS_FIGMA_SELECTION
-    figmaExactName: NEEDS_FIGMA_SELECTION
-    bindingMode: must_use_library_instance
-    bindingFailurePolicy: stop_and_recheck
-    variantCount: TODO_VERIFY_WITH_FIGMA
-    sourceStatus: human-described-needs-figma-selection
-    usedIn:
-      - agreement-ip-dialog
-      - user-consent-flow
-      - compliance-sensitive-confirmation
-    allowedZones:
-      - app_dialog_layer
-      - mobile_modal_layer
-    forbiddenZones:
-      - ordinary-notice
-      - action_sheet_layer
-      - ai_chat_message_body_inline
-    humanRules:
-      do:
-        - 用于需要用户同意协议、条款或授权的模态流程。
-        - IP 装饰只能增强品牌或引导，不得弱化协议正文和同意动作。
-        - 必须保留明确同意动作和必要的拒绝或返回路径。
-      dont:
-        - 不要用关闭按钮代替同意或拒绝。
-        - 不要让装饰元素抢占协议正文和主操作。
-    riskWarnings:
-      - id: agreement-consent-explicit
-        severity: P0
-        rule: 协议同意必须由用户明确操作完成，不能默认同意或自动关闭。
-
-  - familyId: action-sheet.lui-source-dialog
-    displayName: AI Chat LUI 来源展开弹窗
-    figmaComponentName: NEEDS_FIGMA_SELECTION
-    figmaNodeId: NEEDS_FIGMA_SELECTION
-    componentKey: NEEDS_FIGMA_SELECTION
-    figmaExactName: NEEDS_FIGMA_SELECTION
-    bindingMode: must_use_library_instance
-    bindingFailurePolicy: stop_and_recheck
-    variantCount: TODO_VERIFY_WITH_FIGMA
-    sourceStatus: human-described-needs-figma-selection
-    usedIn:
-      - ai-chat-source-dialog
-      - ai-answer-citation
-      - conclusion-data-index
-    allowedZones:
-      - ai_chat_modal_layer
-      - mobile_modal_layer
-    forbiddenZones:
-      - trading_order_submit_area
-      - agreement_consent_layer
-      - ordinary_card_footer
-    humanRules:
-      do:
-        - 用于 AI Chat 对话流中点击结论、数据索引或标记后展开来源。
-        - 必须表达来源、限制、引用对象和可追溯内容。
-        - 若内容影响投资判断，必须保留 AI 内容限制说明。
-      dont:
-        - 不要把来源展开当作普通提示。
-        - 不要在来源弹窗中直接放置交易行动点。
-    riskWarnings:
-      - id: ai-source-traceability
-        severity: P1
-        rule: AI 来源展开必须帮助用户理解信息来源，不得制造确定性错觉。
-
-  - familyId: action-sheet.version-dialog
-    displayName: 发现新版本 Dialog
-    figmaComponentName: NEEDS_FIGMA_SELECTION
-    figmaNodeId: NEEDS_FIGMA_SELECTION
-    componentKey: NEEDS_FIGMA_SELECTION
-    figmaExactName: NEEDS_FIGMA_SELECTION
-    bindingMode: must_use_library_instance
-    bindingFailurePolicy: stop_and_recheck
-    variantCount: TODO_VERIFY_WITH_FIGMA
-    sourceStatus: human-described-needs-figma-selection
-    usedIn:
-      - app-version-dialog
-      - update-available-flow
-    allowedZones:
-      - app_dialog_layer
-      - mobile_modal_layer
-    forbiddenZones:
-      - trading_order_submit_area
-      - ai_chat_message_body_inline
-    humanRules:
-      do:
-        - 用于提示发现新版本，说明更新内容和升级入口。
-        - 若允许稍后处理，需要明确次操作。
-      dont:
-        - 不要与重大更新、协议同意或强制升级混用。
-    riskWarnings:
-      - id: version-dialog-update-choice
-        severity: P2
-        rule: 版本更新弹窗必须清楚区分立即更新、稍后处理和强制升级。
-
-  - familyId: action-sheet.major-update-ip-dialog
-    displayName: 重大更新 IP 装饰 Dialog
-    figmaComponentName: NEEDS_FIGMA_SELECTION
-    figmaNodeId: NEEDS_FIGMA_SELECTION
-    componentKey: NEEDS_FIGMA_SELECTION
-    figmaExactName: NEEDS_FIGMA_SELECTION
-    bindingMode: must_use_library_instance
-    bindingFailurePolicy: stop_and_recheck
-    variantCount: TODO_VERIFY_WITH_FIGMA
-    sourceStatus: human-described-needs-figma-selection
-    usedIn:
-      - major-update-ip-dialog
-      - app-major-release-flow
-    allowedZones:
-      - app_dialog_layer
-      - mobile_modal_layer
-    forbiddenZones:
-      - trading_order_submit_area
-      - agreement_consent_layer
-      - ai_chat_message_body_inline
-    humanRules:
-      do:
-        - 用于重大版本或重大能力更新说明。
-        - IP 装饰应服务于更新说明和主操作，不得遮挡内容。
-      dont:
-        - 不要把重大更新弹窗当作普通版本提示。
-        - 不要用装饰替代明确更新内容。
-    riskWarnings:
-      - id: major-update-content-clear
-        severity: P2
-        rule: 重大更新必须说明核心变化和用户可执行动作。
 
 # [HUMAN REQUIRED]
 familyVariantGroups:
@@ -1086,82 +861,6 @@ familyVariantGroups:
         removalFallbackVariant: action-sheet-main-dialog-plain
     note: 装饰区是带装饰 Action Sheet 内部槽位组件，不是独立弹窗主体。
 
-  - familyId: action-sheet.reading-dialog
-    displayName: 股票列表阅读型弹窗变体组
-    figmaComponentName: NEEDS_FIGMA_SELECTION
-    figmaNodeId: NEEDS_FIGMA_SELECTION
-    componentKey: NEEDS_FIGMA_SELECTION
-    bindingMode: must_use_library_instance
-    bindingFailurePolicy: stop_and_recheck
-    variantCount: TODO_VERIFY_WITH_FIGMA
-    variantProperties: TODO_VERIFY_WITH_FIGMA
-    note: 需要设计师选中该 component set 后读取真实 variants。
-
-  - familyId: action-sheet.action-sheet
-    displayName: Action Sheet 操作弹窗变体组
-    figmaComponentName: NEEDS_FIGMA_SELECTION
-    figmaNodeId: NEEDS_FIGMA_SELECTION
-    componentKey: NEEDS_FIGMA_SELECTION
-    bindingMode: must_use_library_instance
-    bindingFailurePolicy: stop_and_recheck
-    variantCount: TODO_VERIFY_WITH_FIGMA
-    variantProperties: TODO_VERIFY_WITH_FIGMA
-    note: 需要确认 Figma 中是否为真实 component set；若不是，则移入 usageInstanceGroups。
-
-  - familyId: action-sheet.gui-task-dialog
-    displayName: GUI 任务型操作弹窗变体组
-    figmaComponentName: NEEDS_FIGMA_SELECTION
-    figmaNodeId: NEEDS_FIGMA_SELECTION
-    componentKey: NEEDS_FIGMA_SELECTION
-    bindingMode: must_use_library_instance
-    bindingFailurePolicy: stop_and_recheck
-    variantCount: TODO_VERIFY_WITH_FIGMA
-    variantProperties: TODO_VERIFY_WITH_FIGMA
-    note: 需要设计师选中该 component set 后读取真实 variants。
-
-  - familyId: action-sheet.agreement-ip-dialog
-    displayName: 带 IP 装饰的协议操作弹窗变体组
-    figmaComponentName: NEEDS_FIGMA_SELECTION
-    figmaNodeId: NEEDS_FIGMA_SELECTION
-    componentKey: NEEDS_FIGMA_SELECTION
-    bindingMode: must_use_library_instance
-    bindingFailurePolicy: stop_and_recheck
-    variantCount: TODO_VERIFY_WITH_FIGMA
-    variantProperties: TODO_VERIFY_WITH_FIGMA
-    note: 需要确认协议、装饰、按钮数量、是否可关闭等真实 variant properties。
-
-  - familyId: action-sheet.lui-source-dialog
-    displayName: AI Chat LUI 来源展开弹窗变体组
-    figmaComponentName: NEEDS_FIGMA_SELECTION
-    figmaNodeId: NEEDS_FIGMA_SELECTION
-    componentKey: NEEDS_FIGMA_SELECTION
-    bindingMode: must_use_library_instance
-    bindingFailurePolicy: stop_and_recheck
-    variantCount: TODO_VERIFY_WITH_FIGMA
-    variantProperties: TODO_VERIFY_WITH_FIGMA
-    note: 需要确认来源展开是 component set、variant、instance，还是页面使用案例。
-
-  - familyId: action-sheet.version-dialog
-    displayName: 发现新版本 Dialog 变体组
-    figmaComponentName: NEEDS_FIGMA_SELECTION
-    figmaNodeId: NEEDS_FIGMA_SELECTION
-    componentKey: NEEDS_FIGMA_SELECTION
-    bindingMode: must_use_library_instance
-    bindingFailurePolicy: stop_and_recheck
-    variantCount: TODO_VERIFY_WITH_FIGMA
-    variantProperties: TODO_VERIFY_WITH_FIGMA
-    note: 需要确认普通版本提示、强制升级、稍后处理等是否为真实 variants。
-
-  - familyId: action-sheet.major-update-ip-dialog
-    displayName: 重大更新 IP 装饰 Dialog 变体组
-    figmaComponentName: NEEDS_FIGMA_SELECTION
-    figmaNodeId: NEEDS_FIGMA_SELECTION
-    componentKey: NEEDS_FIGMA_SELECTION
-    bindingMode: must_use_library_instance
-    bindingFailurePolicy: stop_and_recheck
-    variantCount: TODO_VERIFY_WITH_FIGMA
-    variantProperties: TODO_VERIFY_WITH_FIGMA
-    note: 需要确认重大更新与普通版本提示是否为独立 component set。
 
 # [HUMAN REQUIRED]
 familyVariantHumanRules:
@@ -2014,29 +1713,6 @@ familyVariantHumanRules:
       - action-sheet-decoration-slot-matches-variant
 
 usageInstanceGroups:
-  - groupId: action-sheet.usage.pending-current-selection
-    displayName: 待当前 Figma 选择确认的 Action Sheet 使用案例
-    instanceType: needs-figma-selection
-    relatedComponentFamily: TODO_VERIFY_WITH_FIGMA
-    sourceNodeId: NEEDS_FIGMA_SELECTION
-    mainComponent: TODO_VERIFY_WITH_FIGMA
-    componentProperties: TODO_VERIFY_WITH_FIGMA
-    overrideFields: TODO_VERIFY_WITH_FIGMA
-    textOverrideTargets: TODO_VERIFY_WITH_FIGMA
-    usedIn:
-      - TODO_VERIFY_WITH_FIGMA
-    allowedZones:
-      - mobile_modal_layer
-      - app_dialog_layer
-      - ai_chat_modal_layer
-      - action_sheet_layer
-    forbiddenZones:
-      - component-definition-zone
-    humanRules:
-      do:
-        - 只有当选中对象是 instance、page frame、demo frame、prototype frame 或截图时，才写入这里。
-      dont:
-        - 不要把真实 component set 或 component variant 放入这里当作使用案例。
   - groupId: action-sheet.usage.gui-reading-market-overview-dark
     displayName: GUI阅读型行情速览浮层样例
     instanceType: page-frame-usage-example
@@ -2835,48 +2511,6 @@ figma:
           fillsMainVariant: action-sheet-main-gui-task-decorated
           removalFallbackVariant: action-sheet-main-gui-task-plain
           imageNodeId: "99:56936"
-    action-sheet.reading-dialog:
-      nodeId: NEEDS_FIGMA_SELECTION
-      componentKey: NEEDS_FIGMA_SELECTION
-      figmaExactName: NEEDS_FIGMA_SELECTION
-      bindingMode: must_use_library_instance
-      bindingFailurePolicy: stop_and_recheck
-    action-sheet.action-sheet:
-      nodeId: NEEDS_FIGMA_SELECTION
-      componentKey: NEEDS_FIGMA_SELECTION
-      figmaExactName: NEEDS_FIGMA_SELECTION
-      bindingMode: must_use_library_instance
-      bindingFailurePolicy: stop_and_recheck
-    action-sheet.gui-task-dialog:
-      nodeId: NEEDS_FIGMA_SELECTION
-      componentKey: NEEDS_FIGMA_SELECTION
-      figmaExactName: NEEDS_FIGMA_SELECTION
-      bindingMode: must_use_library_instance
-      bindingFailurePolicy: stop_and_recheck
-    action-sheet.agreement-ip-dialog:
-      nodeId: NEEDS_FIGMA_SELECTION
-      componentKey: NEEDS_FIGMA_SELECTION
-      figmaExactName: NEEDS_FIGMA_SELECTION
-      bindingMode: must_use_library_instance
-      bindingFailurePolicy: stop_and_recheck
-    action-sheet.lui-source-dialog:
-      nodeId: NEEDS_FIGMA_SELECTION
-      componentKey: NEEDS_FIGMA_SELECTION
-      figmaExactName: NEEDS_FIGMA_SELECTION
-      bindingMode: must_use_library_instance
-      bindingFailurePolicy: stop_and_recheck
-    action-sheet.version-dialog:
-      nodeId: NEEDS_FIGMA_SELECTION
-      componentKey: NEEDS_FIGMA_SELECTION
-      figmaExactName: NEEDS_FIGMA_SELECTION
-      bindingMode: must_use_library_instance
-      bindingFailurePolicy: stop_and_recheck
-    action-sheet.major-update-ip-dialog:
-      nodeId: NEEDS_FIGMA_SELECTION
-      componentKey: NEEDS_FIGMA_SELECTION
-      figmaExactName: NEEDS_FIGMA_SELECTION
-      bindingMode: must_use_library_instance
-      bindingFailurePolicy: stop_and_recheck
   extractionAttempt:
     method: Figma Plugin API getNodeByIdAsync
     sourceNodeId: "99:55969"
@@ -3663,7 +3297,32 @@ slots:
     legacyInstanceNote: GUI任务型+装饰 当前主组件里仍有一个旧 `按钮` component set 实例，语义等价于 `Action sheet/按钮 Area` 的 任务型/描边按钮+基础按钮。
   close:
     description: 关闭入口。
-    required: TODO_HUMAN_CONFIRM
+    required: conditional_by_variant_and_risk
+    rule: >
+      关闭入口按 Action Sheet 类型和业务风险决定，不是全局必选。GUI阅读型、GUI任务型、
+      GUI任务型+装饰、LUI对话型、Dialog弹窗这 5 类默认可带关闭入口；Dialog弹窗+装饰
+      在强制升级 APP 场景中不提供关闭入口，用户必须通过主操作继续。
+    requiredWhen:
+      - ordinary_reading_or_task_sheet_allows_dismiss
+      - ai_source_or_explanation_can_return_to_context
+      - non_forced_version_notice
+    forbiddenWhen:
+      - forced_app_upgrade_dialog_decorated
+      - agreement_or_permission_flow_where_close_would_skip_required_consent
+      - high_risk_trading_flow_where_close_would_hide_required_decision
+    variantDefaults:
+      action-sheet-main-gui-reading: close_allowed
+      action-sheet-main-gui-task-plain: close_allowed
+      action-sheet-main-gui-task-decorated: close_allowed
+      action-sheet-main-lui-source: close_allowed
+      action-sheet-main-dialog-plain: close_allowed
+      action-sheet-main-dialog-decorated: close_forbidden_when_forced_upgrade
+    figmaFacts:
+      titleAreaSupportsCloseStyles:
+        - 关闭
+        - 标题+关闭
+        - 编辑+标题+关闭
+        - 左标题+关闭
 
 tokens:
   source:
