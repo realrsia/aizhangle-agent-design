@@ -1,0 +1,241 @@
+# ============================================================
+# 01_HUMAN_REQUIRED
+# 人工必填区
+# ============================================================
+
+id: component.chat-input
+name: 对话输入栏
+owner: design-system
+status: draft
+
+# [HUMAN REQUIRED]
+purpose: >
+  用于 AI 对话页底部输入与语音/键盘模式切换，是 full-screen conversation
+  的固定底部交互入口。正式组件来源优先使用设计仓库 bottom bar 的对话变体。
+
+# [HUMAN REQUIRED]
+usedIn:
+  - ai-chat-page
+  - message-page
+
+# [HUMAN REQUIRED]
+humanRules:
+  do:
+    - 保持输入栏固定在 full-screen conversation frame 底部。
+    - 优先复用底bar对话态，不用普通输入框替代。
+    - 今天先覆盖默认对话态的 Dark=On 和 Dark=Off；语音、键盘、打断、上划、关联问等状态继续按 Figma 节点验证。
+  dont:
+    - 不要把对话输入栏放进滚动消息内容。
+    - 不要用普通表单输入框替代底部 composer。
+    - 不要移除安全区或底部 AI 生成提示。
+
+# [HUMAN REQUIRED]
+riskWarnings:
+  - 输入栏承载继续对话动作，结构错位会直接影响页面还原可信度。
+
+# [HUMAN REQUIRED]
+allowedZones:
+  - bottom_input
+  - chat_page_composer
+  - assistant_footer
+
+# [HUMAN REQUIRED]
+forbiddenZones:
+  - message_feed
+  - ordinary_card_footer
+  - reasoning_panel
+
+# [HUMAN REQUIRED]
+requiredPairings:
+  - component.bottom-bar
+  - safe-area
+  - component.chat-topbar
+
+# [HUMAN REQUIRED]
+forbiddenPairings:
+  - generic-form-input
+  - generic-bottom-navigation
+
+# [HUMAN REQUIRED]
+componentFamilies:
+  - id: chat-input.dialog-bottom-bar
+    figmaNodeId: "5509:131783"
+    canonicalName: bottom bar/母组件
+    sourceFigmaExactName: 1月版/母组件
+    sourceNameStatus: legacy_name_in_figma_needs_rename
+    sourceInstanceRole: dialog_page_bottom_bar_instance
+    familyType: component_set_instance
+    humanUse: draft_page_instance_of_dialog_bottom_bar
+    humanRules:
+      - 用作对话页底部输入栏，不作为普通底部导航。
+  - id: chat-input.repository-bottom-bar
+    figmaNodeId: "12:10172"
+    figmaExactName: bottom bar/母组件
+    familyType: component_set
+    humanUse: draft_formal_component_source
+    humanRules:
+      - 使用设计仓库中的 bottom bar 组件集作为对话输入栏正式绑定来源。
+      - 对话黑版优先绑定 场景=对话, Dark=On 变体；白版优先绑定 场景=对话, Dark=Off 变体。
+
+# [HUMAN REQUIRED]
+examples:
+  good:
+    - figmaNodeId: "5509:131783"
+      reason: 对话黑版中的底部输入栏实例，应对应设计仓库 bottom bar/母组件的对话 Dark=On 变体。
+    - figmaNodeId: "5829:15841"
+      reason: 对话白版中的底部输入栏实例，应对应设计仓库 bottom bar/母组件的对话 Dark=Off 变体。
+    - figmaNodeId: "5509:132713"
+      reason: 开启新对话白版中的底部输入栏实例，用于状态页参考。
+    - figmaNodeId: "12:10180"
+      reason: 设计仓库 bottom bar/母组件中的对话 Dark=On 变体。
+    - figmaNodeId: "12:10189"
+      reason: 设计仓库 bottom bar/母组件中的对话 Dark=Off 变体。
+  needsReview:
+    - name: 输入栏状态枚举
+      reason: 今天先覆盖默认对话态深浅色；其他状态继续按 Figma 节点验证。
+  bad: []
+
+# ============================================================
+# 02_AGENT_EXTRACTED
+# Agent 自动读取区
+# ============================================================
+
+figma:
+  fileName: 对话流GUI与规范实测
+  fileKey: 4lMpPyfchpoWK0wE0nyJzw
+  exampleNodeId: "5509:131783"
+  canonicalName: bottom bar/母组件
+  sourceFigmaExactName: 1月版/母组件
+  sourceNameStatus: legacy_name_in_figma_needs_rename
+  componentKey: 6c67c07391c697e6658e10a591063b31017a622f
+  mainComponentKey: ceda34ec270acdbe0377ac8d917e5c499ac6c9a5
+  bindingMode: must_use_library_instance
+  bindingFailurePolicy: stop_and_recheck
+  relatedRepositoryFileKey: N0GqvW0qr9niOnWxjzyulU
+  repositoryComponentSetNodeId: "12:10172"
+  repositoryComponentSetKey: 8cbb729a37926f3ff74f84f60bee46a009e4de04
+  repositoryDarkVariantNodeId: "12:10180"
+  repositoryDarkVariantComponentKey: 73fa7c55a7adc008e563959371c3e6c53623cfb7
+  repositoryLightVariantNodeId: "12:10189"
+  repositoryLightVariantComponentKey: 294d923f164d688d89fc2d2693aeabc04651126e
+  propertyHints:
+    场景:
+      - 对话
+      - 默认
+      - 交易场景
+      - 个股
+    有关联问:
+      - "On"
+      - "Off"
+    有陪伴:
+      - "On"
+      - "Off"
+    有指数:
+      - "On"
+      - "Off"
+    Dark:
+      - "On"
+      - "Off"
+
+classification:
+  primitiveFamily: chat_input
+  componentType: navigation-and-input
+  riskLevel: high
+  isOrdinaryInput: false
+
+observedStructure:
+  root: bottom bar/母组件
+  sourceRootName: 1月版/母组件
+  dimensions:
+    width: 390
+    height: 171
+  children:
+    - input-row
+    - agent-chip-row
+    - bottom-safe-area
+    - ai-generated-disclaimer
+  typography: TODO_VERIFY_WITH_FIGMA
+  tokens:
+    source: bindings/assets/files/templates/bottom-bar-component.json
+
+variants:
+  confirmed:
+    - 场景=对话, 有关联问=Off, 有陪伴=Off, 有指数=Off, Dark=On
+    - 场景=对话, 有关联问=Off, 有陪伴=Off, 有指数=Off, Dark=Off
+  candidates:
+    - 有关联问=On
+    - 有陪伴=On
+    - 有指数=On
+    - 交易场景
+    - 个股
+
+states:
+  - id: default
+    required: true
+  - id: voice
+    required: false
+  - id: keyboard
+    required: false
+  - id: interruption
+    required: false
+
+slots:
+  inputPill:
+    description: 输入胶囊或语音按住说话区域。
+  utilityActions:
+    description: 交易、我的、模式切换等辅助动作。
+  agentChips:
+    description: 深度回答、投顾回答、选助手等对话快捷入口。
+  safeArea:
+    description: iOS 底部安全区与 AI 生成提示。
+
+tokens:
+  source:
+    - bindings/assets/files/templates/bottom-bar-component.json
+    - bindings/assets/files/templates/bottom-bar-output-checklist.json
+
+textOverrideFields:
+  - inputPlaceholder
+  - voiceHoldLabel
+  - keyboardInputText
+  - deepAnswerChipLabel
+  - advisorAnswerChipLabel
+  - assistantSelectorLabel
+  - aiDisclosureText
+
+resourceRefs:
+  - docs/references/fidelity/chat-fidelity-reconstruction.md
+  - docs/references/bottom-bar/variants.md
+  - docs/references/bottom-bar/agent-chips.md
+  - bindings/assets/files/templates/bottom-bar-component.json
+
+# ============================================================
+# 03_AGENT_EXPANSION_AND_CHECKLIST
+# Agent 扩展与自查区
+# ============================================================
+
+reviewChecklist:
+  - id: chat-input-fixed-bottom
+    severity: P0
+    question: 对话输入栏是否固定在 frame 底部，并位于滚动内容之上？
+    passCriteria: 输入栏不随 message_feed 滚动，内容区预留底部空间。
+  - id: chat-input-uses-dialog-bottom-bar
+    severity: P0
+    question: 是否复用了对话态底bar结构，而不是普通输入框或通用底部导航？
+    passCriteria: 场景为对话，结构包含输入行、agent row 和安全区。
+  - id: chat-input-state-declared
+    severity: P1
+    question: 是否声明语音/键盘/默认/打断等状态？
+    passCriteria: 状态来自 Figma 或标记为 TODO_VERIFY_WITH_FIGMA。
+
+agentExpansion:
+  canonComponent:
+    path: canon/components/chat-input.meta.yaml
+  checklist:
+    path: canon/checklists/chat-input-review.yaml
+  figmaBinding:
+    path: bindings/figma/components.yaml
+  docs:
+    path: docs/generated/components/index.md
+  assetManifest:
+    path: bindings/assets/manifest.yaml

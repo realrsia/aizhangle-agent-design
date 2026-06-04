@@ -1,0 +1,184 @@
+# ============================================================
+# 01_HUMAN_REQUIRED
+# 人工必填区
+# ============================================================
+
+id: component.chat-background
+name: 对话页背景
+owner: design-system
+status: draft
+
+# [HUMAN REQUIRED]
+purpose: >
+  用于 AI 对话页黑版、白版的一屏和长页面背景。生成页面时应优先使用设计仓库
+  背景组件或变量，不要用近似纯色块重画。
+
+# [HUMAN REQUIRED]
+usedIn:
+  - ai-chat-page
+  - message-page
+
+# [HUMAN REQUIRED]
+humanRules:
+  do:
+    - 根据页面主题选择 dark=on 或 dark=off 背景变体。
+    - 根据页面高度选择 1屏 或 全屏 背景变体。
+    - 背景应位于页面底层，不遮挡 topbar、message_feed、bottom_input。
+  dont:
+    - 不要用手写色值或普通矩形替代设计仓库背景组件。
+    - 不要把背景放入 message_feed 滚动内容。
+    - 不要把页面截图背景当成可复用组件。
+
+# [HUMAN REQUIRED]
+riskWarnings:
+  - 背景不使用正式组件或变量时，黑版/白版还原会出现明显色差。
+  - 长页面如果误用 1屏背景，滚动内容下半段可能露出错误底色。
+
+# [HUMAN REQUIRED]
+componentFamilies:
+  - id: chat-background.one-screen-dark
+    figmaNodeId: "7:6308"
+    figmaExactName: 页面=1屏, dark=on
+    componentKey: 8fc63b06eaaeb352df3ce3ca38969f00923d5e5d
+    variantProperties:
+      页面: 1屏
+      dark: "on"
+    familyType: component_variant
+    humanUse: dark_theme_short_page_background
+  - id: chat-background.full-screen-dark
+    figmaNodeId: "31:18747"
+    figmaExactName: 页面=全屏, dark=on
+    componentKey: eb6f8da9e8da594be4425a5a3304391ab0b4b3b0
+    variantProperties:
+      页面: 全屏
+      dark: "on"
+    familyType: component_variant
+    humanUse: dark_theme_long_page_background
+  - id: chat-background.one-screen-light
+    figmaNodeId: "7:6910"
+    figmaExactName: 页面=1屏, dark=off
+    componentKey: e8e966317feacf946bec7c575a41ca935887c4c4
+    variantProperties:
+      页面: 1屏
+      dark: "off"
+    familyType: component_variant
+    humanUse: light_theme_short_page_background
+  - id: chat-background.full-screen-light
+    figmaNodeId: "31:18755"
+    figmaExactName: 页面=全屏, dark=off
+    componentKey: 86c486150135c86e46456c2fc842a16b25b09b3a
+    variantProperties:
+      页面: 全屏
+      dark: "off"
+    familyType: component_variant
+    humanUse: light_theme_long_page_background
+    
+
+# [HUMAN REQUIRED]
+allowedZones:
+  - page_background
+  - app_shell_background
+  - ai_chat_page_root
+
+# [HUMAN REQUIRED]
+forbiddenZones:
+  - message_feed
+  - chat_topbar
+  - bottom_input
+  - content_card
+
+# [HUMAN REQUIRED]
+requiredPairings:
+  - chat-topbar
+  - message-feed
+  - chat-input
+
+# [HUMAN REQUIRED]
+forbiddenPairings:
+  - ordinary_card_background
+  - screenshot_background
+  - hand_drawn_solid_rect
+
+# [HUMAN REQUIRED]
+examples:
+  good:
+    - name: AI 对话页黑版长页面背景
+      reason: 使用设计仓库背景组件或变量，不用手写色块。
+  bad:
+    - name: 用普通矩形重画背景
+      reason: 无法保证 dark/light 和长页面背景一致。
+
+# ============================================================
+# 02_AGENT_EXTRACTED
+# Agent 自动读取区
+# ============================================================
+
+figma:
+  fileName: 设计仓库
+  fileKey: N0GqvW0qr9niOnWxjzyulU
+  sectionNodeId: "23:17482"
+  sectionName: 元素组件
+  groupNodeId: "7:6911"
+  groupName: 背景
+  componentKey: 57900b6e064fd94b5c32a1efe9feff70bea8e4d9
+  bindingMode: must_use_library_instance
+  bindingFailurePolicy: stop_and_recheck
+  componentPropertyDefinitions:
+    页面:
+      type: VARIANT
+      variantOptions:
+        - 1屏
+        - 全屏
+    dark:
+      type: VARIANT
+      variantOptions:
+        - "on"
+        - "off"
+
+classification:
+  primitiveFamily: page_background
+  componentType: page-shell-foundation
+  riskLevel: high
+
+variants:
+  confirmed:
+    - 页面=1屏, dark=on
+    - 页面=全屏, dark=on
+    - 页面=1屏, dark=off
+    - 页面=全屏, dark=off
+  themeProperty: dark
+  heightProperty: 页面
+
+tokens:
+  source: 设计仓库背景变量/组件待确认
+
+resourceRefs:
+  - figma://N0GqvW0qr9niOnWxjzyulU/7:6911
+  - figma://N0GqvW0qr9niOnWxjzyulU/23:17482
+
+# ============================================================
+# 03_AGENT_EXPANSION_AND_CHECKLIST
+# Agent 扩展与自查区
+# ============================================================
+
+reviewChecklist:
+  - id: chat-background-uses-library
+    severity: P0
+    question: 页面背景是否使用设计仓库背景组件或变量，而不是手写色块？
+    passCriteria: 背景来源可追溯到 设计仓库/元素组件/背景。
+  - id: chat-background-theme-match
+    severity: P0
+    question: 黑版/白版是否使用正确 dark 变体？
+    passCriteria: 黑版使用 dark=on，白版使用 dark=off。
+  - id: chat-background-height-match
+    severity: P1
+    question: 长页面是否使用全屏背景变体？
+    passCriteria: 长回答页、表格页等内容高度超过一屏时不使用 1屏 背景。
+
+agentExpansion:
+  canonComponent:
+    path: canon/components/chat-background.meta.yaml
+  checklist:
+    path: canon/checklists/chat-background-review.yaml
+  figmaBinding:
+    path: bindings/figma/components.yaml
