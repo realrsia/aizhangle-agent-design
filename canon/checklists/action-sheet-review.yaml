@@ -1,0 +1,91 @@
+componentId: component.action-sheet
+sourceBrief: authoring/components/action-sheet.brief.yaml
+items:
+  - id: action-sheet-real-component-not-demo
+    severity: P0
+    question: 是否把页面截图、demo frame、prototype frame 或使用案例误当成真实组件？
+    passCriteria: 真实 component set / variant 进入 componentFamilies 和 variant rules；示例 frame 只能进入 usageInstanceGroups、scenario 或 case study。
+  - id: action-sheet-usage-example-not-component-definition
+    severity: P0
+    question: 使用案例 frame 是否只作为生成参考，而没有被登记成母组件或真实变体？
+    passCriteria: 行情速览浮层、持仓列表操作弹层、AI 结果说明、输入任务和撤买确认等页面样例不得进入 componentFamilies 或 variantGroups。
+  - id: action-sheet-figma-binding-verified
+    severity: P0
+    question: Figma-backed Action Sheet 是否已记录真实 nodeId、componentKey、figmaExactName 和 variant property？
+    passCriteria: 使用 Action Sheet library instance；缺失绑定时必须停止并标记 `TODO_VERIFY_WITH_FIGMA`，不能用 lookalike frame 替代。
+  - id: action-sheet-risk-level-matches-family
+    severity: P0
+    question: 弹窗 family 是否匹配业务风险？
+    passCriteria: 交易、资金、权限、协议、AI 免责声明和重大更新不得使用普通提示或阅读型 family。
+  - id: action-sheet-explicit-confirmation-for-high-risk
+    severity: P0
+    question: 高风险弹窗是否要求用户明确确认？
+    passCriteria: 交易、撤单、协议、授权和权限确认必须有明确主操作与必要取消 / 返回路径，不允许自动关闭替代确认。
+  - id: action-sheet-agreement-consent-explicit
+    severity: P0
+    question: 协议、条款或授权弹窗是否由用户明确同意？
+    passCriteria: 不能默认同意，不能用关闭按钮代替同意或拒绝，协议正文和同意动作必须清楚。
+  - id: action-sheet-trading-confirmation-context-valid
+    severity: P0
+    question: 交易确认是否包含明确标的、订单/撤单信息、风险提示和确认路径？
+    passCriteria: 撤买、撤单、批量订单确认等场景必须展示风险提示和订单明细，并保留确认与取消路径。
+  - id: action-sheet-mask-present
+    severity: P1
+    question: 弹窗是否在正文上方，并在下一层使用黑色半透明蒙层？
+    passCriteria: 页面正文被蒙层压暗，弹窗正文和操作按钮位于蒙层上方，蒙层不得盖住弹窗内容。
+  - id: action-sheet-mask-type-matches-action-sheet-variant
+    severity: P1
+    question: Action Sheet 遮罩类型是否与弹窗类型匹配？
+    passCriteria: GUI阅读型使用 reading mask；GUI任务型、LUI对话型和 Dialog 弹窗使用 regular full modal mask，并按页面主题选择真实变体。
+  - id: action-sheet-title-area-matches-main-variant
+    severity: P1
+    question: 标题区类型和样式是否匹配主组件 variant？
+    passCriteria: GUI任务型/GUI阅读型直接匹配同名标题区类型；LUI对话型匹配 LUI阅读型；Dialog弹窗匹配 Dialog弹层。
+  - id: action-sheet-content-area-matches-main-variant
+    severity: P1
+    question: 内容区类型和样式是否匹配主组件 variant 与业务描述？
+    passCriteria: 协议签署、条件单确认、输入数值、输入范围和来源内容不得被普通提示话术替代。
+  - id: action-sheet-button-area-matches-main-variant
+    severity: P1
+    question: 按钮区类型和样式是否匹配主组件 variant 与业务风险？
+    passCriteria: GUI任务型使用任务型按钮区，GUI阅读型使用阅读型按钮区，Dialog弹窗使用 Dialog弹层按钮区；高风险确认不得用纯文字按钮组合替代明确主按钮。
+  - id: action-sheet-decoration-slot-matches-variant
+    severity: P1
+    question: 带装饰 Action Sheet 的装饰槽位是否匹配对应装饰区 variant？
+    passCriteria: GUI任务型+装饰使用 GUI任务型装饰区；Dialog弹窗+装饰使用 Dialog弹层装饰区；删除 IP 图像后回退到非装饰 variant。
+  - id: action-sheet-close-rule-matches-risk
+    severity: P1
+    question: 关闭入口是否按弹窗类型和业务风险决定，而不是机械地全局添加或删除？
+    passCriteria: GUI阅读型、GUI任务型、GUI任务型+装饰、LUI对话型、Dialog弹窗默认可带关闭入口；强制升级、必须同意的协议/权限流程、关闭会隐藏高风险决策的交易流程不得用关闭入口绕过主操作。
+  - id: action-sheet-ai-source-disclosure-clear
+    severity: P1
+    question: AI 来源、数据索引或免责声明弹窗是否说明来源和限制？
+    passCriteria: AI 相关弹窗必须保留来源、限制、免责声明或可追溯内容，不得制造确定性收益或投资结论错觉。
+  - id: action-sheet-main-theme-rule-followed
+    severity: P1
+    question: 主母组件是否遵守 dark-only 与主题 Toggle 规则？
+    passCriteria: "`Action sheet/母组件` 不新增独立白版 variants；白版通过主题 Toggle 调整，不手动复制一套组件。"
+  - id: action-sheet-light-mask-selection-valid
+    severity: P1
+    question: 浅色页面是否选择了正确的浅色遮罩变体？
+    passCriteria: "GUI阅读型浅色使用 `Dark=Off` reading mask；常规模态浅色使用 `Dark=Dark4` regular mask。"
+  - id: action-sheet-lui-no-button-by-default
+    severity: P2
+    question: LUI 来源弹窗是否默认不添加按钮区？
+    passCriteria: LUI对话型来源展开默认只含来源标题和内容；除非设计明确需要，否则不添加按钮区。
+  - id: action-sheet-reading-not-confirmation
+    severity: P2
+    question: GUI阅读型或股票列表阅读型弹窗是否被误用为高风险确认？
+    passCriteria: 阅读型弹窗只能承载只读信息、列表或阅读型内容，不得承载买入、卖出、撤单、协议同意。
+  - id: action-sheet-h5-usage-confirmed
+    severity: P2
+    question: H5 弹窗是否来自已确认的 H5 变体或视觉等价规则？
+    passCriteria: H5 不能默认复用 APP 原生弹窗；需要真实变体或明确标记为视觉参考。
+  - id: action-sheet-legacy-slot-instance-reviewed
+    severity: P2
+    question: GUI任务型+装饰中的旧标题/内容/按钮实例是否被识别为兼容遗留实例？
+    passCriteria: 旧 `标题`、`内容区`、`按钮` 实例不得被登记为新的 Action Sheet family；后续替换应指向对应 `Action sheet/* Area` variant。
+  - id: action-sheet-version-dialog-choice-clear
+    severity: P2
+    question: 版本更新弹窗是否清楚区分立即更新、稍后处理和强制升级？
+    passCriteria: 发现新版本与重大更新不得混用；若允许稍后处理，需要明确次操作。

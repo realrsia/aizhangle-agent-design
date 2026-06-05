@@ -1,0 +1,130 @@
+# ============================================================
+# 01_HUMAN_REQUIRED
+# 人工必填区
+# ============================================================
+
+id: scenario.bottom-bar.stock-related-question-idle-toast
+name: 个股场景关联问空闲提示 Bottom Bar
+owner: product-design
+status: draft
+
+# [HUMAN REQUIRED]
+purpose: >
+  定义关联问空闲提示的使用方式：当用户在一级页面或个股详情页停留一段时间没有操作时，
+  Bottom Bar 可以展示 Toast 式引导，提示用户进行系统预测、功能操作或个股分析。
+  提示出现后持续存在，直到用户点击关闭。
+
+# [HUMAN REQUIRED]
+primaryUserGoal: >
+  用户在没有主动输入时获得轻量提示，知道可以继续追问、做功能预测或进入个股分析，
+  但不会被误导成交易建议或下单提示。
+
+# [HUMAN REQUIRED]
+requiredContent:
+  - "真实 `bottom bar/母组件` 关联问变体。"
+  - 一级页面：输入胶囊上方或内部的 Toast 覆盖提示。
+  - 个股详情：左侧 Toast 引导，交易 / 买 / 卖 / 撤按钮收成一个入口按钮。
+  - 个股场景默认优先使用带指数模块的黑白版关联问变体。
+  - Toast 关闭入口。
+  - 输入胶囊、指数模块和 iOS home indicator / safe area 按真实变体保留。
+
+# [HUMAN REQUIRED]
+behavior:
+  trigger: user-idle
+  persistence: persist-until-user-closes
+  closeRule: 用户点击关闭后，本次提示消失；是否在后续重新出现由产品策略另行确认。
+  copyExamples:
+    - 当前个股创 200 日新高，去分析一下
+    - 当前个股异动明显，看看可能原因
+    - 要不要分析一下这只个股的趋势变化
+    - 你盯这只股票好久啦！不如先模拟交易试试。
+
+# [HUMAN REQUIRED]
+allowedZones:
+  - primary_page_bottom_composer
+  - stock_detail_bottom_composer
+  - stock_quote_bottom_action
+  - related_question_idle_toast_overlay
+
+# [HUMAN REQUIRED]
+forbiddenPatterns:
+  - 不要在用户正在键盘输入、长按语音、录音或松开发送状态展示空闲 Toast。
+  - 不要在订单确认、交易表单提交或买卖撤直接操作区展示空闲 Toast。
+  - 不要把 Toast 文案写成确定性投资建议或收益承诺。
+  - 不要在个股详情空闲提示中同时展开交易、买、卖、撤多个按钮。
+
+# [HUMAN REQUIRED]
+riskWarnings:
+  - id: idle-toast-not-investment-advice
+    severity: P1
+    rule: 关联问 Toast 只能做引导，不得承诺收益、替用户决策或暗示确定性投资结果。
+  - id: stock-related-actions-collapse-required
+    severity: P1
+    rule: 个股详情空闲提示出现时，交易动作应收成一个入口按钮，避免形成直接下单引导。
+
+# ============================================================
+# 02_AGENT_EXTRACTED
+# Agent 自动读取区
+# ============================================================
+
+candidateArchetype: stock-related-question-idle-bottom-composer
+candidateComponents:
+  - component.bottom-bar
+  - bottom-bar.main
+  - bottom-bar.input-pill
+figmaRefs:
+  - fileName: 设计仓库
+    fileKey: pbxELN7TYDDguIgbXfc1zB
+    pageName: Bottom bar + Alert
+    componentSetNodeId: "12:10172"
+    selectedCount: 8
+    relatedVariants:
+      - trading-related-dark
+      - trading-related-light
+      - trading-related-index-dark
+      - trading-related-index-light
+    defaultReferenceVariants:
+      - trading-related-index-dark
+      - trading-related-index-light
+    usageExampleCount: 4
+    exampleNodeIds:
+      - "12:9201"
+      - "12:9210"
+      - "12:9223"
+      - "12:9233"
+    exampleNodeNames:
+      - bottom bar/首页场景关联问
+      - bottom bar/首页场景关联问
+      - bottom bar/个股场景关联问
+      - bottom bar/个股场景关联问
+assetRefs: []
+
+# ============================================================
+# 03_AGENT_EXPANSION_AND_CHECKLIST
+# Agent 扩展与自查区
+# ============================================================
+
+reviewChecklist:
+  - id: related-question-index-default-valid
+    question: 个股场景关联问是否默认优先使用带指数模块的黑白版变体？
+    passCriteria: 个股详情或个股场景下，默认参考 `trading-related-index-dark` / `trading-related-index-light`。
+  - id: related-question-idle-toast-copy-safe
+    question: 关联问 Toast 文案是否只是引导，而不是投资建议或收益承诺？
+    passCriteria: 文案可以提示系统预测、功能操作、个股分析等方向，但不得替用户做交易决策。
+  - id: stock-detail-related-question-actions-collapsed
+    question: 个股详情空闲关联问出现时，交易动作是否被正确收起？
+    passCriteria: 交易 / 买 / 卖 / 撤应收成一个入口按钮，不得同时展开多个交易动作按钮。
+  - id: idle-toast-not-during-active-input
+    question: 关联问 Toast 是否避开正在输入、语音采集或下单确认状态？
+    passCriteria: 用户正在输入、语音采集、订单确认或交易表单提交时，不得弹出空闲关联问 Toast。
+  - id: idle-toast-persist-until-closed
+    question: 关联问 Toast 出现后是否持续存在直到用户点击关闭？
+    passCriteria: 提示不应自动消失；必须有关闭入口，用户关闭后本次提示消失。
+
+agentExpansion:
+  canonScenario:
+    path: canon/scenarios/bottom-bar-stock-related-question-idle-toast.yaml
+  checklist:
+    path: canon/checklists/bottom-bar-stock-related-question-idle-toast-review.yaml
+  docs:
+    path: docs/generated/scenarios/bottom-bar-stock-related-question-idle-toast.md

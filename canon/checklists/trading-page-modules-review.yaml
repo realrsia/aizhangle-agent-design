@@ -1,0 +1,62 @@
+componentId: component.trading-page-modules
+sourceBrief: authoring/components/trading-page-modules.brief.yaml
+sourceScenario: authoring/scenarios/trading.brief.yaml
+sourceCaseStudies:
+  - authoring/case-studies/top-nav-source-drift-case.md
+items:
+  - id: trading-page-modules-family-location
+    severity: P0
+    question: 交易顶部、设置区、信息区的真实 component family 是否集中维护在当前 brief？
+    passCriteria: scenario 只通过 componentRefs 引用当前组件族；真实 family 和变体规则不写回 scenario。
+  - id: trading-page-scenario-frame-not-family
+    severity: P0
+    question: source selection、page frame、prototype 或 case-study frame 是否没有被登记为 confirmed component family？
+    passCriteria: "`37:26221` 等区域容器或示例只进入 usageInstanceGroups，不作为单一母组件。"
+  - id: trading-page-shared-control-boundary
+    severity: P0
+    question: 交易输入控件和交易行动按钮是否仍引用独立共享组件？
+    passCriteria: "`component.trading-input` 和 `component.trading-action-button` 没有被复制成 trading-page-modules 私有组件。"
+  - id: trading-top-nav-not-generic-header
+    severity: P0
+    question: 交易 top nav 是否使用账户切换、页面滑动或模拟交易真实 family，而不是普通 header？
+    passCriteria: Top nav 不被 generic_card_header、普通二级标题栏或截图替代。
+  - id: trading-top-nav-source-priority
+    severity: P0
+    question: Top Nav 是否锁定 Figma/source 节点，而不是使用本地 out-of-skill lookalike？
+    passCriteria: 遵守 Figma source node、in-skill bound asset、in-skill fallback 的顺序。
+  - id: trading-live-paper-context-separated
+    severity: P0
+    question: 模拟交易和实盘交易是否在顶部上下文中明确区分？
+    passCriteria: 模拟交易保留“模拟”标识和规则入口；实盘页面不复用模拟 family。
+  - id: trading-high-risk-actions-bound
+    severity: P0
+    question: 买入、卖出、撤单、批量、再来一单等高风险动作是否保持真实绑定或明确风险确认路径？
+    passCriteria: 不降级成普通按钮；主交易动作引用 `component.trading-action-button` 或保留待验证标记。
+  - id: trading-settings-not-generic-form-card
+    severity: P0
+    question: 交易设置区是否没有被压平成普通表单卡片或 generic input 列表？
+    passCriteria: 保留左标签区、右输入区、代码/类型/价格/数量/金额/高级设置结构节奏。
+  - id: trading-info-not-generic-table
+    severity: P0
+    question: 持仓、合约、委托、条件单、历史委托、历史策略是否没有混成一个通用列表或表格？
+    passCriteria: 每类信息区保留自己的标题、tab、表头、行结构、空态和操作语义。
+  - id: trading-condition-order-strategy-trade-info
+    severity: P1
+    question: 条件单策略信息、交易信息和操作区域是否保持成组且语义未互换？
+    passCriteria: 策略说明不变成营销备注；交易信息不变成行情卡；操作区域不变成底部导航。
+  - id: trading-entrust-action-state-match
+    severity: P1
+    question: 委托行状态是否匹配对应操作区？
+    passCriteria: 已报显示撤单按钮，已撤不继续显示可撤操作，废单同时展示状态和原因。
+  - id: trading-batch-actions-not-main-submit
+    severity: P1
+    question: 信息区批量买入/卖出、批量撤单、撤单重下、再来一单是否没有被误写成主提交区？
+    passCriteria: 它们只作为信息区后续处理入口，不替代固定主交易提交按钮。
+  - id: trading-empty-states-valid
+    severity: P2
+    question: 持仓/合约空态是否仍保留所属 tab 和表头，并隐藏不应出现的操作？
+    passCriteria: 空态只切换内容区为空态卡片，不展示列表、批量操作或融资/融券数据。
+  - id: trading-text-overrides-not-guessed
+    severity: P3
+    question: 文本覆盖字段是否仍保留待验证，而没有被猜测成真实 override target？
+    passCriteria: "当前 `textOverrideFields` 仍为 `TODO_VERIFY_WITH_FIGMA`，自动覆盖前必须验证。"

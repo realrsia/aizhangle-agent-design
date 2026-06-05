@@ -1,0 +1,1305 @@
+# ============================================================
+# 01_HUMAN_REQUIRED
+# 人工必填区
+# ============================================================
+
+id: component.market-index-modules
+name: 大盘模块组件族
+owner: design-system
+status: draft
+purpose: 维护大盘页面中已确认的背景壳、标题、指数、异动、弹幕、竞价、tab、资讯和滑动引导等 Figma 组件 family。场景文件只负责页面组合与首屏/全量使用关系。
+usedIn:
+- market-index-full-page
+- market-index-first-screen
+- html-prototype-market-index
+- figma-review-market-index
+humanRules:
+  do:
+  - 同一个 Figma component set 下的真实子变体应进入 variantGroups 与 variantHumanRules。
+  - 兄弟母组件等到后续被单独选中后，再逐组补入各自 family。
+  - 页面级正例只进入 usageInstanceGroups。
+  - 系统层组件可以先在当前场景 brief 中登记引用规则，待系统层 brief/canon 完整后再回填正式绑定。
+  dont:
+  - 不要把当前已选中的 family 与未选中的兄弟 family 混写在同一轮事实区。
+  - 不要在 componentKey、文本覆盖字段或 token 绑定未确认时硬猜。
+riskWarnings:
+- id: market-index-background-source-of-truth
+  severity: P0
+  rule: '背景 family 是大盘页面壳层的真实 Figma 母组件，必须优先使用其真实变体， 不得用相似 frame 或截图替代。
+
+'
+- id: market-index-background-theme-consistency
+  severity: P0
+  rule: 'light 与 dark 必须严格对应真实主题，不得混用或只维护单套主题。 不允许局部特殊色脱离标准 token 体系单独存在。
+
+'
+- id: market-index-background-first-screen-scope
+  severity: P1
+  rule: '1屏 变体只用于首屏裁切与原型视口，不得替代全屏变体作为主页面背景。
+
+'
+allowedZones:
+- page_shell
+- market_index_card_background
+- first_screen_crop_shell
+- market_index_card_header
+- page_section_title
+- market_index_top_summary
+- market_index_horizontal_scan
+- abnormal_sector_scan
+- market_index_signal_map
+- market_index_signal_barrage
+- rolling_message_zone
+- market_index_auction_read
+- market_index_opening_signal
+- market_index_content_switch
+- market_index_news_filter
+- market_index_news_feed
+- market_index_opportunity_extension
+- first_screen_guide
+- market_index_card_bottom_hint
+forbiddenZones:
+- news_list_item
+- inline_content_module
+- generic_dashboard_card
+- bottom_dock
+- top_nav
+- full_scroll_body
+requiredPairings:
+- full-light-and-dark-reference
+- first-screen-crop-reference
+- semantic-top-nav
+- semantic-bottom-structures
+forbiddenPairings:
+- usage-frame-as-family
+- screenshot-as-component-definition
+- first-screen-as-primary-truth
+examples:
+  good:
+  - figmaNodeId: 7:6308
+    reason: dark 首屏背景母组件真实变体。
+  - figmaNodeId: 31:18747
+    reason: dark 全屏背景母组件真实变体。
+  - figmaNodeId: 7:6910
+    reason: light 首屏背景母组件真实变体。
+  - figmaNodeId: 31:18755
+    reason: light 全屏背景母组件真实变体。
+  needsReview:
+  - figmaNodeId: 3:2360
+    reason: 1屏 dark 页面正例，只能当 usage instance，不是背景 family 定义。
+  - figmaNodeId: 3:4021
+    reason: 1屏 light 页面正例，只能当 usage instance，不是背景 family 定义。
+  bad:
+  - reason: 把大盘_全量_light 或 大盘_全量_dark 直接写成 component family。
+  - reason: 用通用白底卡片或通用深色面板替代真实背景 family。
+componentHumanRules:
+  ruleScope: market-index-component-family-board
+  definition: 大盘模块 brief 维护大盘页面下的真实 component family；页面全量 / 首屏 frame 由 scenario 维护为
+    usage 真源。
+  do:
+  - 真实 component set / component variant 进入 componentFamilies 和 variant rules。
+  - 页面 frame、prototype 和视觉生成参考只进入 usageInstanceGroups 或 scenario。
+  - 跨组件页面编排留在 authoring/scenarios/market-index.brief.yaml。
+  dont:
+  - 不要把全量 light/dark 页面 frame 写成 component family。
+  - 不要把大盘模块降级成普通 dashboard 卡片。
+extensionModel:
+  mode: component-family-board
+  rationale: 大盘页面下存在多个真实 component family，按一个模块组件族 brief 统一维护。
+componentFamilies:
+- id: market-index.background-shell
+  figmaNodeId: 7:6911
+  componentKey: 57900b6e064fd94b5c32a1efe9feff70bea8e4d9
+  figmaName: 背景
+  familyRole: main
+  usedIn:
+  - page_shell
+  - market_index_card_background
+  - first_screen_crop_shell
+  allowedZones:
+  - page_shell
+  - market_index_card_background
+  - first_screen_crop_shell
+  forbiddenZones:
+  - news_list_item
+  - inline_content_module
+  - generic_dashboard_card
+  humanRules:
+    do:
+    - 作为大盘页面和大盘工作卡的外层背景壳使用。
+    - 按 1屏 / 全屏 与 light / dark 组合选择真实变体。
+    - 主题颜色必须绑定标准 light / dark token 体系。
+    - 页面 1屏 还原时，优先参考 1屏 实例真源中的定位与层级事实。
+    - 保留顶部光层、卡片主体壳、描边、内发光或内阴影的分层关系。
+    dont:
+    - 不要把背景壳层当成可自由替换的普通容器。
+    - 不要在深浅色之间交叉复用。
+    - 不要加入脱离标准 token 的局部特殊色。
+    - 不要把 light / dark 仅当成换色处理。
+    - 不要把背景卡压平成 generic dashboard card。
+  riskWarnings:
+  - 背景 family 是页面还原准确度的基础壳层，错误变体会直接破坏整页 fidelity。
+  - 允许在首页其他场景复用，但必须保持真实背景 family 的主题与尺寸变体边界。
+- id: market-index.title-block
+  figmaNodeId: 7:6941
+  componentKey: 4d75187a01c3ad765b44a17f8da1505bde802916
+  figmaName: 标题
+  sourceVariants:
+    dark: 7:6301
+    light: 7:6940
+  stableScenarioFacts:
+    structure:
+    - main_title_text
+    - status_dot
+    - status_text
+    visualVariants:
+      dark: 深色版标题包含渐变字表现和独立圆点处理，应按节点保留。
+      light: 浅色版标题为实色文字，圆点与文字保持一致颜色，应按节点保留。
+    flowOwnership:
+      appliesTo:
+      - market-index-first-screen
+      - market-index-full-page
+      rule: 标题属于大盘工作卡内容流，不应被视为屏幕独立绝对锚定元素；位置判断需要结合卡片内容流起点。
+  implementationPatchExclusions:
+  - 某次圆点颜色没同步。
+  - 某次渐变字 fallback 看起来偏差。
+  - 某次 padding、gap 或对齐值的临时补丁。
+  - 某次浏览器里偏 1px 或 2px 的调试结果。
+  - 某次当前位置算错的实现事故。
+  familyRole: supporting
+  usedIn:
+  - market_index_card_header
+  - page_section_title
+  allowedZones:
+  - market_index_card_header
+  - page_section_title
+  forbiddenZones:
+  - news_list_item
+  - bottom_dock
+  - generic_dashboard_card
+  humanRules:
+    do:
+    - 用于大盘场景顶部标题区，表达页面标题与当前市场状态。
+    - 深浅色必须绑定对应标准主题，不允许脱离标准 token。
+    - 审稿与高保真原型场景优先保持与 Figma 一致的字形效果。
+    - 保留主标题文本、圆点、状态文字三段结构，不要把 `• 交易中` 当成单串普通文本。
+    - 标题位置必须按卡片内容流起点判断，1屏 与 全量都适用。
+    dont:
+    - 不要把标题 family 当成通用标签、按钮或导航项。
+    - 不要拆散标题和状态文本的组合关系。
+    - 不要加入脱离标准 token 的局部特殊色。
+    - 在目标环境无法稳定拿到同款字体时，不要用近似字体硬替造成明显字形偏差。
+    - 不要把标题当成屏幕独立绝对锚定元素。
+    - 不要把 light / dark 标题只当成同一文本的换色版本。
+  riskWarnings:
+  - 标题 family 直接承载场景语义，误用会让大盘页失去明确标题与状态提示。
+  - 当前不复用到首页其他带“标题+状态”的卡片头部，应保持为大盘场景私有 family。
+- id: market-index.index-summary
+  figmaNodeId: 7:6302
+  componentKey: 2c8497856e210074e83c2183bcf545ce863041d1
+  figmaName: 指数
+  familyRole: supporting
+  usedIn:
+  - market_index_top_summary
+  - market_index_horizontal_scan
+  allowedZones:
+  - market_index_top_summary
+  - market_index_horizontal_scan
+  forbiddenZones:
+  - bottom_dock
+  - news_list_item
+  - generic_dashboard_card
+  humanRules:
+    do:
+    - 用于大盘顶部的指数扫描区，承载多指数横向浏览。
+    - 指数展示模块允许左右滑动，底部导航栏需要跟随当前滑动位置。
+    - 深色版和浅色版都必须使用规范色，涨跌语义保持红涨绿跌，不允许局部特殊色脱离标准 token。
+    dont:
+    - 不要把指数模块改造成静态单指标卡片。
+    - 不要让底部导航栏与横向滑动状态脱节。
+    - 不要把涨跌颜色替换成非规范金融语义色。
+  riskWarnings:
+  - 指数模块是大盘首层扫描入口，横向浏览与导航反馈错误会直接影响行情阅读效率。
+  - 当前不复用到首页其他场景，应保持为大盘场景私有 family。
+- id: market-index.abnormal-a-share
+  figmaNodeId: 7:6303
+  componentKey: 3255456fccafa816bf6c55f489fd6838b8233773
+  figmaName: A股异动
+  familyRole: supporting
+  usedIn:
+  - abnormal_sector_scan
+  - market_index_signal_map
+  allowedZones:
+  - abnormal_sector_scan
+  - market_index_signal_map
+  forbiddenZones:
+  - bottom_dock
+  - news_list_item
+  - generic_dashboard_card
+  humanRules:
+    do:
+    - 用于大盘场景中的板块异动扫描区，承载板块标签、走势底图、时间轴和涨跌阈值阅读。
+    - 右上角的热问开关作为独立 family 使用，需按深浅色变量切换。
+    - 除热问开关外，其余结构必须使用规范色对应深色版和浅色版，不允许局部特殊色脱离标准 token。
+    dont:
+    - 不要把 A股异动 拆成普通标签流或通用图表卡。
+    - 不要把热问开关混写成主模块内部的普通文本状态。
+    - 不要改变红涨绿跌和蓝色走势线的金融语义。
+  riskWarnings:
+  - A股异动 模块同时承担信号扫描与行情结构表达，若颜色、轴线或标签语义错误会直接误导阅读。
+  - 当前不复用到首页其他场景，应继续保持大盘私有 family。
+- id: market-index.hot-question-toggle
+  figmaNodeId: 23:17460
+  componentKey: f07956989f78bf36f7db0980ceea901bbcef7f56
+  figmaName: A股异动/热问开关
+  familyRole: supporting
+  usedIn:
+  - abnormal_sector_secondary_toggle
+  allowedZones:
+  - abnormal_sector_scan
+  forbiddenZones:
+  - top_nav
+  - bottom_dock
+  - news_list_item
+  humanRules:
+    do:
+    - 只作为 A股异动 右上角的局部开关使用。
+    - 必须根据 dark=on/off 使用对应的开关变量和文字颜色。
+    dont:
+    - 不要扩展成页面级通用开关。
+    - 不要脱离 A股异动 family 单独漂浮使用。
+  riskWarnings:
+  - 热问开关的深浅色变量已明确存在，不允许用近似样式替代真实变体。
+  - 当前不复用到其他板块异动类模块，应保持为 A股异动 场景私有 family。
+- id: market-index.barrage-panel
+  figmaNodeId: 7:6304
+  componentKey: cf254d3f385a8f67c0d72cca09a8804371a42f32
+  figmaName: 弹幕
+  familyRole: supporting
+  usedIn:
+  - market_index_signal_barrage
+  - rolling_message_zone
+  allowedZones:
+  - market_index_signal_barrage
+  - rolling_message_zone
+  forbiddenZones:
+  - bottom_dock
+  - news_list_item
+  - generic_dashboard_card
+  humanRules:
+    do:
+    - 用于大盘场景中的辅助消息扫描区，承载弹幕区域内的自动滚动消息。
+    - 区域内消息应在遮罩范围内自动滚动播放，保持双行错位的连续扫描感。
+    - 单条消息必须引用独立的 `弹幕/消息` family，并区分 `普通` 与 `热点` 两种变量。
+    - 使用规范色；热点消息中的热点标识使用标准红色语义。
+    dont:
+    - 不要把弹幕区域改成静态列表或普通标签墙。
+    - 不要把单条消息直接写死在主模块里，跳过独立消息 family。
+    - 不要让滚动内容超出遮罩区裸露显示。
+  riskWarnings:
+  - 弹幕区域承担快速辅助扫描角色，若滚动逻辑、遮罩或消息变体错误，会直接破坏可读性。
+  - 当前不复用到首页其他场景，应继续保持大盘私有 family。
+- id: market-index.barrage-chip
+  figmaNodeId: 18:671
+  componentKey: dce56f741cdde76c8ff3c27e5ffaca7a69c8b60f
+  figmaName: 弹幕/消息
+  familyRole: supporting
+  usedIn:
+  - barrage_message_chip
+  allowedZones:
+  - market_index_signal_barrage
+  - rolling_message_zone
+  forbiddenZones:
+  - top_nav
+  - bottom_dock
+  - news_list_item
+  humanRules:
+    do:
+    - 只作为弹幕区域中的单条消息使用。
+    - 必须区分 `普通` 和 `热点` 两种消息变量。
+    - "`热点` 变体需带热点图标和更强提示语义。"
+    dont:
+    - 不要把 `热点` 与 `普通` 混写成同一种普通文本样式。
+    - 不要脱离弹幕区域单独当成通用 tag 使用。
+  riskWarnings:
+  - 单条消息虽然轻量，但热点与普通的语义差异明确，不能互换。
+  - 当前不复用到其他滚动消息区，应保持为大盘弹幕场景私有 family。
+- id: market-index.auction-panel
+  figmaNodeId: 7:6305
+  componentKey: eb51e27c77855c0da3c2d75c57084f868f333f9e
+  figmaName: 竞价
+  familyRole: supporting
+  usedIn:
+  - market_index_auction_read
+  - market_index_opening_signal
+  allowedZones:
+  - market_index_auction_read
+  - market_index_opening_signal
+  forbiddenZones:
+  - bottom_dock
+  - news_list_item
+  - generic_dashboard_card
+  humanRules:
+    do:
+    - 用于大盘场景中的竞价金额与开盘信号阅读区。
+    - 保持总金额、较上日变化、涨停跌停统计、进度条和底部对比信息的完整结构。
+    - 必须使用规范色和标准 token，保持红涨绿跌金融语义。
+    dont:
+    - 不要简化成普通统计卡片或通用信息卡。
+    - 不要改变涨停/跌停与红绿语义的对应关系。
+    - 不要删除底部对比信息后只保留顶部汇总。
+  riskWarnings:
+  - 竞价模块涉及金额、涨跌停统计和强金融语义，任何红绿反转或数据层级混乱都会直接误导阅读。
+  - 当前不复用到首页其他场景，应继续保持大盘私有 family。
+- id: market-index.tab-strip
+  figmaNodeId: 7:6306
+  componentKey: fbf10f16cd65f78f3761bdc669b76bea7ef966cb
+  figmaName: tab
+  familyRole: supporting
+  usedIn:
+  - market_index_content_switch
+  - market_index_news_filter
+  allowedZones:
+  - market_index_content_switch
+  - market_index_news_filter
+  forbiddenZones:
+  - top_nav
+  - bottom_dock
+  - generic_dashboard_card
+  humanRules:
+    do:
+    - 当前先按系统层组件占位引用写入，用于记录大盘场景中的 tab 结构和状态规则。
+    - 系统层 tab 组件补齐后，应回填正式系统层绑定并替换当前占位写法。
+    - 用于资讯流前的局部内容切换区，承载横向排列的多个 tab 胶囊。
+    - 选中项与未选中项必须清晰区分，并跟随后续内容切换。
+    - 深色版和浅色版都必须使用规范色和标准 token。
+    dont:
+    - 不要把 tab 区域改成顶部导航或普通按钮组。
+    - 不要让选中态和未选中态的视觉差异消失。
+    - 不要将 tab 顺序和内容映射自由改写。
+  riskWarnings:
+  - tab 模块直接决定资讯流的分类入口，状态映射或样式错误会造成内容理解偏差。
+  - tab-strip 当前属于系统层级组件引用，后续需要回填正式系统层组件 id / 绑定路径。
+- id: market-index.tab-pill
+  figmaNodeId: 3:200
+  componentKey: 93dd72982c8c516bfc14043c354b8c10f4c31a35
+  figmaName: tab/胶囊
+  familyRole: supporting
+  usedIn:
+  - market_index_content_switch
+  allowedZones:
+  - market_index_content_switch
+  forbiddenZones:
+  - top_nav
+  - bottom_dock
+  - generic_dashboard_card
+  humanRules:
+    do:
+    - 当前先按系统层组件占位引用写入，用于记录选中/未选中态和深浅色规则。
+    - 系统层 tab/胶囊 组件补齐后，应回填正式系统层绑定并替换当前占位写法。
+    - 选中态需强调主色和更高文字权重，未选中态保持次级对比。
+    dont:
+    - 不要把胶囊子组件脱离 tab 语境单独当成通用按钮。
+    - 不要把选中态与未选中态混写成同一种样式。
+    - 不要脱离已验证的系统层 componentKey 另造场景私有 key。
+  riskWarnings:
+  - 胶囊子组件当前来自系统层实例引用，若后续不替换成正式系统层绑定，会让 family 归属长期不清晰。
+  - 系统层组件补齐后需要回填正式组件 id / 绑定路径。
+  sourceInstances:
+  - figmaNodeId: 3:3860
+    variant: 选中态=On, 场景=变体/历史记录标签, Dark=On
+    componentKey: 8472af887d950b31ac42abc0300871fec8a32808
+  - figmaNodeId: 3:3863
+    variant: 选中态=Off, 场景=变体/历史记录标签, Dark=On
+    componentKey: 07507a7e003ab30610a97ce12be7a0ab40da077e
+- id: market-index.news-card
+  figmaNodeId: 3:5704
+  componentKey: e2a6f4fcf59d06d2b7b3ed4e4b9e5a30e38ec130
+  figmaName: 资讯
+  familyRole: supporting
+  usedIn:
+  - market_index_news_feed
+  - market_index_opportunity_extension
+  allowedZones:
+  - market_index_news_feed
+  - market_index_opportunity_extension
+  forbiddenZones:
+  - top_nav
+  - bottom_dock
+  - generic_dashboard_card
+  humanRules:
+    do:
+    - 用于 tab 后的资讯流 family，按真实分类变体渲染不同样式。
+    - 不同资讯类型必须保留各自的结构差异、信息密度和视觉样式。
+    - 应引用独立的 `资讯/标题` 和 `资讯/提示` family，不要把标题变量写死在主组件里。
+    dont:
+    - 不要把不同类型压扁成统一卡片样式。
+    - 不要混淆主资讯卡、标题变量和提示变量的归属。
+    - 不要删除类型差异后只保留普通文本流。
+  riskWarnings:
+  - 资讯 family 类型很多，若误把不同分类渲染成同一种样式，会直接丢失信息层级和业务语义。
+  - 目前保证不复用，应继续保持大盘私有 family。
+- id: market-index.news-title
+  figmaNodeId: 22:16610
+  componentKey: 2d924e405d279a2a4318d4d59d966ed7d76a732c
+  figmaName: 资讯/标题
+  familyRole: supporting
+  usedIn:
+  - market_index_news_feed
+  - market_index_opportunity_extension
+  allowedZones:
+  - market_index_news_feed
+  forbiddenZones:
+  - top_nav
+  - bottom_dock
+  - generic_dashboard_card
+  humanRules:
+    do:
+    - 作为资讯条目标题 family 使用，必须区分单行/双行与深色版/浅色版。
+    - 标题变量需要跟随资讯类型和主题变化，不得只维护单套样式。
+    dont:
+    - 不要把单行和双行标题混成一个固定高度样式。
+    - 不要忽略 dark/light 造成标题颜色层级错误。
+  riskWarnings:
+  - 标题是资讯识别入口，若单行/双行或 dark/light 变量使用错误，会直接破坏阅读节奏。
+  - 当前不复用到其他资讯流场景，应保持为大盘资讯场景私有 family。
+- id: market-index.news-tip
+  figmaNodeId: 22:16697
+  componentKey: 0ae9ee8ac6e221c9f3bd0c790e2a28d5840dc346
+  figmaName: 资讯/提示
+  familyRole: supporting
+  usedIn:
+  - market_index_news_feed
+  allowedZones:
+  - market_index_news_feed
+  forbiddenZones:
+  - top_nav
+  - bottom_dock
+  - generic_dashboard_card
+  humanRules:
+    do:
+    - 作为资讯条目旁的提示 family 使用，区分单条和多条状态。
+    - 多条状态需要数量提示，单条状态只保留箭头提示。
+    dont:
+    - 不要把单条和多条提示做成同一种表现。
+    - 不要把提示 family 扩展成主标签或正文内容。
+  riskWarnings:
+  - 提示 family 决定用户是否感知到聚合内容入口，单条/多条状态不可互换。
+  - 当前不复用到其他资讯流场景，应保持为大盘资讯场景私有 family。
+- id: market-index.scroll-guide
+  figmaNodeId: 64:42977
+  componentKey: ebb78f7166ea597992916cafa56e249e96397ab0
+  figmaName: 滑动引导
+  familyRole: supporting
+  usedIn:
+  - market_index_first_screen
+  - first_screen_guide
+  allowedZones:
+  - first_screen_guide
+  - market_index_card_bottom_hint
+  forbiddenZones:
+  - full_scroll_body
+  - top_nav
+  - bottom_dock
+  humanRules:
+    do:
+    - 只用于 1屏 初始状态下的固定滑动引导。
+    - 固定出现在卡片底部上方 1 个间距高度的位置。
+    - 用户开始滑动浏览信息后应立即消失，不参与后续滚动内容。
+    - 需要同时支持 dark=On 和 dark=Off 两套主题变体。
+    dont:
+    - 不要在全量滚动状态下持续显示。
+    - 不要把它变成常驻悬浮控件或底部导航的一部分。
+    - 不要改变其与卡片底部的固定间距关系。
+  riskWarnings:
+  - 滑动引导是首屏教育性提示，若常驻不消失会直接干扰后续信息浏览。
+  - 当前不复用到首页其他首屏引导场景，应保持为大盘首屏私有 family。
+variantGroups:
+- familyId: market-index.background-shell
+  properties:
+  - 页面
+  - dark
+  variants:
+  - 页面=1屏, dark=on
+  - 页面=全屏, dark=on
+  - 页面=1屏, dark=off
+  - 页面=全屏, dark=off
+variantHumanRules:
+- familyId: market-index.background-shell
+  variant: 页面=1屏, dark=on
+  rule: 只用于 dark 首屏裁切背景，适配 390x844 默认原型视口，不替代全屏主真源。
+- familyId: market-index.background-shell
+  variant: 页面=全屏, dark=on
+  rule: 作为 dark 全量页面的背景真源，优先服务 Figma fidelity 与整页审稿。
+- familyId: market-index.background-shell
+  variant: 页面=1屏, dark=off
+  rule: 只用于 light 首屏裁切背景，适配 390x844 默认原型视口，不替代全屏主真源。
+- familyId: market-index.background-shell
+  variant: 页面=全屏, dark=off
+  rule: 作为 light 全量页面的背景真源，优先服务 Figma fidelity 与整页审稿。
+familyVariantGroups:
+- familyId: market-index.title-block
+  property: dark
+  variants:
+  - dark=on
+  - dark=off
+- familyId: market-index.hot-question-toggle
+  property: dark
+  variants:
+  - dark=on
+  - dark=off
+- familyId: market-index.barrage-chip
+  property: Property 1
+  variants:
+  - Property 1=普通
+  - Property 1=热点
+- familyId: market-index.tab-pill
+  properties:
+  - 选中态
+  - 场景
+  - Dark
+  variants:
+  - 选中态=On, 场景=变体/历史记录标签, Dark=On
+  - 选中态=Off, 场景=变体/历史记录标签, Dark=On
+  - 选中态=On, 场景=变体/历史记录标签, Dark=Off
+  - 选中态=Off, 场景=变体/历史记录标签, Dark=Off
+- familyId: market-index.news-card
+  property: 分类
+  variants:
+  - 分类=板块
+  - 分类=华泰观市
+  - 分类=行情异动
+  - 分类=专属内容
+  - 分类=行情速览
+  - 分类=事件捕手
+  - 分类=市场要闻
+- familyId: market-index.news-title
+  properties:
+  - 单行
+  - dark
+  variants:
+  - 单行=on, dark=on
+  - 单行=on, dark=off
+  - 单行=off, dark=on
+  - 单行=off, dark=off
+- familyId: market-index.news-tip
+  property: 状态
+  variants:
+  - 状态=单条
+  - 状态=多条
+- familyId: market-index.scroll-guide
+  property: dark
+  variants:
+  - dark=On
+  - dark=Off
+familyThemeRules:
+- familyId: market-index.index-summary
+  rule: 指数模块是单一 component；dark/light 属于场景主题映射规则，不是 Figma variant property。
+  themeModes:
+  - dark-theme
+  - light-theme
+- familyId: market-index.abnormal-a-share
+  rule: A股异动主模块是单一 component；dark/light 属于场景主题映射规则，不是 Figma variant property。右上角热问开关另有真实
+    dark 变体。
+  themeModes:
+  - dark-theme
+  - light-theme
+- familyId: market-index.auction-panel
+  rule: 竞价模块是单一 component；dark/light 属于场景主题映射规则，不是 Figma variant property。
+  themeModes:
+  - dark-theme
+  - light-theme
+- familyId: market-index.tab-strip
+  rule: tab 区域是单一 component；dark/light 属于场景主题映射规则，真实选中态与主题变体由 tab-pill 承担。
+  themeModes:
+  - dark-theme
+  - light-theme
+familyStructureRules:
+- familyId: market-index.barrage-panel
+  rule: 弹幕主区域是单一 component；双行是内部滚动结构，不是 Figma variant property。
+  structuralRows:
+  - auto-scroll-row-1
+  - auto-scroll-row-2
+familyThemeHumanRules:
+- familyId: market-index.index-summary
+  mode: dark-theme
+  rule: dark 页面中指数名称、数值、涨跌幅和底部导航反馈都必须使用 dark 主题下的规范色与层级。
+- familyId: market-index.index-summary
+  mode: light-theme
+  rule: light 页面中指数名称、数值、涨跌幅和底部导航反馈都必须切换到 light 主题下的规范色与层级。
+- familyId: market-index.abnormal-a-share
+  mode: dark-theme
+  rule: dark 页面中 A股异动 的走势线、板块标签、坐标值和时间轴都必须使用 dark 主题下的规范金融颜色。
+- familyId: market-index.abnormal-a-share
+  mode: light-theme
+  rule: light 页面中 A股异动 的走势线、板块标签、坐标值和时间轴都必须切换到 light 主题下的规范金融颜色。
+- familyId: market-index.auction-panel
+  mode: dark-theme
+  rule: dark 页面中竞价模块的金额、涨停跌停、进度条和底部对比信息都必须使用 dark 主题下的规范金融颜色。
+- familyId: market-index.auction-panel
+  mode: light-theme
+  rule: light 页面中竞价模块的金额、涨停跌停、进度条和底部对比信息都必须切换到 light 主题下的规范金融颜色。
+- familyId: market-index.tab-strip
+  mode: dark-theme
+  rule: dark 页面中的 tab 区域必须使用 dark 主题下的规范色，并保持选中项与未选中项的明确区分。
+- familyId: market-index.tab-strip
+  mode: light-theme
+  rule: light 页面中的 tab 区域必须切换到 light 主题下的规范色，并保持选中项与未选中项的明确区分。
+familyVariantHumanRules:
+- familyId: market-index.title-block
+  variant: dark=on
+  rule: 用于 dark 页面标题区，标题“大盘”和状态“交易中”应保持深色主题下的渐变文字表达。
+- familyId: market-index.title-block
+  variant: dark=off
+  rule: 用于 light 页面标题区，标题与状态应使用浅色主题对应的标准文字色，不替换成自定义颜色。
+- familyId: market-index.hot-question-toggle
+  variant: dark=on
+  rule: dark 页面里热问开关必须使用 dark 变量对应的背景、文字和红点提示。
+- familyId: market-index.hot-question-toggle
+  variant: dark=off
+  rule: light 页面里热问开关必须切换到 light 变量对应的背景、文字和红点提示。
+- familyId: market-index.barrage-chip
+  variant: Property 1=普通
+  rule: 普通消息用于常规问句或辅助提示，不带热点图标，语义权重低于热点消息。
+- familyId: market-index.barrage-chip
+  variant: Property 1=热点
+  rule: 热点消息用于高关注提示，必须带热点图标和红色热点语义，不得退化成普通消息样式。
+- familyId: market-index.tab-pill
+  variant: 选中态=On, 场景=变体/历史记录标签, Dark=On
+  rule: dark 页面中的选中胶囊需使用主红色系边框/底色和更高字重。
+- familyId: market-index.tab-pill
+  variant: 选中态=Off, 场景=变体/历史记录标签, Dark=On
+  rule: dark 页面中的未选中胶囊需使用次级底色和次级文字色。
+- familyId: market-index.tab-pill
+  variant: 选中态=On, 场景=变体/历史记录标签, Dark=Off
+  rule: light 页面中的选中胶囊需保持与 dark 对应的选中语义，但切换到 light 主题规范色。
+- familyId: market-index.tab-pill
+  variant: 选中态=Off, 场景=变体/历史记录标签, Dark=Off
+  rule: light 页面中的未选中胶囊需切换到 light 主题下的次级底色和文字色。
+- familyId: market-index.news-card
+  variant: 分类=板块
+  rule: 板块类资讯需保留主力净流入、榜单和板块结构，不得退化成普通摘要。
+- familyId: market-index.news-card
+  variant: 分类=华泰观市
+  rule: 华泰观市需保留技术论市/作者信息/正文摘要结构。
+- familyId: market-index.news-card
+  variant: 分类=行情异动
+  rule: 行情异动需保留时间线、多条异动条目和异动解读结构。
+- familyId: market-index.news-card
+  variant: 分类=专属内容
+  rule: 专属内容需保留个性化摘要表达，不应混成普通资讯卡。
+- familyId: market-index.news-card
+  variant: 分类=行情速览
+  rule: 行情速览需保留速览总结和信号打点，不应改成长文样式。
+- familyId: market-index.news-card
+  variant: 分类=事件捕手
+  rule: 事件捕手需保留事件标签、传导链路和标的滚动结构。
+- familyId: market-index.news-card
+  variant: 分类=市场要闻
+  rule: 市场要闻需保留时间、标题和摘要结构，不应混入速览打点。
+- familyId: market-index.news-title
+  variant: 单行=on, dark=on
+  rule: dark 单行标题用于简洁标题，使用深色主题下标题色。
+- familyId: market-index.news-title
+  variant: 单行=on, dark=off
+  rule: light 单行标题用于简洁标题，切换到浅色主题下标题色。
+- familyId: market-index.news-title
+  variant: 单行=off, dark=on
+  rule: dark 双行标题用于更复杂的标题+副信息组合，保持深色主题层级。
+- familyId: market-index.news-title
+  variant: 单行=off, dark=off
+  rule: light 双行标题用于更复杂的标题+副信息组合，切换到浅色主题层级。
+- familyId: market-index.news-tip
+  variant: 状态=单条
+  rule: 单条提示仅保留箭头提示，不显示数量。
+- familyId: market-index.news-tip
+  variant: 状态=多条
+  rule: 多条提示需显示数量和箭头，明确表示聚合入口。
+- familyId: market-index.scroll-guide
+  variant: dark=On
+  rule: dark 首屏中滑动引导固定出现在卡片底部上方 1 个间距高度，用户滑动后消失。
+- familyId: market-index.scroll-guide
+  variant: dark=Off
+  rule: light 首屏中滑动引导固定出现在卡片底部上方 1 个间距高度，用户滑动后消失。
+
+# ============================================================
+# 02_AGENT_EXTRACTED
+# Agent 自动读取区
+# ============================================================
+
+figma:
+  fileName: 设计仓库
+  fileKey: pbxELN7TYDDguIgbXfc1zB
+  exampleNodeId: 7:6911
+  exampleNodeName: 背景
+  figmaExactName: 背景
+  componentKey: 57900b6e064fd94b5c32a1efe9feff70bea8e4d9
+  bindingMode: must_use_real_component_family
+  bindingFailurePolicy: stop_and_recheck
+  propertyHints:
+  - 页面
+  - dark
+  extractedFamilies:
+  - nodeId: 7:6911
+    nodeName: 背景
+    componentKey: 57900b6e064fd94b5c32a1efe9feff70bea8e4d9
+  - nodeId: 7:6941
+    nodeName: 标题
+    componentKey: 4d75187a01c3ad765b44a17f8da1505bde802916
+  - nodeId: 7:6302
+    nodeName: 指数
+    componentKey: 2c8497856e210074e83c2183bcf545ce863041d1
+  - nodeId: 7:6303
+    nodeName: A股异动
+    componentKey: 3255456fccafa816bf6c55f489fd6838b8233773
+  - nodeId: 23:17460
+    nodeName: A股异动/热问开关
+    componentKey: f07956989f78bf36f7db0980ceea901bbcef7f56
+  - nodeId: 7:6304
+    nodeName: 弹幕
+    componentKey: cf254d3f385a8f67c0d72cca09a8804371a42f32
+  - nodeId: 18:671
+    nodeName: 弹幕/消息
+    componentKey: dce56f741cdde76c8ff3c27e5ffaca7a69c8b60f
+  - nodeId: 7:6305
+    nodeName: 竞价
+    componentKey: eb51e27c77855c0da3c2d75c57084f868f333f9e
+  - nodeId: 7:6306
+    nodeName: tab
+    componentKey: fbf10f16cd65f78f3761bdc669b76bea7ef966cb
+  - nodeId: 3:200
+    nodeName: tab/胶囊
+    componentKey: 93dd72982c8c516bfc14043c354b8c10f4c31a35
+  - nodeId: 3:5704
+    nodeName: 资讯
+    componentKey: e2a6f4fcf59d06d2b7b3ed4e4b9e5a30e38ec130
+  - nodeId: 22:16610
+    nodeName: 资讯/标题
+    componentKey: 2d924e405d279a2a4318d4d59d966ed7d76a732c
+  - nodeId: 22:16697
+    nodeName: 资讯/提示
+    componentKey: 0ae9ee8ac6e221c9f3bd0c790e2a28d5840dc346
+  - nodeId: 64:42977
+    nodeName: 滑动引导
+    componentKey: ebb78f7166ea597992916cafa56e249e96397ab0
+classification:
+  primitiveFamily: market_index_modules
+  componentType: component_family_suite
+  riskLevel: high
+  isOrdinaryButton: false
+  isTradingAction: false
+observedStructure:
+  root:
+    nodeId: 7:6911
+    nodeName: 背景
+    selectionType: component_family
+    width: 1624
+    height: 2150
+  children:
+  - nodeId: 7:6308
+    nodeName: 页面=1屏, dark=on
+    role: variant
+    width: 366
+    height: 629
+  - nodeId: 31:18747
+    nodeName: 页面=全屏, dark=on
+    role: variant
+    width: 366
+    height: 2110
+  - nodeId: 7:6910
+    nodeName: 页面=1屏, dark=off
+    role: variant
+    width: 366
+    height: 629
+  - nodeId: 31:18755
+    nodeName: 页面=全屏, dark=off
+    role: variant
+    width: 366
+    height: 2110
+  - nodeId: 7:6941
+    nodeName: 标题
+    role: component_family
+    width: 320
+    height: 74
+  - nodeId: 7:6301
+    nodeName: dark=on
+    role: variant
+    width: 120
+    height: 34
+  - nodeId: 7:6940
+    nodeName: dark=off
+    role: variant
+    width: 120
+    height: 34
+  - nodeId: 7:6302
+    nodeName: 指数
+    role: component_family
+    width: 336.00048828125
+    height: 78
+  - nodeId: 3:3986
+    nodeName: 指数展示模块
+    role: structural_subregion
+    width: 100
+    height: 67
+  - nodeId: 3:4013
+    nodeName: 导航栏
+    role: structural_subregion
+    width: 50
+    height: 5
+  - nodeId: 7:6303
+    nodeName: A股异动
+    role: component_family
+    width: 336
+    height: 198
+  - nodeId: 3:3974
+    nodeName: A股异动顶部栏
+    role: structural_subregion
+    width: 336
+    height: 22
+  - nodeId: 23:17460
+    nodeName: A股异动/热问开关
+    role: component_family
+    width: 144
+    height: 62
+  - nodeId: 23:17459
+    nodeName: dark=on
+    role: variant
+    width: 44
+    height: 22
+  - nodeId: 23:17458
+    nodeName: dark=off
+    role: variant
+    width: 44
+    height: 22
+  - nodeId: 7:6304
+    nodeName: 弹幕
+    role: component_family
+    width: 336
+    height: 63
+  - nodeId: 3:3897
+    nodeName: 弹幕第一行
+    role: structural_subregion
+    width: 496.271
+    height: 28
+  - nodeId: 3:3905
+    nodeName: 弹幕第二行
+    role: structural_subregion
+    width: 508.475
+    height: 28
+  - nodeId: 18:671
+    nodeName: 弹幕/消息
+    role: component_family
+    width: 208
+    height: 117
+  - nodeId: 18:670
+    nodeName: Property 1=普通
+    role: variant
+    width: 156
+    height: 28
+  - nodeId: 18:669
+    nodeName: Property 1=热点
+    role: variant
+    width: 168
+    height: 28
+  - nodeId: 7:6305
+    nodeName: 竞价
+    role: component_family
+    width: 336
+    height: 135
+  - nodeId: 3:3869
+    nodeName: 竞价顶部汇总
+    role: structural_subregion
+    width: 306
+    height: 20
+  - nodeId: 3:3880
+    nodeName: 竞价统计区
+    role: structural_subregion
+    width: 306
+    height: 60
+  - nodeId: 7:6306
+    nodeName: tab
+    role: component_family
+    width: 336
+    height: 38
+  - nodeId: 3:3860
+    nodeName: tab/胶囊
+    role: instance_selected
+    width: 76
+    height: 28
+  - nodeId: 3:3863
+    nodeName: tab/胶囊
+    role: instance_unselected
+    width: 76
+    height: 28
+  - nodeId: 3:5704
+    nodeName: 资讯
+    role: component_family
+    width: 376
+    height: 1715
+  - nodeId: 7:6307
+    nodeName: 分类=板块
+    role: variant
+    width: 336
+    height: 193
+  - nodeId: 3:5702
+    nodeName: 分类=华泰观市
+    role: variant
+    width: 336
+    height: 200
+  - nodeId: 3:5699
+    nodeName: 分类=行情异动
+    role: variant
+    width: 336
+    height: 298
+  - nodeId: 3:5700
+    nodeName: 分类=专属内容
+    role: variant
+    width: 336
+    height: 146
+  - nodeId: 3:5701
+    nodeName: 分类=行情速览
+    role: variant
+    width: 336
+    height: 172
+  - nodeId: 3:5698
+    nodeName: 分类=事件捕手
+    role: variant
+    width: 336
+    height: 231
+  - nodeId: 21:9687
+    nodeName: 分类=市场要闻
+    role: variant
+    width: 336
+    height: 177
+  - nodeId: 22:16610
+    nodeName: 资讯/标题
+    role: component_family
+    width: 393
+    height: 245
+  - nodeId: 22:16609
+    nodeName: 单行=on, dark=on
+    role: variant
+    width: 336
+    height: 22
+  - nodeId: 22:16608
+    nodeName: 单行=on, dark=off
+    role: variant
+    width: 336
+    height: 22
+  - nodeId: 23:16857
+    nodeName: 单行=off, dark=on
+    role: variant
+    width: 336
+    height: 46
+  - nodeId: 23:16893
+    nodeName: 单行=off, dark=off
+    role: variant
+    width: 336
+    height: 46
+  - nodeId: 22:16697
+    nodeName: 资讯/提示
+    role: component_family
+    width: 88
+    height: 56
+  - nodeId: 22:16696
+    nodeName: 状态=单条
+    role: variant
+    width: 11
+    height: 16
+  - nodeId: 22:16695
+    nodeName: 状态=多条
+    role: variant
+    width: 23
+    height: 16
+  - nodeId: 64:42977
+    nodeName: 滑动引导
+    role: component_family
+    width: 808
+    height: 90
+  - nodeId: 64:42976
+    nodeName: dark=On
+    role: variant
+    width: 364
+    height: 50
+  - nodeId: 64:42975
+    nodeName: dark=Off
+    role: variant
+    width: 364
+    height: 50
+  typography: none_observed
+  tokens:
+    variablesFromFigma:
+      xzl-color-primary-dark blue: "#2d3a67"
+      xzl-color-text-b: "#ffffffe5"
+      xzl-color-primary-green: "#00ab61"
+      xzl-color-text-a: "#ffffff"
+      xzl-color-primary-red: "#f62f3f"
+      xzl-color-text-g: "#adbdd8"
+      xzl-color-text-f: "#ffffff4d"
+      xzl-color-primary-blue: "#3b84ff"
+      xzl-color-primary-green 50%: "#00ab6180"
+      xzl-color-primary-red 50%: "#f62f3f80"
+      xzl-color-text-d: "#ffffff80"
+      xzl-color-text-e: "#ffffff4d"
+      xzl-color-text-c: "#ffffffb2"
+      xzl-color-background-d-card: "#454c664d"
+      xzl-color-background-c-card: "#608ace14"
+      xzl-color-divider- sheet: "#59608e26"
+      color/xzl-color-text-g: "#adbdd8"
+      xzl-color-primary-orange: "#fa4a24"
+      xzl-color-primary-yellow: "#ff9048"
+      xzl-color-input: "#59608e4d"
+      xzl-color-primary-purple: "#9481ff"
+      color/xzl-color-primary-dark blue: "#2d3a67"
+    note: 背景 family 未返回变量定义；标题 family 读到了浅色文字变量，主题仍必须整体绑定 light / dark 标准 token。
+variants:
+  confirmed:
+  - family: market-index.background-shell
+    properties:
+    - 页面
+    - dark
+    values:
+    - 页面=1屏, dark=on
+    - 页面=全屏, dark=on
+    - 页面=1屏, dark=off
+    - 页面=全屏, dark=off
+  - family: market-index.title-block
+    property: dark
+    values:
+    - dark=on
+    - dark=off
+  - family: market-index.hot-question-toggle
+    property: dark
+    values:
+    - dark=on
+    - dark=off
+  - family: market-index.barrage-chip
+    property: Property 1
+    values:
+    - Property 1=普通
+    - Property 1=热点
+  - family: market-index.news-card
+    property: 分类
+    values:
+    - 分类=板块
+    - 分类=华泰观市
+    - 分类=行情异动
+    - 分类=专属内容
+    - 分类=行情速览
+    - 分类=事件捕手
+    - 分类=市场要闻
+  - family: market-index.news-title
+    properties:
+    - 单行
+    - dark
+    values:
+    - 单行=on, dark=on
+    - 单行=on, dark=off
+    - 单行=off, dark=on
+    - 单行=off, dark=off
+  - family: market-index.news-tip
+    property: 状态
+    values:
+    - 状态=单条
+    - 状态=多条
+  - family: market-index.scroll-guide
+    property: dark
+    values:
+    - dark=On
+    - dark=Off
+  candidates: []
+states:
+- id: dark-first-screen
+  required: true
+- id: dark-full
+  required: true
+- id: light-first-screen
+  required: true
+- id: light-full
+  required: true
+slots:
+  shell:
+    description: 大盘页面和工作卡的背景外壳。
+  title:
+    description: 大盘标题与市场状态组合区。
+  indexCarousel:
+    description: 支持左右滑动的指数展示模块。
+  indexPager:
+    description: 跟随滑动位置变化的底部导航栏。
+  abnormalAShare:
+    description: A股异动 主模块，包含顶部栏、走势底图、标签和时间轴。
+  hotQuestionToggle:
+    description: A股异动 右上角的热问开关。
+  barrage:
+    description: 自动滚动的弹幕区域，包含双行消息流和遮罩范围。
+  barrageMessage:
+    description: 弹幕区域中的单条消息，区分普通与热点。
+  auction:
+    description: 竞价金额、涨跌停统计、进度条和底部对比信息组成的竞价阅读区。
+  tab:
+    description: 资讯流前的内容切换区，由多个 tab 胶囊组成。
+  tabPill:
+    description: tab 区域中的单个胶囊子组件，当前按系统层组件占位引用记录。
+  newsFeed:
+    description: 由不同分类资讯卡组成的资讯流区域。
+  newsTitle:
+    description: 资讯卡内部标题 family，区分单行/双行和深浅色。
+  newsTip:
+    description: 资讯卡内部提示 family，区分单条/多条状态。
+  scrollGuide:
+    description: 只在 1屏 初始状态固定出现、滑动后消失的首屏滑动引导。
+  themeLayer:
+    description: 根据 dark on/off 切换的主题视觉层。
+  pageMode:
+    description: 根据 1屏 / 全屏 切换的高度与裁切模式。
+tokens:
+  source:
+  - canon/foundations/tokens/color.tokens.json
+  - bindings/figma/variables.yaml
+  status: theme_must_bind_standard_light_dark_tokens
+textOverrideFields:
+- family: market-index.title-block
+  field: titleText
+  example: 大盘
+  status: fixed_not_replaceable
+- family: market-index.title-block
+  field: statusText
+  example: 交易中
+  status: replaceable_confirmed_by_human
+- family: market-index.index-summary
+  field: indexName
+  example: 上证指数
+  status: confirmed_from_selected_node
+- family: market-index.index-summary
+  field: indexValue
+  example: '3503.55'
+  status: confirmed_from_selected_node
+- family: market-index.index-summary
+  field: changePercent
+  example: "-0.44%"
+  status: confirmed_from_selected_node
+- family: market-index.index-summary
+  field: trendIcon
+  example: Frame 2134593868
+  status: replaceable_confirmed_by_human
+- family: market-index.abnormal-a-share
+  field: moduleTitle
+  example: A股异动
+  status: confirmed_from_selected_node
+- family: market-index.abnormal-a-share
+  field: modeLabel
+  example: 板块
+  status: confirmed_from_selected_node
+- family: market-index.abnormal-a-share
+  field: sectorLabel
+  example: 数字经济
+  status: confirmed_from_selected_node
+- family: market-index.abnormal-a-share
+  field: trendAxisValue
+  example: '3575.66'
+  status: confirmed_from_selected_node
+- family: market-index.hot-question-toggle
+  field: toggleLabel
+  example: 热问
+  status: confirmed_from_selected_node
+- family: market-index.barrage-chip
+  field: messageText
+  example: 今天市场行情怎么样？
+  status: confirmed_from_selected_node
+- family: market-index.barrage-chip
+  field: hotMessageText
+  example: 半导体板块又创新高了
+  status: confirmed_from_selected_node
+- family: market-index.barrage-chip
+  field: hotIcon
+  example: 通用icon/标签/热点
+  status: fixed_not_replaceable
+- family: market-index.auction-panel
+  field: auctionAmount
+  example: 11390亿
+  status: confirmed_from_selected_node
+- family: market-index.auction-panel
+  field: compareToPreviousDay
+  example: "+28亿"
+  status: confirmed_from_selected_node
+- family: market-index.auction-panel
+  field: upLimitStats
+  example: 2060/22
+  status: confirmed_from_selected_node
+- family: market-index.auction-panel
+  field: downLimitStats
+  example: 2826/28
+  status: confirmed_from_selected_node
+- family: market-index.auction-panel
+  field: previousLimitPerformance
+  example: 昨日涨停表现 +0.43%
+  status: confirmed_from_selected_node
+- family: market-index.auction-panel
+  field: sizeComparison
+  example: '大小盘 +0.03% : +1.28%'
+  status: confirmed_from_selected_node
+- family: market-index.tab-strip
+  field: activeTabLabel
+  example: 涨停猎手
+  status: confirmed_from_selected_node
+- family: market-index.tab-strip
+  field: inactiveTabLabel
+  example: 事件捕手
+  status: confirmed_from_selected_node
+- family: market-index.tab-pill
+  field: pillLabel
+  example: 行情速览
+  status: confirmed_from_selected_node
+- family: market-index.news-card
+  field: categoryLabel
+  example: 华泰观市
+  status: confirmed_from_selected_node
+- family: market-index.news-card
+  field: summaryText
+  example: 今日早盘开盘有色金属板块领涨两市...
+  status: confirmed_from_selected_node
+- family: market-index.news-title
+  field: titleText
+  example: 涨停猎手
+  status: confirmed_from_selected_node
+- family: market-index.news-title
+  field: subtitleText
+  example: 主力净流入(含拆单) +351.26亿
+  status: confirmed_from_selected_node
+- family: market-index.news-tip
+  field: singleTip
+  example: arrow_only
+  status: confirmed_from_selected_node
+- family: market-index.news-tip
+  field: multiTipCount
+  example: '3'
+  status: confirmed_from_selected_node
+- family: market-index.scroll-guide
+  field: visibilityState
+  example: initial_only_then_hide_on_scroll
+  status: confirmed_from_user_rule
+resourceRefs:
+- docs/references/component-brief-workflow.md
+- schemas/component-brief.schema.yaml
+- authoring/components/index.yaml
+
+# ============================================================
+# 03_AGENT_EXPANSION_AND_CHECKLIST
+# Agent 扩展与自查区
+# ============================================================
+
+reviewChecklist:
+- id: market-index-modules-component-facts-owned-by-component-brief
+  severity: P0
+  question: 真实 Figma component family 是否维护在当前 component brief，而不是 scenario brief？
+  passCriteria: 组件 family、variant 规则和 Figma 绑定事实集中维护在当前文件；scenario 只引用组件。
+agentExpansion:
+  canonComponent:
+    path: canon/components/market-index-modules.meta.yaml
+  checklist:
+    path: canon/checklists/market-index-modules-review.yaml
+  figmaBinding:
+    path: bindings/figma/components.yaml
+  docs:
+    path: docs/generated/components/index.md
+

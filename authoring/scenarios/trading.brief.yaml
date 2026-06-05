@@ -1,0 +1,212 @@
+# ============================================================
+# 01_HUMAN_REQUIRED
+# 人工必填区
+# ============================================================
+
+id: scenario.trading
+name: 交易场景
+owner: product-design
+status: draft
+
+# [HUMAN REQUIRED]
+purpose: >
+  用于新涨乐移动端交易场景，承载从页面身份建立、账户或标的上下文确认、
+  交易参数输入，到后续交易动作与辅助规则入口的完整结构约束。
+  交易顶部、设置区、信息区等真实组件 family 已拆分到对应 component brief，
+  当前场景 brief 只维护业务组合、风险边界和候选组件引用。
+
+# [HUMAN REQUIRED]
+primaryUserGoal: >
+  用户进入交易页后，应能先确认账户、标的、实盘或模拟身份，再安全地完成交易参数理解、条件或委托信息查看，
+  并区分主交易提交动作与信息区后续处理入口。
+
+# [HUMAN REQUIRED]
+requiredContent:
+  - 交易顶部上下文区域，用于明确账户、标的、模拟或实盘身份。
+  - 交易设置主表单和基础参数行，用于承载代码、类型、价格、数量、金额和高级设置。
+  - 买入、卖出或撤单等高风险交易行动入口，并与辅助入口清晰区分。
+  - 信息区分类结构，包括持仓、合约、委托、条件单、历史委托和历史策略等可审查业务分区。
+  - 条件单卡片结构，包括标题工具、策略信息、交易信息、操作区域和必要的 Figma 复核标记。
+
+# [HUMAN REQUIRED]
+forbiddenPatterns:
+  - 不得把交易顶部右侧 tab、规则入口、信息区操作误写成买卖提交按钮。
+  - 不得混淆模拟交易与实盘交易上下文，或删除模拟标识后继续沿用模拟 family。
+  - 不得把未选中的交易输入区、买卖按钮区、底部结构猜写成已验证 Figma 事实。
+  - 不得把交易设置区压平成普通表单卡片或 generic input 列表。
+  - 不得把当前委托、历史委托、条件单、历史策略混成一个通用列表组件。
+
+# [HUMAN REQUIRED]
+usedIn:
+  - trading-order-page
+  - stock-trading-detail
+  - paper-trading-page
+  - figma-review-trading
+
+# [HUMAN REQUIRED]
+humanRules:
+  do:
+    - 通过 componentRefs 引用交易顶部、设置区、信息区和共享交易控件。
+    - 交易场景必须先建立页面身份、账户或标的上下文，再承接输入区和交易动作区。
+    - 顶部区域中的右侧 tab 只用于轻量模式切换或辅助入口，不承载高风险交易提交。
+    - 模拟交易与实盘交易必须在顶部区域就清晰区分，不允许靠后续文案补救。
+  dont:
+    - 不要把页面示例 frame、prototype 截图或相似 header 当成真实母组件 family。
+    - 不要因为当前只选中了 top 区域，就猜写交易输入区、买卖按钮区或底 bar 的母组件事实。
+    - 不要把顶部右侧 tab、规则入口或摘要区误写成独立交易按钮组件。
+    - 不要让顶部区域脱离交易上下文被复用成通用卡片头部。
+
+# [HUMAN REQUIRED]
+riskWarnings:
+  - id: trading-scene-context-first
+    severity: P0
+    rule: >
+      交易场景必须先建立当前账户、标的或模拟/实盘身份，再进入输入和下单。
+      如果顶部 family 选错，会直接导致整页交易上下文判断错误。
+  - id: paper-trading-vs-live-trading
+    severity: P0
+    rule: >
+      模拟交易与实盘交易不得混用同一顶部 family。
+      模拟标识缺失或错误会造成严重操作预期偏差。
+  - id: partial-selection-boundary
+    severity: P1
+    rule: >
+      当前只确认了交易场景 top 区域，不得把未选中的表单区、summary 区、底部行动区补成已验证事实。
+
+# [HUMAN REQUIRED]
+allowedZones:
+  - page_shell
+  - top_nav
+  - trading_context_header
+
+# [HUMAN REQUIRED]
+forbiddenZones:
+  - generic_card_header
+  - bottom_dock
+  - list_row_header
+
+# [HUMAN REQUIRED]
+requiredPairings:
+  - trading-context
+  - ios-status-area
+  - verified-top-family
+
+# [HUMAN REQUIRED]
+forbiddenPairings:
+  - screenshot-as-component-definition
+  - top-nav-as-submit-area
+  - guessed-unselected-zones
+
+# [HUMAN REQUIRED]
+examples:
+  good:
+    - figmaNodeId: "37:26291"
+      reason: 账户切换 family，适用于账户上下文明确的交易页顶部。
+    - figmaNodeId: "37:26322"
+      reason: 页面滑动 family，适用于标的详情类交易页顶部。
+    - figmaNodeId: "37:26305"
+      reason: 模拟交易 family，适用于模拟交易顶部上下文。
+    - figmaNodeId: "37:26556"
+      reason: 设置母组件，适用于交易设置区主表单与参数配置场景。
+  needsReview:
+    - figmaNodeId: "37:26221"
+      reason: 当前选中的是 top 区域容器，不是单一母组件 family。
+  bad:
+    - reason: 把顶部区域容器直接写成一个独立母组件。
+    - reason: 把右侧 tab 或规则入口当成交易提交组件。
+    - reason: 把设置母组件里的底部买卖按钮重新定义成新的设置类组件，而不是复用既有交易行动按钮语义。
+
+# [HUMAN REQUIRED]
+componentHumanRules:
+  do:
+    - 同一个顶部组件区域下的每个真实母组件都作为独立 component family 记录。
+    - 当前轮次只补 top 区域，后续重新选中其他区域后再逐组补充交易输入、交易动作、底部结构等 family。
+    - 页面级正例或 prototype 只进入 usageInstanceGroups。
+    - 同一组交易设置语义行如果在 Figma 中实际来自同一个母组件 family 的不同变体，应建立 source family 映射，不强行伪造多个 Figma 母组件。
+  dont:
+    - 不要把 37:26221 这种区域容器写进 componentFamilies。
+    - 不要在 componentKey、文本覆盖字段或真实 variant property 未确认时硬猜。
+
+# [HUMAN REQUIRED]
+extensionModel:
+  mode: component-refs-plus-business-composition
+  mainComponentRef: component.trading-page-modules
+  rationale: >
+    交易顶部、交易设置区和交易信息区的组件 family 已合并维护在
+    `authoring/components/trading-page-modules.brief.yaml`。
+    场景 brief 只负责串联顶部上下文、设置表单、交易行动和信息区。
+
+# [HUMAN REQUIRED]
+componentRefs:
+  - id: component.trading-page-modules
+    brief: authoring/components/trading-page-modules.brief.yaml
+    role: trading-top-settings-info-source
+  - id: component.trading-input
+    brief: authoring/components/trading-input.brief.yaml
+    role: shared-trading-input-control
+  - id: component.trading-action-button
+    brief: authoring/components/trading-action-button.brief.yaml
+    role: shared-trading-action-control
+  - id: component.bottom-bar
+    brief: authoring/components/bottom-bar.brief.yaml
+    role: system-bottom-structure
+
+# [HUMAN REQUIRED]
+scenarioTaxonomy:
+  - id: trading.business-composition
+    description: 交易页业务组合关系，负责串联顶部上下文、设置表单、交易行动和信息区。
+  - id: trading.component-source-moved
+    description: 真实组件 family、变体和 Figma 绑定事实已移动到 componentRefs 指向的组件 brief。
+
+
+# ============================================================
+# 02_AGENT_EXTRACTED
+# Agent 自动读取区
+# ============================================================
+
+candidateArchetype:
+  primary:
+    - detail_list
+  secondary:
+    - trading_search
+
+candidateComponents:
+  - component.trading-page-modules
+  - component.trading-input
+  - component.trading-action-button
+  - component.bottom-bar
+  - component.switch
+
+componentExtraction:
+  movedComponentBriefs:
+    - authoring/components/trading-page-modules.brief.yaml
+  movedFields:
+    - componentFamilies
+    - familyVariantGroups
+    - familyVariantHumanRules
+    - figma
+    - observedStructure
+    - textOverrideFields
+    - figmaRefs
+    - assetRefs
+    - figma_binding_status
+  note: 交易 scenario 保留业务组合、风险边界和候选组件；真实组件 family、变体与 Figma 绑定事实已移动到 component brief。
+
+# ============================================================
+# 03_AGENT_EXPANSION_AND_CHECKLIST
+# Agent 扩展与自查区
+# ============================================================
+
+reviewChecklist:
+  - id: trading-scenario-uses-component-briefs
+    severity: P0
+    question: 交易场景是否通过 componentRefs 引用交易页面模块组件族，而不是在 scenario 内重写组件 family？
+    passCriteria: 组件定义集中在 authoring/components/trading-page-modules.brief.yaml，scenario 只维护业务组合和风险边界。
+
+agentExpansion:
+  canonScenario:
+    path: canon/scenarios/trading.yaml
+  checklist:
+    path: canon/checklists/trading-review.yaml
+  docs:
+    path: docs/generated/scenarios/trading.md

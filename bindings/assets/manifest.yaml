@@ -104,6 +104,13 @@ resourceRefs:
     type: local-asset
     locator: bindings/assets/files/design-tokens/radius-tokens.json
     role: token-provenance
+  - id: asset.tokens.chat-fidelity
+    type: local-asset
+    locator: bindings/assets/files/design-tokens/chat-fidelity-tokens.json
+    role: ai-chat-fidelity-token-source
+    sourceRefs:
+      - authoring/components/message-feed.brief.yaml
+      - authoring/scenarios/ai-chat.brief.yaml
   - id: asset.template.tag-output-checklist
     type: local-asset
     locator: bindings/assets/files/templates/tag-output-checklist.json
@@ -173,3 +180,63 @@ resourceRefs:
     figmaReplacement:
       required: true
       bindingId: component.bottom-bar
+  - id: asset.bottom-bar.backgrounds
+    type: local-asset
+    assetKind: background-set
+    locator: bindings/assets/files/bottom-bar/backgrounds/
+    role: bottom-bar-background-reference
+    useFor:
+      - html-prototype
+      - visual-reference
+      - offline-generation
+    notCanonicalFor:
+      - maintained-figma-component-instance
+  - id: asset.bottom-bar.icons
+    type: local-asset
+    assetKind: icon-set
+    locator: bindings/assets/files/bottom-bar/icons/
+    role: bottom-bar-icon-reference
+    useFor:
+      - html-prototype
+      - visual-reference
+      - offline-generation
+    notCanonicalFor:
+      - maintained-figma-component-instance
+  - id: asset.bottom-bar.examples
+    type: local-asset
+    assetKind: screenshot-example
+    locator: bindings/assets/files/bottom-bar/examples/
+    role: bottom-bar-visual-evidence
+    useFor:
+      - visual-reference
+      - case-study-evidence
+  - id: asset.bottom-bar.example.positive
+    type: local-asset
+    assetKind: screenshot-example
+    locator: bindings/assets/files/bottom-bar/examples/bottom-bar-positive-examples.png
+    role: positive-example
+    sourceRefs:
+      - authoring/case-studies/bottom-bar-global-layer-and-visual-references.md
+  - id: asset.bottom-bar.example.icon-shadow-annotations
+    type: local-asset
+    assetKind: screenshot-example
+    locator: bindings/assets/files/bottom-bar/examples/bottom-bar-icon-shadow-annotations.png
+    role: visual-annotation
+  - id: asset.bottom-bar.external.home-entry-img-5422
+    type: external-reference
+    assetKind: screenshot-example
+    locator: /Users/penn/Downloads/IMG_5422.PNG
+    status: TODO_HUMAN_CONFIRM
+    role: home-entry-expanded-reference
+    sourceRefs:
+      - authoring/scenarios/bottom-bar-home-entry-expanded.brief.yaml
+      - authoring/case-studies/bottom-bar-home-entry-expanded.md
+  - id: asset.bottom-bar.external.home-entry-img-5423
+    type: external-reference
+    assetKind: screenshot-example
+    locator: /Users/penn/Downloads/IMG_5423.PNG
+    status: TODO_HUMAN_CONFIRM
+    role: home-entry-expanded-reference
+    sourceRefs:
+      - authoring/scenarios/bottom-bar-home-entry-expanded.brief.yaml
+      - authoring/case-studies/bottom-bar-home-entry-expanded.md

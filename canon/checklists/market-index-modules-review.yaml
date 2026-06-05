@@ -1,0 +1,64 @@
+componentId: component.market-index-modules
+sourceBrief: authoring/components/market-index-modules.brief.yaml
+sourceScenario: authoring/scenarios/market-index.brief.yaml
+sourceCaseStudies:
+  - authoring/case-studies/market-index-title-generic-text-drift.md
+  - authoring/case-studies/market-index-background-shell-source-drift.md
+  - authoring/case-studies/top-nav-source-drift-case.md
+items:
+  - id: market-index-component-facts-owned-by-component-brief
+    severity: P0
+    question: 真实 Figma component family 是否维护在当前 component brief，而不是 scenario brief？
+    passCriteria: "组件 family、variant 规则和 Figma 绑定事实集中在 `market-index-modules.brief.yaml`；scenario 只引用组件。"
+  - id: market-index-scenario-frame-not-family
+    severity: P0
+    question: 大盘全量、首屏、demo 或 case-study frame 是否没有被登记为 confirmed component family？
+    passCriteria: "`大盘_全量_light`、`大盘_全量_dark`、`大盘_1屏_light`、`大盘_1屏_dark` 只进入 usageInstanceGroups 或 scenario。"
+  - id: market-index-title-not-generic-text
+    severity: P0
+    question: "大盘标题是否使用 `market-index.title-block`，而不是普通文字行？"
+    passCriteria: "保留主标题文本、状态圆点、状态文字三段结构；不把 `大盘 • 交易中` 合并成普通文本。"
+  - id: market-index-background-shell-source-locked
+    severity: P0
+    question: 背景壳实现前是否先区分 family 真源和首屏 usage instance 真源？
+    passCriteria: family source 使用 `7:6911`；首屏还原使用 `3:2360` / `3:4021` 作为定位与层级参考。
+  - id: market-index-background-not-generic-dashboard-card
+    severity: P0
+    question: 大盘背景壳是否没有被压平成通用 dashboard 卡片？
+    passCriteria: 保留顶部光层、主体壳、描边、glow、纹理、内发光或内阴影的分层关系。
+  - id: market-index-top-nav-source-priority
+    severity: P0
+    question: Top Nav 是否遵守来源优先级，而不是用本地 lookalike 或截图替代？
+    passCriteria: 顶部导航使用现有系统层规范；source-sensitive visual node 不被单图或手绘近似替换。
+  - id: market-index-financial-color-semantics
+    severity: P0
+    question: 指数、异动、竞价模块是否保持红涨绿跌金融语义？
+    passCriteria: 涨跌颜色未反转，且未引入脱离 token 体系的局部特殊色。
+  - id: market-index-theme-variant-structural
+    severity: P1
+    question: light/dark 是否按真实主题或结构变体处理，而不是简单换色？
+    passCriteria: 背景、标题、glow、纹理、描边、内阴影按对应变体处理。
+  - id: market-index-title-flow-position
+    severity: P1
+    question: 标题位置是否按卡片内容流起点判断？
+    passCriteria: 标题不被当成屏幕独立绝对锚定元素；1屏和全量都按卡片内容流判断。
+  - id: market-index-first-screen-scope
+    severity: P1
+    question: "`页面=1屏` 变体是否只用于首屏裁切或 390x844 默认视口？"
+    passCriteria: "主页面或全量审稿使用 `页面=全屏` 变体，不用 1屏 替代全屏。"
+  - id: market-index-module-order-locked
+    severity: P1
+    question: 大盘模块顺序、指数种类和资讯标题栏目词是否保持固定？
+    passCriteria: 没有重排模块、替换指数种类或改写固定栏目词。
+  - id: market-index-tab-system-layer-pending
+    severity: P2
+    question: tab-strip / tab-pill 的系统层归属是否被明确标记？
+    passCriteria: 系统层正式组件未补齐前，保留 temporary_scene_reference，不另造场景私有 key。
+  - id: market-index-scroll-guide-behavior
+    severity: P2
+    question: 首屏滑动引导是否只在初始首屏显示并在滑动后消失？
+    passCriteria: 不在全量滚动状态下常驻，不变成底部导航或悬浮控件。
+  - id: market-index-text-overrides-confirmed-only
+    severity: P3
+    question: 文字替换是否只使用 authoring 中已确认的 textOverrideFields？
+    passCriteria: 未确认的 component property 或 override target 不自动写入。

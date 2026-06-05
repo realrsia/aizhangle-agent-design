@@ -32,3 +32,77 @@ renderers:
       - canon/archetypes/mobile-chat-page.yaml
       - renderers/html/component-renderers.yaml
       - canon/checklists/visual-review.yaml
+  - id: renderer.html.market-index-page
+    sourceScenario: scenario.market-index
+    sourceArchetype: archetype.market-overview-page
+    htmlStrategy:
+      fidelity: low
+      renderAs: mobile-market-index-shell
+      useTokens: true
+      useLocalAssetsWhenNeeded: true
+      componentFirst: true
+    requiredInputs:
+      - authoring/scenarios/market-index.brief.yaml
+      - canon/archetypes/market-overview-page.yaml
+      - canon/components/market-index-modules.meta.yaml
+      - canon/components/bottom-bar.meta.yaml
+      - renderers/html/component-renderers.yaml
+      - bindings/assets/files/templates/bottom-bar-component.json
+      - bindings/assets/files/templates/bottom-bar-output-checklist.json
+      - canon/checklists/market-index-modules-review.yaml
+      - canon/checklists/bottom-bar-review.yaml
+      - canon/checklists/visual-review.yaml
+    requiredRenderers:
+      - renderer.html.market-index-modules
+      - renderer.html.bottom-bar
+    requiredComponents:
+      - component.market-index-modules
+      - component.bottom-bar
+    defaultComponentVariants:
+      component.bottom-bar:
+        scene: 首页场景
+        darkVariantId: default-dark
+        lightVariantId: default-light
+        bindingSource: bindings/figma/components.yaml#components.component.bottom-bar.confirmedVariants
+        rule: 大盘页属于首页体系，默认使用 bottom-bar 首页态，不得改用个股、交易或对话态。
+    requiredChecklists:
+      - canon/checklists/market-index-modules-review.yaml
+      - canon/checklists/bottom-bar-review.yaml
+      - bindings/assets/files/templates/bottom-bar-output-checklist.json
+    hardGates:
+      defaultFailOnSeverity:
+        - P0
+      skillEvaluationFailOnSeverity:
+        - P0
+        - P1
+      highRiskDeliveryFailOnSeverity:
+        - P0
+        - P1
+      scopeNote: Skill 测评与高风险交付任务中 P0/P1 都阻断；普通探索任务默认 P0 阻断、P1 作为审阅警告。
+      forbiddenSubstitutes:
+        - ordinary-five-tab-bottom-navigation
+        - css-hand-drawn-bottom-bar-icons
+        - generic-dashboard-card-instead-of-market-index-background
+        - generic-text-row-instead-of-market-index-title-block
+      requireComponentEvidence: true
+      requireChecklistEvidence: true
+      requireFallbackDisclosure: true
+    evidenceRequirements:
+      outputFile: generation-evidence.json
+      mandatoryWhen:
+        - skill-evaluation
+        - high-risk-delivery
+      optionalWhen:
+        - ordinary-exploration
+      equivalentFigmaEvidence:
+        - right-side-annotation-card
+        - layer-name-or-shared-data-binding-markers
+      requiredFields:
+        - scenario
+        - theme
+        - componentsUsed
+        - renderersUsed
+        - assetsUsed
+        - checklistsRun
+        - fallbacksUsed
+        - failedBindings

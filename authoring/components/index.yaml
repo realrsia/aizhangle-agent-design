@@ -1,4 +1,8 @@
 components:
+  - id: component.action-sheet
+    brief: authoring/components/action-sheet.brief.yaml
+    sourceRefs:
+      - references/foundation/components-overlay.md
   - id: component.bottom-bar
     brief: authoring/components/bottom-bar.brief.yaml
     sourceRefs:
@@ -21,7 +25,7 @@ components:
     brief: authoring/components/chat-background.brief.yaml
     sourceRefs:
       - authoring/scenarios/ai-chat.brief.yaml
-      - figma://pbxELN7TYDDguIgbXfc1zB/400:25043
+
   - id: component.chat-topbar
     brief: authoring/components/chat-topbar.brief.yaml
     sourceRefs:
@@ -66,3 +70,13 @@ components:
     sourceRefs:
       - references/foundation/components-trading-inputs.md
       - references/foundation/components-input.md
+  - id: component.market-index-modules
+    brief: authoring/components/market-index-modules.brief.yaml
+    sourceRefs:
+      - authoring/scenarios/market-index.brief.yaml
+  - id: component.trading-page-modules
+    brief: authoring/components/trading-page-modules.brief.yaml
+    sourceRefs:
+      - authoring/scenarios/trading.brief.yaml
+      - authoring/components/trading-input.brief.yaml
+      - authoring/components/trading-action-button.brief.yaml

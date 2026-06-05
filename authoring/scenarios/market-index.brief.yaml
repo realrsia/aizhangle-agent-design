@@ -1,0 +1,361 @@
+# ============================================================
+# 01_HUMAN_REQUIRED
+# 人工必填区
+# ============================================================
+
+id: scenario.market-index
+name: 大盘场景
+owner: product-design
+status: draft
+
+# [HUMAN REQUIRED]
+purpose: >
+  用于新涨乐移动端大盘场景，承载市场状态扫描、涨跌风格判断和后续资讯进入。
+  组件 family、变体和 Figma 绑定事实由 `component.market-index-modules` 维护，
+  当前场景 brief 只维护页面组合、业务规则和全量 / 首屏 usage 真源。
+
+# [HUMAN REQUIRED]
+primaryUserGoal: >
+  用户进入大盘页后，应能在首屏快速判断整体市场强弱、主要指数走势、异动方向和可继续深入的资讯或交易线索。
+
+# [HUMAN REQUIRED]
+requiredContent:
+  - 顶部导航与系统状态区域，用于明确当前页面位置和系统层入口。
+  - 大盘背景壳与标题模块，用于建立大盘页身份、主题氛围和市场交易状态。
+  - 指数扫描区，至少覆盖固定指数种类、涨跌数值、涨跌幅和横向浏览反馈。
+  - A股异动、竞价、弹幕、资讯和 tab 区域，用于表达市场热点、资金风格和后续阅读入口。
+  - 首屏滑动引导和底部结构，用于提示可继续浏览且不遮挡核心行情内容。
+
+# [HUMAN REQUIRED]
+forbiddenPatterns:
+  - 不得把大盘页降级为普通 dashboard 卡片堆叠。
+  - 不得改变模块顺序、指数种类、资讯标题栏目词或默认选中状态。
+  - 不得把真实 Figma component family、首屏 usage instance、截图和 HTML 原型 fallback 混为同一真源。
+  - 不得把 light / dark 仅当作换色处理，忽略背景壳、标题、glow、纹理、描边和内阴影的结构差异。
+  - 不得反转金融红涨绿跌语义，或引入脱离 token 体系的局部特殊色。
+
+# [HUMAN REQUIRED]
+usedIn:
+  - market-index-full-page
+  - market-index-first-screen
+  - html-prototype-market-index
+  - figma-review-market-index
+
+# [HUMAN REQUIRED]
+humanRules:
+  do:
+    - 通过 `component.market-index-modules` 引用已确认的大盘模块组件族。
+    - 全量 light 与全量 dark 仍是场景主真源，背景 family 需要同时服务这两套主样本。
+    - 1屏 light 与 1屏 dark 只用于 HTML 默认 390x844 首屏裁切参考。
+    - 背景 family 只作为页面或大盘卡片外壳使用，不承担正文内容表达。
+    - 背景 family 必须绑定对应 light / dark 标准主题，不允许脱离标准 token 自定义局部特殊色。
+    - 顶部导航栏、底bar、tab切换条按系统层组件处理，其中顶部导航栏和底bar直接沿用现有 skill 规范。
+    - 指数区域默认停在上证指数，tab 默认选中涨停猎手。
+    - 弹幕默认从右向左自动滚动。
+    - 资讯标题栏目词固定，资讯种类与 tab 选中状态同步。
+  dont:
+    - 不要把页面正例 frame 或 prototype 画板误写成母组件 family。
+    - 不要把背景 family 当成内容卡片、资讯项或通用容器组件复用。
+    - 不要在未重新选中其他母组件前，把兄弟 family 的变体猜写进当前 brief。
+    - 不要让 1屏 变体替代全屏变体成为主规范背景。
+    - 不要改变模块顺序。
+    - 不要改变指数种类。
+    - 不要把页面做成普通 dashboard。
+
+# [HUMAN REQUIRED]
+riskWarnings:
+  - id: market-index-background-source-of-truth
+    severity: P0
+    rule: >
+      背景 family 是大盘页面壳层的真实 Figma 母组件，必须优先使用其真实变体，
+      不得用相似 frame 或截图替代。
+  - id: market-index-background-theme-consistency
+    severity: P0
+    rule: >
+      light 与 dark 必须严格对应真实主题，不得混用或只维护单套主题。
+      不允许局部特殊色脱离标准 token 体系单独存在。
+  - id: market-index-background-first-screen-scope
+    severity: P1
+    rule: >
+      1屏 变体只用于首屏裁切与原型视口，不得替代全屏变体作为主页面背景。
+
+# [HUMAN REQUIRED]
+allowedZones:
+  - page_shell
+  - market_index_card_background
+  - first_screen_crop_shell
+
+# [HUMAN REQUIRED]
+forbiddenZones:
+  - news_list_item
+  - inline_content_module
+  - generic_dashboard_card
+
+# [HUMAN REQUIRED]
+requiredPairings:
+  - full-light-and-dark-reference
+  - first-screen-crop-reference
+  - semantic-top-nav
+  - semantic-bottom-structures
+
+# [HUMAN REQUIRED]
+forbiddenPairings:
+  - usage-frame-as-family
+  - screenshot-as-component-definition
+  - first-screen-as-primary-truth
+
+# [HUMAN REQUIRED]
+examples:
+  good:
+    - figmaNodeId: "7:6308"
+      reason: dark 首屏背景母组件真实变体。
+    - figmaNodeId: "31:18747"
+      reason: dark 全屏背景母组件真实变体。
+    - figmaNodeId: "7:6910"
+      reason: light 首屏背景母组件真实变体。
+    - figmaNodeId: "31:18755"
+      reason: light 全屏背景母组件真实变体。
+  needsReview:
+    - figmaNodeId: "3:2360"
+      reason: 1屏 dark 页面正例，只能当 usage instance，不是背景 family 定义。
+    - figmaNodeId: "3:4021"
+      reason: 1屏 light 页面正例，只能当 usage instance，不是背景 family 定义。
+  bad:
+    - reason: 把大盘_全量_light 或 大盘_全量_dark 直接写成 component family。
+    - reason: 用通用白底卡片或通用深色面板替代真实背景 family。
+
+# [HUMAN REQUIRED]
+componentHumanRules:
+  do:
+    - 同一个 Figma component set 下的真实子变体应进入 variantGroups 与 variantHumanRules。
+    - 兄弟母组件等到后续被单独选中后，再逐组补入各自 family。
+    - 页面级正例只进入 usageInstanceGroups。
+    - 系统层组件可以先在当前场景 brief 中登记引用规则，待系统层 brief/canon 完整后再回填正式绑定。
+  dont:
+    - 不要把当前已选中的 family 与未选中的兄弟 family 混写在同一轮事实区。
+    - 不要在 componentKey、文本覆盖字段或 token 绑定未确认时硬猜。
+
+# [HUMAN REQUIRED]
+pageBehaviorRules:
+  defaultStates:
+    indexDefault: 上证指数
+    tabDefault: 涨停猎手
+    barrageMotion: 从右向左自动滚动
+    scrollGuide:
+      firstScreenOnly: true
+      reappearAfterReturnToTop: false
+  fixedStructure:
+    moduleOrderLocked: true
+    indexTypesLocked: true
+    newsCategoryOrderLocked: false
+    newsTitleLabelsFixed: true
+    newsCategoryFollowsTab: true
+  contentReplacement:
+    replaceable:
+      - 数字
+      - 股票名
+      - 资讯文案
+    nonReplaceable:
+      - 模块顺序
+      - 指数种类
+      - 资讯标题栏目词
+  deliveryPriority:
+    - HTML 原型
+    - 审稿规则
+    - 页面规范文档
+  hardFailures:
+    - 不能换模块顺序
+    - 不能把红涨绿跌做反
+    - 不能把首屏引导做错
+    - 不能把系统组件替错
+    - 不能把页面做成普通 dashboard
+
+# [HUMAN REQUIRED]
+systemComponentRefs:
+  topNav:
+    source: existing_skill
+    bindingId: top_nav_secondary
+    status: ready_to_reference
+    note: 顶部导航栏直接沿用现有 skill 中的系统层规范，不在当前 brief 内重写。
+  bottomBar:
+    source: existing_skill
+    bindingId: bottom_bar
+    status: ready_to_reference
+    note: 底bar直接沿用现有 skill 中的系统层规范，不在当前 brief 内重写。
+  tabStrip:
+    source: system_layer_pending
+    bindingId: content_tab_strip
+    status: temporary_scene_reference
+    note: 建议系统层绑定名为 content_tab_strip；当前先在场景 brief 中记录 tab 结构与状态规则，系统层组件补齐后替换为正式绑定。
+  tabPill:
+    source: system_layer_pending
+    bindingId: content_tab_pill
+    status: temporary_scene_reference
+    note: 建议系统层绑定名为 content_tab_pill；当前先在场景 brief 中记录胶囊状态规则，系统层组件补齐后替换为正式绑定。
+
+# [HUMAN REQUIRED]
+topNavImplementationBoundary:
+  semanticRules:
+    - For the market page top navigation, semantic text and rise/fall values should use tokenized color roles.
+  privateVisualRules:
+    - Glass fills, local strokes, and glow treatments may remain node-private values when they are component-specific and not reused across modules.
+  sourceRules:
+    - The sidebar entry orb is a source-sensitive visual component and must not be replaced with a lookalike single-image substitute.
+
+# [HUMAN REQUIRED]
+generationContract:
+  viewport:
+    prototypeDefault: 390x844
+    primaryTruth: full_light_and_dark
+  pageComposition:
+    topNav: fixed_system_component
+    pageBody: scrollable_market_card
+    bottomBar: fixed_system_component
+    workspaceBottomNav: fixed_required_structure
+  generationTargets:
+    - html_prototype
+    - figma_review
+    - scenario_canon
+  mustKeep:
+    - 模块顺序固定
+    - 指数种类固定
+    - 资讯标题栏目词固定
+    - 资讯种类与 tab 同步
+    - 弹幕自动从右向左滚动
+    - 滑动引导仅在一屏初始显示且滑动后消失
+  mayChange:
+    - 数字
+    - 股票名
+    - 资讯文案
+    - 资讯分类顺序
+
+# [HUMAN REQUIRED]
+backgroundShellScenarioBoundary:
+  sourceOfTruth:
+    familySource:
+      figmaComponentSetNodeId: "7:6911"
+      variants:
+        darkFirstScreen: "7:6308"
+        darkFullScreen: "31:18747"
+        lightFirstScreen: "7:6910"
+        lightFullScreen: "31:18755"
+      note: family 真源用于解释背景卡组件来源与 light/dark + 1屏/全屏 变体体系。
+    usageInstanceSource:
+      firstScreenDark: "3:2360"
+      firstScreenLight: "3:4021"
+      note: 1屏实例真源用于当前页面首屏还原时的定位、层级和场景约束判断。
+  restorationPriority:
+    firstScreenRestoration: usage_instance_source_first
+    familyNormalization: family_source_first
+    rule: 当前任务若是 1屏卡片还原，应优先跟随 1屏实例真源；family 真源不覆盖实例节点的定位与层级事实。
+  scenarioPositionConstraint:
+    topOffsetPx: 72
+    appliesTo:
+      - market-index-first-screen
+      - market-index-full-page
+    note: 72px 顶部定位属于 market-index 场景定位约束，覆盖 1屏 与 全量，不外推为通用设计规律。
+  structuralRequirements:
+    - 背景卡必须保留顶部光层与卡片主体壳的分层关系。
+    - 深色版必须保留深底、弱描边、顶部 glow、内发光或内阴影的层级关系。
+    - 浅色版必须保留白底、白描边、顶部纹理光层，以及与卡片上沿的衔接关系。
+    - light 与 dark 属于结构变体，不能只靠替换颜色 token 处理。
+  forbiddenSimplifications:
+    - 不得把背景卡简化成 generic dashboard card。
+    - 不得默认压平成单层 background + border + shadow 容器。
+
+# [HUMAN REQUIRED]
+extensionModel:
+  mode: component-refs-plus-scenario-usage
+  mainComponentRef: component.market-index-modules
+  rationale: >
+    大盘模块组件 family 已移动到 `authoring/components/market-index-modules.brief.yaml`。
+    场景 brief 只保留页面级组合、全量 / 首屏真源、生成约束和业务风险边界。
+
+# [HUMAN REQUIRED]
+componentRefs:
+  - id: component.market-index-modules
+    brief: authoring/components/market-index-modules.brief.yaml
+    role: market-index-component-family-source
+  - id: component.bottom-bar
+    brief: authoring/components/bottom-bar.brief.yaml
+    role: system-bottom-structure
+  - id: component.tabs
+    brief: authoring/components/tabs.brief.yaml
+    role: system-tab-reference
+
+# [HUMAN REQUIRED]
+scenarioTaxonomy:
+  - id: market-index.full-truth
+    description: 全量 light / dark 页面正例，作为场景主真源。
+  - id: market-index.first-screen-crop
+    description: 390x844 首屏裁切参考，不替代主真源。
+
+# [HUMAN REQUIRED]
+usageInstanceGroups:
+  - id: market-index.usage.full-dark
+    figmaNodeId: "30:16491"
+    figmaName: 大盘_全量_dark
+    usageType: positive-example
+    note: 全量 dark 页面正例，背景 family 应落到全屏 dark 变体。
+  - id: market-index.usage.full-light
+    figmaNodeId: "30:17191"
+    figmaName: 大盘_全量_light
+    usageType: positive-example
+    note: 全量 light 页面正例，背景 family 应落到全屏 light 变体。
+  - id: market-index.usage.first-screen-dark
+    figmaNodeId: "3:2360"
+    figmaName: 大盘_1屏_dark
+    usageType: first-screen-crop
+    note: dark 首屏裁切正例，背景 family 应落到 1屏 dark 变体。
+  - id: market-index.usage.first-screen-light
+    figmaNodeId: "3:4021"
+    figmaName: 大盘_1屏_light
+    usageType: first-screen-crop
+    note: light 首屏裁切正例，背景 family 应落到 1屏 light 变体。
+
+# ============================================================
+# 02_AGENT_EXTRACTED
+# Agent 自动读取区
+# ============================================================
+
+componentExtraction:
+  movedComponentBriefs:
+    - authoring/components/market-index-modules.brief.yaml
+  movedFields:
+    - componentFamilies
+    - variantGroups
+    - variantHumanRules
+    - familyVariantGroups
+    - familyThemeRules
+    - familyStructureRules
+    - familyThemeHumanRules
+    - familyVariantHumanRules
+    - figma
+    - classification
+    - observedStructure
+    - variants
+    - states
+    - slots
+    - tokens
+    - textOverrideFields
+    - resourceRefs
+  note: 场景 brief 保留页面目标、业务规则和全量/首屏 usage examples；组件 family 与 Figma 绑定事实已移动到 component brief。
+
+# ============================================================
+# 03_AGENT_EXPANSION_AND_CHECKLIST
+# Agent 扩展与自查区
+# ============================================================
+
+reviewChecklist:
+  - id: market-index-scenario-uses-component-brief
+    severity: P0
+    question: 大盘场景是否通过 componentRefs 引用大盘模块组件族，而不是在 scenario 内重写组件 family？
+    passCriteria: 组件定义集中在 authoring/components/market-index-modules.brief.yaml，scenario 只维护页面组合和 usage 真源。
+
+agentExpansion:
+  canonScenario:
+    path: canon/scenarios/market-index.yaml
+  checklist:
+    path: canon/checklists/market-index-review.yaml
+  docs:
+    path: docs/generated/scenarios/market-index.md
