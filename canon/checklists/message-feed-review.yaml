@@ -1,0 +1,44 @@
+componentId: component.message-feed
+sourceBrief: authoring/components/message-feed.brief.yaml
+sourceScenario: authoring/scenarios/ai-chat.brief.yaml
+items:
+  - id: message-feed-is-scroll-zone
+    severity: P0
+    question: 消息流是否是页面唯一主要滚动区？
+    passCriteria: topbar 和 bottom_input 固定，message_feed 承载用户问题、AI 回答、长内容和关联问滚动。
+  - id: message-feed-preserves-chat-hierarchy
+    severity: P0
+    question: 是否保留 shell、layout、block、item、content、action 层级？
+    passCriteria: 主要 block 命名清晰，不以 numbered Frame 或 Group 作为语义组件来源。
+  - id: message-feed-fallback-declared
+    severity: P0
+    question: 股票卡、K线图、思考过程等非已验证组件是否被声明为 fallback 或待确认？
+    passCriteria: fallback 不被写成已验证组件实例，也不进入 confirmed component family。
+  - id: message-feed-not-generic-card-grid
+    severity: P0
+    question: 是否没有用通用卡片堆叠替代对话消息结构？
+    passCriteria: 用户问题、AI 头像、回答状态、正文、footer、关联问仍是对话消息流结构。
+  - id: related-questions-after-answer
+    severity: P1
+    question: 关联问是否位于回答内容之后，且不进入底部输入栏？
+    passCriteria: related_questions 属于 message_feed 内容尾部，不是 chat_input chip 或页面根层散落元素。
+  - id: message-feed-reasoning-not-generic-card
+    severity: P1
+    question: 思考链是否没有被画成任意普通卡片？
+    passCriteria: 思考链使用已记录的思维链规范或待确认组件候选；未确认时标记 fallback/pending。
+  - id: message-feed-financial-risk-copy
+    severity: P1
+    question: 股票走势、价格、K 线或风险提示是否保留示例/非投资建议语义？
+    passCriteria: 金融回答不得制造确定性收益或投资建议错觉，免责声明/来源/限制不被删掉。
+  - id: message-feed-business-components-preferred
+    severity: P2
+    question: 指数、A股异动、竞价、资讯等业务内容是否优先复用设计仓库候选组件？
+    passCriteria: 已记录 componentKey 的业务内容候选不被重画成普通文本卡。
+  - id: message-feed-text-overrides-verified
+    severity: P2
+    question: 用户问题、回答正文、免责声明、关联问和操作文案的覆盖目标是否经过 Figma 验证？
+    passCriteria: 未确认 exact override target 前不得自动改写实例文本。
+  - id: message-feed-demo-frame-not-component
+    severity: P3
+    question: 对话-黑版、对话-白版、消息页等 demo/state frame 是否只作为使用参考？
+    passCriteria: demo frame 进入 usageInstanceGroups，不作为单一母组件或 confirmed component set。

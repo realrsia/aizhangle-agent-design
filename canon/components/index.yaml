@@ -3,8 +3,12 @@ components:
   - component.bottom-bar
   - component.button
   - component.card
+  - component.chat-background
+  - component.chat-input
+  - component.chat-topbar
   - component.divider
   - component.input
+  - component.message-feed
   - component.overlay
   - component.switch
   - component.tabs
