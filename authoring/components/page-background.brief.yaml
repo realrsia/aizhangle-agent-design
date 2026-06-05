@@ -625,7 +625,29 @@ bindingEvidence:
 
 tokens:
   source: 设计仓库页面背景组件内部样式
-  status: TODO_VERIFY_WITH_FIGMA
+  variableNameStatus: pending_figma_variable_panel_verification
+
+pendingFigmaVerification:
+  - id: page-background-token-variable-names
+    status: partially_verified
+    scope: token_variable_names
+    source: PR #10 TODO-13
+    reason: 页面背景组件和 Dark 变体已记录；Figma Plugin API 可确认部分绑定变量，但未暴露所有背景 variant 的完整 token 变量名。
+    figmaApiFinding:
+      checkedNodeIds:
+        - "400:26745"
+        - "400:26805"
+        - "400:26896"
+      confirmedVariantKeys:
+        新版工作区/一级 Dark=Off: a3a4ab7790fb34ab0cb1708986b968024fc70729
+        新版工作区/一级 Dark=On: 96ce857c0183e6d76f1d7877af90c4a5509864fe
+      partiallyObservedVariables:
+        - color/xzl-color-background-b
+    manualAction: 如需完整 tokens 字段，继续选中各背景节点并打开 Figma 变量面板，记录所有 xzl-color-bg-* 等真实 token 变量名。
+    writeBackFields:
+      - tokens.variableNames
+      - tokens.backgroundColorVariables
+      - tokens.darkModeVariableMappings
 
 textOverrideFields: []
 assetRefs: []

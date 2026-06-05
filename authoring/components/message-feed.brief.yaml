@@ -12,6 +12,7 @@ status: draft
 purpose: >
   用于 AI 对话页中用户问题、智能体回答、思考链、正文、免责声明、
   辅助功能、关联问等内容的垂直消息流。消息流是页面唯一主要滚动区。
+  当前结构来源切换到设计仓库/对话流/对话-白版中的消息内容堆栈。
 
 # [HUMAN REQUIRED]
 usedIn:
@@ -24,7 +25,7 @@ humanRules:
     - 保持消息流作为唯一主要滚动区。
     - 按 shell、layout、block、item、content、action 层级组织。
     - 长回答先保证结构层级，再修视觉细节。
-    - AI 头像、回答状态、正文、关联问若未在设计仓库找到正式组件，先使用对话流页面实例并标记待确认。
+    - AI 头像、回答状态、正文、关联问优先使用设计仓库/对话流中已出现的实例或组件。
   dont:
     - 不要把 numbered Frame 或 Group 当作语义组件来源。
     - 不要把关联问、免责声明、辅助功能散落到页面根层。
@@ -65,19 +66,27 @@ forbiddenPairings:
 # [HUMAN REQUIRED]
 componentFamilies:
   - id: message-feed.user-input
-    figmaNodeId: "2833:51139"
+    figmaNodeId: "400:25049"
     figmaExactName: 用户输入
+    componentSetNodeId: "12:4725"
     componentSetKey: d7188f12d4ad14bb02c4cd19b9b7f256ac8d90f6
-    mainComponentKey: 2e8952d988afa4e8d09f31fb71cfaca955a33be0
+    mainComponentNodeId: "12:4726"
+    componentKey: 2e8952d988afa4e8d09f31fb71cfaca955a33be0
+    componentSetKeyStatus: verified
+    mainComponentKeyStatus: verified
     variantProperties:
       Dark: "On"
     familyType: component_set_instance
     humanUse: draft_user_question_bubble
   - id: message-feed.assistant-avatar
-    figmaNodeId: "2684:56277"
+    figmaNodeId: "400:25051"
     figmaExactName: 智能体输出/AI头像
+    componentSetNodeId: "12:4765"
     componentSetKey: 9dd3bb3033c39dc9fdf1afcf55561f0ea12901f6
-    mainComponentKey: c31a2eea7b451d9a5a021590037369db86451ee4
+    mainComponentNodeId: "12:4801"
+    componentKey: c31a2eea7b451d9a5a021590037369db86451ee4
+    componentSetKeyStatus: verified
+    mainComponentKeyStatus: verified
     variantProperties:
       类型: 智能体
       场景: 对话通用
@@ -85,10 +94,14 @@ componentFamilies:
     familyType: component_set_instance
     humanUse: draft_assistant_identity
   - id: message-feed.answer-status
-    figmaNodeId: "2684:56281"
+    figmaNodeId: "400:25055"
     figmaExactName: 智能体输出/回答状态
+    componentSetNodeId: "12:4914"
     componentSetKey: e0b01d695002624f8f675556763eb99fec510e27
-    mainComponentKey: c151d85e43fc52d3e54d35fdae7d92249efa7a1c
+    mainComponentNodeId: "12:4980"
+    componentKey: c151d85e43fc52d3e54d35fdae7d92249efa7a1c
+    componentSetKeyStatus: verified
+    mainComponentKeyStatus: verified
     variantProperties:
       状态: 深度思考
       是否展开: "Off"
@@ -96,148 +109,134 @@ componentFamilies:
     familyType: component_set_instance
     humanUse: draft_answer_status_or_reasoning_entry
   - id: message-feed.answer-body
-    figmaNodeId: "2684:56362"
+    figmaNodeId: "400:25137"
     figmaExactName: 智能体输出/内容/正文
+    componentSetNodeId: "12:5080"
     componentSetKey: 7d286f187e60b5c4b26a45009e71c4f5e7b7a04c
-    mainComponentKey: 4a5b3be332dccc50dc09e51b5f60166da3f52c33
+    mainComponentNodeId: "12:5081"
+    componentKey: 4a5b3be332dccc50dc09e51b5f60166da3f52c33
+    componentSetKeyStatus: verified
+    mainComponentKeyStatus: verified
     variantProperties:
       Property 1: 无序号
       Dark: "On"
     familyType: component_set_instance
     humanUse: draft_answer_body
   - id: message-feed.related-question
-    figmaNodeId: "2684:56396"
-    figmaExactName: 关联问
-    componentSetKey: c576349cfc03b9cd032b46ed658b22bc839ddca3
-    mainComponentKey: 90d4a50a7da35de7572a6d0bd18dbad4d0f4fa88
-    variantProperties:
-      Property 1: 默认
-      Property 2: 默认
-      Dark: "On"
-    familyType: component_set_instance
+    figmaNodeId: "400:25174"
+    figmaExactName: item/关联问/off
+    mainComponentNodeId: "12:5923"
+    componentKey: 8e1c51a33014cedd93abd9a311cb755c15be5d11
+    componentKeyStatus: verified
+    mainComponentKeyStatus: verified
+    textProperty:
+      文字内容#21900:10: 文字文字文字文字文字文字文字文字文字文字文字文字文字文字
+    familyType: component_instance
     humanUse: draft_related_question
   - id: message-feed.reasoning-panel
-    figmaNodeId: "516:20882"
-    figmaExactName: 智能体输出/思考链
-    familyType: spec_frame_with_component_instance_candidate
+    figmaNodeId: "400:25058"
+    figmaExactName: 思维链
+    familyType: semantic_frame_with_component_instance_candidate
     humanUse: reasoning_chain_panel_do_not_render_as_generic_card
-    specNodeId: "2:34475"
-    specExactName: 思维链规范
-    variantCandidateNodeId: "516:20924"
+    specNodeId: "400:25058"
+    specExactName: 思维链
+    variantCandidateNodeId: "400:25056"
     variantCandidateExactName: 智能体输出/思考链/完成态/Off/On
+    variantCandidateComponentNodeId: "12:5041"
     variantCandidateComponentKey: a2050605b8db580891c60b370e4c38f7af9961e3
+    variantCandidateComponentKeyStatus: verified
+    verifiedVariables:
+      radius: radius/20
+      fill: color/xzl-color-background-c-card
 
 # [HUMAN REQUIRED]
 usageInstanceGroups:
-  - id: message-feed.dialog-black-demo
-    figmaNodeId: "2684:56257"
-    figmaExactName: 对话-黑版
-    usageType: demo_frame
-    note: 不应作为单一母组件；用于观察页面组合。
-  - id: message-feed.new-conversation-black-state
-    figmaNodeId: "2684:56814"
-    figmaExactName: 开启新对话
-    usageType: state_frame
-    note: 用于黑版开启新对话后的金融内容状态参考；包含选股结果/股票列表，不作为通用空状态。
-  - id: message-feed.message-black-page
-    figmaNodeId: "3835:60192"
-    figmaExactName: 查看历史消息
-    usageType: message_page_frame
-    note: 用于黑版历史对话/消息页参考，包含历史分隔、历史气泡和推荐卡片，属于 message-page 场景。
-  - id: message-feed.table-black-content
-    figmaNodeId: "5509:126694"
-    figmaExactName: 开启新对话
-    usageType: content_fallback_frame
-    note: 用于黑版金融表格内容参考；表格宽度超过手机画布，未确认正式组件前只能作为 fallback 或待组件化内容。
-  - id: message-feed.logged-out-message-black
-    figmaNodeId: "2934:57654"
-    figmaExactName: 对话消息
-    usageType: logged_out_state_frame
-    note: 用于黑版未登录消息/交易账户遮罩状态参考，不能当普通回答正文。
   - id: message-feed.dialog-white-demo
-    figmaNodeId: "5829:15305"
+    figmaNodeId: "400:25042"
     figmaExactName: 对话-白版
     usageType: demo_frame
     note: 不应作为单一母组件；用于白色对话长回答、思维链、表格和关联问组合参考。
-  - id: message-feed.new-conversation-white-state
-    figmaNodeId: "2378:59929"
-    figmaExactName: 开启新对话
-    usageType: state_frame
-    note: 用于白版开启新对话状态参考，不作为 message-feed 母组件。
-  - id: message-feed.message-white-page
-    figmaNodeId: "3835:66310"
-    figmaExactName: 消息
-    usageType: message_page_frame
-    note: 用于历史对话/消息入口页面参考，属于 message-page 场景。
-  - id: message-feed.table-white-content
-    figmaNodeId: "5509:125464"
-    figmaExactName: 表格
-    usageType: content_fallback_frame
-    note: 用于金融表格内容参考；表格未确认正式组件前只能作为 fallback 或待组件化内容。
-  - id: message-feed.logged-out-message-white
-    figmaNodeId: "2934:58669"
-    figmaExactName: 消息-白版
-    usageType: logged_out_state_frame
-    note: 用于未登录消息/账户遮罩状态参考，不能当普通回答正文。
+  - id: message-feed.dialog-white-stack
+    figmaNodeId: "400:25048"
+    figmaExactName: Frame 2147231007
+    usageType: message_feed_stack
+    note: 对话-白版中的主要消息流内容堆栈，用于观察 user message、assistant identity、reasoning、answer body、footer 的组合。
+  - id: message-feed.related-questions-white
+    figmaNodeId: "400:25173"
+    figmaExactName: related_questions_stack
+    usageType: related_questions_reference
+    note: 对话-白版中的关联问列表区域，属于 message_feed 内容尾部。
 
 # [HUMAN REQUIRED]
 businessContentComponentRefs:
   - id: message-feed.market-index
-    figmaNodeId: "7:6302"
     figmaExactName: 指数
-    componentKey: 2c8497856e210074e83c2183bcf545ce863041d1
     usageType: answer_embedded_business_content
-    note: 用户提问返回市场指数时可作为正式内容组件候选；componentKey 已由 Figma API 读取。
+    sourceStatus: pending_new_design_repository_binding
+    pendingFields:
+      - figmaNodeId
+      - componentKey
+    note: 用户提问返回市场指数时可作为正式内容组件候选；需在新设计仓库中重新确认节点与 componentKey。
   - id: message-feed.market-movement
-    figmaNodeId: "7:6303"
     figmaExactName: A股异动
-    componentKey: 3255456fccafa816bf6c55f489fd6838b8233773
     usageType: answer_embedded_business_content
-    note: 用户提问返回 A 股异动时可作为正式内容组件候选；仍需继续验证热问开关和 dark 变体。
+    sourceStatus: pending_new_design_repository_binding
+    pendingFields:
+      - figmaNodeId
+      - componentKey
+    note: 用户提问返回 A 股异动时可作为正式内容组件候选；需在新设计仓库中重新确认热问开关和 dark 变体。
   - id: message-feed.auction
-    figmaNodeId: "7:6305"
     figmaExactName: 竞价
-    componentKey: eb51e27c77855c0da3c2d75c57084f868f333f9e
     usageType: answer_embedded_business_content
-    note: 用户提问返回竞价信息时可作为正式内容组件候选。
+    sourceStatus: pending_new_design_repository_binding
+    pendingFields:
+      - figmaNodeId
+      - componentKey
+    note: 用户提问返回竞价信息时可作为正式内容组件候选；需在新设计仓库中重新确认节点。
   - id: message-feed.news-sector
-    figmaNodeId: "7:6307"
     figmaExactName: 分类=板块
-    componentSetKey: e2a6f4fcf59d06d2b7b3ed4e4b9e5a30e38ec130
-    componentKey: 1a5170acfe89f8d8f92e27b6cc46e9b3d577ed66
     variantProperties:
       分类: 板块
     usageType: answer_embedded_business_content
-    note: 资讯类回答可复用设计仓库资讯组件，不应重画为普通文本卡。
+    sourceStatus: pending_new_design_repository_binding
+    pendingFields:
+      - figmaNodeId
+      - componentSetKey
+      - componentKey
+    note: 资讯类回答应复用新设计仓库资讯组件，不应重画为普通文本卡。
   - id: message-feed.news-market-movement
-    figmaNodeId: "3:5699"
     figmaExactName: 分类=行情异动
-    componentSetKey: e2a6f4fcf59d06d2b7b3ed4e4b9e5a30e38ec130
-    componentKey: 12bb01f84286e97abf2197e09e691a395153a2fe
     variantProperties:
       分类: 行情异动
     usageType: answer_embedded_business_content
-    note: 行情异动资讯内容候选组件。
+    sourceStatus: pending_new_design_repository_binding
+    pendingFields:
+      - figmaNodeId
+      - componentSetKey
+      - componentKey
+    note: 行情异动资讯内容候选组件；需在新设计仓库中重新确认。
   - id: message-feed.news-market-brief
-    figmaNodeId: "3:5701"
     figmaExactName: 分类=行情速览
-    componentSetKey: e2a6f4fcf59d06d2b7b3ed4e4b9e5a30e38ec130
-    componentKey: e994ef9cdac9229c834264a41feb12d08f3709ba
     variantProperties:
       分类: 行情速览
     usageType: answer_embedded_business_content
-    note: 行情速览资讯内容候选组件。
+    sourceStatus: pending_new_design_repository_binding
+    pendingFields:
+      - figmaNodeId
+      - componentSetKey
+      - componentKey
+    note: 行情速览资讯内容候选组件；需在新设计仓库中重新确认。
 
 # [HUMAN REQUIRED]
 examples:
   good:
-    - figmaNodeId: "2684:56257"
-      reason: 对话黑版包含用户输入、AI 输出、思考链、正文、footer 和关联问。
+    - figmaNodeId: "400:25042"
+      reason: 对话白版包含用户输入、AI 输出、思考链、正文、footer、底部 composer 和关联问。
   needsReview:
-    - name: AI 头像与回答状态正式来源
-      reason: 当前来自对话流页面实例；如设计仓库没有正式组件，生成时应标待确认，不要原创重画。
     - name: 思考过程组件归属
-      reason: 当前待确认是独立组件、回答状态变体，还是页面内语义组合；生成时不能当普通卡片。
+      reason: 当前以 400:25058 的思维链语义 frame 为准；其候选组件 400:25056 的 componentKey 已确认，但完整思维链仍不是单一 message-feed 组件。
+    - name: 黑版 message-feed
+      reason: 核心子组件存在 Dark 属性，但 message-feed 作为整体不是单一 Figma 组件，黑版整体组合仍需确认。
     - name: 股票信息卡与 K 线图
       reason: 无正式组件时允许作为 fallback，但必须标清不是正式组件。
   bad:
@@ -250,14 +249,19 @@ examples:
 # ============================================================
 
 figma:
-  fileName: 对话流GUI与规范实测
-  fileKey: 4lMpPyfchpoWK0wE0nyJzw
-  exampleNodeId: "2684:56257"
-  figmaExactName: 对话-黑版
+  fileName: 设计仓库
+  fileKey: pbxELN7TYDDguIgbXfc1zB
+  canvasNodeId: "212:2"
+  canvasName: 对话流
+  exampleNodeId: "400:25048"
+  figmaExactName: 对话-白版 / message-feed stack
   componentKey: not_a_component_instance
   bindingMode: semantic_structure_match
   bindingFailurePolicy: stop_and_recheck
-  priorityFrameNodeId: "2684:56257"
+  sourceSectionNodeId: "400:24983"
+  sourceSectionName: 2.2 页面背景
+  priorityFrameNodeId: "400:25042"
+  priorityStackNodeId: "400:25048"
 
 classification:
   primitiveFamily: message_feed
@@ -266,10 +270,10 @@ classification:
   isOrdinaryCard: false
 
 observedStructure:
-  root: 对话-黑版
+  root: 对话-白版
   dimensions:
     width: 390
-    height: 1953
+    height: 844
   children:
     - user-message
     - assistant-avatar
@@ -278,18 +282,61 @@ observedStructure:
     - answer-rich-text
     - answer-footer
     - related-questions
-  typography: TODO_VERIFY_WITH_FIGMA
+  typography:
+    userMessage:
+      family: font family/Text
+      style: Regular
+      size: font size/BodyMedium16
+      lineHeight: 1.6
+      letterSpacing: 0
+    answerStatus:
+      family: font family/Text
+      style: Regular
+      size: font size/BodyXSmall 14
+      letterSpacing: 0
+    reasoningStepTitle:
+      family: PingFang SC
+      style: Medium
+      size: 14px
+      lineHeight: 1.5
+    reasoningBody:
+      family: PingFang SC
+      style: Regular
+      size: 14px
+      lineHeight: 1.5
+      letterSpacing: 0.5px
+    answerBody:
+      family: PingFang SC
+      style: Regular
+      size: 16px
+      lineHeight: 24px
+      letterSpacing: 0.5px
   tokens:
     source: bindings/assets/files/design-tokens/chat-fidelity-tokens.json
+    observedFromFigmaMcp:
+      userBubbleBackground: "#DBE9FF"
+      userBubbleBorder: "#A1C7FF"
+      answerStatusTextColor: xzl-color-text-d / "#6D778B"
+      reasoningTitleColor: xzl-color-text-a / "#030303"
+      reasoningBodyColor: xzl-color-text-c / "#353739"
+      reasoningSecondaryColor: xzl-color-text-d / "#6D778B"
+      answerBodyColor: xzl-color-text-b / rgba(255,255,255,0.9)
 
 variants:
-  confirmed: []
+  confirmed:
+    - core_component_keys_verified
+    - user-input Dark=On
+    - assistant-avatar Dark=Off
+    - answer-status Dark=Off
+    - answer-body Dark=On
+    - reasoning-candidate component verified
   candidates:
     - chat-page
     - message-page
     - long-answer
     - short-answer
     - related-page-opened
+    - dark-theme
 
 states:
   - id: default
@@ -319,12 +366,15 @@ tokens:
   source:
     - bindings/assets/files/design-tokens/chat-fidelity-tokens.json
   reasoningChain:
-    specNodeId: "2:34475"
+    specNodeId: "400:25058"
     fontSize: 14px Regular
-    textColor: xzl-color-text-a 70% / #FFFFFF 70%
+    textColor:
+      title: xzl-color-text-a / "#030303"
+      body: xzl-color-text-c / "#353739"
+      secondary: xzl-color-text-d / "#6D778B"
     lineHeight: 1.5x
     letterSpacing: 0.5px
-    panelBackground: xzl-color-primary-blue / 5998FF 10%
+    panelBackgroundStatus: derived_from_masked_reasoning_frames_pending_variable_name
 
 textOverrideFields:
   - userQuestionText
@@ -338,10 +388,78 @@ textOverrideFields:
   - relatedQuestionText
   - actionLabels
 
+pendingFigmaVerification:
+  - id: message-feed-core-component-keys
+    status: verified
+    scope: component_key
+    source: PR #10 TODO-10
+    verifiedBy: Figma Plugin API
+    targetNodeIds:
+      userInput: "400:25049"
+      assistantAvatar: "400:25051"
+      answerStatus: "400:25055"
+      answerBody: "400:25137"
+      relatedQuestion: "400:25174"
+      reasoningCandidate: "400:25056"
+    componentKeys:
+      userInput: 2e8952d988afa4e8d09f31fb71cfaca955a33be0
+      assistantAvatar: c31a2eea7b451d9a5a021590037369db86451ee4
+      answerStatus: c151d85e43fc52d3e54d35fdae7d92249efa7a1c
+      answerBody: 4a5b3be332dccc50dc09e51b5f60166da3f52c33
+      relatedQuestion: 8e1c51a33014cedd93abd9a311cb755c15be5d11
+      reasoningCandidate: a2050605b8db580891c60b370e4c38f7af9961e3
+    reviewCommentNodeCorrections:
+      - commentNodeId: "400:25053"
+        actualRole: answer_body_container_frame
+        replacementComponentNodeId: "400:25137"
+      - commentNodeId: "400:25058"
+        actualRole: reasoning_semantic_frame
+        replacementComponentNodeId: "400:25056"
+      - commentNodeId: "400:25063"
+        actualRole: icon_ellipse_inside_reasoning_step
+        replacementComponentNodeId: "400:25056"
+  - id: message-feed-business-content-bindings
+    status: pending_manual_figma_business_content_binding
+    scope: embedded_business_content
+    source: PR #10 TODO-11
+    reason: 指数、A股异动、竞价、资讯分类组件尚未在新设计仓库中定位到稳定节点，不能写成已验证组件。
+    figmaApiFinding: 当前 400:24983 中只读到嵌在 bottom bar 变体内的 `1月版/item/指数模块`，未定位到可作为 message-feed 回答内容复用的稳定指数概览、A股异动、竞价或资讯分类组件。
+    manualAction: 在新设计仓库中定位指数概览、A股异动、竞价、资讯分类组件的稳定 Figma 节点，并记录 nodeId、exactName、componentKey。
+    requiredBindings:
+      - 指数概览组件
+      - A股异动组件
+      - 竞价组件
+      - 资讯分类组件
+  - id: message-feed-dark-theme
+    status: partially_verified
+    scope: variants
+    source: PR #10 TODO-12
+    verifiedBy: Figma Plugin API
+    reason: 当前 message-feed 不是单一组件；核心子节点已读到 Dark 属性，但整体黑版消息流组合仍需按新 section 节点确认。
+    confirmedDarkSubnodes:
+      - nodeId: "400:25049"
+        variant: Dark=On
+      - nodeId: "400:25137"
+        variant: Dark=On
+      - nodeId: "400:25056"
+        variant: reasoning candidate with Dark=On children
+    unresolved: 需要确认整体黑版 message-feed 组合节点，而不是只确认子组件。
+
 resourceRefs:
   - docs/references/fidelity/chat-fidelity-reconstruction.md
   - canon/archetypes/mobile-chat-page.yaml
-  - figma://4lMpPyfchpoWK0wE0nyJzw/2:34475
+  - figma://pbxELN7TYDDguIgbXfc1zB/212:2
+  - figma://pbxELN7TYDDguIgbXfc1zB/400:24983
+  - figma://pbxELN7TYDDguIgbXfc1zB/400:25042
+  - figma://pbxELN7TYDDguIgbXfc1zB/400:25048
+  - figma://pbxELN7TYDDguIgbXfc1zB/400:25049
+  - figma://pbxELN7TYDDguIgbXfc1zB/400:25051
+  - figma://pbxELN7TYDDguIgbXfc1zB/400:25055
+  - figma://pbxELN7TYDDguIgbXfc1zB/400:25056
+  - figma://pbxELN7TYDDguIgbXfc1zB/400:25058
+  - figma://pbxELN7TYDDguIgbXfc1zB/400:25137
+  - figma://pbxELN7TYDDguIgbXfc1zB/400:25173
+  - figma://pbxELN7TYDDguIgbXfc1zB/400:25174
 
 # ============================================================
 # 03_AGENT_EXPANSION_AND_CHECKLIST
