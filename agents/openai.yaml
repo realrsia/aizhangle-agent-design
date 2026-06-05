@@ -16,4 +16,18 @@ interface:
     shrink from their content and padding instead of relying on fixed manual
     positions. Mobile frames may start from 390px width, but page height does
     not have to be fixed at 844px; allow the frame to grow vertically when the
-    selected page content requires a longer scrollable design.
+    selected page content requires a longer scrollable design. Structure Figma
+    Auto Layout by logical zones: fixed chrome such as Status Bar, Top Bar, and
+    Bottom Bar / Chat Input should be pinned to the top or bottom and excluded
+    from the normal scrolling content flow; the content area may use multiple
+    nested Auto Layout groups for sections, cards, rows, and internal modules.
+    Any Auto Layout wrapper that contains an Instance must have height greater
+    than or equal to the contained Instance so the component is never clipped.
+    Never leave placeholder or guide text such as repeated dummy characters,
+    generic labels, or unresolved prompts inside the generated screen; inject
+    realistic financial/news/chat content so the page remains readable. If a
+    required component is not bound, draw a clearly low-fidelity fallback block
+    labeled “未绑定组件” instead of pretending it is a real component. Do not put
+    visual notes, interaction explanations, binding reports, or review comments
+    inside the generated screen itself; create a small annotation card to the
+    right of the frame for those explanations.
