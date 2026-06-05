@@ -1,0 +1,54 @@
+id: archetype.market-overview-page
+kind: archetype
+schemaVersion: 1
+version: 0.1.0
+status: draft
+title: Mobile Market Overview Page
+summary: Market overview page archetype for dense first-screen market scanning and low-fidelity HTML prototypes.
+sourceRefs:
+  - authoring/scenarios/market-index.brief.yaml
+  - canon/archetypes/xzl-fusion-screen-recipes.yaml
+  - canon/components/market-index-modules.meta.yaml
+shell:
+  viewport:
+    width: 390
+    height: 844
+  zones:
+    - id: page_shell
+      required: true
+    - id: top_nav
+      required: true
+    - id: top_filter
+      required: true
+    - id: top_summary
+      required: true
+    - id: breadth_summary
+      required: true
+    - id: rank_list
+      required: true
+    - id: bottom_dock
+      required: true
+    - id: local_filter
+      required: false
+    - id: row_annotation
+      required: false
+layout:
+  direction: vertical
+  scrollZone: page_shell
+  fixedZones:
+    - bottom_dock
+composition:
+  sourceScreenArchetype: market_overview
+  primaryJob: 浏览市场总览并快速进入细分榜单或板块
+  defaultDensityMode: high_scan
+  firstViewportGoals:
+    - 建立市场状态
+    - 给出榜单入口预览
+    - 保留快速继续浏览路径
+  requiredComponents:
+    - component.market-index-modules
+    - component.bottom-bar
+reviewDefaults:
+  - checklist.visual-review
+  - checklist.market-index-modules-review
+  - checklist.bottom-bar-review

@@ -22,6 +22,45 @@ renderers:
       - bindings/assets/files/bottom-bar/icons/
       - bindings/assets/files/templates/bottom-bar-component.json
       - bindings/assets/fusion-files/templates/bottom-bar-component.json
+    sceneVariantDefaults:
+      market-index:
+        scene: 首页场景
+        darkVariantId: default-dark
+        lightVariantId: default-light
+        source: bindings/figma/components.yaml#components.component.bottom-bar.confirmedVariants
+        rule: 大盘页默认绑定首页态 bottom-bar；不得用个股、交易或对话态替代。
+    outputChecklist: bindings/assets/files/templates/bottom-bar-output-checklist.json
+    hardGates:
+      requireDataComponent: component.bottom-bar
+      requireTemplate:
+        - bindings/assets/files/templates/bottom-bar-component.json
+      requireModeSpecificAssets: true
+      forbiddenSubstitutes:
+        - ordinary-five-tab-navigation
+        - tabs-as-bottom-bar
+        - button-group-as-bottom-bar
+        - css-drawn-icons
+        - emoji-icons
+        - lucide-icons
+        - anonymous-inline-svg-icons
+      failIfMissing:
+        - safe-area
+        - home-indicator
+        - approved-bottom-bar-assets
+        - variant-context-declaration
+    evidenceRequirements:
+      dataComponent: component.bottom-bar
+      dataAttributes:
+        component: data-component
+        componentFamily: data-component-family
+        bindingStatus: data-binding-status
+      requiredFields:
+        - variant
+        - templatePath
+        - backgroundAsset
+        - iconAssets
+        - metricsSource
+        - checklistResult
   - id: renderer.html.financial-table
     sourceComponent: component.financial-table
     figmaBinding:
@@ -47,3 +86,111 @@ renderers:
       useLocalAssetsWhenNeeded: false
     localFallbacks:
       - bindings/assets/files/templates/trading-order-form-inputs.json
+  - id: renderer.html.market-index-modules
+    sourceComponent: component.market-index-modules
+    figmaBinding:
+      bindingSource: bindings/figma/components.yaml
+      verificationRequired: true
+    htmlStrategy:
+      fidelity: low
+      renderAs: scrollable-market-index-card
+      useTokens: true
+      useLocalAssetsWhenNeeded: true
+      componentFirst: true
+    requiredFamilies:
+      - market-index.background-shell
+      - market-index.title-block
+      - market-index.index-summary
+      - market-index.abnormal-a-share
+      - market-index.auction-panel
+      - market-index.tab-strip
+      - market-index.news-card
+      - market-index.scroll-guide
+    optionalFamilies:
+      - market-index.hot-question-toggle
+      - market-index.barrage-panel
+      - market-index.barrage-chip
+      - market-index.news-title
+      - market-index.news-tip
+    requiredChecklists:
+      - canon/checklists/market-index-modules-review.yaml
+    familyRendering:
+      market-index.background-shell:
+        renderAs: market-index-background-shell
+        preserveStructure:
+          - top-light-layer
+          - body-shell
+          - stroke
+          - glow-or-inner-shadow
+        forbiddenSubstitutes:
+          - generic-dashboard-card
+      market-index.title-block:
+        renderAs: market-index-title-block
+        preserveStructure:
+          - title-text
+          - trading-status-dot
+          - trading-status-text
+        forbiddenSubstitutes:
+          - generic-text-row
+          - merged-title-status-text
+      market-index.index-summary:
+        renderAs: market-index-horizontal-index-summary
+        preserveFinancialSemantics: true
+      market-index.abnormal-a-share:
+        renderAs: market-index-abnormal-a-share-module
+        preserveFinancialSemantics: true
+      market-index.auction-panel:
+        renderAs: market-index-auction-module
+        preserveFinancialSemantics: true
+      market-index.tab-strip:
+        renderAs: market-index-tab-strip
+        systemLayerStatus: temporary_scene_reference_until_system_layer_binding
+      market-index.news-card:
+        renderAs: market-index-news-card
+        fallbackWhenBindingUnavailable: binding-pending-news-card
+      market-index.scroll-guide:
+        renderAs: market-index-scroll-guide
+        firstScreenOnly: true
+    hardGates:
+      requireComponentEvidence: true
+      defaultFailOnChecklistSeverity:
+        - P0
+      skillEvaluationFailOnChecklistSeverity:
+        - P0
+        - P1
+      highRiskDeliveryFailOnChecklistSeverity:
+        - P0
+        - P1
+      scopeNote: Skill 测评与高风险交付任务中 P0/P1 都阻断；普通探索任务默认 P0 阻断、P1 作为审阅警告。
+      forbiddenSubstitutes:
+        - generic-dashboard-card-instead-of-background-shell
+        - generic-text-row-instead-of-title-block
+        - local-tab-lookalike-when-system-tab-binding-exists
+        - color-swapped-theme-instead-of-structural-theme-variant
+      requireFallbackDisclosure: true
+    fallbackPolicy:
+      allowedOnlyWhen:
+        - binding-missing
+        - published-import-failed
+        - font-or-permission-blocked
+      requiredLayerOrDomMarkers:
+        - 未绑定组件
+        - binding pending
+      mustNotLookLikeConfirmedComponent: true
+    evidenceRequirements:
+      dataComponent: component.market-index-modules
+      mandatoryWhen:
+        - skill-evaluation
+        - high-risk-delivery
+      optionalWhen:
+        - ordinary-exploration
+      dataAttributes:
+        component: data-component
+        componentFamily: data-component-family
+        bindingStatus: data-binding-status
+      requiredFields:
+        - familiesRendered
+        - componentBindingEvidence
+        - rendererId
+        - checklistResult
+        - fallbackReason
