@@ -11,6 +11,7 @@ checklists:
   - canon/checklists/market-index-modules-review.yaml
   - canon/checklists/message-feed-review.yaml
   - canon/checklists/overlay-review.yaml
+  - canon/checklists/page-background-review.yaml
   - canon/checklists/switch-review.yaml
   - canon/checklists/tabs-review.yaml
   - canon/checklists/tag-review.yaml

@@ -20,6 +20,7 @@ components:
     sourceRefs:
       - authoring/scenarios/ai-chat.brief.yaml
       - authoring/components/bottom-bar.brief.yaml
+      - figma://pbxELN7TYDDguIgbXfc1zB/400:25177
   - id: component.chat-background
     brief: authoring/components/chat-background.brief.yaml
     sourceRefs:
@@ -35,10 +36,12 @@ components:
     brief: authoring/components/chat-topbar.brief.yaml
     sourceRefs:
       - authoring/scenarios/ai-chat.brief.yaml
+      - figma://pbxELN7TYDDguIgbXfc1zB/400:25178
   - id: component.message-feed
     brief: authoring/components/message-feed.brief.yaml
     sourceRefs:
       - authoring/scenarios/ai-chat.brief.yaml
+      - figma://pbxELN7TYDDguIgbXfc1zB/400:25048
   - id: component.divider
     brief: authoring/components/divider.brief.yaml
     sourceRefs:

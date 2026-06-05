@@ -10,8 +10,8 @@ classification:
   isOrdinaryInput: false
 purpose: >
   Fixed bottom composer for AI Chat and message pages. It provides the full-screen
-  conversation input entry and should use the repository Bottom Bar dialog
-  variants instead of a generic form input or generic bottom navigation.
+  conversation input entry from the current design-repository dialog-flow source
+  instead of a generic form input or generic bottom navigation.
 usage:
   usedIn:
     - ai-chat-page
@@ -38,7 +38,7 @@ composition:
     rule: Message content must reserve bottom space so long answers, charts, or cards do not sit under the input bar.
   formalSource:
     componentId: component.bottom-bar
-    rule: Use `bottom bar/母组件` dialog variants as the formal component source for default dark/light chat input.
+    rule: Use the design-repository `1月版/母组件` dialog composer source for full composer and simple voice states.
 riskBoundaries:
   - id: chat-input-fixed-bottom
     severity: P0
@@ -52,33 +52,39 @@ riskBoundaries:
 componentFamilies:
   - familyId: chat-input.dialog-bottom-bar-instance
     displayName: 对话页底部输入栏实例
-    fileName: 对话流GUI与规范实测
-    fileKey: 4lMpPyfchpoWK0wE0nyJzw
-    figmaNodeId: "5509:131783"
-    canonicalName: bottom bar/母组件
+    fileName: 设计仓库
+    fileKey: pbxELN7TYDDguIgbXfc1zB
+    figmaNodeId: "400:25177"
+    canonicalName: 1月版/母组件
     sourceFigmaExactName: 1月版/母组件
-    sourceNameStatus: legacy_name_in_figma_needs_rename
+    componentSetNodeId: "99:48375"
+    componentSetKey: 6c67c07391c697e6658e10a591063b31017a622f
+    mainComponentNodeId: "99:48392"
+    componentKey: 3a879d55e7022088fd5cf27d10c508f6658c15f5
     familyType: component_set_instance
     bindingMode: must_use_library_instance
     bindingFailurePolicy: stop_and_recheck
-    status: draft-page-instance
+    status: verified
   - familyId: chat-input.repository-bottom-bar
-    displayName: 设计仓库 Bottom Bar 对话态正式来源
+    displayName: 简版语音输入来源
     fileName: 设计仓库
-    fileKey: N0GqvW0qr9niOnWxjzyulU
-    figmaNodeId: "12:10172"
-    figmaExactName: bottom bar/母组件
-    componentKey: 8cbb729a37926f3ff74f84f60bee46a009e4de04
+    fileKey: pbxELN7TYDDguIgbXfc1zB
+    figmaNodeId: "400:29333"
+    figmaExactName: 1月版/母组件
+    componentSetNodeId: "99:48375"
+    componentSetKey: 6c67c07391c697e6658e10a591063b31017a622f
+    mainComponentNodeId: "99:48376"
+    componentKey: db61f1dfdab2371d6c4b22c58686f852f7360910
     familyType: component_set
     bindingMode: must_use_library_instance
     bindingFailurePolicy: stop_and_recheck
-    status: formal-component-source
+    status: verified
 variants:
   confirmed:
     - id: chat-input-dialog-dark
-      familyId: chat-input.repository-bottom-bar
-      figmaNodeId: "12:10180"
-      componentKey: 73fa7c55a7adc008e563959371c3e6c53623cfb7
+      familyId: chat-input.dialog-bottom-bar-instance
+      figmaNodeId: "99:48383"
+      componentKey: ceda34ec270acdbe0377ac8d917e5c499ac6c9a5
       figmaExactName: 场景=对话, 有关联问=Off, 有陪伴=Off, 有指数=Off, Dark=On
       variantProperties:
         场景: 对话
@@ -87,9 +93,9 @@ variants:
         有指数: "Off"
         Dark: "On"
     - id: chat-input-dialog-light
-      familyId: chat-input.repository-bottom-bar
-      figmaNodeId: "12:10189"
-      componentKey: 294d923f164d688d89fc2d2693aeabc04651126e
+      familyId: chat-input.dialog-bottom-bar-instance
+      figmaNodeId: "99:48392"
+      componentKey: 3a879d55e7022088fd5cf27d10c508f6658c15f5
       figmaExactName: 场景=对话, 有关联问=Off, 有陪伴=Off, 有指数=Off, Dark=Off
       variantProperties:
         场景: 对话
@@ -97,6 +103,17 @@ variants:
         有陪伴: "Off"
         有指数: "Off"
         Dark: "Off"
+    - id: chat-input-simple-voice-dark
+      familyId: chat-input.repository-bottom-bar
+      figmaNodeId: "99:48376"
+      componentKey: db61f1dfdab2371d6c4b22c58686f852f7360910
+      figmaExactName: 场景=默认, 有关联问=Off, 有陪伴=Off, 有指数=Off, Dark=On
+      variantProperties:
+        场景: 默认
+        有关联问: "Off"
+        有陪伴: "Off"
+        有指数: "Off"
+        Dark: "On"
   candidates:
     - 有关联问=On
     - 有陪伴=On
@@ -128,23 +145,32 @@ assetRefs:
   - asset.template.bottom-bar-output-checklist
 textOverrideFields:
   - field: inputPlaceholder
-    status: TODO_VERIFY_WITH_FIGMA
+    status: verified_component_property_ref
+    propertyRef: "内容字段#20050:11"
   - field: voiceHoldLabel
-    status: TODO_VERIFY_WITH_FIGMA
+    status: verified_not_exposed_as_text_override
+    observedText: 按住说话
   - field: keyboardInputText
-    status: TODO_VERIFY_WITH_FIGMA
+    status: verified_component_property_ref
+    propertyRef: "内容字段#20050:11"
   - field: deepAnswerChipLabel
-    status: TODO_VERIFY_WITH_FIGMA
+    status: verified_component_property_ref
+    propertyRef: "胶囊文字#20368:0"
   - field: advisorAnswerChipLabel
-    status: TODO_VERIFY_WITH_FIGMA
+    status: verified_component_property_ref
+    propertyRef: "胶囊文字#20368:0"
   - field: assistantSelectorLabel
-    status: TODO_VERIFY_WITH_FIGMA
+    status: verified_component_property_ref
+    propertyRef: "胶囊文字#20368:0"
   - field: aiDisclosureText
-    status: TODO_VERIFY_WITH_FIGMA
+    status: verified_not_exposed_as_text_override
+    observedText: 内容由AI生成
 sourceRefs:
   - authoring/components/chat-input.brief.yaml
   - authoring/scenarios/ai-chat.brief.yaml
   - authoring/components/bottom-bar.brief.yaml
+  - figma://pbxELN7TYDDguIgbXfc1zB/400:25177
+  - figma://pbxELN7TYDDguIgbXfc1zB/400:29333
   - docs/references/bottom-bar/variants.md
   - docs/references/bottom-bar/agent-chips.md
   - docs/references/fidelity/chat-fidelity-reconstruction.md

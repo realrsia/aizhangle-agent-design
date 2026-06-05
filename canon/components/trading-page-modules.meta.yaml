@@ -213,10 +213,10 @@ componentFamilies:
     verificationStatus: component_set_node_confirmed
   - familyId: trading.info.condition-order.trade-info
     figmaNodeId: "37:28507"
-    componentKey: TODO_VERIFY_WITH_FIGMA
+    componentKey: 29e4181cd36cf506acc0c54f0e590116158e24bd
     figmaName: item/信息/条件单&策略/交易信息
     group: conditionOrderChildren
-    verificationStatus: component_set_node_confirmed
+    verificationStatus: component_set_key_verified_with_figma
   - familyId: trading.info.condition-order.action-area
     figmaNodeId: "37:28159"
     optionComponentKey: ee0988243f57dbb66a15339fd9a89530034e13b7
@@ -260,7 +260,26 @@ tokens:
     - authoring/components/trading-input.brief.yaml
     - authoring/components/trading-action-button.brief.yaml
 textOverrideFields:
-  - TODO_VERIFY_WITH_FIGMA
+  status: verified_with_figma
+  refs:
+    - field: conditionOrderTradeInfoLeftTitle
+      propertyRef: "左侧标题#477:15"
+      sourceNodeId: "37:28507"
+    - field: conditionOrderTradeInfoPlainText
+      propertyRef: "纯文字#1258:19"
+      sourceNodeId: "37:28507"
+    - field: conditionOrderStrategyBuyPrice
+      propertyRef: "买价#477:8"
+      sourceNodeId: "37:28486"
+    - field: conditionOrderStrategySellPrice
+      propertyRef: "卖价#477:11"
+      sourceNodeId: "37:28486"
+    - field: holdingsSecurityName
+      propertyRef: "标的名称#1227:0"
+      sourceNodeId: "37:26343"
+    - field: holdingsSecurityCode
+      propertyRef: "标的代码#1227:3"
+      sourceNodeId: "37:26343"
 assetRefs: []
 usageInstanceGroups:
   - groupId: trading.usage.selected-top-region

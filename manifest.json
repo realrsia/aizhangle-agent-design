@@ -11,6 +11,7 @@
     "agents": "AGENTS.md",
     "llms": "llms.txt",
     "humanAuthoring": "authoring/README.md",
+    "changeHistory": "docs/references/change-history.md",
     "prTemplate": ".github/PULL_REQUEST_TEMPLATE.md"
   },
   "authoring": {

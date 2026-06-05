@@ -17,4 +17,5 @@ Use `authoring/components/index.yaml` as the primary component entry point.
 - `component.chat-topbar` -> `canon/components/chat-topbar.meta.yaml`, `canon/checklists/chat-topbar-review.yaml`
 - `component.market-index-modules` -> `canon/components/market-index-modules.meta.yaml`, `canon/checklists/market-index-modules-review.yaml`
 - `component.message-feed` -> `canon/components/message-feed.meta.yaml`, `canon/checklists/message-feed-review.yaml`
+- `component.page-background` -> `canon/components/page-background.meta.yaml`, `canon/checklists/page-background-review.yaml`
 - `component.trading-page-modules` -> `canon/components/trading-page-modules.meta.yaml`, `canon/checklists/trading-page-modules-review.yaml`
