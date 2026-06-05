@@ -7,6 +7,7 @@ checklists:
   - canon/checklists/chat-input-review.yaml
   - canon/checklists/chat-topbar-review.yaml
   - canon/checklists/divider-review.yaml
+  - canon/checklists/figma-generation-review.yaml
   - canon/checklists/input-review.yaml
   - canon/checklists/market-index-modules-review.yaml
   - canon/checklists/message-feed-review.yaml

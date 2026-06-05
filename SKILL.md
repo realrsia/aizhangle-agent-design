@@ -64,6 +64,7 @@ Use these paths by responsibility:
 - `canon/checklists/index.yaml`: latest component checklist index.
 - `canon/checklists/*-review.yaml`: component-level executable review checklists derived from the latest component briefs.
 - `canon/checklists/visual-review.yaml`: first-stage cross-surface visual review checklist.
+- `canon/checklists/figma-generation-review.yaml`: second-pass Figma generation checklist mapped from `agents/openai.yaml`; use it after Figma screen generation to turn prompt constraints into concrete pass/fail repair items.
 - `canon/checklists/page-output-checklist.source.json`: copied source checklist from the old package. Use for migration and comparison.
 - `canon/checklists/radius-output-checklist.source.json`: copied radius checklist from the fusion source. Use for migration and radius review.
 - `bindings/`: connection layer. Use this to locate Figma resources, local assets, and future code links without polluting canonical rules.
@@ -122,7 +123,7 @@ Use these paths by responsibility:
 3. Load `DESIGN.md` when the task involves visual generation, visual review, aesthetic direction, design tasting, hierarchy, density, polish, or "does this look right".
 4. Load only the matching canonical files from `canon/`.
 5. Resolve Figma or local assets through `bindings/`.
-6. Run the relevant checklist from `canon/checklists/`.
+6. Run the relevant checklist from `canon/checklists/`. For Figma screen generation, always include `canon/checklists/figma-generation-review.yaml`.
 7. If you changed repository files, append a concise entry to `docs/references/change-history.md` with author, time, change summary, touched areas, and validation result.
 
 ## Load By Task
@@ -173,6 +174,7 @@ Load:
 - matching `canon/components/*.meta.yaml`: provides the component-level rules needed by the page.
 - `bindings/assets/manifest.yaml`: resolves local assets such as icons, fonts, backgrounds, templates, and examples.
 - `canon/checklists/visual-review.yaml`: validates the full page or scenario output.
+- `canon/checklists/figma-generation-review.yaml`: validates component coverage, fixed chrome, Auto Layout, fallback labels, annotations, themes, and screenshot/metadata before delivery.
 
 ### Aesthetic Direction Or Design Tasting
 
@@ -243,6 +245,7 @@ For generation:
 - component or scenario decisions
 - Figma/local asset bindings
 - checklist summary
+- Figma generation checklist summary when the output target is Figma
 - open gaps
 
 For review:
