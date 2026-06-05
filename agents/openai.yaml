@@ -1,6 +1,91 @@
 interface:
   display_name: "XZL Fusion Design System"
   short_description: "融合新涨乐与 AI Zhangle 设计系统规则"
+  checklist_system:
+    primaryGenerationChecklist: canon/checklists/figma-generation-review.yaml
+    syncTool: tools/sync-openai-checklist-map.rb
+    syncPolicy: >
+      When default_prompt or component_first_figma_generation_prompt changes,
+      update promptToChecklistMappings and run the sync tool so the generation
+      checklist records which prompt sections drive each second-pass review rule.
+    promptToChecklistMappings:
+      - promptSection: default_prompt.1 读取顺序
+        checklistRuleIds:
+          - route-before-generation
+      - promptSection: default_prompt.2 Binding 规则
+        checklistRuleIds:
+          - component-coverage-report-required
+          - confirmed-components-not-redrawn
+          - fallback-is-low-fidelity-and-labeled
+      - promptSection: default_prompt.3 硬性禁止
+        checklistRuleIds:
+          - confirmed-components-not-redrawn
+          - fallback-is-low-fidelity-and-labeled
+          - final-screenshot-and-metadata-verified
+      - promptSection: default_prompt.4 Component 优先级
+        checklistRuleIds:
+          - component-coverage-report-required
+          - confirmed-components-not-redrawn
+          - fixed-chrome-separated
+          - theme-consistency-dark-light
+      - promptSection: default_prompt.5 Auto Layout 规则
+        checklistRuleIds:
+          - fixed-chrome-separated
+          - nested-auto-layout-required
+          - instance-wrapper-not-clipped
+      - promptSection: default_prompt.6 内容规则
+        checklistRuleIds:
+          - realistic-content-no-placeholders
+      - promptSection: default_prompt.7 Fallback 与说明位置
+        checklistRuleIds:
+          - fallback-is-low-fidelity-and-labeled
+          - annotation-outside-screen
+      - promptSection: default_prompt.8 交付前失败条件
+        checklistRuleIds:
+          - final-screenshot-and-metadata-verified
+          - theme-consistency-dark-light
+          - realistic-content-no-placeholders
+          - confirmed-components-not-redrawn
+      - promptSection: component_first_figma_generation_prompt.1 生成前检查
+        checklistRuleIds:
+          - route-before-generation
+          - component-coverage-report-required
+      - promptSection: component_first_figma_generation_prompt.2 生成前硬门禁
+        checklistRuleIds:
+          - component-coverage-report-required
+          - confirmed-components-not-redrawn
+      - promptSection: component_first_figma_generation_prompt.3 自绘控件禁止清单
+        checklistRuleIds:
+          - confirmed-components-not-redrawn
+          - fallback-is-low-fidelity-and-labeled
+      - promptSection: component_first_figma_generation_prompt.4 组件使用规则
+        checklistRuleIds:
+          - confirmed-components-not-redrawn
+          - fixed-chrome-separated
+          - theme-consistency-dark-light
+      - promptSection: component_first_figma_generation_prompt.5 字体兼容
+        checklistRuleIds:
+          - confirmed-components-not-redrawn
+          - final-screenshot-and-metadata-verified
+      - promptSection: component_first_figma_generation_prompt.6 Clone 与 fallback
+        checklistRuleIds:
+          - confirmed-components-not-redrawn
+          - fallback-is-low-fidelity-and-labeled
+      - promptSection: component_first_figma_generation_prompt.7 Partial component 处理
+        checklistRuleIds:
+          - fallback-is-low-fidelity-and-labeled
+          - annotation-outside-screen
+      - promptSection: component_first_figma_generation_prompt.8 主题要求
+        checklistRuleIds:
+          - theme-consistency-dark-light
+      - promptSection: component_first_figma_generation_prompt.9 屏幕与 annotation 边界
+        checklistRuleIds:
+          - annotation-outside-screen
+      - promptSection: component_first_figma_generation_prompt.10 最终验证
+        checklistRuleIds:
+          - final-screenshot-and-metadata-verified
+          - realistic-content-no-placeholders
+          - instance-wrapper-not-clipped
   default_prompt: |
     生成或评审新涨乐 / AI Zhangle 移动金融界面时，以本仓库为唯一事实来源。
 

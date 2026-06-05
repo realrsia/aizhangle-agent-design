@@ -33,7 +33,8 @@
     "archetypes": "canon/archetypes/",
     "scenarios": "canon/scenarios/",
     "checklists": "canon/checklists/",
-    "componentChecklistIndex": "canon/checklists/index.yaml"
+    "componentChecklistIndex": "canon/checklists/index.yaml",
+    "figmaGenerationChecklist": "canon/checklists/figma-generation-review.yaml"
   },
   "bindings": {
     "figma": "bindings/figma/",
