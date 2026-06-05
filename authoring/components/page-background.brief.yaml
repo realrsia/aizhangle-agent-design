@@ -1,0 +1,420 @@
+# ============================================================
+# 01_HUMAN_REQUIRED
+# 人工必填区
+# ============================================================
+
+id: component.page-background
+name: 页面背景
+owner: design-system
+status: draft
+
+purpose: >
+  用于新涨乐页面级背景还原与生成。当前新增只覆盖三类新版页面背景：
+  一级页面背景、二级页面背景、三级及更深层页面背景，并保持黑白版一一对应。
+
+usedIn:
+  - primary-workspace-page
+  - secondary-business-page
+  - ai-chat-flow-page
+  - stock-detail-page
+  - trading-page
+  - my-page
+  - account-page
+  - system-settings-page
+  - trading-function-settings-page
+  - tertiary-or-deeper-page
+
+humanRules:
+  do:
+    - 按页面层级选择背景，而不是用近似纯色或截图重画。
+    - 一级页面使用 `分类=新版工作区/一级`。
+    - AI Chat 对话流、个股详情、交易、我的、账户等二级页面使用 `分类=新版二级页`。
+    - 系统设置、交易功能设置，以及三、四、五级页面使用 `分类=新三级页`。
+    - 黑版使用 `Dark=On`，白版使用 `Dark=Off`；同一页面层级的黑白版必须一一对应。
+    - 背景应作为页面根层底图，位于导航、内容、底栏、浮层之下。
+  dont:
+    - 不要把 `KYC`、`Agent`、`临时对话浮层`、卡片背景、旧版背景纳入本次新增范围。
+    - 不要把页面示例 frame、截图或 demo 误写成新的 component family。
+    - 不要用普通矩形、渐变色块或截图背景替代正式 Figma 背景组件。
+    - 不要在本次只做 authoring 新增时扩展到 Agent 流程、canon、checklist、renderer 或 binding 产物。
+
+riskWarnings:
+  - id: page-background-wrong-hierarchy
+    severity: P0
+    rule: 页面层级背景选错会明显影响测试还原效果，尤其是 AI Chat、交易、我的、账户等二级页面。
+  - id: page-background-theme-mismatch
+    severity: P0
+    rule: 黑白版必须使用同一 `分类` 下的 `Dark=On/Off` 配对，不得跨分类混用。
+  - id: page-background-example-vs-component
+    severity: P1
+    rule: 示例页面只能作为使用实例，不得反向覆盖真实背景组件的 family 和 variant 定义。
+
+allowedZones:
+  - page_background
+  - app_shell_background
+  - page_root
+  - workspace_page_root
+  - secondary_page_root
+  - tertiary_page_root
+
+forbiddenZones:
+  - content_card
+  - message_feed
+  - bottom_bar
+  - top_nav
+  - modal_body
+  - screenshot_layer
+
+requiredPairings:
+  - matching-page-hierarchy
+  - matching-theme-dark-on-or-off
+
+forbiddenPairings:
+  - hand_drawn_solid_rect
+  - screenshot_background
+  - old-page-background-variant
+  - agent-background-variant
+  - kyc-background-variant
+  - temporary-dialog-background-variant
+
+examples:
+  good:
+    - name: 一级页面 / 黑白配对
+      reason: "`分类=新版工作区/一级`，按主题分别使用 `Dark=On` 与 `Dark=Off`。"
+    - name: AI Chat、交易、我的、账户二级页面
+      reason: 使用 `分类=新版二级页`，避免把二级页面套成一级工作区背景。
+    - name: 系统设置与深层设置页
+      reason: 使用 `分类=新三级页`，与更深层页面层级一致。
+  bad:
+    - name: 用白版一级页背景生成交易二级页
+      reason: 页面层级错误，测试时会出现背景氛围和层级不一致。
+    - name: 把 Figma 示例页面登记成 component family
+      reason: 示例页面只是 usage instance，真实 family 是 `背景/母组件`。
+
+componentHumanRules:
+  ruleScope: page-background-component-set
+  definition: >
+    `背景/母组件` 是当前真实背景 component set；本次只维护其中三类新版页面背景及黑白配对。
+  do:
+    - "`componentFamilies` 只登记真实 Figma 母组件。"
+    - 三类新增背景作为同一 component family 下的 variant rules 维护。
+    - 示例页面、测试页面和截图参考只进入 `usageInstanceGroups`。
+  dont:
+    - 不要为每张页面示例新增独立组件。
+    - 不要把未纳入本次范围的 `Agent` 背景扩展进本 brief。
+
+extensionModel:
+  mode: authoring-only
+  scopeThisTask:
+    - authoring/components/page-background.brief.yaml
+    - authoring/components/index.yaml
+  skippedByUserRequest:
+    - Agent expansion flow
+    - canon component expansion
+    - checklist expansion
+    - bindings expansion
+    - renderer expansion
+
+componentFamilies:
+  - id: page-background.repository-background
+    figmaNodeId: "400:26745"
+    figmaExactName: 背景/母组件
+    componentKey: e7d0e3570253b5e750c00103dd65780e31461aa7
+    familyType: component_set
+    bindingMode: must_use_library_instance
+    bindingFailurePolicy: stop_and_recheck
+    componentPropertyDefinitions:
+      分类:
+        type: VARIANT
+        relevantOptionsThisTask:
+          - 新版工作区/一级
+          - 新版二级页
+          - 新三级页
+      Dark:
+        type: VARIANT
+        relevantOptionsThisTask:
+          - "On"
+          - "Off"
+
+variantGroups:
+  - id: page-background.page-level
+    familyId: page-background.repository-background
+    propertyName: 分类
+    options:
+      - value: 新版工作区/一级
+        humanUse: primary_page_background
+        pageUse:
+          - 一级页面
+          - 新版工作区首页
+      - value: 新版二级页
+        humanUse: secondary_page_background
+        pageUse:
+          - AI Chat 对话流
+          - 个股详情
+          - 交易
+          - 我的
+          - 账户
+      - value: 新三级页
+        humanUse: tertiary_or_deeper_page_background
+        pageUse:
+          - 系统设置
+          - 交易功能设置
+          - 三、四、五级页面
+  - id: page-background.theme
+    familyId: page-background.repository-background
+    propertyName: Dark
+    options:
+      - value: "On"
+        humanUse: dark_theme_background
+      - value: "Off"
+        humanUse: light_theme_background
+
+familyVariantHumanRules:
+  - familyId: page-background.repository-background
+    variants:
+      - id: page-background.primary-dark
+        figmaNodeId: "400:26896"
+        figmaExactName: 分类=新版工作区/一级, Dark=On
+        componentKey: 96ce857c0183e6d76f1d7877af90c4a5509864fe
+        variantProperties:
+          分类: 新版工作区/一级
+          Dark: "On"
+        humanUse: 一级页面黑版背景
+      - id: page-background.secondary-dark
+        figmaNodeId: "400:26887"
+        figmaExactName: 分类=新版二级页, Dark=On
+        componentKey: ca3a343a58c18e625f9a7f10fe14faf125ca5c6e
+        variantProperties:
+          分类: 新版二级页
+          Dark: "On"
+        humanUse: 二级页面黑版背景
+      - id: page-background.tertiary-dark
+        figmaNodeId: "400:26886"
+        figmaExactName: 分类=新三级页, Dark=On
+        componentKey: 4e0fef2ae562e8f70988f5018c16b696b7ded4af
+        variantProperties:
+          分类: 新三级页
+          Dark: "On"
+        humanUse: 三级及更深层页面黑版背景
+      - id: page-background.primary-light
+        figmaNodeId: "400:26805"
+        figmaExactName: 分类=新版工作区/一级, Dark=Off
+        componentKey: a3a4ab7790fb34ab0cb1708986b968024fc70729
+        variantProperties:
+          分类: 新版工作区/一级
+          Dark: "Off"
+        humanUse: 一级页面白版背景
+      - id: page-background.secondary-light
+        figmaNodeId: "400:26800"
+        figmaExactName: 分类=新版二级页, Dark=Off
+        componentKey: 61dc4ada24787f491585bf54ff0e0ef4f8712431
+        variantProperties:
+          分类: 新版二级页
+          Dark: "Off"
+        humanUse: 二级页面白版背景
+      - id: page-background.tertiary-light
+        figmaNodeId: "400:26798"
+        figmaExactName: 分类=新三级页, Dark=Off
+        componentKey: 6f4c8c1c9abff12c361c61572819e0e7a0a0ad2b
+        variantProperties:
+          分类: 新三级页
+          Dark: "Off"
+        humanUse: 三级及更深层页面白版背景
+
+usageInstanceGroups:
+  - id: page-background.primary-page-examples
+    familyId: page-background.repository-background
+    purpose: 一级页面背景使用实例。
+    variantRefs:
+      - page-background.primary-dark
+      - page-background.primary-light
+    examples:
+      - frameNodeId: "400:27799"
+        frameName: 早点听首页
+        backgroundInstanceNodeId: "400:27800"
+        observedVariant:
+          分类: 新版工作区/一级
+          Dark: "On"
+      - frameNodeId: "400:27814"
+        frameName: 早点听-盘前-深色版
+        backgroundInstanceNodeId: "400:27815"
+        observedVariant:
+          分类: 新版工作区/一级
+          Dark: "On"
+      - frameNodeId: "400:28522"
+        frameName: 早点听首页
+        backgroundInstanceNodeId: "400:28523"
+        observedVariant:
+          分类: 新版工作区/一级
+          Dark: "Off"
+      - frameNodeId: "400:28529"
+        frameName: 早点听-盘前-浅色版
+        backgroundInstanceNodeId: "400:28530"
+        observedVariant:
+          分类: 新版工作区/一级
+          Dark: "Off"
+  - id: page-background.secondary-page-examples
+    familyId: page-background.repository-background
+    purpose: 二级页面背景使用实例；AI Chat、个股详情、交易、我的、账户等应按本组规则归类。
+    variantRefs:
+      - page-background.secondary-dark
+      - page-background.secondary-light
+    examples:
+      - frameNodeId: "400:28274"
+        frameName: 静态分组-标签在标的下
+        backgroundInstanceNodeId: "400:28275"
+        observedVariant:
+          分类: 新版二级页
+          Dark: "On"
+      - frameNodeId: "400:28315"
+        frameName: 交易
+        backgroundInstanceNodeId: "400:28316"
+        observedVariant:
+          分类: 新版二级页
+          Dark: "On"
+      - frameNodeId: "400:28843"
+        frameName: 我的
+        backgroundInstanceNodeId: "400:28844"
+        observedVariant:
+          分类: 新版二级页
+          Dark: "Off"
+      - frameNodeId: "400:28885"
+        frameName: 交易
+        backgroundInstanceNodeId: "400:28886"
+        observedVariant:
+          分类: 新版二级页
+          Dark: "Off"
+    notes:
+      - Some older visible examples in this Figma section still show AI Chat or stock-detail pages with `分类=新版工作区/一级`; treat the hierarchy rule above as the current authoring rule and re-check with design before changing those old instances.
+  - id: page-background.tertiary-page-examples
+    familyId: page-background.repository-background
+    purpose: 设置页和三、四、五级页面背景使用实例。
+    variantRefs:
+      - page-background.tertiary-dark
+      - page-background.tertiary-light
+    examples:
+      - frameNodeId: "400:26906"
+        frameName: 9.2.7 编辑分组-新建分组
+        backgroundInstanceNodeId: "400:26907"
+        observedVariant:
+          分类: 新三级页
+          Dark: "On"
+      - frameNodeId: "400:28447"
+        frameName: 自选-管理-黑
+        backgroundInstanceNodeId: "400:28448"
+        observedVariant:
+          分类: 新三级页
+          Dark: "On"
+      - frameNodeId: "400:24985"
+        frameName: 自选-管理-白
+        backgroundInstanceNodeId: "400:24986"
+        observedVariant:
+          分类: 新三级页
+          Dark: "Off"
+
+# ============================================================
+# 02_AGENT_EXTRACTED
+# Agent 自动读取区
+# ============================================================
+
+figma:
+  fileName: 设计仓库
+  fileKey: pbxELN7TYDDguIgbXfc1zB
+  canvasNodeId: "400:24979"
+  canvasName: 通用
+  sectionNodeId: "400:24983"
+  sectionName: 2.2 页面背景
+  componentSetNodeId: "400:26745"
+  componentSetName: 背景/母组件
+  componentKey: e7d0e3570253b5e750c00103dd65780e31461aa7
+  componentSetKey: e7d0e3570253b5e750c00103dd65780e31461aa7
+  bindingMode: must_use_library_instance
+  bindingFailurePolicy: stop_and_recheck
+  componentPropertyDefinitions:
+    分类:
+      type: VARIANT
+      allObservedOptions:
+        - 新版工作区/一级
+        - 新版二级页
+        - 新三级页
+        - KYC
+        - Agent
+        - 临时对话浮层
+        - 通栏卡片
+        - 非通栏卡片
+        - 旧一级页
+        - 旧二级页
+        - 大片
+    Dark:
+      type: VARIANT
+      allObservedOptions:
+        - "On"
+        - "Off"
+
+classification:
+  primitiveFamily: page_background
+  componentType: page-shell-foundation
+  riskLevel: high
+
+observedStructure:
+  componentSetLayout: horizontal variant strip
+  requestedNewVariantCount: 6
+  requestedCategoryCount: 3
+  relevantThemePairing:
+    dark: Dark=On
+    light: Dark=Off
+  excludedThisTask:
+    - KYC
+    - Agent
+    - 临时对话浮层
+    - 通栏卡片
+    - 非通栏卡片
+    - 旧一级页
+    - 旧二级页
+    - 大片
+
+tokens:
+  source: 设计仓库页面背景组件内部样式
+  status: TODO_VERIFY_WITH_FIGMA
+
+resourceRefs:
+  - figma://pbxELN7TYDDguIgbXfc1zB/400:24983
+  - figma://pbxELN7TYDDguIgbXfc1zB/400:26745
+
+# ============================================================
+# 03_AGENT_EXPANSION_AND_CHECKLIST
+# Agent 扩展与自查区
+# ============================================================
+
+reviewChecklist:
+  - id: page-background-authoring-only
+    severity: P0
+    question: 本次是否只新增 authoring brief 与 authoring index，而没有执行 Agent expansion？
+    passCriteria: 未新增或修改 canon、checklist、binding、renderer 产物。
+  - id: page-background-six-variants-only
+    severity: P0
+    question: 是否只维护三类新版背景及黑白配对共六个 variants？
+    passCriteria: "`familyVariantHumanRules` 只包含 新版工作区/一级、新版二级页、新三级页 的 Dark=On/Off。"
+  - id: page-background-hierarchy-match
+    severity: P0
+    question: 页面生成时是否按一级、二级、三级及更深层级选择背景？
+    passCriteria: 一级页面用 新版工作区/一级；AI Chat、个股详情、交易、我的、账户等用 新版二级页；系统设置和深层设置页用 新三级页。
+  - id: page-background-theme-pair
+    severity: P0
+    question: 黑白版是否使用同一 `分类` 下的 `Dark=On/Off` 配对？
+    passCriteria: 不跨分类混用黑白背景。
+  - id: page-background-examples-separated
+    severity: P1
+    question: 示例页面是否只进入 `usageInstanceGroups`？
+    passCriteria: page frame、截图、demo、prototype 均未写入 `componentFamilies`。
+
+agentExpansion:
+  status: skipped_by_user_request
+  reason: 本次不做 Agent 扩展流程，只在 authoring 下新增。
+  futureTargetsWhenApproved:
+    canonComponent:
+      path: canon/components/page-background.meta.yaml
+    checklist:
+      path: canon/checklists/page-background-review.yaml
+    figmaBinding:
+      path: bindings/figma/components.yaml

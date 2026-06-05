@@ -196,65 +196,142 @@ components:
     exampleNodeName: 背景
     figmaExactName: 背景
     componentKey: 57900b6e064fd94b5c32a1efe9feff70bea8e4d9
+    importMetadataStatus: pending_reverification_after_library_polish
+    libraryPublishStatus: published_polished_version_reported_by_user
+    crossFileImportStatus: resolved_reported_by_user
+    fontCompatibilityPolicy: agents/openai.yaml#component_first_figma_generation_prompt.font_compatibility
+    lastVerifiedAt: "2026-06-05"
+    lastVerifiedTargetFileKey: 2irbg73G1Yw2O9BFs3FjQR
     familyBindings:
       - familyId: market-index.background-shell
         nodeId: "7:6911"
         figmaExactName: 背景
+        nodeType: COMPONENT_SET
+        importApi: importComponentSetByKeyAsync
         componentKey: 57900b6e064fd94b5c32a1efe9feff70bea8e4d9
+        publishedImportStatus: verified
+        lastVerifiedAt: "2026-06-05"
+        lastVerifiedTargetFileKey: 2irbg73G1Yw2O9BFs3FjQR
+        fallbackMode: stop_then_binding_pending_fallback
       - familyId: market-index.title-block
         nodeId: "7:6941"
         figmaExactName: 标题
+        nodeType: COMPONENT_SET
+        importApi: importComponentSetByKeyAsync
         componentKey: 4d75187a01c3ad765b44a17f8da1505bde802916
+        publishedImportStatus: verified
+        lastVerifiedAt: "2026-06-05"
+        lastVerifiedTargetFileKey: 2irbg73G1Yw2O9BFs3FjQR
+        fallbackMode: stop_then_binding_pending_fallback
       - familyId: market-index.index-summary
         nodeId: "7:6302"
         figmaExactName: 指数
+        nodeType: COMPONENT
+        importApi: importComponentByKeyAsync
         componentKey: 2c8497856e210074e83c2183bcf545ce863041d1
+        publishedImportStatus: verified
+        lastVerifiedAt: "2026-06-05"
+        lastVerifiedTargetFileKey: 2irbg73G1Yw2O9BFs3FjQR
+        fallbackMode: stop_then_binding_pending_fallback
       - familyId: market-index.abnormal-a-share
         nodeId: "7:6303"
         figmaExactName: A股异动
+        nodeType: COMPONENT
+        importApi: importComponentByKeyAsync
         componentKey: 3255456fccafa816bf6c55f489fd6838b8233773
+        publishedImportStatus: verified
+        lastVerifiedAt: "2026-06-05"
+        lastVerifiedTargetFileKey: 2irbg73G1Yw2O9BFs3FjQR
+        fallbackMode: stop_then_binding_pending_fallback
       - familyId: market-index.hot-question-toggle
         nodeId: "23:17460"
         figmaExactName: A股异动/热问开关
+        nodeType: COMPONENT
+        importApi: importComponentByKeyAsync
         componentKey: f07956989f78bf36f7db0980ceea901bbcef7f56
+        publishedImportStatus: pending_reverification_after_library_polish
+        fallbackMode: binding_pending_fallback
       - familyId: market-index.barrage-panel
         nodeId: "7:6304"
         figmaExactName: 弹幕
+        nodeType: COMPONENT
+        importApi: importComponentByKeyAsync
         componentKey: cf254d3f385a8f67c0d72cca09a8804371a42f32
+        publishedImportStatus: pending_reverification_after_library_polish
+        fallbackMode: binding_pending_fallback
       - familyId: market-index.barrage-chip
         nodeId: "18:671"
         figmaExactName: 弹幕/消息
+        nodeType: COMPONENT_SET
+        importApi: importComponentSetByKeyAsync
         componentKey: dce56f741cdde76c8ff3c27e5ffaca7a69c8b60f
+        publishedImportStatus: pending_reverification_after_library_polish
+        fallbackMode: binding_pending_fallback
       - familyId: market-index.auction-panel
         nodeId: "7:6305"
         figmaExactName: 竞价
+        nodeType: COMPONENT
+        importApi: importComponentByKeyAsync
         componentKey: eb51e27c77855c0da3c2d75c57084f868f333f9e
+        publishedImportStatus: verified
+        lastVerifiedAt: "2026-06-05"
+        lastVerifiedTargetFileKey: 2irbg73G1Yw2O9BFs3FjQR
+        fallbackMode: stop_then_binding_pending_fallback
       - familyId: market-index.tab-strip
         nodeId: "7:6306"
         figmaExactName: tab
+        nodeType: COMPONENT
+        importApi: importComponentByKeyAsync
         componentKey: fbf10f16cd65f78f3761bdc669b76bea7ef966cb
+        publishedImportStatus: verified
+        lastVerifiedAt: "2026-06-05"
+        lastVerifiedTargetFileKey: 2irbg73G1Yw2O9BFs3FjQR
+        fallbackMode: stop_then_binding_pending_fallback
         status: temporary_scene_reference_until_system_layer_binding
       - familyId: market-index.tab-pill
         nodeId: "3:200"
         figmaExactName: tab/胶囊
+        nodeType: COMPONENT
+        importApi: importComponentByKeyAsync
         componentKey: 93dd72982c8c516bfc14043c354b8c10f4c31a35
+        publishedImportStatus: pending_reverification_after_library_polish
+        fallbackMode: binding_pending_fallback
         status: temporary_scene_reference_until_system_layer_binding
       - familyId: market-index.news-card
         nodeId: "3:5704"
         figmaExactName: 资讯
+        nodeType: COMPONENT_SET
+        importApi: importComponentSetByKeyAsync
         componentKey: e2a6f4fcf59d06d2b7b3ed4e4b9e5a30e38ec130
+        publishedImportStatus: pending_reverification_after_library_polish
+        lastVerifiedAt: "2026-06-05"
+        lastVerifiedTargetFileKey: 2irbg73G1Yw2O9BFs3FjQR
+        previousImportError: Component with key not found before the polished Library publish; recheck against the latest published Library before marking verified.
+        fallbackMode: binding_pending_fallback
       - familyId: market-index.news-title
         nodeId: "22:16610"
         figmaExactName: 资讯/标题
+        nodeType: COMPONENT
+        importApi: importComponentByKeyAsync
         componentKey: 2d924e405d279a2a4318d4d59d966ed7d76a732c
+        publishedImportStatus: pending_reverification_after_library_polish
+        fallbackMode: binding_pending_fallback
       - familyId: market-index.news-tip
         nodeId: "22:16697"
         figmaExactName: 资讯/提示
+        nodeType: COMPONENT
+        importApi: importComponentByKeyAsync
         componentKey: 0ae9ee8ac6e221c9f3bd0c790e2a28d5840dc346
+        publishedImportStatus: pending_reverification_after_library_polish
+        fallbackMode: binding_pending_fallback
       - familyId: market-index.scroll-guide
         nodeId: "64:42977"
         figmaExactName: 滑动引导
+        nodeType: COMPONENT
+        importApi: importComponentByKeyAsync
         componentKey: ebb78f7166ea597992916cafa56e249e96397ab0
+        publishedImportStatus: pending_reverification_after_library_polish
+        fallbackMode: binding_pending_fallback
     confirmedVariantGroups:
       backgroundShell:
         familyId: market-index.background-shell
