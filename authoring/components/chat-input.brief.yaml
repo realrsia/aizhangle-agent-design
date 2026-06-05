@@ -61,7 +61,7 @@ forbiddenPairings:
 # [HUMAN REQUIRED]
 componentFamilies:
   - id: chat-input.dialog-bottom-bar
-    figmaNodeId: "392:75769"
+    figmaNodeId: "400:25177"
     canonicalName: bottom bar/母组件
     sourceFigmaExactName: 1月版/母组件
     sourceNameStatus: repository_component_confirmed
@@ -72,7 +72,7 @@ componentFamilies:
       - 用作对话页底部输入栏，不作为普通底部导航。
       - 保留输入胶囊、Agent 助手胶囊、AI 生成提示和 home indicator。
   - id: chat-input.repository-bottom-bar
-    figmaNodeId: "392:69807"
+    figmaNodeId: "400:29333"
     figmaExactName: 1月版/母组件
     familyType: component_instance
     humanUse: ai_chat_simple_voice_composer_reference
@@ -82,9 +82,9 @@ componentFamilies:
 # [HUMAN REQUIRED]
 examples:
   good:
-    - figmaNodeId: "392:75769"
+    - figmaNodeId: "400:25177"
       reason: 对话白版中的完整底部 composer，包含输入胶囊、Agent 助手胶囊、AI 生成提示和 home indicator。
-    - figmaNodeId: "392:69807"
+    - figmaNodeId: "400:29333"
       reason: 简化语音输入状态，可作为仅包含输入胶囊和左右动作按钮的参考。
   needsReview:
     - name: 黑版完整 composer
@@ -103,7 +103,9 @@ figma:
   fileKey: pbxELN7TYDDguIgbXfc1zB
   canvasNodeId: "212:2"
   canvasName: 对话流
-  exampleNodeId: "392:75769"
+  sourceSectionNodeId: "400:24983"
+  sourceSectionName: 2.2 页面背景
+  exampleNodeId: "400:25177"
   canonicalName: bottom bar/母组件
   sourceFigmaExactName: 1月版/母组件
   sourceNameStatus: repository_component_confirmed
@@ -111,8 +113,8 @@ figma:
   mainComponentKey: TODO_VERIFY_WITH_FIGMA
   bindingMode: must_use_library_instance
   bindingFailurePolicy: stop_and_recheck
-  fullComposerNodeId: "392:75769"
-  simpleVoiceComposerNodeId: "392:69807"
+  fullComposerNodeId: "400:25177"
+  simpleVoiceComposerNodeId: "400:29333"
   fullComposerComponentKey: TODO_VERIFY_WITH_FIGMA
   simpleVoiceComposerComponentKey: TODO_VERIFY_WITH_FIGMA
   propertyHints:
@@ -194,8 +196,9 @@ resourceRefs:
   - docs/references/bottom-bar/agent-chips.md
   - bindings/assets/files/templates/bottom-bar-component.json
   - figma://pbxELN7TYDDguIgbXfc1zB/212:2
-  - figma://pbxELN7TYDDguIgbXfc1zB/392:75769
-  - figma://pbxELN7TYDDguIgbXfc1zB/392:69807
+  - figma://pbxELN7TYDDguIgbXfc1zB/400:24983
+  - figma://pbxELN7TYDDguIgbXfc1zB/400:25177
+  - figma://pbxELN7TYDDguIgbXfc1zB/400:29333
 
 # ============================================================
 # 03_AGENT_EXPANSION_AND_CHECKLIST

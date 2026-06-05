@@ -66,7 +66,7 @@ forbiddenPairings:
 # [HUMAN REQUIRED]
 componentFamilies:
   - id: message-feed.user-input
-    figmaNodeId: "392:75641"
+    figmaNodeId: "400:25049"
     figmaExactName: 用户输入
     componentSetKey: TODO_VERIFY_WITH_FIGMA
     mainComponentKey: TODO_VERIFY_WITH_FIGMA
@@ -75,7 +75,7 @@ componentFamilies:
     familyType: component_set_instance
     humanUse: draft_user_question_bubble
   - id: message-feed.assistant-avatar
-    figmaNodeId: "392:75643"
+    figmaNodeId: "400:25051"
     figmaExactName: 智能体输出/AI头像
     componentSetKey: TODO_VERIFY_WITH_FIGMA
     mainComponentKey: TODO_VERIFY_WITH_FIGMA
@@ -86,7 +86,7 @@ componentFamilies:
     familyType: component_set_instance
     humanUse: draft_assistant_identity
   - id: message-feed.answer-status
-    figmaNodeId: "392:75647"
+    figmaNodeId: "400:25055"
     figmaExactName: 智能体输出/回答状态
     componentSetKey: TODO_VERIFY_WITH_FIGMA
     mainComponentKey: TODO_VERIFY_WITH_FIGMA
@@ -97,7 +97,7 @@ componentFamilies:
     familyType: component_set_instance
     humanUse: draft_answer_status_or_reasoning_entry
   - id: message-feed.answer-body
-    figmaNodeId: "392:75729"
+    figmaNodeId: "400:25137"
     figmaExactName: 智能体输出/内容/正文
     componentSetKey: TODO_VERIFY_WITH_FIGMA
     mainComponentKey: TODO_VERIFY_WITH_FIGMA
@@ -107,7 +107,7 @@ componentFamilies:
     familyType: component_set_instance
     humanUse: draft_answer_body
   - id: message-feed.related-question
-    figmaNodeId: "392:75766"
+    figmaNodeId: "400:25174"
     figmaExactName: item/关联问/off
     componentSetKey: TODO_VERIFY_WITH_FIGMA
     mainComponentKey: TODO_VERIFY_WITH_FIGMA
@@ -118,30 +118,30 @@ componentFamilies:
     familyType: component_set_instance
     humanUse: draft_related_question
   - id: message-feed.reasoning-panel
-    figmaNodeId: "392:75650"
+    figmaNodeId: "400:25058"
     figmaExactName: 思维链
     familyType: semantic_frame_with_component_instance_candidate
     humanUse: reasoning_chain_panel_do_not_render_as_generic_card
-    specNodeId: "392:75650"
+    specNodeId: "400:25058"
     specExactName: 思维链
-    variantCandidateNodeId: "392:75648"
+    variantCandidateNodeId: "400:25056"
     variantCandidateExactName: 智能体输出/思考链/完成态/Off/On
     variantCandidateComponentKey: TODO_VERIFY_WITH_FIGMA
 
 # [HUMAN REQUIRED]
 usageInstanceGroups:
   - id: message-feed.dialog-white-demo
-    figmaNodeId: "392:75634"
+    figmaNodeId: "400:25042"
     figmaExactName: 对话-白版
     usageType: demo_frame
     note: 不应作为单一母组件；用于白色对话长回答、思维链、表格和关联问组合参考。
   - id: message-feed.dialog-white-stack
-    figmaNodeId: "392:75640"
+    figmaNodeId: "400:25048"
     figmaExactName: Frame 2147231007
     usageType: message_feed_stack
     note: 对话-白版中的主要消息流内容堆栈，用于观察 user message、assistant identity、reasoning、answer body、footer 的组合。
   - id: message-feed.related-questions-white
-    figmaNodeId: "392:75765"
+    figmaNodeId: "400:25173"
     figmaExactName: related_questions_stack
     usageType: related_questions_reference
     note: 对话-白版中的关联问列表区域，属于 message_feed 内容尾部。
@@ -203,13 +203,13 @@ businessContentComponentRefs:
 # [HUMAN REQUIRED]
 examples:
   good:
-    - figmaNodeId: "392:75634"
+    - figmaNodeId: "400:25042"
       reason: 对话白版包含用户输入、AI 输出、思考链、正文、footer、底部 composer 和关联问。
   needsReview:
     - name: AI 头像与回答状态正式 componentKey
       reason: 当前已切换到新设计仓库节点；componentKey 仍需从 Figma 组件面板确认。
     - name: 思考过程组件归属
-      reason: 当前以 392:75650 的思维链语义 frame 为准；仍需确认是否存在独立母组件。
+      reason: 当前以 400:25058 的思维链语义 frame 为准；仍需确认是否存在独立母组件。
     - name: 黑版 message-feed
       reason: 当前新设计仓库已确认白版消息流；黑版节点需继续确认。
     - name: 股票信息卡与 K 线图
@@ -228,13 +228,15 @@ figma:
   fileKey: pbxELN7TYDDguIgbXfc1zB
   canvasNodeId: "212:2"
   canvasName: 对话流
-  exampleNodeId: "392:75640"
+  exampleNodeId: "400:25048"
   figmaExactName: 对话-白版 / message-feed stack
   componentKey: not_a_component_instance
   bindingMode: semantic_structure_match
   bindingFailurePolicy: stop_and_recheck
-  priorityFrameNodeId: "392:75634"
-  priorityStackNodeId: "392:75640"
+  sourceSectionNodeId: "400:24983"
+  sourceSectionName: 2.2 页面背景
+  priorityFrameNodeId: "400:25042"
+  priorityStackNodeId: "400:25048"
 
 classification:
   primitiveFamily: message_feed
@@ -297,7 +299,7 @@ tokens:
   source:
     - bindings/assets/files/design-tokens/chat-fidelity-tokens.json
   reasoningChain:
-    specNodeId: "392:75650"
+    specNodeId: "400:25058"
     fontSize: 14px Regular
     textColor: TODO_VERIFY_WITH_FIGMA
     lineHeight: 1.5x
@@ -320,13 +322,17 @@ resourceRefs:
   - docs/references/fidelity/chat-fidelity-reconstruction.md
   - canon/archetypes/mobile-chat-page.yaml
   - figma://pbxELN7TYDDguIgbXfc1zB/212:2
-  - figma://pbxELN7TYDDguIgbXfc1zB/392:75634
-  - figma://pbxELN7TYDDguIgbXfc1zB/392:75640
-  - figma://pbxELN7TYDDguIgbXfc1zB/392:75641
-  - figma://pbxELN7TYDDguIgbXfc1zB/392:75643
-  - figma://pbxELN7TYDDguIgbXfc1zB/392:75647
-  - figma://pbxELN7TYDDguIgbXfc1zB/392:75650
-  - figma://pbxELN7TYDDguIgbXfc1zB/392:75765
+  - figma://pbxELN7TYDDguIgbXfc1zB/400:24983
+  - figma://pbxELN7TYDDguIgbXfc1zB/400:25042
+  - figma://pbxELN7TYDDguIgbXfc1zB/400:25048
+  - figma://pbxELN7TYDDguIgbXfc1zB/400:25049
+  - figma://pbxELN7TYDDguIgbXfc1zB/400:25051
+  - figma://pbxELN7TYDDguIgbXfc1zB/400:25055
+  - figma://pbxELN7TYDDguIgbXfc1zB/400:25056
+  - figma://pbxELN7TYDDguIgbXfc1zB/400:25058
+  - figma://pbxELN7TYDDguIgbXfc1zB/400:25137
+  - figma://pbxELN7TYDDguIgbXfc1zB/400:25173
+  - figma://pbxELN7TYDDguIgbXfc1zB/400:25174
 
 # ============================================================
 # 03_AGENT_EXPANSION_AND_CHECKLIST

@@ -20,7 +20,7 @@ primaryUserGoal: >
 
 # [HUMAN REQUIRED]
 requiredContent:
-  - 页面背景，必须使用对话流光线平铺背景，不使用首页卡片背景。
+  - 页面背景，必须使用 2.2 页面背景中的对话流光线平铺背景，不使用首页卡片背景。
   - 固定顶部对话导航栏。
   - 用户问题气泡。
   - AI 头像/身份行。
@@ -86,25 +86,27 @@ figmaRefs:
     role: dialog_module_component_repository_source
     canvasNodeId: "212:2"
     canvasName: 对话流
-    priorityFrameNodeId: "392:75634"
+    sourceSectionNodeId: "400:24983"
+    sourceSectionName: 2.2 页面背景
+    priorityFrameNodeId: "400:25042"
     priorityFrameName: 对话-白版
     relatedFrames:
-      - nodeId: "392:75635"
+      - nodeId: "400:25043"
         name: 背景/背景
         role: ai_chat_light_background_with_light_beams
-      - nodeId: "392:75357"
+      - nodeId: "400:25178"
         name: 1月版全屏对话导航栏
-        role: fullscreen_chat_topbar_component_set
-      - nodeId: "392:75769"
+        role: fullscreen_chat_topbar_light_instance
+      - nodeId: "400:25177"
         name: 1月版/母组件
         role: full_bottom_composer_with_agent_chips
-      - nodeId: "392:69807"
+      - nodeId: "400:29333"
         name: 1月版/母组件
         role: simple_voice_bottom_composer
-      - nodeId: "392:75640"
+      - nodeId: "400:25048"
         name: Frame 2147231007
         role: message_feed_stack
-      - nodeId: "392:75765"
+      - nodeId: "400:25173"
         name: related_questions_stack
         role: related_questions_reference
 assetRefs:
@@ -120,7 +122,7 @@ knownGenerationFailures:
   - id: missing-fonts
     summary: 跨页克隆或改写组件文字时遇到 PingFang SC / SF Pro Text 字体不可用。
   - id: wrong-ai-chat-background
-    summary: 生成对话流时误用首页卡片背景；应绑定 392:75635 的对话页光线平铺背景。
+    summary: 生成对话流时误用首页卡片背景；应绑定 400:25043 的对话页光线平铺背景。
 
 # ============================================================
 # 03_AGENT_EXPANSION_AND_CHECKLIST
