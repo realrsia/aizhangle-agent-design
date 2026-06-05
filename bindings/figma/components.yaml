@@ -185,6 +185,226 @@ components:
     verificationGaps:
       - Body, button, and source text override targets are confirmed as semantic fields; exact override property IDs still need Figma verification before automated override.
       - Figma image hashes for decoration images are confirmed in authoring but are not local asset files.
+  component.market-index-modules:
+    bindingMode: must_use_real_component_family
+    bindingFailurePolicy: stop_and_recheck
+    status: partial
+    sourceBrief: authoring/components/market-index-modules.brief.yaml
+    fileName: 设计仓库
+    fileKey: pbxELN7TYDDguIgbXfc1zB
+    exampleNodeId: "7:6911"
+    exampleNodeName: 背景
+    figmaExactName: 背景
+    componentKey: 57900b6e064fd94b5c32a1efe9feff70bea8e4d9
+    familyBindings:
+      - familyId: market-index.background-shell
+        nodeId: "7:6911"
+        figmaExactName: 背景
+        componentKey: 57900b6e064fd94b5c32a1efe9feff70bea8e4d9
+      - familyId: market-index.title-block
+        nodeId: "7:6941"
+        figmaExactName: 标题
+        componentKey: 4d75187a01c3ad765b44a17f8da1505bde802916
+      - familyId: market-index.index-summary
+        nodeId: "7:6302"
+        figmaExactName: 指数
+        componentKey: 2c8497856e210074e83c2183bcf545ce863041d1
+      - familyId: market-index.abnormal-a-share
+        nodeId: "7:6303"
+        figmaExactName: A股异动
+        componentKey: 3255456fccafa816bf6c55f489fd6838b8233773
+      - familyId: market-index.hot-question-toggle
+        nodeId: "23:17460"
+        figmaExactName: A股异动/热问开关
+        componentKey: f07956989f78bf36f7db0980ceea901bbcef7f56
+      - familyId: market-index.barrage-panel
+        nodeId: "7:6304"
+        figmaExactName: 弹幕
+        componentKey: cf254d3f385a8f67c0d72cca09a8804371a42f32
+      - familyId: market-index.barrage-chip
+        nodeId: "18:671"
+        figmaExactName: 弹幕/消息
+        componentKey: dce56f741cdde76c8ff3c27e5ffaca7a69c8b60f
+      - familyId: market-index.auction-panel
+        nodeId: "7:6305"
+        figmaExactName: 竞价
+        componentKey: eb51e27c77855c0da3c2d75c57084f868f333f9e
+      - familyId: market-index.tab-strip
+        nodeId: "7:6306"
+        figmaExactName: tab
+        componentKey: fbf10f16cd65f78f3761bdc669b76bea7ef966cb
+        status: temporary_scene_reference_until_system_layer_binding
+      - familyId: market-index.tab-pill
+        nodeId: "3:200"
+        figmaExactName: tab/胶囊
+        componentKey: 93dd72982c8c516bfc14043c354b8c10f4c31a35
+        status: temporary_scene_reference_until_system_layer_binding
+      - familyId: market-index.news-card
+        nodeId: "3:5704"
+        figmaExactName: 资讯
+        componentKey: e2a6f4fcf59d06d2b7b3ed4e4b9e5a30e38ec130
+      - familyId: market-index.news-title
+        nodeId: "22:16610"
+        figmaExactName: 资讯/标题
+        componentKey: 2d924e405d279a2a4318d4d59d966ed7d76a732c
+      - familyId: market-index.news-tip
+        nodeId: "22:16697"
+        figmaExactName: 资讯/提示
+        componentKey: 0ae9ee8ac6e221c9f3bd0c790e2a28d5840dc346
+      - familyId: market-index.scroll-guide
+        nodeId: "64:42977"
+        figmaExactName: 滑动引导
+        componentKey: ebb78f7166ea597992916cafa56e249e96397ab0
+    confirmedVariantGroups:
+      backgroundShell:
+        familyId: market-index.background-shell
+        properties:
+          - 页面
+          - dark
+        variants:
+          - 页面=1屏, dark=on
+          - 页面=全屏, dark=on
+          - 页面=1屏, dark=off
+          - 页面=全屏, dark=off
+      titleBlock:
+        familyId: market-index.title-block
+        variants:
+          - dark=on
+          - dark=off
+      newsCard:
+        familyId: market-index.news-card
+        variants:
+          - 分类=板块
+          - 分类=华泰观市
+          - 分类=行情异动
+          - 分类=专属内容
+          - 分类=行情速览
+          - 分类=事件捕手
+          - 分类=市场要闻
+    usageInstanceGroups:
+      - groupId: market-index.usage.full-dark
+        nodeId: "30:16491"
+        figmaExactName: 大盘_全量_dark
+        usageType: positive-example-not-component-family
+      - groupId: market-index.usage.full-light
+        nodeId: "30:17191"
+        figmaExactName: 大盘_全量_light
+        usageType: positive-example-not-component-family
+      - groupId: market-index.usage.first-screen-dark
+        nodeId: "3:2360"
+        figmaExactName: 大盘_1屏_dark
+        usageType: first-screen-crop-not-component-family
+      - groupId: market-index.usage.first-screen-light
+        nodeId: "3:4021"
+        figmaExactName: 大盘_1屏_light
+        usageType: first-screen-crop-not-component-family
+    textOverrideTargets:
+      status: semantic-fields-recorded-in-authoring
+      exactOverridePropertyIds: TODO_VERIFY_WITH_FIGMA
+    verificationGaps:
+      - Exact text override property IDs are not confirmed.
+      - System-layer tab binding should be replaced when formal system component IDs are available.
+      - Background token/variable binding must still be resolved through standard light/dark theme mappings.
+  component.trading-page-modules:
+    bindingMode: must_use_library_instance
+    bindingFailurePolicy: stop_and_recheck
+    status: partial
+    sourceBrief: authoring/components/trading-page-modules.brief.yaml
+    fileName: 设计仓库
+    fileKey: pbxELN7TYDDguIgbXfc1zB
+    exampleNodeId: "37:26221"
+    figmaExactName: TOP母组件 / 设置母组件 / 信息母组件
+    componentKey: MULTIPLE_COMPONENT_KEYS_SEE_FAMILY_BINDINGS
+    familyBindings:
+      - familyId: trading.top-nav.account-switch
+        nodeId: "37:26291"
+        figmaExactName: 分类=账户切换
+        componentKey: f43a63c1c240dc74881fcc08f323ef58229f2b76
+        parentComponentSetKey: 359d13bedc463187429de22efd6010b6d979cfc2
+      - familyId: trading.top-nav.page-slide
+        nodeId: "37:26322"
+        figmaExactName: 分类=页面滑动
+        componentKey: c20c267dffaff9614e660477e3c7156cb0ee0dbb
+        parentComponentSetKey: 359d13bedc463187429de22efd6010b6d979cfc2
+      - familyId: trading.top-nav.paper-trading
+        nodeId: "37:26305"
+        figmaExactName: 分类=模拟交易
+        componentKey: ed6b5cb882bbf96172760276668e9db3679cac85
+        parentComponentSetKey: 359d13bedc463187429de22efd6010b6d979cfc2
+      - familyId: trading.settings-panel.main
+        nodeId: "37:26556"
+        figmaExactName: 设置母组件
+        componentKey: 8183d08eb6c0847f0f2a878ab9460fb13c0c319a
+      - familyId: trading.info.holdings
+        nodeId: "37:26364"
+        figmaExactName: 分类=持仓, 有内容=On, Dark=Off
+        componentKey: a2a9e5103bfa731cf4dbf970ce0363177514c624
+        parentComponentSetKey: 5367dbf9c68c89fa22bc02f71f28e7aa8a25a626
+      - familyId: trading.info.contract
+        nodeId: "37:26384"
+        figmaExactName: 分类=合约, 有内容=On, Dark=Off
+        componentKey: 0f62829629acdebc2d003392b615b6cea9059316
+        parentComponentSetKey: 5367dbf9c68c89fa22bc02f71f28e7aa8a25a626
+      - familyId: trading.info.entrust
+        nodeId: "37:26427"
+        figmaExactName: 分类=委托, 有内容=On, Dark=Off
+        componentKey: b462bcec221d2a0485d89c1d8bbce6fa68825c47
+        parentComponentSetKey: 5367dbf9c68c89fa22bc02f71f28e7aa8a25a626
+      - familyId: trading.info.condition-order
+        nodeId: "37:26434"
+        figmaExactName: 分类=条件单, 有内容=On, Dark=Off
+        componentKey: 744971ecd4383e173207bed9079bd4b174ca7b90
+        parentComponentSetKey: 5367dbf9c68c89fa22bc02f71f28e7aa8a25a626
+      - familyId: trading.info.history-entrust
+        nodeId: "37:26400"
+        figmaExactName: 分类=历史/历史委托, 有内容=On, Dark=Off
+        componentKey: 92abc1b8937596cef9f593bdd630ad142f732832
+        parentComponentSetKey: 5367dbf9c68c89fa22bc02f71f28e7aa8a25a626
+      - familyId: trading.info.history-strategy
+        nodeId: "37:26455"
+        figmaExactName: 分类=历史/历史策略, 有内容=On, Dark=Off
+        componentKey: be29e2c7c22aadf7496ad911297896bc734be63c
+        parentComponentSetKey: 5367dbf9c68c89fa22bc02f71f28e7aa8a25a626
+      - familyId: trading.info.condition-order.strategy-info
+        nodeId: "37:28486"
+        figmaExactName: item/信息/条件单&策略/策略信息
+        componentKey: 62cf664737e20bfd6305216970d46377f6881a60
+        status: component_set_node_confirmed
+      - familyId: trading.info.condition-order.trade-info
+        nodeId: "37:28507"
+        figmaExactName: item/信息/条件单&策略/交易信息
+        componentKey: TODO_VERIFY_WITH_FIGMA
+        status: component_set_node_confirmed_key_pending
+      - familyId: trading.info.condition-order.action-area
+        nodeId: "37:28159"
+        figmaExactName: item/信息/操作区域
+        optionComponentKey: ee0988243f57dbb66a15339fd9a89530034e13b7
+        iconComponentSetKey: e62e5eac2d33a45de2cd638a8611335cd7320ee2
+        status: component_set_node_confirmed
+    usageInstanceGroups:
+      - groupId: trading.usage.selected-top-region
+        nodeId: "37:26221"
+        figmaExactName: TOP母组件
+        usageType: selected-component-set-not-single-family
+      - groupId: trading.usage.selected-settings-family
+        nodeId: "37:26556"
+        figmaExactName: 设置母组件
+        usageType: selected-component-family
+      - groupId: trading.usage.selected-info-region
+        nodeId: "37:26343"
+        figmaExactName: 信息母组件
+        usageType: selected-component-set-not-single-family
+    textOverrideTargets:
+      status: TODO_VERIFY_WITH_FIGMA
+    dependencyComponents:
+      - component.trading-input
+      - component.trading-action-button
+      - component.bottom-bar
+      - component.switch
+    verificationGaps:
+      - Exact text override targets are not confirmed.
+      - Some child family component keys are shared instances or composed children; do not promote source-selection containers as component keys.
+      - High-risk submit actions must remain bound through `component.trading-action-button`.
   component.chat-background:
     bindingMode: must_use_library_instance
     bindingFailurePolicy: stop_and_recheck

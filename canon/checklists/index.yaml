@@ -8,6 +8,7 @@ checklists:
   - canon/checklists/chat-topbar-review.yaml
   - canon/checklists/divider-review.yaml
   - canon/checklists/input-review.yaml
+  - canon/checklists/market-index-modules-review.yaml
   - canon/checklists/message-feed-review.yaml
   - canon/checklists/overlay-review.yaml
   - canon/checklists/switch-review.yaml
@@ -15,3 +16,4 @@ checklists:
   - canon/checklists/tag-review.yaml
   - canon/checklists/trading-action-button-review.yaml
   - canon/checklists/trading-input-review.yaml
+  - canon/checklists/trading-page-modules-review.yaml

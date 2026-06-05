@@ -55,10 +55,6 @@
     "schemaIndex": "schemas/index.yaml"
   },
   "generated": {
-    "css": "generated/css/",
-    "json": "generated/json/",
-    "markdown": "generated/markdown/",
-    "searchIndex": "generated/search-index/",
     "componentDocsIndex": "docs/generated/components/index.md"
   },
   "aesthetics": {

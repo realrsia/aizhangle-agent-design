@@ -14,7 +14,7 @@ It keeps the useful materials from the integrated skill package, but changes the
 - `bindings/` connects canonical objects to Figma and local assets.
 - `renderers/` maps canonical/Figma identity to low-fidelity H5 or HTML prototype output.
 - `docs/` keeps human-readable references and case studies.
-- `generated/` is reserved for derived CSS, Markdown, JSON bundles, and search indexes.
+- `docs/generated/` keeps generated indexes derived from canonical data.
 - `sources/` records provenance and points back to the original package.
 
 ## Current Status

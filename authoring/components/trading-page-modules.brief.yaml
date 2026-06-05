@@ -1,0 +1,1853 @@
+# ============================================================
+# 01_HUMAN_REQUIRED
+# 人工必填区
+# ============================================================
+
+id: component.trading-page-modules
+name: 交易页面模块组件族
+owner: design-system
+status: draft
+purpose: 维护交易页面中的顶部上下文、设置区和信息区等页面级 Figma 组件 family。交易输入控件和交易行动按钮仍作为独立共享组件维护，本文件只负责页面模块组件族。
+usedIn:
+- trading_context_header
+- account-switch-header
+- stock_trading_detail_header
+- paper-trading-header
+- trading_setting_panel
+- condition_order_setting_panel
+- trading_order_form
+- trading_info_panel
+- position_info_panel
+- contract_info_panel
+- entrust_info_panel
+- condition_order_info_panel
+humanRules:
+  do:
+  - 把交易顶部、设置区和信息区作为同一交易页面模块 brief 下的多个独立 component family 维护。
+  - 每个真实母组件或 component set 保留自己的使用场景、允许区域、禁用区域、风险边界和变体规则。
+  - 交易输入控件继续引用 `component.trading-input`，交易买卖撤等高风险行动继续引用 `component.trading-action-button`。
+  - 页面级正例、prototype 或 source selection 证据只进入 `usageInstanceGroups`。
+  dont:
+  - 不要把交易顶部、设置区和信息区拆成多个相互孤立的页面模块 brief。
+  - 不要把交易输入控件或交易行动按钮重新定义为页面模块内部私有组件。
+  - 不要把当前委托、历史委托、条件单、历史策略混成一个通用列表组件。
+  - 不要在 componentKey、文本覆盖字段或真实 variant property 未确认时硬猜。
+riskWarnings:
+- id: trading-page-context-and-parameter-risk
+  severity: P0
+  rule: 交易页面模块同时承载账户/标的上下文、交易参数和信息区状态；任一模块错位都会误导交易理解。
+- id: trading-page-action-boundary
+  severity: P0
+  rule: 页面模块内出现的买入、卖出、撤单、批量、再来一单等入口必须保持正确交易语义，不得降级成普通按钮或错误提升为主提交区。
+allowedZones:
+- trading_page
+- trading_context_header
+- trading_setting_panel
+- trading_info_panel
+- condition_order_info_panel
+- position_info_panel
+- contract_info_panel
+- entrust_info_panel
+forbiddenZones:
+- generic_dashboard_card
+- generic_form_card
+- generic_data_table
+- ordinary_button_group
+- ai_chat_message_body
+- marketing_or_content_card
+requiredPairings:
+- trading-context
+- selected-security
+- component.trading-input
+- component.trading-action-button
+forbiddenPairings:
+- screenshot-as-component-definition
+- generic-input-only
+- generic-data-table
+- trading-submit-area-without-context
+examples:
+  good:
+  - figmaNodeId: 37:26221
+    reason: TOP 母组件源区域，承载交易顶部上下文 family。
+  - figmaNodeId: 37:26556
+    reason: 设置母组件，承载交易参数设置区主表单。
+  - figmaNodeId: 37:26343
+    reason: 信息母组件，承载持仓、合约、委托、条件单和历史类信息区。
+  needsReview: []
+  bad:
+  - reason: 把交易顶部右侧 tab 或规则入口当成买卖提交按钮。
+  - reason: 把交易设置区压平成普通表单卡片。
+  - reason: 把持仓、合约、委托和条件单渲染成同一种普通列表。
+componentHumanRules:
+  ruleScope: trading-page-component-family-board
+  definition: 交易页面模块 brief 维护交易顶部、设置区和信息区下的真实 component family；共享输入和行动按钮仅作为依赖引用。
+  do:
+  - 真实 component set / component variant 进入 componentFamilies 和 variant rules。
+  - 页面 frame、source selection、prototype 和 demo 进入 usageInstanceGroups。
+  - 跨组件业务编排留在 authoring/scenarios/trading.brief.yaml。
+  dont:
+  - 不要让 scenario 反向覆盖组件自己的允许 / 禁止使用边界。
+  - 不要把共享控件复制成交易页面模块私有 family。
+extensionModel:
+  mode: component-family-board
+  mergedFrom:
+  - temporary split brief for trading top navigation families
+  - temporary split brief for trading settings-panel families
+  - temporary split brief for trading info-panel families
+  dependencyComponents:
+  - component.trading-input
+  - component.trading-action-button
+  - component.bottom-bar
+  - component.switch
+  rationale: 这些 family 都属于交易页面模块级组件区域，合并后更符合飞书文档中的多 component family brief 模型；具体 family 的精确可用区和禁用区保留在各自 family 内。
+componentFamilies:
+- id: trading.top-nav.account-switch
+  figmaNodeId: 37:26291
+  figmaName: 分类=账户切换
+  familyRole: supporting
+  usedIn:
+  - trading_context_header
+  - account-switch-header
+  allowedZones:
+  - top_nav
+  - trading_context_header
+  forbiddenZones:
+  - generic_card_header
+  - bottom_dock
+  - trading_submit_area
+  humanRules:
+    do:
+    - 用于带账户身份与右侧轻量切换的交易页顶部导航。
+    - 保留左侧层级入口、主标题、账户摘要和右侧双 tab 的完整关系。
+    - 账户摘要允许展示账户类型与脱敏数字，但必须保持双行结构。
+    dont:
+    - 不要删掉账户摘要后继续沿用这个 family。
+    - 不要把这个 family 当成通用二级页纯标题栏。
+    - 不要把右侧 tab 扩展成买卖、撤单等高风险动作组。
+  riskWarnings:
+  - 账户身份和摘要结构错误会误导用户当前交易账户与可操作模式。
+- id: trading.top-nav.page-slide
+  figmaNodeId: 37:26322
+  figmaName: 分类=页面滑动
+  familyRole: supporting
+  usedIn:
+  - stock_trading_detail_header
+  - security-context-header
+  allowedZones:
+  - top_nav
+  - trading_context_header
+  forbiddenZones:
+  - generic_card_header
+  - bottom_dock
+  - account-switch-header-with-tabs
+  humanRules:
+    do:
+    - 用于标的详情类交易页顶部，展示股票名称、代码与第二行摘要。
+    - 保持“名称 + 代码”同列结构，不拆成单标题。
+    - 第二行摘要继续表达账户、权限或普通/信用等上下文，不替换成行情主价格区。
+    dont:
+    - 不要把这个 family 当成纯标题栏使用。
+    - 不要把标的代码换成无关标签或 tab。
+    - 不要把第二行摘要改造成价格主信息。
+  riskWarnings:
+  - 标的名称与代码组合错误会直接影响用户对当前交易标的的识别。
+- id: trading.top-nav.paper-trading
+  figmaNodeId: 37:26305
+  figmaName: 分类=模拟交易
+  familyRole: supporting
+  usedIn:
+  - paper-trading-header
+  - rules-entry-header
+  allowedZones:
+  - top_nav
+  - trading_context_header
+  forbiddenZones:
+  - live-trading-header
+  - generic_card_header
+  - trading_submit_area
+  humanRules:
+    do:
+    - 仅用于模拟交易上下文，保留“模拟”主标题与红色模拟标识。
+    - 右侧双 tab 与“规则”入口需要一起校验其模拟场景语义。
+    - 模拟标签必须明显可见，避免与实盘交易混淆。
+    dont:
+    - 不要在实盘页面复用模拟交易 family。
+    - 不要删除模拟标识后继续使用这个 family。
+    - 不要把“规则”入口替换成高风险交易操作。
+  riskWarnings:
+  - 模拟与实盘上下文混淆会造成严重操作预期偏差。
+- id: trading.settings-panel.main
+  figmaNodeId: 37:26556
+  figmaName: 设置母组件
+  familyRole: supporting
+  usedIn:
+  - trading_setting_panel
+  - condition_order_setting_panel
+  allowedZones:
+  - top_summary
+  - trading_setting_panel
+  - detail_footer
+  forbiddenZones:
+  - top_nav
+  - generic_card_body
+  - bottom_dock
+  humanRules:
+    do:
+    - 用于交易页中的设置主表单，承载代码、类型、价格、数量、金额与高级设置组合。
+    - 保持 98px 左标签区与 245px 右输入区的结构节奏，不随意压缩成普通列表项。
+    - 底部买卖按钮继续复用交易行动按钮语义，不当作新的设置组件定义。
+    - 深色版和浅色版通过规范色切换保持一致，不额外声明独立变体属性。
+    dont:
+    - 不要把整个设置母组件简化成普通表单卡片。
+    - 不要删除高级设置区后继续沿用同一个主 family 作为完整交易设置表单。
+    - 不要把输入、开关、时长选项、买卖按钮都揉成一个不可审查的大组件描述。
+  riskWarnings:
+  - 设置主表单承载交易前关键参数，结构错位会直接影响交易理解与后续操作正确性。
+- id: trading.settings.code-field
+  figmaNodeId: 37:26558
+  figmaName: item/设置/基础设置
+  familyRole: supporting
+  usedIn:
+  - trading_security_search_row
+  allowedZones:
+  - trading_setting_panel
+  forbiddenZones:
+  - top_nav
+  - bottom_dock
+  humanRules:
+    do:
+    - 用于代码输入与证券名称/代码确认行，保留清空图标、行情图入口和行情摘要。
+    - 名称与代码应保持混排结构，名称使用文本字体，代码使用数字字体。
+    dont:
+    - 不要把它缩减成普通搜索框。
+    - 不要删除右侧行情摘要后仍声称与当前 family 一致。
+  riskWarnings:
+  - 标的识别与行情摘要错误会影响后续交易对象判断。
+- id: trading.settings.order-type-field
+  figmaNodeId: 37:26559
+  figmaName: item/设置/基础设置
+  familyRole: supporting
+  usedIn:
+  - trading_order_type_row
+  allowedZones:
+  - trading_setting_panel
+  forbiddenZones:
+  - top_nav
+  - bottom_dock
+  humanRules:
+    do:
+    - 用于委托类型选择，保留右侧下拉箭头与居中文字。
+    - 类型文案应作为单值选择，不改造成多标签并列。
+    dont:
+    - 不要把它替换成普通文本按钮或静态标签。
+  riskWarnings:
+  - 委托类型误读会直接影响交易方式理解。
+- id: trading.settings.price-stepper
+  figmaNodeId: 37:26560
+  figmaName: item/设置/基础设置
+  familyRole: supporting
+  usedIn:
+  - trading_price_row
+  allowedZones:
+  - trading_setting_panel
+  forbiddenZones:
+  - top_nav
+  - bottom_dock
+  humanRules:
+    do:
+    - 用于价格步进输入，保留减号、数值、加号与买上限/卖下限提示。
+    - 左右操作图标必须保持可见，不允许只剩文字说明。
+    dont:
+    - 不要把它降级成普通纯文本输入框。
+    - 不要移除价格区间辅助信息后继续声称是同一 family。
+  riskWarnings:
+  - 价格步进和上下限提示错误会直接影响委托价格理解。
+- id: trading.settings.amount-summary
+  figmaNodeId: 37:26562
+  figmaName: item/设置/基础设置
+  familyRole: supporting
+  usedIn:
+  - trading_amount_row
+  allowedZones:
+  - trading_setting_panel
+  forbiddenZones:
+  - top_nav
+  - bottom_dock
+  humanRules:
+    do:
+    - 用于金额展示行，保留金额值与“更多设置”入口。
+    - 金额区优先作为结果/展示区域，不强行等同于可编辑输入框。
+    dont:
+    - 不要把金额展示误写成普通可编辑输入。
+  riskWarnings:
+  - 金额行是交易结果预览的重要锚点，展示与可编辑语义混淆风险高。
+- id: trading.settings.price-range
+  figmaNodeId: 37:26566
+  figmaName: item/设置/高级设置
+  familyRole: supporting
+  usedIn:
+  - condition_order_price_range
+  allowedZones:
+  - trading_setting_panel
+  forbiddenZones:
+  - top_nav
+  - bottom_dock
+  humanRules:
+    do:
+    - 用于价格区间高级设置，保留最低价、最高价、步进按钮和休眠说明。
+    - 这是条件单类高级参数，不默认扩展到所有普通交易页。
+    dont:
+    - 不要把它当成普通价格输入行复用。
+  riskWarnings:
+  - 条件单价格边界设置错误会改变触发范围。
+- id: trading.settings.multiplier-toggle
+  figmaNodeId: 37:26567
+  figmaName: item/设置/高级设置
+  familyRole: supporting
+  usedIn:
+  - trading_multiplier_setting
+  allowedZones:
+  - trading_setting_panel
+  forbiddenZones:
+  - top_nav
+  - bottom_dock
+  humanRules:
+    do:
+    - 用于倍数委托开关与说明区，保留中尺寸开关和说明文案。
+    dont:
+    - 不要把它并入普通基础设置行。
+  riskWarnings:
+  - 倍数委托属于高风险增强逻辑，开关语义必须清楚。
+- id: trading.settings.auto-cancel
+  figmaNodeId: 37:26568
+  figmaName: item/设置/高级设置
+  familyRole: supporting
+  usedIn:
+  - trading_auto_cancel_setting
+  allowedZones:
+  - trading_setting_panel
+  forbiddenZones:
+  - top_nav
+  - bottom_dock
+  humanRules:
+    do:
+    - 用于自动撤单开关与预设时长选择。
+    - 当前选中态与未选中态都要保留独立按钮语义。
+    dont:
+    - 不要把时长预设改成自由输入而不另建 family。
+  riskWarnings:
+  - 自动撤单时长会直接影响委托生效时长，误用风险高。
+- id: trading.settings.monitor-window
+  figmaNodeId: 37:26569
+  figmaName: item/设置/高级设置
+  familyRole: supporting
+  usedIn:
+  - trading_monitor_window_setting
+  allowedZones:
+  - trading_setting_panel
+  forbiddenZones:
+  - top_nav
+  - bottom_dock
+  humanRules:
+    do:
+    - 用于监控时段开关与周期/每日时段选择。
+    - 周期时段和每日时段都保持右侧下拉选择语义。
+    dont:
+    - 不要把它压成单行开关而省略时段配置。
+  riskWarnings:
+  - 监控时段错误会影响策略触发时间边界。
+- id: trading.info.holdings
+  figmaNodeId: 37:26364
+  figmaName: 分类=持仓, 有内容=On, Dark=Off
+  familyRole: supporting
+  usedIn:
+  - trading_info_panel
+  - position_info_panel
+  allowedZones:
+  - trading_info_panel
+  - mid_content
+  forbiddenZones:
+  - top_nav
+  - trading_setting_panel
+  - bottom_dock
+  humanRules:
+    do:
+    - 用于持仓信息区，保留上方二级 tab、标题统计、表头和持仓列表结构。
+    - 有内容与空态要分开使用，空态不能伪装成低密度列表。
+    - 盈亏、持仓数量、可卖数量等结果信息优先保持列表信息卡语义。
+    dont:
+    - 不要把持仓信息区改造成普通卡片概览。
+    - 不要删掉二级 tab 后继续沿用同一 family。
+  riskWarnings:
+  - 持仓数量、盈亏或可操作状态表达错误会直接影响交易判断。
+- id: trading.info.holdings.secondary-tabs
+  figmaNodeId: 37:26366
+  figmaName: tab/二级tab
+  familyRole: supporting
+  usedIn:
+  - trading_info_panel
+  - position_info_panel
+  - contract_info_panel
+  allowedZones:
+  - trading_info_panel
+  - mid_content
+  forbiddenZones:
+  - top_nav
+  - bottom_dock
+  - trading_submit_area
+  humanRules:
+    do:
+    - 用于信息区内部的二级切换导航，保留选中态下划线、计数和未选中态层级。
+    - 持仓、合约、委托、条件单、历史这组标签需要保持同一导航体系。
+    - 当前这组 tab 文案默认固定，不作为常规可编辑字段处理。
+    dont:
+    - 不要把它误写成顶部主导航。
+    - 不要把其中某个 tab 单独抽成交易主按钮。
+    - 不要根据提示词随意改写持仓、合约、委托、条件单、历史这些 tab 名称。
+  riskWarnings:
+  - 选中态或计数错误会导致当前信息区分类判断错误。
+- id: trading.info.holdings.table-header
+  figmaNodeId: 37:26368
+  figmaName: item/信息/表头
+  familyRole: supporting
+  usedIn:
+  - trading_info_panel
+  - position_info_panel
+  allowedZones:
+  - trading_info_panel
+  - mid_content
+  forbiddenZones:
+  - top_nav
+  - bottom_dock
+  humanRules:
+    do:
+    - 用于持仓信息表头，保留名称/代码、持仓盈亏、持仓/可用、现价/成本、今日盈亏等多列结构。
+    - 各列标题与排序图标应保持成组出现。
+    - 表头文案在不同交易信息场景中默认固定，不作为常规改写目标。
+    dont:
+    - 不要把持仓表头压成普通两列表头。
+    - 不要删除排序图标后继续声称与当前表头一致。
+    - 不要在未明确要求时改写列标题名称。
+  riskWarnings:
+  - 列标题或排序语义错误会直接影响持仓数据理解。
+- id: trading.info.holdings.position-row
+  figmaNodeId: 37:26369
+  figmaName: item/信息/持仓&合约/集合
+  familyRole: supporting
+  usedIn:
+  - trading_info_panel
+  - position_info_panel
+  allowedZones:
+  - trading_info_panel
+  - mid_content
+  forbiddenZones:
+  - top_nav
+  - bottom_dock
+  humanRules:
+    do:
+    - 用于持仓列表单列，保留名称、代码、标签、盈亏、持仓/可用、现价/成本等多列信息。
+    - 同一行里的红绿数值语义必须遵守交易涨跌规则。
+    dont:
+    - 不要把单列压缩成只有名称和一个数值的简化卡片。
+    - 不要删除标签区后继续沿用同一 row family。
+  riskWarnings:
+  - 行级盈亏、仓位、市值或标签信息错误会直接影响交易判断。
+- id: trading.info.holdings.batch-actions
+  figmaNodeId: 37:26377
+  figmaName: item/信息/批量买入卖出按钮
+  familyRole: supporting
+  usedIn:
+  - trading_info_panel
+  - position_info_panel
+  allowedZones:
+  - trading_info_panel
+  - mid_content
+  forbiddenZones:
+  - top_nav
+  - trading_setting_panel
+  humanRules:
+    do:
+    - 用于持仓区底部批量买入/批量卖出入口，保留双按钮和对应方向图标。
+    - 这是持仓信息区的后续处理入口，不替代主交易提交按钮。
+    - 批量买入、批量卖出按钮文案默认固定。
+    dont:
+    - 不要把它误写成底部固定买卖主操作区。
+    - 不要删掉方向图标后继续声称与当前 family 一致。
+    - 不要在未明确要求时改写批量买入、批量卖出文案。
+  riskWarnings:
+  - 批量买入卖出方向混淆会带来高风险误操作。
+- id: trading.info.holdings.empty-state
+  figmaNodeId: 37:26383
+  figmaName: 空状态/卡片空态
+  familyRole: supporting
+  usedIn:
+  - trading_info_panel
+  - position_info_panel
+  allowedZones:
+  - trading_info_panel
+  - mid_content
+  forbiddenZones:
+  - top_nav
+  - bottom_dock
+  - trading_submit_area
+  humanRules:
+    do:
+    - 用于持仓空态内容区，保留空态插画和“暂无持仓”提示文案。
+    - 空态出现时，二级 tab 和表头仍然保留，只有内容区切换为空态卡片。
+    dont:
+    - 不要把空态做成整块内容直接消失。
+    - 不要在默认空态下展示批量买入、批量卖出入口。
+  riskWarnings:
+  - 如果空态误保留批量操作或数据列表，会误导用户当前仍有可操作持仓。
+- id: trading.info.contract
+  figmaNodeId: 37:26384
+  figmaName: 分类=合约, 有内容=On, Dark=Off
+  familyRole: supporting
+  usedIn:
+  - trading_info_panel
+  - contract_info_panel
+  allowedZones:
+  - trading_info_panel
+  - mid_content
+  forbiddenZones:
+  - top_nav
+  - trading_setting_panel
+  - bottom_dock
+  humanRules:
+    do:
+    - 用于合约信息区，保留二级 tab、融资/融券切换、合约表头和合约类信息列表。
+    - 合约类信息需与普通持仓信息区分，避免复用持仓文案结构。
+    dont:
+    - 不要把合约 family 误写成普通持仓或历史 family。
+  riskWarnings:
+  - 合约信息与普通持仓混用会造成账户资产类型误判。
+- id: trading.info.contract.loan-switch
+  figmaNodeId: 37:26387
+  figmaName: Frame
+  familyRole: supporting
+  usedIn:
+  - trading_info_panel
+  - contract_info_panel
+  allowedZones:
+  - trading_info_panel
+  - mid_content
+  forbiddenZones:
+  - top_nav
+  - bottom_dock
+  - trading_submit_area
+  humanRules:
+    do:
+    - 用于合约区内部的融资合约/融券合约切换，保留双胶囊切换结构。
+    - 选中态与未选中态必须清楚区分，默认文案固定。
+    dont:
+    - 不要把它误写成信息区主 tab。
+    - 不要随意改写融资合约、融券合约文案。
+  riskWarnings:
+  - 融资与融券切换错误会直接影响合约类别判断。
+- id: trading.info.contract.table-header
+  figmaNodeId: 37:26391
+  figmaName: item/信息/表头
+  familyRole: supporting
+  usedIn:
+  - trading_info_panel
+  - contract_info_panel
+  allowedZones:
+  - trading_info_panel
+  - mid_content
+  forbiddenZones:
+  - top_nav
+  - bottom_dock
+  humanRules:
+    do:
+    - 用于合约信息表头，保留名称/代码、未还金额、未还手续费、未还利息、归还截止日、融资年利率等字段。
+    - 各列标题与排序图标应保持成组出现。
+    - 表头文案默认固定，不作为常规改写目标。
+    dont:
+    - 不要复用持仓表头字段到合约表头。
+    - 不要删除排序图标后继续声称与当前表头一致。
+  riskWarnings:
+  - 合约字段错位会直接影响融资融券风险信息理解。
+- id: trading.info.contract.contract-row
+  figmaNodeId: 37:26392
+  figmaName: item/信息/持仓&合约/集合
+  familyRole: supporting
+  usedIn:
+  - trading_info_panel
+  - contract_info_panel
+  allowedZones:
+  - trading_info_panel
+  - mid_content
+  forbiddenZones:
+  - top_nav
+  - bottom_dock
+  humanRules:
+    do:
+    - 用于合约列表单列，保留名称、代码、标签与合约多列数据。
+    - 行内容沿用持仓&合约列表骨架，但字段语义应跟随合约表头。
+    dont:
+    - 不要把合约单列误写成普通持仓单列。
+    - 不要删除标签区后继续沿用同一 row family。
+  riskWarnings:
+  - 合约单列字段与标签错误会误导用户当前负债与归还信息。
+- id: trading.info.contract.empty-state
+  figmaNodeId: 92:45734
+  figmaName: 空状态/卡片空态
+  familyRole: supporting
+  usedIn:
+  - trading_info_panel
+  - contract_info_panel
+  allowedZones:
+  - trading_info_panel
+  - mid_content
+  forbiddenZones:
+  - top_nav
+  - bottom_dock
+  - trading_submit_area
+  humanRules:
+    do:
+    - 用于合约空态内容区，保留空态插画和空提示文案。
+    - 合约空态出现时，二级 tab 和合约表头仍然保留，但融资/融券切换与内容列表不展示。
+    dont:
+    - 不要把合约空态做成整块内容直接消失。
+    - 不要在默认空态下展示融资/融券切换或数据列表。
+  riskWarnings:
+  - 如果合约空态误保留切换或数据列表，会误导用户当前仍有可处理合约。
+- id: trading.info.entrust
+  figmaNodeId: 37:26427
+  figmaName: 分类=委托, 有内容=On, Dark=Off
+  familyRole: supporting
+  usedIn:
+  - trading_info_panel
+  - entrust_info_panel
+  allowedZones:
+  - trading_info_panel
+  - mid_content
+  forbiddenZones:
+  - top_nav
+  - trading_setting_panel
+  - bottom_dock
+  humanRules:
+    do:
+    - 用于委托信息区，保留未完成标题、功能按钮、表头、委托列表和橙色提示话术。
+    - 状态/操作列、批量撤单入口、仅手工下单开关都应保持独立可审查关系。
+    dont:
+    - 不要把委托信息区压成普通表格或无操作状态的静态列表。
+    - 不要移除状态或操作列后仍声称与当前 family 一致。
+  riskWarnings:
+  - 委托状态、撤单入口或异常提示错误会直接影响高风险交易后续操作。
+- id: trading.info.entrust.section-header
+  figmaNodeId: 37:28958
+  figmaName: item/信息/历史&委托&条件单/标题
+  familyRole: supporting
+  usedIn:
+  - trading_info_panel
+  - entrust_info_panel
+  allowedZones:
+  - trading_info_panel
+  - mid_content
+  forbiddenZones:
+  - top_nav
+  - bottom_dock
+  - trading_submit_area
+  humanRules:
+    do:
+    - 用于委托区分组标题，保留标题统计、仅手工下单开关、批量撤单入口和折叠箭头。
+    - 未完成与已完成应沿用同一标题骨架，计数和右侧工具区保持成组关系。
+    - 已完成分组右侧固定保留仅手工下单和折叠，不保留批量撤单入口。
+    dont:
+    - 不要删除右侧工具区后继续声称与当前标题 family 一致。
+    - 不要把批量撤单入口误写成主交易提交按钮。
+  riskWarnings:
+  - 标题统计、批量撤单或仅手工下单开关混淆，会误导用户当前委托可见范围与操作范围。
+- id: trading.info.entrust.table-header
+  figmaNodeId: 37:28961
+  figmaName: item/信息/表头
+  familyRole: supporting
+  usedIn:
+  - trading_info_panel
+  - entrust_info_panel
+  allowedZones:
+  - trading_info_panel
+  - mid_content
+  forbiddenZones:
+  - top_nav
+  - bottom_dock
+  humanRules:
+    do:
+    - 用于委托区表头，保留方向/时间、名称/代码、委价/委量/成交、状态/操作四组字段。
+    - 当前读到的排序图标应与前两组字段一起出现，不应单独脱离。
+    - 表头文案默认固定，不作为常规改写目标。
+    dont:
+    - 不要复用持仓或合约表头字段到委托表头。
+    - 不要删除排序图标后继续声称与当前表头一致。
+  riskWarnings:
+  - 委托表头字段错位会直接影响用户对方向、成交和可操作状态的理解。
+- id: trading.info.entrust.order-row
+  figmaNodeId: 37:28347
+  figmaName: item/信息/历史&委托/单列
+  familyRole: supporting
+  usedIn:
+  - trading_info_panel
+  - entrust_info_panel
+  allowedZones:
+  - trading_info_panel
+  - mid_content
+  forbiddenZones:
+  - top_nav
+  - bottom_dock
+  humanRules:
+    do:
+    - 用于委托列表单列，保留方向、时间、名称、代码、委价/委量/成交、状态和操作区。
+    - 当前已观察到已报、已撤、废单三类状态，操作区需随状态变化。
+    - 废单态的异常原因文案应与状态一起出现，不要只保留状态不保留原因。
+    dont:
+    - 不要把当前委托单列误当成历史委托只读行。
+    - 不要把撤单按钮、占位符和废单原因混成同一种操作区。
+  riskWarnings:
+  - 委托状态与操作区错误会直接影响撤单判断和异常单处理。
+- id: trading.info.entrust.notice
+  figmaNodeId: 37:28348
+  figmaName: item/信息/橙色提示话术
+  familyRole: supporting
+  usedIn:
+  - trading_info_panel
+  - entrust_info_panel
+  allowedZones:
+  - trading_info_panel
+  - mid_content
+  forbiddenZones:
+  - top_nav
+  - bottom_dock
+  - trading_submit_area
+  humanRules:
+    do:
+    - 用于委托单列下方的策略或触发说明，保留橙色策略名、辅助标签或说明正文的组合关系。
+    - 默认不展示，只在与算法委托、网格或到价触发相关的委托行下展示。
+    dont:
+    - 不要把橙色提示话术提升成主标题或全局 toast。
+    - 不要默认给所有普通委托行都强行挂上同一种策略提示。
+  riskWarnings:
+  - 如果策略提示或触发说明错挂到普通委托行，会误导用户当前订单类型和触发条件。
+- id: trading.info.entrust.action-area
+  figmaNodeId: 37:28349
+  figmaName: item/信息/操作区域
+  familyRole: supporting
+  usedIn:
+  - trading_info_panel
+  - entrust_info_panel
+  allowedZones:
+  - trading_info_panel
+  - mid_content
+  forbiddenZones:
+  - top_nav
+  - bottom_dock
+  - trading_submit_area
+  humanRules:
+    do:
+    - 用于委托单列下方的快捷操作区，保留三列操作入口和暗色容器背景。
+    - 当前已观察到未完成行使用“行情/撤单重下/详情”，已完结行使用“行情/再来一单/详情”。
+    dont:
+    - 不要把操作区域误写成底部导航或主交易提交按钮。
+    - 不要把未完成和已完结的中间操作项混写成同一种语义。
+  riskWarnings:
+  - 快捷操作项语义错误会直接影响后续交易处理路径。
+- id: trading.info.condition-order
+  figmaNodeId: 37:26434
+  figmaName: 分类=条件单, 有内容=On, Dark=Off
+  familyRole: supporting
+  usedIn:
+  - trading_info_panel
+  - condition_order_info_panel
+  allowedZones:
+  - trading_info_panel
+  - mid_content
+  forbiddenZones:
+  - top_nav
+  - trading_setting_panel
+  - bottom_dock
+  humanRules:
+    do:
+    - 用于条件单信息区，保留标题统计、筛选、批量入口、策略卡片、策略说明和底部操作区。
+    - 条件单卡片里的状态、标的信息、策略信息、交易信息和操作区域必须成组出现。
+    dont:
+    - 不要把条件单 family 缩减成普通历史列表。
+    - 不要把策略卡片里的操作区误当成底部导航或主交易提交区。
+  riskWarnings:
+  - 条件单状态、策略信息或操作入口错误会误导自动化交易预期。
+- id: trading.info.condition-order.section-header
+  figmaNodeId: I37:26438;37:28989
+  figmaName: item/信息/历史&委托&条件单/标题
+  familyRole: supporting
+  usedIn:
+  - trading_info_panel
+  - condition_order_info_panel
+  allowedZones:
+  - trading_info_panel
+  - mid_content
+  forbiddenZones:
+  - top_nav
+  - bottom_dock
+  - trading_submit_area
+  humanRules:
+    do:
+    - 用于条件单分组标题，保留“未完成/已完结”统计、仅今日触发、筛选、批量和折叠入口。
+    - 仅今日触发是条件单筛选能力，不要与委托区的仅手工下单混用。
+    dont:
+    - 不要把批量入口误写成普通交易主按钮。
+    - 不要把条件单标题工具区复用为持仓、合约或普通委托标题。
+  riskWarnings:
+  - 标题工具区语义错误会让用户误以为条件单筛选或批量处理范围发生变化。
+- id: trading.info.condition-order.condition-card
+  figmaNodeId: 37:26438
+  figmaName: item/信息/条件单卡片
+  familyRole: supporting
+  usedIn:
+  - trading_info_panel
+  - condition_order_info_panel
+  allowedZones:
+  - trading_info_panel
+  - mid_content
+  forbiddenZones:
+  - top_nav
+  - trading_setting_panel
+  - bottom_dock
+  humanRules:
+    do:
+    - 用于承载单个条件单或策略单元，保留标的信息、策略信息、交易信息和操作区域。
+    - 未完成与已完结卡片需要保留不同状态语义，具体操作项按卡片状态确认。
+    dont:
+    - 不要把条件单卡片压缩成普通委托行或普通历史行。
+    - 不要省略策略说明、交易信息或底部操作区。
+  riskWarnings:
+  - 条件单卡片结构缺失会影响用户判断触发条件、运行状态和后续操作。
+- id: trading.info.condition-order.security-info
+  figmaNodeId: I37:26438;37:28991;1256:131636
+  figmaName: item/信息/条件单&策略/标的信息
+  familyRole: supporting
+  usedIn:
+  - condition_order_info_panel
+  allowedZones:
+  - trading_info_panel
+  - mid_content
+  forbiddenZones:
+  - top_nav
+  - trading_setting_panel
+  - bottom_dock
+  humanRules:
+    do:
+    - 用于展示证券名、交易类型、运行状态、市场标签、代码、现价和涨跌幅。
+    - 方案标签默认按条件单类型决定是否展示，标签文字可编辑。
+    dont:
+    - 不要把运行状态当作证券名称或交易方向改写。
+    - 不要反转涨跌幅颜色语义。
+  riskWarnings:
+  - 标的信息错位会直接影响用户对条件单标的和当前行情的判断。
+- id: trading.info.condition-order.strategy-info
+  figmaNodeId: 37:28486
+  figmaName: item/信息/条件单&策略/策略信息
+  componentKey: 62cf664737e20bfd6305216970d46377f6881a60
+  verificationStatus: component_set_node_confirmed
+  verificationEvidence:
+  - User-provided Figma URL confirmed node `37:28486` as `item/信息/条件单&策略/策略信息`.
+  - Figma metadata found variants `37:28487`, `37:28489`, `37:28491`, and `37:28499`.
+  - Figma design-system search confirmed component set `item/信息/条件单&策略/策略信息` in `交易组件+设计范式`.
+  - Screenshot of node `37:28991` confirms strategy copy appears inside the condition-order
+    strategy collection.
+  familyRole: supporting
+  usedIn:
+  - condition_order_info_panel
+  allowedZones:
+  - trading_info_panel
+  - mid_content
+  forbiddenZones:
+  - top_nav
+  - bottom_dock
+  - trading_submit_area
+  humanRules:
+    do:
+    - 用于展示条件触发说明、网格或止盈止损等策略描述。
+    - 策略文案是可编辑字段，但必须保留触发条件和交易结果之间的语义关系。
+    dont:
+    - 不要把策略说明改成营销说明或普通备注。
+    - 不要在未明确为 AI/回测场景时强行加入 AI 助手说明。
+  riskWarnings:
+  - 策略说明错误会改变用户对自动提交委托条件的理解。
+- id: trading.info.condition-order.trade-info
+  figmaNodeId: 37:28507
+  figmaName: item/信息/条件单&策略/交易信息
+  sourceContainerNodeId: 37:28991
+  verificationStatus: component_set_node_confirmed
+  verificationEvidence:
+  - User-provided Figma URL confirmed node `37:28507` as `item/信息/条件单&策略/交易信息`.
+  - Figma metadata found variants `37:28508`, `37:28512`, `37:28517`, and `37:28556`.
+  - Screenshot of node `37:28991` confirms transaction copy such as buy/sell entrust
+    price and quantity appears in the condition-order strategy collection.
+  familyRole: supporting
+  usedIn:
+  - condition_order_info_panel
+  allowedZones:
+  - trading_info_panel
+  - mid_content
+  forbiddenZones:
+  - top_nav
+  - trading_setting_panel
+  - bottom_dock
+  humanRules:
+    do:
+    - 用于展示条件单交易明细、触发记录或成交相关信息。
+    - 价格、数量、金额、时间、状态类字段可编辑，但字段含义不可互换。
+    dont:
+    - 不要把交易信息区替换为普通行情卡或持仓盈亏卡。
+    - 不要隐藏异常、休眠或已完结状态所需的说明。
+  riskWarnings:
+  - 交易信息字段错配会影响用户判断条件单是否已经触发、成交或终止。
+- id: trading.info.condition-order.action-area
+  figmaNodeId: 37:28159
+  figmaName: item/信息/操作区域
+  optionComponentKey: ee0988243f57dbb66a15339fd9a89530034e13b7
+  iconComponentSetKey: e62e5eac2d33a45de2cd638a8611335cd7320ee2
+  verificationStatus: component_set_node_confirmed
+  verificationEvidence:
+  - User-provided Figma URL confirmed node `37:28159` as `item/信息/操作区域`.
+  - Figma metadata found variants `37:28160`, `37:28168`, `37:28182`, and `37:28189`.
+  - Figma design-system search confirmed `item/信息/操作区域/操作选项` and its icon component
+    set.
+  - Screenshot of node `37:26438` confirms condition-order cards expose action entries
+    such as 行情、再来一单、详情.
+  familyRole: supporting
+  usedIn:
+  - condition_order_info_panel
+  allowedZones:
+  - trading_info_panel
+  - mid_content
+  forbiddenZones:
+  - top_nav
+  - bottom_dock
+  - trading_submit_area
+  humanRules:
+    do:
+    - 用于条件单卡片底部快捷操作，当前观察到包含“行情/再来一单/详情”。
+    - 未完成条件单如存在撤销、暂停或修改操作，需要按具体选中组件再确认。
+    dont:
+    - 不要把操作区误写成底部导航或主下单按钮。
+    - 不要把已完结的再来一单与未完成的撤单类操作混用。
+  riskWarnings:
+  - 操作入口错误会改变用户后续处理条件单的路径。
+- id: trading.info.history-entrust
+  figmaNodeId: 37:26400
+  figmaName: 分类=历史/历史委托, 有内容=On, Dark=Off
+  familyRole: supporting
+  usedIn:
+  - trading_info_panel
+  - history_entrust_panel
+  allowedZones:
+  - trading_info_panel
+  - mid_content
+  forbiddenZones:
+  - top_nav
+  - trading_setting_panel
+  - bottom_dock
+  humanRules:
+    do:
+    - 用于历史委托信息区，保留历史维度下的标题、列表、状态与结果信息。
+    - 历史委托应与当前委托区分，避免混入实时撤单能力。
+    dont:
+    - 不要把历史委托 family 当成当前委托 family 复用。
+  riskWarnings:
+  - 历史与当前委托混淆会影响用户对可操作性的判断。
+- id: trading.info.history-strategy
+  figmaNodeId: 37:26455
+  figmaName: 分类=历史/历史策略, 有内容=On, Dark=Off
+  familyRole: supporting
+  usedIn:
+  - trading_info_panel
+  - history_strategy_panel
+  allowedZones:
+  - trading_info_panel
+  - mid_content
+  forbiddenZones:
+  - top_nav
+  - trading_setting_panel
+  - bottom_dock
+  humanRules:
+    do:
+    - 用于历史策略信息区，保留策略卡片、策略说明与历史结果信息的组合关系。
+    - 历史策略需与运行中的条件单策略区分，避免误导当前状态。
+    dont:
+    - 不要把历史策略 family 当成当前条件单或普通历史委托复用。
+  riskWarnings:
+  - 历史策略状态与当前运行状态混淆，会造成策略预期偏差。
+scenarioTaxonomy:
+- id: trading-page.top-context
+  description: 交易顶部上下文模块。
+- id: trading-page.settings
+  description: 交易设置与参数输入模块。
+- id: trading-page.info
+  description: 交易信息区、持仓、合约、委托、条件单和历史信息模块。
+familyVariantGroups:
+- familyId: trading.top-nav.account-switch
+  properties:
+  - 分类
+  variants:
+  - 分类=账户切换
+- familyId: trading.top-nav.page-slide
+  properties:
+  - 分类
+  variants:
+  - 分类=页面滑动
+- familyId: trading.top-nav.paper-trading
+  properties:
+  - 分类
+  variants:
+  - 分类=模拟交易
+- familyId: trading.settings.multiplier-toggle
+  properties:
+  - switch
+  variants:
+  - switch=On
+- familyId: trading.settings.auto-cancel
+  properties:
+  - switch
+  - durationPreset
+  variants:
+  - switch=On, durationPreset=10秒选中
+  - switch=On, durationPreset=20秒
+  - switch=On, durationPreset=30秒
+  - switch=On, durationPreset=40秒
+- familyId: trading.settings.monitor-window
+  properties:
+  - switch
+  - cycleWindow
+  - dailyWindow
+  variants:
+  - switch=On, cycleWindow=周一至周五, dailyWindow=09:30至15:00
+- familyId: trading.info.holdings
+  properties:
+  - 分类
+  - 有内容
+  - Dark
+  variants:
+  - 分类=持仓, 有内容=On, Dark=Off
+  - 分类=持仓, 有内容=Off, Dark=Off
+  - 分类=持仓, 有内容=On, Dark=On
+  - 分类=持仓, 有内容=Off, Dark=On
+- familyId: trading.info.holdings.secondary-tabs
+  properties:
+  - selectedTab
+  variants:
+  - selectedTab=持仓
+- familyId: trading.info.holdings.empty-state
+  properties:
+  - state
+  - Dark
+  variants:
+  - state=empty, Dark=Off
+  - state=empty, Dark=On
+- familyId: trading.info.contract
+  properties:
+  - 分类
+  - 有内容
+  - Dark
+  variants:
+  - 分类=合约, 有内容=On, Dark=Off
+  - 分类=合约, 有内容=On, Dark=On
+- familyId: trading.info.contract.loan-switch
+  properties:
+  - selectedLoanType
+  variants:
+  - selectedLoanType=融资合约
+- familyId: trading.info.contract.empty-state
+  properties:
+  - state
+  - Dark
+  variants:
+  - state=empty, Dark=Off
+  - state=empty, Dark=On
+- familyId: trading.info.entrust
+  properties:
+  - 分类
+  - 有内容
+  - Dark
+  variants:
+  - 分类=委托, 有内容=On, Dark=Off
+  - 分类=委托, 有内容=On, Dark=On
+- familyId: trading.info.entrust.section-header
+  properties:
+  - section
+  - tools
+  variants:
+  - section=未完成, tools=手工开关+批量撤单+折叠
+  - section=已完成, tools=手工开关+折叠
+- familyId: trading.info.entrust.table-header
+  properties:
+  - listType
+  variants:
+  - listType=委托
+- familyId: trading.info.entrust.order-row
+  properties:
+  - rowState
+  - operationStyle
+  variants:
+  - rowState=已报, operationStyle=撤单按钮
+  - rowState=已撤, operationStyle=占位符
+  - rowState=废单, operationStyle=错误原因
+- familyId: trading.info.entrust.notice
+  properties:
+  - noticeType
+  - companionTag
+  variants:
+  - noticeType=TWAP, companionTag=两融
+  - noticeType=网格(到价触发), companionTag=方案名或详细说明
+- familyId: trading.info.entrust.action-area
+  properties:
+  - section
+  - middleAction
+  variants:
+  - section=未完成, middleAction=撤单重下
+  - section=已完结, middleAction=再来一单
+- familyId: trading.info.condition-order
+  properties:
+  - 分类
+  - 有内容
+  - Dark
+  variants:
+  - 分类=条件单, 有内容=On, Dark=Off
+  - 分类=条件单, 有内容=On, Dark=On
+- familyId: trading.info.condition-order.section-header
+  properties:
+  - section
+  - tools
+  - collapsed
+  variants:
+  - section=未完成, tools=仅今日触发+筛选+批量+折叠, collapsed=Off
+  - section=已完结, tools=按有功能按钮变体, collapsed=按展开变体
+- familyId: trading.info.condition-order.condition-card
+  properties:
+  - 分类
+  - 展开
+  variants:
+  - 分类=未完成, 展开=On
+  - 分类=已完结, 展开=On
+  - 分类=已完结, 展开=Off
+- familyId: trading.info.condition-order.security-info
+  properties:
+  - 标的标签
+  - 方案标签
+  variants:
+  - 标的标签=On, 方案标签=Off
+  - 标的标签=On, 方案标签=On
+- familyId: trading.info.condition-order.strategy-info
+  properties:
+  - strategyType
+  - aiAssistant
+  variants:
+  - strategyType=定价条件, aiAssistant=Off
+  - strategyType=网格成交驱动, aiAssistant=On
+  - strategyType=其他策略类型待复核, aiAssistant=按策略类型待复核
+- familyId: trading.info.condition-order.trade-info
+  properties:
+  - infoType
+  - orderState
+  variants:
+  - infoType=交易明细, orderState=运行中
+  - infoType=交易记录, orderState=已完结
+  - infoType=其他交易信息类型待复核, orderState=按条件单状态待复核
+- familyId: trading.info.condition-order.action-area
+  properties:
+  - section
+  - middleAction
+  variants:
+  - section=已完结, middleAction=再来一单
+  - section=未完成, middleAction=撤单重下
+- familyId: trading.info.history-entrust
+  properties:
+  - 分类
+  - 有内容
+  - Dark
+  variants:
+  - 分类=历史/历史委托, 有内容=On, Dark=Off
+  - 分类=历史/历史委托, 有内容=On, Dark=On
+- familyId: trading.info.history-strategy
+  properties:
+  - 分类
+  - 有内容
+  - Dark
+  variants:
+  - 分类=历史/历史策略, 有内容=On, Dark=Off
+  - 分类=历史/历史策略, 有内容=On, Dark=On
+familyVariantHumanRules:
+- familyId: trading.top-nav.account-switch
+  variant: 分类=账户切换
+  rule: 只用于账户交易上下文明确、且右侧需要模式切换 tab 的顶部区域。
+- familyId: trading.top-nav.page-slide
+  variant: 分类=页面滑动
+  rule: 只用于标的详情或内容切换后的交易头部，不替代带右侧 tab 的账户切换 family。
+- familyId: trading.top-nav.paper-trading
+  variant: 分类=模拟交易
+  rule: 必须保留模拟标识与规则入口，避免被误认为实盘交易页面。
+- familyId: trading.settings.multiplier-toggle
+  variant: switch=On
+  rule: 倍数委托默认只在高级设置显式开启后生效，不应默认扩散到普通交易设置。
+- familyId: trading.settings.auto-cancel
+  variant: switch=On, durationPreset=10秒选中
+  rule: 自动撤单开启后，当前选中预设必须清晰高亮，未选中预设保持次级权重。
+- familyId: trading.settings.auto-cancel
+  variant: switch=On, durationPreset=20秒
+  rule: 20秒是可切换候选值，不应与当前选中态混淆。
+- familyId: trading.settings.auto-cancel
+  variant: switch=On, durationPreset=30秒
+  rule: 30秒是可切换候选值，不应与当前选中态混淆。
+- familyId: trading.settings.auto-cancel
+  variant: switch=On, durationPreset=40秒
+  rule: 40秒是可切换候选值，不应与当前选中态混淆。
+- familyId: trading.settings.monitor-window
+  variant: switch=On, cycleWindow=周一至周五, dailyWindow=09:30至15:00
+  rule: 监控时段开启后，周期与每日时段必须同时可见，不应只保留开关不保留时间选择。
+- familyId: trading.info.holdings
+  variant: 分类=持仓, 有内容=On, Dark=Off
+  rule: 持仓有内容态需要保留 tab、标题统计、表头和多列列表，不应降级成摘要卡片。
+- familyId: trading.info.holdings
+  variant: 分类=持仓, 有内容=Off, Dark=Off
+  rule: 持仓空态要明确表达无数据，不要伪造成低密度列表。
+- familyId: trading.info.holdings
+  variant: 分类=持仓, 有内容=On, Dark=On
+  rule: 深色持仓有内容态需保持信息层级与浅色一致，不能只切背景不切文字与状态层级。
+- familyId: trading.info.holdings
+  variant: 分类=持仓, 有内容=Off, Dark=On
+  rule: 深色空态也应保留空结果语义，避免与加载中状态混淆。
+- familyId: trading.info.holdings.secondary-tabs
+  variant: selectedTab=持仓
+  rule: 当前选中持仓时，需要保留下划线、计数和其余 tab 的未选中层级。
+- familyId: trading.info.holdings.empty-state
+  variant: state=empty, Dark=Off
+  rule: 持仓空态浅色版保留 tab 和表头，内容区只显示空态插画与“暂无持仓”提示，不显示列表单列和批量操作。
+- familyId: trading.info.holdings.empty-state
+  variant: state=empty, Dark=On
+  rule: 持仓空态深色版同样保留 tab 和表头，内容区只显示深色空态卡片，不显示列表单列和批量操作。
+- familyId: trading.info.contract
+  variant: 分类=合约, 有内容=On, Dark=Off
+  rule: 合约信息区要保持合约上下文，不替代普通持仓列表。
+- familyId: trading.info.contract
+  variant: 分类=合约, 有内容=On, Dark=On
+  rule: 深色合约态只切主题，不改变合约信息结构和语义。
+- familyId: trading.info.contract.loan-switch
+  variant: selectedLoanType=融资合约
+  rule: 当前选中融资合约时，需要保留融资/融券双切换与明确选中态，不误改成主 tab 结构。
+- familyId: trading.info.contract.empty-state
+  variant: state=empty, Dark=Off
+  rule: 合约空态浅色版保留二级 tab 和合约表头，内容区只显示空态卡片，不显示融资/融券切换和合约单列。
+- familyId: trading.info.contract.empty-state
+  variant: state=empty, Dark=On
+  rule: 合约空态深色版同样保留二级 tab 和合约表头，内容区只显示深色空态卡片，不显示融资/融券切换和合约单列。
+- familyId: trading.info.entrust
+  variant: 分类=委托, 有内容=On, Dark=Off
+  rule: 委托信息区必须保留状态/操作列与批量撤单入口，不能简化成只读历史列表。
+- familyId: trading.info.entrust
+  variant: 分类=委托, 有内容=On, Dark=On
+  rule: 深色委托态应继续清晰区分已报、已撤、废单与橙色提示话术。
+- familyId: trading.info.entrust.section-header
+  variant: section=未完成, tools=手工开关+批量撤单+折叠
+  rule: 当前读到的未完成分组标题必须保留手工开关、批量撤单和折叠入口，不要压缩成只有标题数字的一行。
+- familyId: trading.info.entrust.section-header
+  variant: section=已完成, tools=手工开关+折叠
+  rule: 已完成分组标题固定保留仅手工下单和折叠，不展示批量撤单入口。
+- familyId: trading.info.entrust.table-header
+  variant: listType=委托
+  rule: 委托表头需固定保留四组字段和排序图标，避免与历史委托或持仓表头混淆。
+- familyId: trading.info.entrust.order-row
+  variant: rowState=已报, operationStyle=撤单按钮
+  rule: 已报委托应保留可见撤单按钮，状态与操作颜色保持高风险可识别。
+- familyId: trading.info.entrust.order-row
+  variant: rowState=已撤, operationStyle=占位符
+  rule: 已撤委托不应继续展示可点击撤单按钮，操作区保持不可操作占位语义。
+- familyId: trading.info.entrust.order-row
+  variant: rowState=废单, operationStyle=错误原因
+  rule: 废单委托必须同时展示错误状态和原因说明，不要只保留“废单”二字。
+- familyId: trading.info.entrust.notice
+  variant: noticeType=TWAP, companionTag=两融
+  rule: TWAP 提示要与橙色策略名和两融标记成组出现，不要拆成普通灰字说明。
+- familyId: trading.info.entrust.notice
+  variant: noticeType=网格(到价触发), companionTag=方案名或详细说明
+  rule: 网格或到价触发提示可以带方案名或详细条件说明，默认隐藏，仅在特定委托行需要时展示。
+- familyId: trading.info.entrust.action-area
+  variant: section=未完成, middleAction=撤单重下
+  rule: 未完成委托的快捷操作区保留行情、撤单重下和详情三项，不要误改成再来一单。
+- familyId: trading.info.entrust.action-area
+  variant: section=已完结, middleAction=再来一单
+  rule: 已完结委托的快捷操作区保留行情、再来一单和详情三项，不继续暴露撤单重下。
+- familyId: trading.info.condition-order
+  variant: 分类=条件单, 有内容=On, Dark=Off
+  rule: 条件单卡片必须包含策略说明、交易信息和底部操作区，不应只保留标题和状态。
+- familyId: trading.info.condition-order
+  variant: 分类=条件单, 有内容=On, Dark=On
+  rule: 深色条件单态要保留策略卡片层级和操作选项，不能压平为单列表项。
+- familyId: trading.info.condition-order.section-header
+  variant: section=未完成, tools=仅今日触发+筛选+批量+折叠, collapsed=Off
+  rule: 未完成条件单标题区保留仅今日触发、筛选、批量与折叠入口；仅今日触发不是委托区的仅手工下单。
+- familyId: trading.info.condition-order.section-header
+  variant: section=已完结, tools=按有功能按钮变体, collapsed=按展开变体
+  rule: 已完结条件单标题可使用 `37:28209` 标题组件组中的展开/功能按钮变体，不得直接套用未完成工具组合。
+- familyId: trading.info.condition-order.condition-card
+  variant: 分类=未完成, 展开=On
+  rule: 未完成条件单卡片需要保留运行状态、触发条件、策略说明、交易信息和可用操作。
+- familyId: trading.info.condition-order.condition-card
+  variant: 分类=已完结, 展开=On/Off
+  rule: 已完结条件单卡片对应 `37:28980` 组件组中的已完结展开与收起变体，需与运行中卡片区分。
+- familyId: trading.info.condition-order.security-info
+  variant: 标的标签=On, 方案标签=Off
+  rule: 标的信息默认展示市场/标的标签；方案标签默认不强制展示。
+- familyId: trading.info.condition-order.security-info
+  variant: 标的标签=On, 方案标签=On
+  rule: 当条件单类型需要展示方案标签时可展示，标签文字可编辑但不能替代交易状态。
+- familyId: trading.info.condition-order.strategy-info
+  variant: strategyType=定价条件, aiAssistant=Off
+  rule: 定价条件类策略说明保留触发条件文案，不默认出现 AI 助手或回测入口。
+- familyId: trading.info.condition-order.strategy-info
+  variant: strategyType=网格成交驱动, aiAssistant=On
+  rule: 网格成交驱动可出现图表、AI 助手或回测提示，但必须与具体策略类型绑定。
+- familyId: trading.info.condition-order.trade-info
+  variant: infoType=交易明细, orderState=运行中
+  rule: 运行中交易信息强调当前条件、触发预期和待处理状态。
+- familyId: trading.info.condition-order.trade-info
+  variant: infoType=交易记录, orderState=已完结
+  rule: 已完结交易信息强调结果和记录，不暴露运行中操作语义。
+- familyId: trading.info.condition-order.action-area
+  variant: section=已完结, middleAction=再来一单
+  rule: 已完结条件单底部操作可使用行情、再来一单、详情，不应显示撤单类主操作。
+- familyId: trading.info.condition-order.action-area
+  variant: section=未完成, middleAction=撤单重下
+  rule: 未完成条件单底部操作为行情、撤单重下、详情；撤单重下是中间操作项，不要误写成已完结状态的再来一单。
+- familyId: trading.info.history-entrust
+  variant: 分类=历史/历史委托, 有内容=On, Dark=Off
+  rule: 历史委托只表达历史结果与状态，不应暴露当前可撤等实时操作。
+- familyId: trading.info.history-entrust
+  variant: 分类=历史/历史委托, 有内容=On, Dark=On
+  rule: 深色历史委托态仍需保持历史结果语义，不与当前委托混淆。
+- familyId: trading.info.history-strategy
+  variant: 分类=历史/历史策略, 有内容=On, Dark=Off
+  rule: 历史策略要保持策略结果归档语义，不误导为运行中策略。
+- familyId: trading.info.history-strategy
+  variant: 分类=历史/历史策略, 有内容=On, Dark=On
+  rule: 深色历史策略态继续保持历史归档语义和信息层级。
+usageInstanceGroups:
+- id: trading.usage.selected-top-region
+  figmaNodeId: 37:26221
+  figmaName: TOP母组件
+  usageType: selected-component-set
+  note: 当前选中的是交易场景 top 源 component set，承载账户切换、页面滑动、模拟交易 3 个真实变体。
+- id: trading.usage.selected-settings-family
+  figmaNodeId: 37:26556
+  figmaName: 设置母组件
+  usageType: selected-component-family
+  note: 当前选中的是交易场景设置区主母组件，其内部可识别子结构已拆成独立 family 记录。
+- id: trading.usage.selected-info-region
+  figmaNodeId: 37:26343
+  figmaName: 信息母组件
+  usageType: selected-component-set
+  note: 当前选中的是交易场景信息区源 component set，承载持仓、合约、委托、条件单和历史类变体；语义 family 仍按分类分别维护。
+- id: trading.usage.selected-holdings-family
+  figmaNodeId: 37:26364
+  figmaName: 分类=持仓, 有内容=On, Dark=Off
+  usageType: selected-component-family
+  note: 当前选中的是持仓 family，本轮继续往下拆出了二级 tab、表头、列表单列和批量买卖入口。
+- id: trading.usage.selected-holdings-empty-light
+  figmaNodeId: 37:26378
+  figmaName: 分类=持仓, 有内容=Off, Dark=Off
+  usageType: selected-component-family
+  note: 当前选中的是持仓空态浅色版，本轮确认其保留二级 tab 与表头，内容区切换为空状态卡片。
+- id: trading.usage.selected-contract-family
+  figmaNodeId: 37:26384
+  figmaName: 分类=合约, 有内容=On, Dark=Off
+  usageType: selected-component-family
+  note: 当前选中的是合约有内容浅色版，本轮继续往下拆出了融资/融券切换、合约表头和合约单列。
+- id: trading.usage.selected-contract-empty-light
+  figmaNodeId: 92:45729
+  figmaName: 分类=合约, 有内容=Off, Dark=Off
+  usageType: selected-component-family
+  note: 当前选中的是合约空态浅色版，本轮确认其保留二级 tab 与合约表头，内容区切换为空状态卡片。
+- id: trading.usage.selected-contract-empty-dark
+  figmaNodeId: 92:46098
+  figmaName: 分类=合约, 有内容=Off, Dark=On
+  usageType: selected-component-family
+  note: 当前选中的是合约空态深色版，本轮确认其延续浅色空态结构，但切换为深色空状态卡片与深色文字层级。
+- id: trading.usage.selected-entrust-family
+  figmaNodeId: 37:26427
+  figmaName: 分类=委托, 有内容=On, Dark=Off
+  usageType: selected-component-family
+  note: 当前选中的是委托有内容浅色版，本轮继续往下拆出了分组标题、表头、委托单列和橙色提示话术。
+- id: trading.usage.selected-entrust-dark-family
+  figmaNodeId: 37:26448
+  figmaName: 分类=委托, 有内容=On, Dark=On
+  usageType: selected-component-family
+  note: 当前选中的是委托有内容深色版，本轮确认其沿用浅色骨架，并补充记录了深色操作区域与深色文字层级。
+- id: trading.usage.selected-condition-order-family
+  figmaNodeId: 37:26434
+  figmaName: 分类=条件单, 有内容=On, Dark=Off
+  usageType: selected-component-family
+  note: 当前选中的是条件单有数据浅色版，本轮继续往下拆出了标题工具区、条件单卡片、标的信息、策略信息、交易信息和底部操作区。
+- id: trading.usage.selected-holdings-empty-dark
+  figmaNodeId: 37:26550
+  figmaName: 分类=持仓, 有内容=Off, Dark=On
+  usageType: selected-component-family
+  note: 当前选中的是持仓空态深色版，本轮确认其与浅色空态保持相同结构，仅切换为深色主题 token。
+
+# ============================================================
+# 02_AGENT_EXTRACTED
+# Agent 自动读取区
+# ============================================================
+
+figma:
+  fileName: 设计仓库
+  fileKey: pbxELN7TYDDguIgbXfc1zB
+  exampleNodeId: 37:26221
+  exampleNodeName: 交易页面模块组件族
+  figmaExactName: TOP母组件 / 设置母组件 / 信息母组件
+  componentKey: MULTIPLE_COMPONENT_KEYS_SEE_COMPONENT_FAMILIES
+  bindingMode: must_use_library_instance
+  bindingFailurePolicy: stop_and_recheck
+  extractedFamilies:
+  - nodeId: 37:26291
+    nodeName: 分类=账户切换
+    componentKey: f43a63c1c240dc74881fcc08f323ef58229f2b76
+    parentComponentSetKey: 359d13bedc463187429de22efd6010b6d979cfc2
+    nodeType: component
+    variantProperties:
+      分类: 账户切换
+  - nodeId: 37:26322
+    nodeName: 分类=页面滑动
+    componentKey: c20c267dffaff9614e660477e3c7156cb0ee0dbb
+    parentComponentSetKey: 359d13bedc463187429de22efd6010b6d979cfc2
+    nodeType: component
+    variantProperties:
+      分类: 页面滑动
+  - nodeId: 37:26305
+    nodeName: 分类=模拟交易
+    componentKey: ed6b5cb882bbf96172760276668e9db3679cac85
+    parentComponentSetKey: 359d13bedc463187429de22efd6010b6d979cfc2
+    nodeType: component
+    variantProperties:
+      分类: 模拟交易
+  - nodeId: 37:26556
+    nodeName: 设置母组件
+    componentKey: 8183d08eb6c0847f0f2a878ab9460fb13c0c319a
+    nodeType: component
+    hasVariantProperties: false
+    compositionMode: composed-from-other-components
+  - nodeId: 37:26558
+    nodeName: item/设置/基础设置
+    componentKey: 9e82262eda996d5a1de6b6f423f6daf0db262770
+    parentComponentSetKey: f18d9b62aa0a08d720acaa07a2db74b7a3976953
+    nodeType: instance
+    mainComponentNodeId: 37:27203
+    variantProperties:
+      状态: 常规左右+小字
+      附加信息: false
+    independenceStatus: confirmed-independent-family
+  - nodeId: 37:26559
+    nodeName: item/设置/基础设置
+    componentKey: 4a0a0db44f4dec20dd1909053c69468bc0b5a533
+    parentComponentSetKey: f18d9b62aa0a08d720acaa07a2db74b7a3976953
+    nodeType: instance
+    mainComponentNodeId: 37:27192
+    variantProperties:
+      状态: 常规左右
+      附加信息: false
+    independenceStatus: confirmed-independent-family
+  - nodeId: 37:26560
+    nodeName: item/设置/基础设置
+    componentKey: 9e82262eda996d5a1de6b6f423f6daf0db262770
+    parentComponentSetKey: f18d9b62aa0a08d720acaa07a2db74b7a3976953
+    nodeType: instance
+    mainComponentNodeId: 37:27203
+    variantProperties:
+      状态: 常规左右+小字
+      附加信息: false
+    independenceStatus: confirmed-independent-family
+  - nodeId: 37:26562
+    nodeName: item/设置/基础设置
+    componentKey: 470b7ae64b4164fbdd17916dbcddb0133cd02e82
+    parentComponentSetKey: f18d9b62aa0a08d720acaa07a2db74b7a3976953
+    nodeType: instance
+    mainComponentNodeId: 37:27195
+    variantProperties:
+      状态: 常规左右+更多设置
+      附加信息: false
+    independenceStatus: confirmed-independent-family
+  - nodeId: 37:26566
+    nodeName: item/设置/高级设置
+    componentKey: 324b8d521f63e8291b09eae476d24f80468f8401
+    nodeType: instance
+    mainComponentNodeId: 37:27436
+    independenceStatus: confirmed-independent-family
+  - nodeId: 37:26567
+    nodeName: item/设置/高级设置
+    componentKey: 324b8d521f63e8291b09eae476d24f80468f8401
+    nodeType: instance
+    mainComponentNodeId: 37:27436
+    independenceStatus: confirmed-independent-family
+  - nodeId: 37:26568
+    nodeName: item/设置/高级设置
+    componentKey: 324b8d521f63e8291b09eae476d24f80468f8401
+    nodeType: instance
+    mainComponentNodeId: 37:27436
+    independenceStatus: confirmed-independent-family
+  - nodeId: 37:26569
+    nodeName: item/设置/高级设置
+    componentKey: 324b8d521f63e8291b09eae476d24f80468f8401
+    nodeType: instance
+    mainComponentNodeId: 37:27436
+    independenceStatus: confirmed-independent-family
+  - nodeId: 37:26364
+    nodeName: 分类=持仓, 有内容=On, Dark=Off
+    componentKey: a2a9e5103bfa731cf4dbf970ce0363177514c624
+    parentComponentSetKey: 5367dbf9c68c89fa22bc02f71f28e7aa8a25a626
+    nodeType: component
+    compositionMode: composed-from-multiple-component-sets
+    decompositionStatus: child-families-extracted
+  - nodeId: 37:26366
+    nodeName: tab/二级tab
+    componentKey: e402d53db7855bb196ce5e173aa5fbb2fc2ca1fe
+    parentComponentSetKey: 9e08db59643ac9d2de1c7c2a840b1f6a8b944a16
+    nodeType: instance
+    mainComponentNodeId: 37:18560
+    variantProperties:
+      类型: 二级tab
+      icon: 无
+      Dark: true
+    independenceStatus: observed-child-family-under-holdings
+  - nodeId: 37:26368
+    nodeName: item/信息/表头
+    componentKey: 60826f01aaf71a30ef2abf8317162a564e76b0d6
+    parentComponentSetKey: 790941739e3f6bd787de30645931cf88ed51edc2
+    nodeType: instance
+    mainComponentNodeId: 37:27769
+    variantProperties:
+      分类: 持仓
+    independenceStatus: observed-child-family-under-holdings
+  - nodeId: 37:26369
+    nodeName: item/信息/持仓&合约/集合
+    componentKey: 6a1fb9960349979573d855505a747a933d297bfe
+    parentComponentSetKey: 618635c47a0fbeb71771f67ecd196859e3abaa68
+    nodeType: instance
+    mainComponentNodeId: 37:27953
+    variantProperties:
+      分类: 持仓完整列表
+      展开: false
+      提示: false
+    independenceStatus: observed-row-family-under-holdings
+  - nodeId: 37:26377
+    nodeName: item/信息/批量买入卖出按钮
+    componentKey: f157a032ac5b33df984025dc94b0cefeb68aa253
+    parentComponentSetKey: fc58c8f06c0a0aa30d5828d9453a39692032693e
+    nodeType: instance
+    mainComponentNodeId: 37:28206
+    variantProperties:
+      1月版: true
+    independenceStatus: observed-child-family-under-holdings
+  - nodeId: 37:26383
+    nodeName: 空状态/卡片空态
+    componentKey: 36bf18da86ec8f61ca05996de10a483b07778240
+    parentComponentSetKey: 9242dc8a0e7215eff1c110945d6f1cb18d0e4694
+    nodeType: instance
+    mainComponentNodeId: 37:18472
+    variantProperties:
+      按钮: false
+      Dark: false
+    independenceStatus: observed-empty-state-under-holdings
+  - nodeId: 37:26384
+    nodeName: 分类=合约, 有内容=On, Dark=Off
+    componentKey: 0f62829629acdebc2d003392b615b6cea9059316
+    parentComponentSetKey: 5367dbf9c68c89fa22bc02f71f28e7aa8a25a626
+    nodeType: component
+    compositionMode: composed-from-multiple-component-sets
+    decompositionStatus: child-families-extracted
+  - nodeId: 37:26387
+    nodeName: Frame
+    componentKey: NOT_APPLICABLE_FRAME
+    nodeType: frame
+    sourceComponentSetKey: 93dd72982c8c516bfc14043c354b8c10f4c31a35
+    sourceComponentSetName: tab/胶囊
+    childInstances:
+    - nodeId: 37:26388
+      nodeName: tab/胶囊
+      componentKey: 59f0d375cdff4a599b0e2766b1fd1c1af6c7906d
+      parentComponentSetKey: 93dd72982c8c516bfc14043c354b8c10f4c31a35
+      mainComponentNodeId: 37:18720
+      textOverride:
+        内容: 融资合约
+      variantProperties:
+        选中态: true
+        场景: 首页/通用
+        Dark: false
+    - nodeId: 37:26389
+      nodeName: tab/胶囊
+      componentKey: 97b9e4e2b4d0fa326bff8872c064a1913ea2f8c2
+      parentComponentSetKey: 93dd72982c8c516bfc14043c354b8c10f4c31a35
+      mainComponentNodeId: 37:18718
+      textOverride:
+        内容: 融券合约
+      variantProperties:
+        选中态: false
+        场景: 首页/通用
+        Dark: false
+    independenceStatus: observed-child-family-under-contract
+  - nodeId: 37:26391
+    nodeName: item/信息/表头
+    componentKey: 763a1c75c39941e540dc707bd6b751c2af6ca7e4
+    parentComponentSetKey: 790941739e3f6bd787de30645931cf88ed51edc2
+    nodeType: instance
+    mainComponentNodeId: 37:27829
+    variantProperties:
+      分类: 合约
+    independenceStatus: observed-child-family-under-contract
+  - nodeId: 37:26392
+    nodeName: item/信息/持仓&合约/集合
+    componentKey: 6a1fb9960349979573d855505a747a933d297bfe
+    parentComponentSetKey: 618635c47a0fbeb71771f67ecd196859e3abaa68
+    nodeType: instance
+    mainComponentNodeId: 37:27953
+    variantProperties:
+      分类: 持仓完整列表
+      展开: false
+      提示: false
+    independenceStatus: observed-row-family-under-contract
+  - nodeId: 92:45734
+    nodeName: 空状态/卡片空态
+    componentKey: 36bf18da86ec8f61ca05996de10a483b07778240
+    parentComponentSetKey: 9242dc8a0e7215eff1c110945d6f1cb18d0e4694
+    nodeType: instance
+    mainComponentNodeId: 37:18472
+    variantProperties:
+      按钮: false
+      Dark: false
+    independenceStatus: observed-empty-state-under-contract
+  - nodeId: 37:26400
+    nodeName: 分类=历史/历史委托, 有内容=On, Dark=Off
+    componentKey: 92abc1b8937596cef9f593bdd630ad142f732832
+    parentComponentSetKey: 5367dbf9c68c89fa22bc02f71f28e7aa8a25a626
+    nodeType: component
+    compositionMode: composed-from-multiple-component-sets
+  - nodeId: 37:26427
+    nodeName: 分类=委托, 有内容=On, Dark=Off
+    componentKey: b462bcec221d2a0485d89c1d8bbce6fa68825c47
+    parentComponentSetKey: 5367dbf9c68c89fa22bc02f71f28e7aa8a25a626
+    nodeType: component
+    compositionMode: composed-from-multiple-component-sets
+    decompositionStatus: child-families-extracted
+  - nodeId: 37:28958
+    nodeName: item/信息/历史&委托&条件单/标题
+    componentKey: e78c596519c43ad3043512552df8f44e0a94ba8a
+    parentComponentSetKey: ded90558ca87f8f8e25e9697d985201a23bed4a9
+    nodeType: instance
+    mainComponentNodeId: 37:28213
+    variantProperties:
+      展开: true
+      有功能按钮: true
+    independenceStatus: observed-child-family-under-entrust
+  - nodeId: 37:28961
+    nodeName: item/信息/表头
+    componentKey: 77673efb833427369e1757380cc739b0ce66e515
+    parentComponentSetKey: 790941739e3f6bd787de30645931cf88ed51edc2
+    nodeType: instance
+    mainComponentNodeId: 37:27816
+    variantProperties:
+      分类: 委托
+    independenceStatus: observed-child-family-under-entrust
+  - nodeId: 37:28347
+    nodeName: item/信息/历史&委托/单列
+    componentKey: 49541fbecebbe458f5567e665238101c3eb4443b
+    parentComponentSetKey: 36efc57a50a8c5d828862dcbd811cfc9e2a485e6
+    nodeType: instance
+    mainComponentNodeId: 37:28292
+    variantProperties:
+      方向: 买入
+      委托成功: true
+    independenceStatus: observed-row-family-under-entrust
+  - nodeId: 37:28348
+    nodeName: item/信息/橙色提示话术
+    componentKey: 070a325b4da08c2cc6616d62e141c3508f0c8f9a
+    parentComponentSetKey: 75bc9378c66e079d2c292b745e2bacada1ce9340
+    nodeType: instance
+    mainComponentNodeId: 37:27963
+    variantProperties:
+      分类: 纯文字
+      交易标签: false
+    independenceStatus: observed-child-family-under-entrust
+  - nodeId: 37:28349
+    nodeName: item/信息/操作区域
+    componentKey: 9751897cc3ec86e01ba0d24cf5fb4cbd2e8c2991
+    parentComponentSetKey: 639dc3fac22a1f2e0a36be1294558f588b9a6330
+    nodeType: instance
+    mainComponentNodeId: 37:28901
+    variantProperties:
+      error: Component set has existing errors in Figma; variantProperties unavailable
+    independenceStatus: observed-child-family-under-entrust
+  - nodeId: 37:26434
+    nodeName: 分类=条件单, 有内容=On, Dark=Off
+    componentKey: 744971ecd4383e173207bed9079bd4b174ca7b90
+    parentComponentSetKey: 5367dbf9c68c89fa22bc02f71f28e7aa8a25a626
+    nodeType: component
+    compositionMode: composed-from-multiple-component-sets
+    decompositionStatus: condition-order-light-child-extraction-started
+  - nodeId: 37:26438
+    nodeName: item/信息/条件单卡片
+    componentKey: fe05fa5481a30920d10a64a11dbb56cc097efaf9
+    parentComponentSetKey: a92a5971c2d6b4e4f9ccd45f87925ebbf24419cf
+    nodeType: instance
+    mainComponentNodeId: 37:28988
+    variantProperties:
+      分类: 未完成
+      展开: true
+    independenceStatus: observed-child-family-under-condition-order
+  - nodeId: I37:26438;37:28989
+    nodeName: item/信息/历史&委托&条件单/标题
+    componentKey: e78c596519c43ad3043512552df8f44e0a94ba8a
+    parentComponentSetKey: ded90558ca87f8f8e25e9697d985201a23bed4a9
+    nodeType: nested-instance
+    variantProperties:
+      展开: true
+      有功能按钮: true
+    independenceStatus: shared-section-header-under-condition-order
+  - nodeId: I37:26438;37:28991;1256:131636
+    nodeName: item/信息/条件单&策略/标的信息
+    componentKey: 827efc498980633b440cb9abb9491ef0ad78e8b5
+    parentComponentSetKey: 6f48f0023f38e1a18b8c7509eb1fa8083fd1ada6
+    nodeType: nested-instance
+    mainComponentNodeId: 37:28601
+    variantProperties:
+      标的标签: true
+      方案标签: false
+    textOverrideFields:
+    - 标的名称
+    - 交易类型
+    - 交易状态
+    - 标的代码
+    - 现价
+    - 涨跌幅
+    - 方案标签
+    - 方案提交状态
+    independenceStatus: observed-child-family-under-condition-order
+  - nodeId: 37:26455
+    nodeName: 分类=历史/历史策略, 有内容=On, Dark=Off
+    componentKey: be29e2c7c22aadf7496ad911297896bc734be63c
+    parentComponentSetKey: 5367dbf9c68c89fa22bc02f71f28e7aa8a25a626
+    nodeType: component
+    compositionMode: composed-from-multiple-component-sets
+classification:
+  primitiveFamily: trading_page_modules
+  componentType: component_family_board
+  riskLevel: high
+  isOrdinaryButton: false
+  isTradingAction: false
+variants:
+  confirmed:
+  - 分类=账户切换
+  - 分类=页面滑动
+  - 分类=模拟交易
+  - switch=On
+  - switch=On, durationPreset=10秒选中
+  - switch=On, durationPreset=20秒
+  - switch=On, durationPreset=30秒
+  - switch=On, durationPreset=40秒
+  - switch=On, cycleWindow=周一至周五, dailyWindow=09:30至15:00
+  - 分类=持仓, 有内容=On, Dark=Off
+  - 分类=持仓, 有内容=Off, Dark=Off
+  - 分类=持仓, 有内容=On, Dark=On
+  - 分类=持仓, 有内容=Off, Dark=On
+  - selectedTab=持仓
+  - state=empty, Dark=Off
+  - state=empty, Dark=On
+  - 分类=合约, 有内容=On, Dark=Off
+  - 分类=合约, 有内容=On, Dark=On
+  - selectedLoanType=融资合约
+  - 分类=委托, 有内容=On, Dark=Off
+  - 分类=委托, 有内容=On, Dark=On
+  - section=未完成, tools=手工开关+批量撤单+折叠
+  - section=已完成, tools=手工开关+折叠
+  - listType=委托
+  - rowState=已报, operationStyle=撤单按钮
+  - rowState=已撤, operationStyle=占位符
+  - rowState=废单, operationStyle=错误原因
+  - noticeType=TWAP, companionTag=两融
+  - noticeType=网格(到价触发), companionTag=方案名或详细说明
+  - section=未完成, middleAction=撤单重下
+  - section=已完结, middleAction=再来一单
+  - 分类=条件单, 有内容=On, Dark=Off
+  - 分类=条件单, 有内容=On, Dark=On
+  - section=未完成, tools=仅今日触发+筛选+批量+折叠, collapsed=Off
+  - section=已完结, tools=按有功能按钮变体, collapsed=按展开变体
+  - 分类=未完成, 展开=On
+  - 分类=已完结, 展开=On
+  - 分类=已完结, 展开=Off
+  - 标的标签=On, 方案标签=Off
+  - 标的标签=On, 方案标签=On
+  - strategyType=定价条件, aiAssistant=Off
+  - strategyType=网格成交驱动, aiAssistant=On
+  - strategyType=其他策略类型待复核, aiAssistant=按策略类型待复核
+  - infoType=交易明细, orderState=运行中
+  - infoType=交易记录, orderState=已完结
+  - infoType=其他交易信息类型待复核, orderState=按条件单状态待复核
+  - 分类=历史/历史委托, 有内容=On, Dark=Off
+  - 分类=历史/历史委托, 有内容=On, Dark=On
+  - 分类=历史/历史策略, 有内容=On, Dark=Off
+  - 分类=历史/历史策略, 有内容=On, Dark=On
+  source: familyVariantGroups
+states:
+- id: default
+  required: true
+- id: dark
+  required: true
+- id: empty
+  required: false
+- id: with-content
+  required: false
+slots:
+  topContext:
+    description: 账户、标的或模拟交易顶部上下文。
+  settingsPanel:
+    description: 交易参数设置区。
+  infoPanel:
+    description: 持仓、合约、委托、条件单和历史信息区。
+  sharedTradingInput:
+    componentRef: component.trading-input
+  sharedTradingAction:
+    componentRef: component.trading-action-button
+tokens:
+  source:
+  - canon/foundations/tokens/
+  - authoring/components/trading-input.brief.yaml
+  - authoring/components/trading-action-button.brief.yaml
+textOverrideFields:
+- TODO_VERIFY_WITH_FIGMA
+resourceRefs:
+- authoring/scenarios/trading.brief.yaml
+- authoring/components/trading-input.brief.yaml
+- authoring/components/trading-action-button.brief.yaml
+
+# ============================================================
+# 03_AGENT_EXPANSION_AND_CHECKLIST
+# Agent 扩展与自查区
+# ============================================================
+
+reviewChecklist:
+- id: trading-page-modules-family-location
+  severity: P0
+  question: 交易顶部、设置区、信息区的真实 component family 是否集中维护在当前 brief，而不是 scenario brief？
+  passCriteria: scenario 只通过 componentRefs 引用当前文件；组件 family 和变体规则集中在当前文件。
+- id: trading-page-modules-shared-control-boundary
+  severity: P0
+  question: 共享交易输入和交易行动按钮是否仍引用独立组件？
+  passCriteria: "`component.trading-input` 和 `component.trading-action-button` 没有被复制成当前文件内的私有组件。"
+- id: trading-page-modules-usage-not-definition
+  severity: P0
+  question: source selection、page frame、prototype 是否只进入 usageInstanceGroups？
+  passCriteria: usageInstanceGroups 只记录使用证据，不定义新的 component family。
+agentExpansion:
+  canonComponent:
+    path: canon/components/trading-page-modules.meta.yaml
+  checklist:
+    path: canon/checklists/trading-page-modules-review.yaml
+  figmaBinding:
+    path: bindings/figma/components.yaml
+  docs:
+    path: docs/generated/components/index.md

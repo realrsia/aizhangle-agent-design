@@ -19,3 +19,5 @@ Selected source materials were copied into:
 - `bindings/figma/*.source.yaml`
 
 Keep this folder for source notes, migration decisions, and future import logs.
+
+`sources/archive/` keeps historical source-package notes that are no longer core repository entrypoints.

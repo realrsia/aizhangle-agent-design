@@ -94,11 +94,7 @@ Use these paths by responsibility:
 - `docs/case-studies/`: reserved for structured good/bad examples and historical design bugs.
 - `docs/generated/`: generated human-readable docs derived from canonical data.
 - `docs/generated/components/index.md`: generated component documentation index. Keep this index-only unless long-form docs are explicitly requested.
-- `generated/`: derived output layer. Use this for generated CSS, JSON bundles, Markdown, and search indexes.
-- `generated/css/design-tokens.css`: generated CSS token preview. Do not edit this as the source of truth.
-- `generated/json/`: reserved for normalized machine bundles generated from `canon/`.
-- `generated/markdown/`: reserved for generated Markdown docs.
-- `generated/search-index/`: reserved for retrieval indexes.
+- `docs/generated/`: generated human-readable indexes derived from canonical data. Do not edit these as source of truth.
 - `renderers/`: low-fidelity renderer layer. Use it when generating H5 or HTML prototypes.
 - `renderers/html/component-renderers.yaml`: maps canonical/Figma component identity to low-fidelity HTML renderer strategies.
 - `renderers/html/page-renderers.yaml`: maps scenarios and archetypes to low-fidelity HTML page renderer strategies.
