@@ -11,7 +11,8 @@ status: draft
 # [HUMAN REQUIRED]
 purpose: >
   用于 AI 对话页底部输入与语音/键盘模式切换，是 full-screen conversation
-  的固定底部交互入口。正式组件来源优先使用设计仓库 bottom bar 的对话变体。
+  的固定底部交互入口。正式组件来源优先使用设计仓库/对话流中的
+  1月版/母组件，对话页需要完整 composer 时使用包含 Agent 助手胶囊的版本。
 
 # [HUMAN REQUIRED]
 usedIn:
@@ -22,8 +23,9 @@ usedIn:
 humanRules:
   do:
     - 保持输入栏固定在 full-screen conversation frame 底部。
-    - 优先复用底bar对话态，不用普通输入框替代。
-    - 今天先覆盖默认对话态的 Dark=On 和 Dark=Off；语音、键盘、打断、上划、关联问等状态继续按 Figma 节点验证。
+    - 优先复用设计仓库/对话流/对话-白版中的 1月版/母组件，不用普通输入框替代。
+    - 完整对话页优先使用包含输入胶囊、Agent 助手胶囊、AI 生成提示和 home indicator 的底部 composer。
+    - 简化语音输入状态可参考单独的 1月版/母组件 简化节点。
   dont:
     - 不要把对话输入栏放进滚动消息内容。
     - 不要用普通表单输入框替代底部 composer。
@@ -59,40 +61,36 @@ forbiddenPairings:
 # [HUMAN REQUIRED]
 componentFamilies:
   - id: chat-input.dialog-bottom-bar
-    figmaNodeId: "5509:131783"
+    figmaNodeId: "392:75769"
     canonicalName: bottom bar/母组件
     sourceFigmaExactName: 1月版/母组件
-    sourceNameStatus: legacy_name_in_figma_needs_rename
+    sourceNameStatus: repository_component_confirmed
     sourceInstanceRole: dialog_page_bottom_bar_instance
     familyType: component_set_instance
-    humanUse: draft_page_instance_of_dialog_bottom_bar
+    humanUse: ai_chat_full_composer_with_agent_chips
     humanRules:
       - 用作对话页底部输入栏，不作为普通底部导航。
+      - 保留输入胶囊、Agent 助手胶囊、AI 生成提示和 home indicator。
   - id: chat-input.repository-bottom-bar
-    figmaNodeId: "12:10172"
-    figmaExactName: bottom bar/母组件
-    familyType: component_set
-    humanUse: draft_formal_component_source
+    figmaNodeId: "392:69807"
+    figmaExactName: 1月版/母组件
+    familyType: component_instance
+    humanUse: ai_chat_simple_voice_composer_reference
     humanRules:
-      - 使用设计仓库中的 bottom bar 组件集作为对话输入栏正式绑定来源。
-      - 对话黑版优先绑定 场景=对话, Dark=On 变体；白版优先绑定 场景=对话, Dark=Off 变体。
+      - 仅作为简化语音输入栏状态参考，不覆盖完整对话页底部 composer。
 
 # [HUMAN REQUIRED]
 examples:
   good:
-    - figmaNodeId: "5509:131783"
-      reason: 对话黑版中的底部输入栏实例，应对应设计仓库 bottom bar/母组件的对话 Dark=On 变体。
-    - figmaNodeId: "5829:15841"
-      reason: 对话白版中的底部输入栏实例，应对应设计仓库 bottom bar/母组件的对话 Dark=Off 变体。
-    - figmaNodeId: "5509:132713"
-      reason: 开启新对话白版中的底部输入栏实例，用于状态页参考。
-    - figmaNodeId: "12:10180"
-      reason: 设计仓库 bottom bar/母组件中的对话 Dark=On 变体。
-    - figmaNodeId: "12:10189"
-      reason: 设计仓库 bottom bar/母组件中的对话 Dark=Off 变体。
+    - figmaNodeId: "392:75769"
+      reason: 对话白版中的完整底部 composer，包含输入胶囊、Agent 助手胶囊、AI 生成提示和 home indicator。
+    - figmaNodeId: "392:69807"
+      reason: 简化语音输入状态，可作为仅包含输入胶囊和左右动作按钮的参考。
   needsReview:
+    - name: 黑版完整 composer
+      reason: 当前新设计仓库已确认白版完整 composer；黑版需要继续按 Figma 节点确认。
     - name: 输入栏状态枚举
-      reason: 今天先覆盖默认对话态深浅色；其他状态继续按 Figma 节点验证。
+      reason: 语音、键盘、打断、上划、关联问等状态还需继续按 Figma 节点验证。
   bad: []
 
 # ============================================================
@@ -101,41 +99,29 @@ examples:
 # ============================================================
 
 figma:
-  fileName: 对话流GUI与规范实测
-  fileKey: 4lMpPyfchpoWK0wE0nyJzw
-  exampleNodeId: "5509:131783"
+  fileName: 设计仓库
+  fileKey: pbxELN7TYDDguIgbXfc1zB
+  canvasNodeId: "212:2"
+  canvasName: 对话流
+  exampleNodeId: "392:75769"
   canonicalName: bottom bar/母组件
   sourceFigmaExactName: 1月版/母组件
-  sourceNameStatus: legacy_name_in_figma_needs_rename
-  componentKey: 6c67c07391c697e6658e10a591063b31017a622f
-  mainComponentKey: ceda34ec270acdbe0377ac8d917e5c499ac6c9a5
+  sourceNameStatus: repository_component_confirmed
+  componentKey: TODO_VERIFY_WITH_FIGMA
+  mainComponentKey: TODO_VERIFY_WITH_FIGMA
   bindingMode: must_use_library_instance
   bindingFailurePolicy: stop_and_recheck
-  relatedRepositoryFileKey: N0GqvW0qr9niOnWxjzyulU
-  repositoryComponentSetNodeId: "12:10172"
-  repositoryComponentSetKey: 8cbb729a37926f3ff74f84f60bee46a009e4de04
-  repositoryDarkVariantNodeId: "12:10180"
-  repositoryDarkVariantComponentKey: 73fa7c55a7adc008e563959371c3e6c53623cfb7
-  repositoryLightVariantNodeId: "12:10189"
-  repositoryLightVariantComponentKey: 294d923f164d688d89fc2d2693aeabc04651126e
+  fullComposerNodeId: "392:75769"
+  simpleVoiceComposerNodeId: "392:69807"
+  fullComposerComponentKey: TODO_VERIFY_WITH_FIGMA
+  simpleVoiceComposerComponentKey: TODO_VERIFY_WITH_FIGMA
   propertyHints:
-    场景:
-      - 对话
-      - 默认
-      - 交易场景
-      - 个股
-    有关联问:
-      - "On"
-      - "Off"
-    有陪伴:
-      - "On"
-      - "Off"
-    有指数:
-      - "On"
-      - "Off"
+    composerType:
+      - full_with_agent_chips
+      - simple_voice_input
     Dark:
-      - "On"
       - "Off"
+      - TODO_VERIFY_WITH_FIGMA_DARK
 
 classification:
   primitiveFamily: chat_input
@@ -160,14 +146,13 @@ observedStructure:
 
 variants:
   confirmed:
-    - 场景=对话, 有关联问=Off, 有陪伴=Off, 有指数=Off, Dark=On
-    - 场景=对话, 有关联问=Off, 有陪伴=Off, 有指数=Off, Dark=Off
+    - composerType=full_with_agent_chips, Dark=Off
+    - composerType=simple_voice_input, Dark=Off
   candidates:
-    - 有关联问=On
-    - 有陪伴=On
-    - 有指数=On
-    - 交易场景
-    - 个股
+    - Dark=On
+    - keyboard-input
+    - interruption
+    - related-question-expanded
 
 states:
   - id: default
@@ -208,6 +193,9 @@ resourceRefs:
   - docs/references/bottom-bar/variants.md
   - docs/references/bottom-bar/agent-chips.md
   - bindings/assets/files/templates/bottom-bar-component.json
+  - figma://pbxELN7TYDDguIgbXfc1zB/212:2
+  - figma://pbxELN7TYDDguIgbXfc1zB/392:75769
+  - figma://pbxELN7TYDDguIgbXfc1zB/392:69807
 
 # ============================================================
 # 03_AGENT_EXPANSION_AND_CHECKLIST

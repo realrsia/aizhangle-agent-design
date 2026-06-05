@@ -16,19 +16,22 @@ components:
     sourceRefs:
       - authoring/scenarios/ai-chat.brief.yaml
       - authoring/components/bottom-bar.brief.yaml
+      - figma://pbxELN7TYDDguIgbXfc1zB/392:75769
   - id: component.chat-background
     brief: authoring/components/chat-background.brief.yaml
     sourceRefs:
       - authoring/scenarios/ai-chat.brief.yaml
-      - figma://N0GqvW0qr9niOnWxjzyulU/7:6911
+      - figma://pbxELN7TYDDguIgbXfc1zB/392:75635
   - id: component.chat-topbar
     brief: authoring/components/chat-topbar.brief.yaml
     sourceRefs:
       - authoring/scenarios/ai-chat.brief.yaml
+      - figma://pbxELN7TYDDguIgbXfc1zB/392:75357
   - id: component.message-feed
     brief: authoring/components/message-feed.brief.yaml
     sourceRefs:
       - authoring/scenarios/ai-chat.brief.yaml
+      - figma://pbxELN7TYDDguIgbXfc1zB/392:75640
   - id: component.divider
     brief: authoring/components/divider.brief.yaml
     sourceRefs:

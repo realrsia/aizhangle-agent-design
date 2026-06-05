@@ -11,7 +11,7 @@ status: draft
 # [HUMAN REQUIRED]
 purpose: >
   用于新涨乐 AI 对话模块页面生成与还原实测，覆盖用户提问、智能体思考、
-  回答正文、相关问题和底部继续输入。页面结构以对话流GUI与规范实测为当前模块来源。
+  回答正文、相关问题和底部继续输入。页面结构以设计仓库/对话流为当前模块来源。
 
 # [HUMAN REQUIRED]
 primaryUserGoal: >
@@ -20,7 +20,7 @@ primaryUserGoal: >
 
 # [HUMAN REQUIRED]
 requiredContent:
-  - 页面背景。
+  - 页面背景，必须使用对话流光线平铺背景，不使用首页卡片背景。
   - 固定顶部对话导航栏。
   - 用户问题气泡。
   - AI 头像/身份行。
@@ -32,6 +32,7 @@ requiredContent:
 # [HUMAN REQUIRED]
 forbiddenPatterns:
   - 不要用手写色块替代设计仓库背景组件。
+  - 不要用首页卡片背景、普通卡片 surface 替代 AI chat 对话页背景。
   - 不要用普通二级页 header 替代对话顶部导航。
   - 不要用普通输入框或通用底部导航替代对话底部输入栏。
   - 不要把 bottom input 放进滚动消息流。
@@ -48,8 +49,8 @@ riskWarnings:
 # [HUMAN REQUIRED]
 manualReviewQuestions:
   - id: ai-chat-standard-source
-    question: 对话流GUI与规范实测是否作为本模块当前页面结构标准来源？
-    currentDraftAnswer: draft_yes_for_module_structure
+    question: 设计仓库/对话流是否作为本模块当前页面结构标准来源？
+    currentDraftAnswer: draft_yes_design_repository_dialog_flow
   - id: thinking-process-component
     question: 思考过程是独立 Figma 母组件、回答状态变体，还是页面内语义组合？
     currentDraftAnswer: pending_further_confirmation_do_not_render_as_generic_card
@@ -58,7 +59,7 @@ manualReviewQuestions:
     currentDraftAnswer: fallback_allowed_when_no_formal_component_mark_as_non_canonical
   - id: component-library-binding
     question: 设计仓库中的 bottom bar 是否应作为团队正式组件库绑定来源？
-    currentDraftAnswer: draft_yes_bottom_bar_component_set_12_10172
+    currentDraftAnswer: draft_yes_dialog_flow_bottom_composer_392_75769
   - id: design-token-binding
     question: 对话模块生成时，深色/浅色背景、文字、描边等颜色是否必须优先使用设计仓库变量，不能写死色值？
     currentDraftAnswer: draft_yes_prefer_design_repository_tokens_no_hardcoded_colors
@@ -80,60 +81,32 @@ candidateComponents:
   - component.bottom-bar
   - component.card
 figmaRefs:
-  - fileName: 对话流GUI与规范实测
-    fileKey: 4lMpPyfchpoWK0wE0nyJzw
-    role: dialog_module_test_source
-    priorityFrameNodeId: "2684:56257"
-    priorityFrameName: 对话-黑版
-    relatedFrames:
-      - nodeId: "2684:56814"
-        name: 开启新对话
-        role: dark_theme_new_conversation_financial_content_state
-      - nodeId: "3835:60192"
-        name: 查看历史消息
-        role: dark_theme_message_history_page_reference
-      - nodeId: "5509:126694"
-        name: 开启新对话
-        role: dark_theme_table_content_reference
-      - nodeId: "2934:57654"
-        name: 对话消息
-        role: dark_theme_logged_out_message_reference
-      - nodeId: "5829:15305"
-        name: 对话-白版
-        role: light_theme_primary_chat_reference
-      - nodeId: "2378:59929"
-        name: 开启新对话
-        role: light_theme_new_conversation_state
-      - nodeId: "3835:66310"
-        name: 消息
-        role: light_theme_message_page_reference
-      - nodeId: "5509:125464"
-        name: 表格
-        role: light_theme_table_content_reference
-      - nodeId: "2934:58669"
-        name: 消息-白版
-        role: light_theme_logged_out_message_reference
   - fileName: 设计仓库
-    fileKey: N0GqvW0qr9niOnWxjzyulU
-    role: component_repository_reference
-    priorityNodeId: "12:10172"
-    priorityNodeName: bottom bar/母组件
-    relatedNodes:
-      - nodeId: "23:17482"
-        name: 元素组件
-        role: background_and_market_content_component_section
-      - nodeId: "12:6783"
-        name: 3.3 底bar组件
-        role: checked_bottom_bar_section_not_confirmed_as_chat_topbar_or_avatar_source
-      - nodeId: "7:6911"
-        name: 背景
-        role: page_background_component_group
-      - nodeId: "31:18747"
-        name: 页面=全屏, dark=on
-        role: dark_theme_long_page_background
-      - nodeId: "31:18755"
-        name: 页面=全屏, dark=off
-        role: light_theme_long_page_background
+    fileKey: pbxELN7TYDDguIgbXfc1zB
+    role: dialog_module_component_repository_source
+    canvasNodeId: "212:2"
+    canvasName: 对话流
+    priorityFrameNodeId: "392:75634"
+    priorityFrameName: 对话-白版
+    relatedFrames:
+      - nodeId: "392:75635"
+        name: 背景/背景
+        role: ai_chat_light_background_with_light_beams
+      - nodeId: "392:75357"
+        name: 1月版全屏对话导航栏
+        role: fullscreen_chat_topbar_component_set
+      - nodeId: "392:75769"
+        name: 1月版/母组件
+        role: full_bottom_composer_with_agent_chips
+      - nodeId: "392:69807"
+        name: 1月版/母组件
+        role: simple_voice_bottom_composer
+      - nodeId: "392:75640"
+        name: Frame 2147231007
+        role: message_feed_stack
+      - nodeId: "392:75765"
+        name: related_questions_stack
+        role: related_questions_reference
 assetRefs:
   - docs/references/fidelity/chat-fidelity-reconstruction.md
   - docs/references/bottom-bar/base.md
@@ -146,6 +119,8 @@ knownGenerationFailures:
     summary: 第二版虽然保留部分组件，但思考区和股票图表仍为 fallback，且出现底部栏压住内容的问题。
   - id: missing-fonts
     summary: 跨页克隆或改写组件文字时遇到 PingFang SC / SF Pro Text 字体不可用。
+  - id: wrong-ai-chat-background
+    summary: 生成对话流时误用首页卡片背景；应绑定 392:75635 的对话页光线平铺背景。
 
 # ============================================================
 # 03_AGENT_EXPANSION_AND_CHECKLIST

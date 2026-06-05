@@ -11,8 +11,8 @@ status: draft
 # [HUMAN REQUIRED]
 purpose: >
   用于 full-screen conversation 页面顶部固定导航，包含左侧关闭和右侧消息、
-  播放等紧凑图标操作。当前先以对话流GUI与规范实测中的实例作为页面来源，
-  后续继续确认是否存在设计仓库正式组件。
+  播放等紧凑图标操作。当前绑定到设计仓库/对话流中的 1月版全屏对话导航栏，
+  不再使用普通二级页导航栏或交易页 header 作为替代。
 
 # [HUMAN REQUIRED]
 usedIn:
@@ -25,7 +25,7 @@ humanRules:
     - 使用全屏对话导航结构，完整高度为 91px。
     - 顶部 47px iOS 状态区和 44px 对话 header 保持固定。
     - 右侧图标顺序为消息、播放。
-    - 如果设计仓库未找到对话顶部导航正式组件，先使用对话流GUI与规范实测中的实例并标记待确认。
+    - 优先使用设计仓库/对话流/1月版全屏对话导航栏的组件变体。
   dont:
     - 不要使用普通二级页标题栏替代。
     - 不要添加标题、搜索、tab 或底部分割线。
@@ -35,7 +35,7 @@ humanRules:
 # [HUMAN REQUIRED]
 riskWarnings:
   - 顶部导航类型错误会导致对话页变成普通二级页。
-  - 设计仓库 3.3 底bar组件 section 中可见 Stock Header/Status Bar 等交易页头部示例，但未确认是对话顶部导航正式来源。
+  - 不能用二级页导航栏、首页导航栏或交易页 Stock Header 替代全屏对话导航栏。
 
 # [HUMAN REQUIRED]
 allowedZones:
@@ -62,33 +62,31 @@ forbiddenPairings:
 # [HUMAN REQUIRED]
 componentFamilies:
   - id: chat-topbar.fullscreen-conversation
-    figmaNodeId: "5524:134998"
+    figmaNodeId: "392:75357"
     canonicalName: 全屏对话导航栏
     sourceFigmaExactName: 1月版全屏对话导航栏
-    sourceNameStatus: legacy_name_in_figma_needs_rename
-    sourceInstanceRole: dialog_page_topbar_instance
-    familyType: component_set_instance
-    humanUse: draft_use_dialog_gui_instance_pending_formal_repository_component
+    sourceNameStatus: repository_component_confirmed
+    sourceInstanceRole: dialog_page_topbar_component_set
+    familyType: component_set
+    humanUse: formal_dialog_topbar_source
     humanRules:
       - 作为对话页固定顶部组件，不作为普通页面 header。
-      - 后续需要继续确认设计仓库中是否存在同源正式组件。
+      - 默认对话态优先使用 展开=Off, 胶囊数量=0；需要胶囊时再选择展开变体。
 
 # [HUMAN REQUIRED]
 examples:
   good:
-    - figmaNodeId: "5524:134998"
-      reason: 对话黑版中的全屏对话导航栏实例。
-    - figmaNodeId: "5829:15311"
-      reason: 对话白版中的全屏对话导航栏实例，用于验证浅色主题。
-    - figmaNodeId: "5524:137503"
-      reason: 投顾问答中的全屏对话导航栏实例。
-    - figmaNodeId: "5524:136837"
-      reason: 开启新对话白版中的全屏对话导航栏实例，用于状态页参考。
+    - figmaNodeId: "392:75358"
+      reason: 设计仓库中的全屏对话导航栏默认黑版变体，展开=Off, 胶囊数量=0, Dark=On。
+    - figmaNodeId: "392:75374"
+      reason: 设计仓库中的全屏对话导航栏默认白版变体，展开=Off, 胶囊数量=0, Dark=Off。
+    - figmaNodeId: "392:75390"
+      reason: 设计仓库中的全屏对话导航栏展开黑版变体，适合出现对话胶囊入口时使用。
+    - figmaNodeId: "392:75428"
+      reason: 设计仓库中的全屏对话导航栏展开白版变体，适合出现对话胶囊入口时使用。
   needsReview:
-    - name: 对话顶部导航标准来源
-      reason: 当前先以对话流GUI与规范实测实例为准，后续确认是否有设计仓库正式组件。
-    - name: 设计仓库 3.3 底bar组件 section
-      reason: 已检查到 bottom bar 与交易页 Stock Header 示例；未发现可直接替代对话顶部导航的正式组件。
+    - name: 胶囊数量枚举是否只允许 0/1/2/4
+      reason: 当前从设计仓库节点读取到 0、1、2、4；是否还有其他状态需继续确认。
   bad: []
 
 # ============================================================
@@ -97,23 +95,32 @@ examples:
 # ============================================================
 
 figma:
-  fileName: 对话流GUI与规范实测
-  fileKey: 4lMpPyfchpoWK0wE0nyJzw
-  exampleNodeId: "5524:134998"
+  fileName: 设计仓库
+  fileKey: pbxELN7TYDDguIgbXfc1zB
+  canvasNodeId: "212:2"
+  canvasName: 对话流
+  componentSetNodeId: "392:75357"
+  exampleNodeId: "392:75358"
   canonicalName: 全屏对话导航栏
   sourceFigmaExactName: 1月版全屏对话导航栏
-  sourceNameStatus: legacy_name_in_figma_needs_rename
-  componentKey: d6c27504e793aea744afe4c816200fbcce914c5a
-  mainComponentKey: eac35c8abbd87e668ac8857cffaae0e5b0d9b4db
-  darkVariantComponentKey: eac35c8abbd87e668ac8857cffaae0e5b0d9b4db
-  lightVariantComponentKey: 86119071f8fc5b0509977f44780c5c431c7f1fbf
+  sourceNameStatus: repository_component_confirmed
+  componentKey: TODO_VERIFY_WITH_FIGMA
+  mainComponentKey: TODO_VERIFY_WITH_FIGMA
+  darkVariantNodeId: "392:75358"
+  darkVariantComponentKey: TODO_VERIFY_WITH_FIGMA
+  lightVariantNodeId: "392:75374"
+  lightVariantComponentKey: TODO_VERIFY_WITH_FIGMA
   bindingMode: must_use_library_instance
   bindingFailurePolicy: stop_and_recheck
   propertyHints:
     展开:
       - "Off"
+      - "On"
     胶囊数量:
       - "0"
+      - "1"
+      - "2"
+      - "4"
     Dark:
       - "On"
       - "Off"
@@ -143,8 +150,13 @@ observedStructure:
 variants:
   confirmed:
     - 展开=Off, 胶囊数量=0, Dark=On
-  candidates:
-    - Dark=Off
+    - 展开=Off, 胶囊数量=0, Dark=Off
+    - 展开=On, 胶囊数量=4, Dark=On
+    - 展开=On, 胶囊数量=4, Dark=Off
+    - 展开=On, 胶囊数量=2, Dark=On
+    - 展开=On, 胶囊数量=2, Dark=Off
+    - 展开=On, 胶囊数量=1, Dark=On
+    - 展开=On, 胶囊数量=1, Dark=Off
 
 states:
   - id: default
@@ -168,14 +180,17 @@ textOverrideFields: []
 resourceRefs:
   - docs/references/pages/page-headers.md
   - docs/references/fidelity/chat-fidelity-reconstruction.md
-  - figma://N0GqvW0qr9niOnWxjzyulU/12:6783
+  - figma://pbxELN7TYDDguIgbXfc1zB/212:2
+  - figma://pbxELN7TYDDguIgbXfc1zB/392:75357
+  - figma://pbxELN7TYDDguIgbXfc1zB/392:75358
+  - figma://pbxELN7TYDDguIgbXfc1zB/392:75374
 
 repositorySearchNotes:
-  - source: figma://N0GqvW0qr9niOnWxjzyulU/12:6783
-    name: 3.3 底bar组件
-    result: bottom_bar_section_with_trading_header_examples
-    decision: not_formal_chat_topbar_source
-    fallbackPolicy: use_dialog_gui_instance_and_mark_pending_do_not_create_original_header
+  - source: figma://pbxELN7TYDDguIgbXfc1zB/392:75357
+    name: 1月版全屏对话导航栏
+    result: fullscreen_chat_topbar_component_set_found
+    decision: formal_chat_topbar_source
+    fallbackPolicy: stop_and_recheck_do_not_use_level2_header
 
 # ============================================================
 # 03_AGENT_EXPANSION_AND_CHECKLIST
