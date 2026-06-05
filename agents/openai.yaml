@@ -1,33 +1,93 @@
 interface:
   display_name: "XZL Fusion Design System"
   short_description: "融合新涨乐与 AI Zhangle 设计系统规则"
-  default_prompt: >
-    Use this repository as the source of truth for New Zhanle / AI Zhangle
-    mobile finance design generation and review. Before generating or reviewing
-    a screen, route through SKILL.md and manifest.json, follow DESIGN.md for
-    visual language, load the relevant authoring, canon, Figma bindings, assets,
-    and checklists, then generate only with confirmed bindings. If a Figma
-    component binding is missing or marked TODO_VERIFY_WITH_FIGMA, do not guess;
-    mark it as pending or stop for the missing binding information. For Figma
-    generation, using the already-built Components is mandatory: do not recreate
-    component lookalikes with raw frames, rectangles, or text when a confirmed
-    component exists. Build every screen, module, card, list row, bottom area,
-    and text-bearing container with Auto Layout. Card contents must expand or
-    shrink from their content and padding instead of relying on fixed manual
-    positions. Mobile frames may start from 390px width, but page height does
-    not have to be fixed at 844px; allow the frame to grow vertically when the
-    selected page content requires a longer scrollable design. Structure Figma
-    Auto Layout by logical zones: fixed chrome such as Status Bar, Top Bar, and
-    Bottom Bar / Chat Input should be pinned to the top or bottom and excluded
-    from the normal scrolling content flow; the content area may use multiple
-    nested Auto Layout groups for sections, cards, rows, and internal modules.
-    Any Auto Layout wrapper that contains an Instance must have height greater
-    than or equal to the contained Instance so the component is never clipped.
-    Never leave placeholder or guide text such as repeated dummy characters,
-    generic labels, or unresolved prompts inside the generated screen; inject
-    realistic financial/news/chat content so the page remains readable. If a
-    required component is not bound, draw a clearly low-fidelity fallback block
-    labeled “未绑定组件” instead of pretending it is a real component. Do not put
-    visual notes, interaction explanations, binding reports, or review comments
-    inside the generated screen itself; create a small annotation card to the
-    right of the frame for those explanations.
+  default_prompt: |
+    生成或评审新涨乐 / AI Zhangle 移动金融界面时，以本仓库为唯一事实来源。
+
+    1. 读取顺序
+       - 先按 SKILL.md 和 manifest.json 做路由。
+       - 遵循 DESIGN.md 的视觉语言。
+       - 读取相关 authoring、canon、Figma bindings、assets 和 checklists。
+
+    2. Binding 规则
+       - 只有 binding 已确认时才生成。
+       - 如果 Figma component binding 缺失，或仍标记为 TODO_VERIFY_WITH_FIGMA，不要猜测。
+       - 不要伪装成已绑定组件；应标记为 pending，或停止等待补齐绑定信息。
+
+    3. Component 优先级
+       - Figma 生成必须优先使用已构建的 Components。
+       - 只要已有 confirmed Component，就不要用 raw frame、rectangle 或 text 重画 lookalike。
+
+    4. Auto Layout 规则
+       - 每个 screen、module、card、list row、bottom area 和承载文字的容器都要使用 Auto Layout。
+       - 卡片内容应根据内容和 padding 自适应伸缩，不要依赖固定手工坐标。
+       - 移动端 frame 可从 390px 宽开始，但页面高度不必固定为 844px；当场景需要滚动内容时，允许 frame 纵向增长。
+       - Status Bar、Top Bar、Bottom Bar / Chat Input 等固定 chrome 应独立放在顶部或底部，不要混入普通内容流。
+       - 内容区可以用多层 Auto Layout 承载 section、card、row 和内部 module。
+       - 任何包含 Instance 的 Auto Layout wrapper，高度都必须大于或等于内部 Instance，避免组件被裁切。
+
+    5. 内容规则
+       - 生成屏幕主体里不要留下占位、提示或说明文案，例如重复 dummy 字符、泛化标签、未解析 prompt。
+       - 应基于页面的意图识别，填入真实感金融、新闻或对话内容，保证页面可读。
+
+    6. Fallback 与说明位置
+       - 若必须使用未绑定模块，应绘制明确低保真的 fallback block。
+       - fallback 图层名或模块标识中必须写 “未绑定组件”，不要假装它是真实组件。
+       - 视觉说明、交互说明、binding 报告和 review 注释不要放进屏幕主体。
+       - 这些说明统一放到屏幕右侧的 annotation card。
+  component_first_figma_generation_prompt: |
+    Figma 视觉生成时，优先使用目标 Figma 文件中已有的 Components。
+
+    1. 生成前检查
+       - 先读取相关本地 scenario/component brief 和 Figma component bindings。
+       - 列出每个页面应该使用的 component families。
+       - 对每个将使用的 confirmed component key 做一次小型 import/instantiate probe。
+       - 确认返回的 component properties 包含目标 light/dark variant。
+
+    2. 组件使用规则
+       - 页面应通过 import、instantiate 或 clone confirmed Components 来搭建。
+       - 必须选择正确 variant，并显式确认 light/dark variable mode。
+       - 只要 existing Component 可用，就不要用 rectangle 或 text 重画 component lookalike。
+       - 目标 Figma 文件里的既有 frame 只能作为参考；复用任何结构前，都要检查是否存在 wrong variant、clipped clone 或 placeholder text。
+
+    3. 字体兼容
+       - 如果因字体或权限导致 Component 无法 instantiate 或 append，先尝试保留真实 component instance。
+       - 放置前可把实例内部文字字体覆盖为项目当前可用字体。
+       - 由于当前 Figma 用户体系未开通商业版或团队版，引用字体无法上传云端。
+       - 目前解决方式：
+         - 中文文字使用 Noto Sans SC。
+         - 数字文字使用 Noto Sans HK。
+
+    4. Clone 与 fallback
+       - 只有在能够保留结构时才 clone confirmed Component。
+       - 如果无法保留结构，使用清晰标注的 “未绑定组件” 或 “binding pending” fallback module。
+       - fallback 原因写到右侧 annotation panel。
+
+    5. Partial component 处理
+       - partial component 只使用已确认部分。
+       - 示例：modal mask 已确认，但 body text override targets 仍 pending 时：
+         - 使用 confirmed mask。
+         - 创建明确标注的 fallback body。
+         - 不要强行把业务文案写进未验证 component。
+         - 不要重画 component lookalike。
+
+    6. 主题要求
+       - 主题是硬要求。
+       - 最终交付前，必须确认每个 component clone 或 instance 都解析到要求的 light/dark mode。
+       - 如果父级的frame是light/dark mode，它里面的组件就不允许出现相反的模式。
+
+    7. 屏幕与 annotation 边界
+       - 生成屏幕主体中不要放说明、binding 报告或 review 注释。
+       - 这些内容统一放在屏幕右侧。
+
+    8. 最终验证
+       - 生成后必须检查 Figma metadata 和 screenshot rendering。
+       - 扫描生成屏幕、nested imported instances 和 annotation cards，确认不存在：
+         - 占位文案。
+         - 未解析 prompt marker。
+         - raw TODO marker。
+         - wrong theme variant。
+         - clipped instance。
+         - component lookalike。
+       - annotation 中缺失 binding 的说明应写成 “binding pending” 或 “text override pending”，不要保留 raw TODO marker。
+       - 所有问题修复后再汇报。

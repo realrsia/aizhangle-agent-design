@@ -799,6 +799,35 @@ Do not invent new colors, new corner styles, or generic dashboard cards.
 Do not over-combine primitives; remove anything that does not support the primary job.
 ```
 
+### Component-First Figma Prompt Template
+
+Use this template when the output target is a Figma design file with existing Components:
+
+```text
+In the target Figma file, generate [N] mobile visual-test pages for [market/trading/chat/etc.].
+
+Component-first rule:
+- Before drawing anything, inspect the relevant scenario/component briefs and Figma bindings.
+- List the component families that should be used on each page.
+- Use confirmed Figma Components first. Import, instantiate, or clone existing Components instead of redrawing lookalikes with raw rectangles and text.
+- Select the correct variants and explicitly verify light/dark variable mode. Theme mismatch is a hard failure.
+- If a Component is missing, blocked by unavailable fonts, inaccessible, or still marked TODO_VERIFY_WITH_FIGMA, do not pretend it is bound. Use a clearly labeled fallback block named `未绑定组件` or `binding pending`, and explain the reason in a right-side annotation panel.
+
+Layout rule:
+- Keep the generated screen itself clean: no binding notes, review comments, or prompt text inside the screen.
+- Put binding status, fallback reasons, and test purpose in a separate annotation card to the right.
+- Use Auto Layout for real content containers where practical, and prevent wrappers from clipping component instances/clones.
+
+Content rule:
+- Use realistic financial data and Chinese finance semantics.
+- Red means up/positive/hot action; green means down/negative/risk.
+- Do not leave placeholder text such as `文字文字`, generic labels, or unresolved prompts.
+
+Verification rule:
+- After generation, verify Figma metadata and screenshot rendering.
+- Fix theme mismatches, clipped components, placeholder text, and component lookalikes before reporting.
+```
+
 ### Quick Generation Checklist
 
 - Is the screen doing one clear job?
@@ -810,3 +839,6 @@ Do not over-combine primitives; remove anything that does not support the primar
 - Is there too much decorative atmosphere in front of content?
 - Are tertiary controls quieter than primary information?
 - Does the page feel like AI Zhangle rather than a generic finance app?
+- Did Figma generation reuse confirmed Components instead of redrawing lookalikes?
+- Are missing or blocked bindings explicitly labeled instead of hidden?
+- Did every Component instance/clone resolve to the requested light/dark theme?
