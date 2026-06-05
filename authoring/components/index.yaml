@@ -30,6 +30,7 @@ components:
     sourceRefs:
       - figma://pbxELN7TYDDguIgbXfc1zB/400:24983
       - https://y0htr35pce.feishu.cn/wiki/OpqrwSTt7iu5t7kglN1c3aaAndX
+      - https://y0htr35pce.feishu.cn/wiki/Bdyjw7QU1iT4DCkDZDpcniYcnTf
   - id: component.chat-topbar
     brief: authoring/components/chat-topbar.brief.yaml
     sourceRefs:
