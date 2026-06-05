@@ -19,6 +19,7 @@ Use these paths by responsibility:
 - `README.md`: human-facing overview. Use it to understand what this package is and how it differs from `zhangle-design-skill`.
 - `INSTALL.md`: team onboarding notes. Use it when someone needs to know how to point an Agent at this folder.
 - `VERSIONING.md`: object lifecycle rules. Use it when adding or changing schema-backed canonical objects.
+- `docs/references/change-history.md`: collaboration change record. Append an entry after meaningful repository changes, including Agent-made canon, binding, checklist, docs, schema, renderer, or workflow updates.
 - `authoring/`: human-editing layer. Use this when a human wants to define component or scenario intent without editing complex canonical structures directly.
 - `authoring/README.md`: explains how humans write simple briefs and how Agents expand them.
 - `authoring/components/index.yaml`: latest component authoring index imported from the YAML fusion version. Load it first when adding, reviewing, or expanding component briefs.
@@ -87,6 +88,7 @@ Use these paths by responsibility:
 - `docs/references/process/design-taster.md`: Dengpeng design-tasting review process adapted for AI Zhangle. Use this after the archetype and component set are selected.
 - `docs/references/process/impeccable-adaptation.md`: AI Zhangle-specific aesthetic anti-pattern lens.
 - `docs/references/git-collaboration.md`: Git branch and PR workflow for multi-person collaboration.
+- `docs/references/change-history.md`: required modification log for collaborators and Agents.
 - `docs/references/figma-binding-policy.md`: strong/weak/archive Figma binding policy imported from the Akun fusion source.
 - `docs/references/source-boundaries.md`: source precedence and conflict-resolution rules from the Akun fusion source.
 - `docs/references/visual-audit-chain.md`: review chain from intent reading through repair brief generation.
@@ -121,6 +123,7 @@ Use these paths by responsibility:
 4. Load only the matching canonical files from `canon/`.
 5. Resolve Figma or local assets through `bindings/`.
 6. Run the relevant checklist from `canon/checklists/`.
+7. If you changed repository files, append a concise entry to `docs/references/change-history.md` with author, time, change summary, touched areas, and validation result.
 
 ## Load By Task
 
