@@ -49,6 +49,34 @@ riskWarnings:
     severity: P1
     rule: 示例页面只能作为使用实例，不得反向覆盖真实背景组件的 family 和 variant 定义。
 
+layoutContract:
+  zIndex:
+    semanticLayer: bottom-page-shell-layer
+    rule: 页面背景是 page root 的最底层结构，只负责承载页面氛围和底色，不参与内容交互。
+    allowedAbove:
+      - top_nav
+      - scroll_content_body
+      - bottom_bar
+      - modal_or_sheet_when_explicitly_opened
+      - toast_or_alert_when_explicitly_opened
+    forbiddenAbove:
+      - unrelated_background_fill
+      - screenshot_overlay
+      - hand_drawn_gradient_mask
+      - opacity_cover
+      - blur_cover
+  size:
+    canonicalViewport:
+      width: 390
+      height: 844
+    rule: 新版工作区/一级、新版二级页、新三级页背景默认按 390x844 页面底图使用；特殊浮层、卡片和旧版背景不属于本次新增范围。
+    cropPolicy: 不裁切为卡片背景，不拉伸为非 390 宽度的通用装饰层；确需适配长页时由后续 canon/checklist 明确扩展。
+  theme:
+    property: Dark
+    darkValue: "On"
+    lightValue: "Off"
+    rule: Dark=On/Off 是正式主题配对，不是临时色值差异；同一页面层级必须使用同一分类下的主题配对。
+
 allowedZones:
   - page_background
   - app_shell_background
@@ -93,18 +121,54 @@ examples:
 
 componentHumanRules:
   ruleScope: page-background-component-set
+  appliesTo:
+    figmaPage: 通用
+    figmaSection: 2.2 页面背景
+    componentId: component.page-background
+    confirmedFamilyCount: 1
+    confirmedVariantCountThisTask: 6
   definition: >
     `背景/母组件` 是当前真实背景 component set；本次只维护其中三类新版页面背景及黑白配对。
+  humanEditableFields:
+    - purpose
+    - usedIn
+    - humanRules
+    - riskWarnings
+    - layoutContract
+    - allowedZones
+    - forbiddenZones
+    - requiredPairings
+    - forbiddenPairings
+    - examples
+    - componentHumanRules
+    - extensionModel
+    - scenarioTaxonomy
   do:
     - "`componentFamilies` 只登记真实 Figma 母组件。"
     - 三类新增背景作为同一 component family 下的 variant rules 维护。
     - 示例页面、测试页面和截图参考只进入 `usageInstanceGroups`。
+    - 页面层级归类优先使用人工明确规则；没有明确规则时再看 Figma 使用实例，不用视觉相似度硬推断。
   dont:
     - 不要为每张页面示例新增独立组件。
     - 不要把未纳入本次范围的 `Agent` 背景扩展进本 brief。
+    - 不要把 `component.page-background` 与已有 `component.chat-background` 强行合并；前者维护新版通用页面背景，后者仍是 AI Chat 专项历史入口。
+  sourceBoundary:
+    componentTruth: 背景/母组件 component set 与其 variant properties。
+    usageTruth: 下方页面 frame 和实例只作为 usageInstanceGroups 证据。
+    excludedTruth:
+      - KYC 背景
+      - Agent 背景
+      - 临时对话浮层背景
+      - 通栏/非通栏卡片背景
+      - 旧一级页/旧二级页背景
+      - 大片背景
 
 extensionModel:
   mode: authoring-only
+  principle: >
+    本 brief 是背景组件在人类输入层的结构入口。`componentFamilies` 只记录真实 Figma 母组件；
+    `variantGroups` 和 `familyVariantHumanRules` 记录本次确认的三类新版背景及黑白配对；
+    `scenarioTaxonomy` 记录页面层级归类；`usageInstanceGroups` 记录示例页面，不反向定义组件。
   scopeThisTask:
     - authoring/components/page-background.brief.yaml
     - authoring/components/index.yaml
@@ -114,6 +178,90 @@ extensionModel:
     - checklist expansion
     - bindings expansion
     - renderer expansion
+  addNewComponentFamilyWhen:
+    - Figma 页面背景区域新增了另一个真实 component set 或可复用背景母组件。
+    - 新对象拥有独立 variant property 或独立使用边界，不能归入 `背景/母组件`。
+  requiredForNewComponentFamily:
+    - familyId
+    - figmaNodeId
+    - figmaExactName
+    - componentKey
+    - familyType
+    - usedIn
+    - allowedZones
+    - forbiddenZones
+    - humanRules
+  addNewFamilyVariantWhen:
+    - "`背景/母组件` 中新增了真实 variant，且属于本次通用页面背景范围。"
+    - 现有三类页面层级规则发生变化，需要新增或替换 variant。
+  requiredForNewFamilyVariant:
+    - familyId
+    - variantId
+    - figmaNodeId
+    - figmaExactName
+    - componentKey
+    - variantProperties
+    - humanUse
+  addUsageInstanceWhen:
+    - 设计师选中了真实页面 frame、prototype、截图参考或测试页面。
+    - 该页面能帮助判断背景在一级、二级、三级及更深页面中的使用位置。
+  requiredForUsageInstance:
+    - frameNodeId
+    - frameName
+    - backgroundInstanceNodeId
+    - observedVariant
+    - usagePurpose
+  expansionReadiness:
+    authoringReady: true
+    canonReady: false
+    bindingReady: false
+    checklistReady: false
+    note: 当前只补齐 authoring 结构；后续是否扩展到 canon/bindings/checklist 由人工确认。
+
+scenarioTaxonomy:
+  hierarchyDecisionOrder:
+    - explicit-human-page-assignment
+    - route-or-navigation-depth
+    - confirmed-figma-usage-instance
+    - visual-inference-with-review-required
+  pageLevels:
+    - id: page-background.level-1
+      variantCategory: 新版工作区/一级
+      meaning: 一级页面和新版工作区首页背景。
+      typicalPages:
+        - 早点听首页
+        - 盘前首页
+        - 其他 APP 首页体系入口页
+      forbiddenPages:
+        - AI Chat 对话流
+        - 交易页
+        - 我的页
+        - 账户页
+        - 系统设置页
+    - id: page-background.level-2
+      variantCategory: 新版二级页
+      meaning: 从一级页面进入后的核心业务页面背景。
+      typicalPages:
+        - AI Chat 对话流
+        - 个股详情
+        - 交易
+        - 我的
+        - 账户
+      forbiddenPages:
+        - 新版工作区一级首页
+        - 系统设置页
+        - 三、四、五级深层设置页
+    - id: page-background.level-3-plus
+      variantCategory: 新三级页
+      meaning: 设置、管理、交易功能设置和三、四、五级页面背景。
+      typicalPages:
+        - 系统设置
+        - 交易功能设置
+        - 自选管理
+        - 编辑分组
+      forbiddenPages:
+        - 一级首页
+        - 常规二级核心业务页
 
 componentFamilies:
   - id: page-background.repository-background
@@ -168,6 +316,41 @@ variantGroups:
         humanUse: dark_theme_background
       - value: "Off"
         humanUse: light_theme_background
+
+familyVariantGroups:
+  - familyId: page-background.repository-background
+    groups:
+      - id: page-background.level-1-pair
+        category: 新版工作区/一级
+        variants:
+          dark: page-background.primary-dark
+          light: page-background.primary-light
+        humanRule: 一级页面与新版工作区首页必须使用这一组黑白配对。
+      - id: page-background.level-2-pair
+        category: 新版二级页
+        variants:
+          dark: page-background.secondary-dark
+          light: page-background.secondary-light
+        humanRule: AI Chat 对话流、个股详情、交易、我的、账户等二级页面必须使用这一组黑白配对。
+      - id: page-background.level-3-plus-pair
+        category: 新三级页
+        variants:
+          dark: page-background.tertiary-dark
+          light: page-background.tertiary-light
+        humanRule: 系统设置、交易功能设置、管理页和三、四、五级页面必须使用这一组黑白配对。
+
+variantSelectionRules:
+  routeDepthFallback:
+    level1: page-background.level-1-pair
+    level2: page-background.level-2-pair
+    level3Plus: page-background.level-3-plus-pair
+  themeFallback:
+    dark: Dark=On
+    light: Dark=Off
+  stopConditions:
+    - 页面明确属于 KYC、Agent、临时对话浮层、通栏卡片、非通栏卡片、旧版页面或大片时，停止使用本 brief 的三类新版背景规则。
+    - Figma usage instance 与人工页面层级规则冲突时，先标记人工复核，不直接改写规则。
+    - 页面需要非 390x844 背景尺寸时，先标记扩展需求，不用拉伸替代。
 
 familyVariantHumanRules:
   - familyId: page-background.repository-background
@@ -373,9 +556,79 @@ observedStructure:
     - 旧二级页
     - 大片
 
+dimensions:
+  defaultViewport:
+    width: 390
+    height: 844
+  confirmedVariantDimensions:
+    page-background.primary-dark:
+      width: 390
+      height: 844
+    page-background.secondary-dark:
+      width: 390
+      height: 844
+    page-background.tertiary-dark:
+      width: 390
+      height: 844
+    page-background.primary-light:
+      width: 390
+      height: 844
+    page-background.secondary-light:
+      width: 390
+      height: 844
+    page-background.tertiary-light:
+      width: 390
+      height: 844
+
+states:
+  required:
+    - level-1-dark
+    - level-1-light
+    - level-2-dark
+    - level-2-light
+    - level-3-plus-dark
+    - level-3-plus-light
+  excluded:
+    - kyc
+    - agent
+    - temporary-dialog-sheet
+    - full-width-card
+    - non-full-width-card
+    - old-level-1
+    - old-level-2
+    - large-card
+
+slots:
+  pageRoot:
+    required: true
+    description: 页面根层底图，必须在内容、导航和底栏下方。
+  pageLevel:
+    required: true
+    values:
+      level1: 新版工作区/一级
+      level2: 新版二级页
+      level3Plus: 新三级页
+  theme:
+    required: true
+    values:
+      dark: Dark=On
+      light: Dark=Off
+
+bindingEvidence:
+  source: Figma Plugin API read on selected section `2.2 页面背景`
+  verifiedFacts:
+    - 背景/母组件 is a COMPONENT_SET.
+    - "`分类` and `Dark` are variant properties."
+    - The six requested variants have concrete nodeId and componentKey values.
+  unresolvedFacts:
+    - token bindings inside each background variant still need dedicated Figma variable verification.
+
 tokens:
   source: 设计仓库页面背景组件内部样式
   status: TODO_VERIFY_WITH_FIGMA
+
+textOverrideFields: []
+assetRefs: []
 
 resourceRefs:
   - figma://pbxELN7TYDDguIgbXfc1zB/400:24983

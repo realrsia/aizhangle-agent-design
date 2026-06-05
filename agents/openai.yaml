@@ -26,6 +26,10 @@ interface:
        - 只要已有 confirmed Component，就不要用 raw frame、rectangle 或 text 重画 lookalike。
        - 如果某个控件家族已有 confirmed binding，必须优先 import、instantiate 或 clone。
        - 只有当组件不存在、权限阻断、字体阻断且无法保留实例结构时，才允许 fallback。
+       - 如果页面所需的 confirmed Component 没有被使用，且没有记录经过 import、字体修复、clone 三步后的真实阻断，本次生成视为失败。
+       - Status Bar、Top Bar、Bottom Bar、Chat Input、Action Sheet 这类固定 chrome 若在目标页面应出现，缺失即视为失败；不能用“简化页面”替代。
+       - 创建的 frame 如果是黑板 / 深色稿，它里面所有组件、clone、nested instance 都必须使用 dark / 黑板主题变量模式；创建的 frame 如果是白板 / 浅色稿，则内部所有组件必须使用 light / 白板主题变量模式。
+       - 禁止在同一个黑板父级 frame 内混入 light 组件，或在白板父级 frame 内混入 dark 组件；发现混用必须先切换变量 mode 或替换正确 variant 后再交付。
 
     5. Auto Layout 规则
        - 每个 screen、module、card、list row、bottom area 和承载文字的容器都要使用 Auto Layout。
@@ -47,6 +51,9 @@ interface:
 
     8. 交付前失败条件
        - 如果页面里出现自绘控件 lookalike、未标注 fallback、主题错、组件裁切、占位文案、raw TODO marker，视为未完成。
+       - 如果 component coverage report 显示 confirmed Component 未被使用，视为未完成。
+       - 如果 HTML 版本没有复用、导出或等价还原 Figma 中的 confirmed Component rendering，视为未完成。
+       - 如果黑板 frame 中存在 light 主题组件，或白板 frame 中存在 dark 主题组件，视为未完成。
        - 发现失败条件时，必须先修复并重新验证 metadata 和 screenshot，再汇报。
   component_first_figma_generation_prompt: |
     Figma 视觉生成时，优先使用目标 Figma 文件中已有的 Components。
@@ -59,9 +66,11 @@ interface:
 
     2. 生成前硬门禁
        - 未列出每个页面的 component families 前，不允许开始绘制页面。
+       - 未生成 component coverage report 前，不允许开始绘制页面；报告必须包含 required / optional / confirmed / partial / pending / used / blocker。
        - 未完成 confirmed component key 的 import/instantiate probe 前，不允许创建最终 screen。
        - 未确认 light/dark variant 前，不允许放置组件或 clone。
        - 如果某个必要组件仍是 TODO_VERIFY_WITH_FIGMA，必须降级为 “binding pending” fallback，或停止等待补齐绑定。
+       - 如果某个必要组件已有 confirmed binding，但最终页面未出现对应 Instance 或 clone，本次生成必须返工。
 
     3. 自绘控件禁止清单
        - 禁止自绘 Button、Input、Switch、Tabs、Tag、Card、Top Bar、Bottom Bar、Chat Input、Action Sheet、Message Feed 等控件家族。
@@ -73,11 +82,17 @@ interface:
        - 页面应通过 import、instantiate 或 clone confirmed Components 来搭建。
        - 必须选择正确 variant，并显式确认 light/dark variable mode。
        - 只要 existing Component 可用，就不要用 rectangle 或 text 重画 component lookalike。
+       - Bottom Bar、Top Bar、Action Sheet、Chat Input 等固定 chrome 是页面结构的一部分；目标场景需要时必须存在真实 Instance 或 clone。
        - 目标 Figma 文件里的既有 frame 只能作为参考；复用任何结构前，都要检查是否存在 wrong variant、clipped clone 或 placeholder text。
 
     5. 字体兼容
        - 如果因字体或权限导致 Component 无法 instantiate 或 append，先尝试保留真实 component instance。
        - 放置前可把实例内部文字字体覆盖为项目当前可用字体。
+       - 字体阻断时必须按顺序尝试：
+         1. import 后在临时 frame 中 instantiate。
+         2. 读取并加载当前 text fonts；无法加载时，将内部中文改为 Noto Sans SC，数字改为 Noto Sans HK。
+         3. 从目标文件已有的同 variant 正常实例 clone。
+         4. 三步都失败后，才允许 fallback，并在 annotation 写明 blocker。
        - 由于当前 Figma 用户体系未开通商业版或团队版，引用字体无法上传云端。
        - 目前解决方式：
          - 中文文字使用 Noto Sans SC。
@@ -100,6 +115,10 @@ interface:
        - 主题是硬要求。
        - 最终交付前，必须确认每个 component clone 或 instance 都解析到要求的 light/dark mode。
        - 如果父级的frame是light/dark mode，它里面的组件就不允许出现相反的模式。
+       - 如果创建的 frame 是黑板 / 深色稿，则该 frame 内所有 Components、clones、nested instances 都必须切到 dark / 黑板主题变量 mode。
+       - 如果创建的 frame 是白板 / 浅色稿，则该 frame 内所有 Components、clones、nested instances 都必须切到 light / 白板主题变量 mode。
+       - 不能只看外层 frame 背景色；必须检查右侧变量面板或 Plugin API 返回的 explicitVariableModes / resolved variables，确认内部组件没有沿用相反主题。
+       - 从旧页面 clone 组件时，clone 完成后必须按新父级 frame 的黑板/白板属性重新确认并修正变量 mode。
 
     9. 屏幕与 annotation 边界
        - 生成屏幕主体中不要放说明、binding 报告或 review 注释。
@@ -107,6 +126,9 @@ interface:
 
     10. 最终验证
        - 生成后必须检查 Figma metadata 和 screenshot rendering。
+       - 必须输出或记录 component coverage report，并确认每个 required confirmed Component 都已 used。
+       - HTML 版本必须来自 corrected Figma output 的导出、截图或同一组件 renderer；禁止对 confirmed Components 重新写一套 CSS 近似稿。
+       - 必须扫描每个 screen 的 frame 主题和内部组件主题；黑板 frame 内出现 light mode、白板 frame 内出现 dark mode，必须先修。
        - 扫描生成屏幕、nested imported instances 和 annotation cards，确认不存在：
          - 占位文案。
          - 未解析 prompt marker。
