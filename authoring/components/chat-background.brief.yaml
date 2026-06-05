@@ -47,24 +47,29 @@ componentFamilies:
     sourceFrameName: 对话-白版
     sourceSectionNodeId: "400:24983"
     sourceSectionName: 2.2 页面背景
+    componentSetNodeId: "99:41900"
+    componentSetKey: 9f6660b69bfd31672ac187b946e7c0bb838b03b2
     mainComponentNodeId: "99:41960"
-    componentKeyStatus: pending_figma_component_panel_verification
+    componentKey: b30e295b0157c7f8f9a68dc42f7b1f8cd5521a9f
+    componentKeyStatus: verified
     variantProperties:
       Dark: "Off"
-      背景类型: 新版工作区/一级
+      分类: 新版工作区/一级
     familyType: component_instance
     humanUse: ai_chat_light_page_background_with_light_beams
     visualSignature: 蓝白渐变、顶部斜向光线、浅色长页面底色。
   - id: chat-background.ai-chat-dark
-    sourceStatus: pending_figma_node_binding
-    pendingFields:
-      - darkVariantNodeId
-      - darkVariantExactName
-      - darkVariantComponentKey
-    expectedVariantProperties:
+    sourceStatus: verified_from_figma_plugin_api
+    figmaNodeId: "400:26896"
+    figmaExactName: 分类=新版工作区/一级, Dark=On
+    componentSetNodeId: "400:26745"
+    componentSetKey: e7d0e3570253b5e750c00103dd65780e31461aa7
+    componentKey: 96ce857c0183e6d76f1d7877af90c4a5509864fe
+    variantProperties:
+      分类: 新版工作区/一级
       Dark: "On"
-    familyType: pending_component_instance
-    humanUse: ai_chat_dark_page_background_pending
+    familyType: component_variant
+    humanUse: ai_chat_dark_page_background_verified_variant
 
 # [HUMAN REQUIRED]
 allowedZones:
@@ -120,23 +125,34 @@ figma:
   sourceFrameName: 对话-白版
   exampleNodeId: "400:25043"
   exampleNodeName: 背景/背景
+  componentSetNodeId: "99:41900"
+  componentSetKey: 9f6660b69bfd31672ac187b946e7c0bb838b03b2
   mainComponentNodeId: "99:41960"
-  componentKey: TODO_VERIFY_WITH_FIGMA
-  componentKeyStatus: pending_figma_component_panel_verification
-  componentKeyVerificationNote: Figma MCP confirmed mainComponentNodeId 99:41960 but did not expose componentKey without component panel / Code Connect access.
+  componentKey: b30e295b0157c7f8f9a68dc42f7b1f8cd5521a9f
+  componentKeyStatus: verified
+  componentKeyVerificationNote: PR #10 TODO-1/TODO-2；verified via Figma Plugin API from instance 400:25043 and main component 99:41960.
   bindingMode: must_use_library_instance
   bindingFailurePolicy: stop_and_recheck
   componentPropertyDefinitions:
-    背景类型:
+    分类:
       type: VARIANT
       variantOptions:
         - 新版工作区/一级
+        - 新版二级页
+        - 新三级页
+        - KYC
+        - Agent
+        - 临时对话浮层
+        - 通栏卡片
+        - 非通栏卡片
+        - 旧一级页
+        - 旧二级页
+        - 大片
     Dark:
       type: VARIANT
       variantOptions:
-        - "Off"
-      pendingOptions:
         - "On"
+        - "Off"
 
 classification:
   primitiveFamily: page_background
@@ -145,9 +161,9 @@ classification:
 
 variants:
   confirmed:
-    - 背景类型=新版工作区/一级, Dark=Off
+    - 分类=新版工作区/一级, Dark=Off
+    - 分类=新版工作区/一级, Dark=On
   candidates:
-    - Dark=On
     - long-page-repeat-or-stretch
   themeProperty: Dark
   heightProperty: page_height_strategy
@@ -165,13 +181,22 @@ tokens:
 
 pendingFigmaVerification:
   - id: chat-background-component-key
-    status: TODO_VERIFY_WITH_FIGMA
+    status: verified
     scope: component_key
-    reason: Figma MCP confirmed instance and main component node, but Code Connect/component key access is unavailable in this environment.
+    source: PR #10 TODO-1/TODO-2
+    verifiedBy: Figma Plugin API
+    componentSetNodeId: "99:41900"
+    componentSetKey: 9f6660b69bfd31672ac187b946e7c0bb838b03b2
+    mainComponentNodeId: "99:41960"
+    componentKey: b30e295b0157c7f8f9a68dc42f7b1f8cd5521a9f
   - id: chat-background-dark-variant
-    status: TODO_VERIFY_WITH_FIGMA
+    status: verified
     scope: dark_variant
-    reason: 当前只确认 light 对话背景 400:25043；黑版节点和组件 key 需由 Figma 组件面板确认。
+    source: PR #10 TODO-3
+    verifiedBy: Figma Plugin API
+    figmaNodeId: "400:26896"
+    figmaExactName: 分类=新版工作区/一级, Dark=On
+    componentKey: 96ce857c0183e6d76f1d7877af90c4a5509864fe
 
 resourceRefs:
   - figma://pbxELN7TYDDguIgbXfc1zB/212:2

@@ -66,6 +66,10 @@ componentFamilies:
     sourceFigmaExactName: 1月版/母组件
     sourceNameStatus: repository_component_confirmed
     sourceInstanceRole: dialog_page_bottom_bar_instance
+    componentSetNodeId: "99:48375"
+    componentSetKey: 6c67c07391c697e6658e10a591063b31017a622f
+    mainComponentNodeId: "99:48392"
+    componentKey: 3a879d55e7022088fd5cf27d10c508f6658c15f5
     familyType: component_set_instance
     humanUse: ai_chat_full_composer_with_agent_chips
     humanRules:
@@ -74,6 +78,16 @@ componentFamilies:
   - id: chat-input.repository-bottom-bar
     figmaNodeId: "400:29333"
     figmaExactName: 1月版/母组件
+    componentSetNodeId: "99:48375"
+    componentSetKey: 6c67c07391c697e6658e10a591063b31017a622f
+    mainComponentNodeId: "99:48376"
+    componentKey: db61f1dfdab2371d6c4b22c58686f852f7360910
+    variantProperties:
+      场景: 默认
+      有关联问: "Off"
+      有陪伴: "Off"
+      有指数: "Off"
+      Dark: "On"
     familyType: component_instance
     humanUse: ai_chat_simple_voice_composer_reference
     humanRules:
@@ -87,10 +101,8 @@ examples:
     - figmaNodeId: "400:29333"
       reason: 简化语音输入状态，可作为仅包含输入胶囊和左右动作按钮的参考。
   needsReview:
-    - name: 黑版完整 composer
-      reason: 当前新设计仓库已确认白版完整 composer；黑版需要继续按 Figma 节点确认。
     - name: 输入栏状态枚举
-      reason: 语音、键盘、打断、上划、关联问等状态还需继续按 Figma 节点验证。
+      reason: 组件集已确认 Dark 与有关联问等 variant 选项；键盘、打断、上划等交互态仍需继续按 Figma 节点验证。
   bad: []
 
 # ============================================================
@@ -109,23 +121,39 @@ figma:
   canonicalName: bottom bar/母组件
   sourceFigmaExactName: 1月版/母组件
   sourceNameStatus: repository_component_confirmed
-  componentKey: TODO_VERIFY_WITH_FIGMA
-  componentKeyStatus: pending_figma_component_panel_verification
-  mainComponentKeyStatus: pending_figma_component_panel_verification
+  componentSetNodeId: "99:48375"
+  componentKey: 6c67c07391c697e6658e10a591063b31017a622f
+  componentKeyStatus: verified
+  mainComponentKey: 3a879d55e7022088fd5cf27d10c508f6658c15f5
+  mainComponentKeyStatus: verified
   bindingMode: must_use_library_instance
   bindingFailurePolicy: stop_and_recheck
   fullComposerNodeId: "400:25177"
+  fullComposerComponentNodeId: "99:48392"
+  fullComposerComponentKey: 3a879d55e7022088fd5cf27d10c508f6658c15f5
   simpleVoiceComposerNodeId: "400:29333"
-  fullComposerComponentKeyStatus: pending_figma_component_panel_verification
-  simpleVoiceComposerComponentKeyStatus: pending_figma_component_panel_verification
+  simpleVoiceComposerComponentNodeId: "99:48376"
+  simpleVoiceComposerComponentKey: db61f1dfdab2371d6c4b22c58686f852f7360910
+  fullComposerComponentKeyStatus: verified
+  simpleVoiceComposerComponentKeyStatus: verified
   propertyHints:
-    composerType:
-      - full_with_agent_chips
-      - simple_voice_input
-    Dark:
-      - "Off"
-    pendingDarkOptions:
+    场景:
+      - 默认
+      - 交易场景
+      - 对话
+      - 个股
+    有关联问:
       - "On"
+      - "Off"
+    有陪伴:
+      - "Off"
+      - "On"
+    有指数:
+      - "Off"
+      - "On"
+    Dark:
+      - "On"
+      - "Off"
 
 classification:
   primitiveFamily: chat_input
@@ -171,9 +199,9 @@ observedStructure:
 variants:
   confirmed:
     - composerType=full_with_agent_chips, Dark=Off
-    - composerType=simple_voice_input, Dark=Off
+    - composerType=full_with_agent_chips, Dark=On
+    - composerType=simple_voice_input, Dark=On
   candidates:
-    - Dark=On
     - keyboard-input
     - interruption
     - related-question-expanded
@@ -214,13 +242,30 @@ textOverrideFields:
 
 pendingFigmaVerification:
   - id: chat-input-component-keys
-    status: TODO_VERIFY_WITH_FIGMA
+    status: verified
     scope: component_key
-    reason: Figma MCP confirmed 400:25177 and 400:29333 instances, but componentKey/mainComponentKey require Figma component panel or Code Connect access.
+    source: PR #10 TODO-4/TODO-5
+    verifiedBy: Figma Plugin API
+    componentSetNodeId: "99:48375"
+    componentSetKey: 6c67c07391c697e6658e10a591063b31017a622f
+    fullComposerComponentKey: 3a879d55e7022088fd5cf27d10c508f6658c15f5
+    simpleVoiceComposerComponentKey: db61f1dfdab2371d6c4b22c58686f852f7360910
   - id: chat-input-dark-and-expanded-states
-    status: TODO_VERIFY_WITH_FIGMA
+    status: partially_verified
     scope: variants
-    reason: 当前只确认白版 full composer 与 simple voice composer；黑版、键盘、打断、关联问展开状态需继续按 Figma 节点确认。
+    source: PR #10 TODO-6
+    verifiedBy: Figma Plugin API
+    confirmedVariantNodes:
+      - nodeId: "99:48383"
+        componentKey: ceda34ec270acdbe0377ac8d917e5c499ac6c9a5
+        variant: 场景=对话, 有关联问=Off, 有陪伴=Off, 有指数=Off, Dark=On
+      - nodeId: "99:48392"
+        componentKey: 3a879d55e7022088fd5cf27d10c508f6658c15f5
+        variant: 场景=对话, 有关联问=Off, 有陪伴=Off, 有指数=Off, Dark=Off
+    unresolvedVariantChecks:
+      - keyboard-input
+      - interruption
+      - related-question-expanded
 
 resourceRefs:
   - docs/references/fidelity/chat-fidelity-reconstruction.md

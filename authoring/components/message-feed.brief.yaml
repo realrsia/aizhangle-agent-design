@@ -68,17 +68,25 @@ componentFamilies:
   - id: message-feed.user-input
     figmaNodeId: "400:25049"
     figmaExactName: 用户输入
-    componentSetKeyStatus: pending_figma_component_panel_verification
-    mainComponentKeyStatus: pending_figma_component_panel_verification
+    componentSetNodeId: "12:4725"
+    componentSetKey: d7188f12d4ad14bb02c4cd19b9b7f256ac8d90f6
+    mainComponentNodeId: "12:4726"
+    componentKey: 2e8952d988afa4e8d09f31fb71cfaca955a33be0
+    componentSetKeyStatus: verified
+    mainComponentKeyStatus: verified
     variantProperties:
-      Dark: "Off"
+      Dark: "On"
     familyType: component_set_instance
     humanUse: draft_user_question_bubble
   - id: message-feed.assistant-avatar
     figmaNodeId: "400:25051"
     figmaExactName: 智能体输出/AI头像
-    componentSetKeyStatus: pending_figma_component_panel_verification
-    mainComponentKeyStatus: pending_figma_component_panel_verification
+    componentSetNodeId: "12:4765"
+    componentSetKey: 9dd3bb3033c39dc9fdf1afcf55561f0ea12901f6
+    mainComponentNodeId: "12:4801"
+    componentKey: c31a2eea7b451d9a5a021590037369db86451ee4
+    componentSetKeyStatus: verified
+    mainComponentKeyStatus: verified
     variantProperties:
       类型: 智能体
       场景: 对话通用
@@ -88,8 +96,12 @@ componentFamilies:
   - id: message-feed.answer-status
     figmaNodeId: "400:25055"
     figmaExactName: 智能体输出/回答状态
-    componentSetKeyStatus: pending_figma_component_panel_verification
-    mainComponentKeyStatus: pending_figma_component_panel_verification
+    componentSetNodeId: "12:4914"
+    componentSetKey: e0b01d695002624f8f675556763eb99fec510e27
+    mainComponentNodeId: "12:4980"
+    componentKey: c151d85e43fc52d3e54d35fdae7d92249efa7a1c
+    componentSetKeyStatus: verified
+    mainComponentKeyStatus: verified
     variantProperties:
       状态: 深度思考
       是否展开: "Off"
@@ -99,23 +111,27 @@ componentFamilies:
   - id: message-feed.answer-body
     figmaNodeId: "400:25137"
     figmaExactName: 智能体输出/内容/正文
-    componentSetKeyStatus: pending_figma_component_panel_verification
-    mainComponentKeyStatus: pending_figma_component_panel_verification
+    componentSetNodeId: "12:5080"
+    componentSetKey: 7d286f187e60b5c4b26a45009e71c4f5e7b7a04c
+    mainComponentNodeId: "12:5081"
+    componentKey: 4a5b3be332dccc50dc09e51b5f60166da3f52c33
+    componentSetKeyStatus: verified
+    mainComponentKeyStatus: verified
     variantProperties:
       Property 1: 无序号
-      Dark: "Off"
+      Dark: "On"
     familyType: component_set_instance
     humanUse: draft_answer_body
   - id: message-feed.related-question
     figmaNodeId: "400:25174"
     figmaExactName: item/关联问/off
-    componentSetKeyStatus: pending_figma_component_panel_verification
-    mainComponentKeyStatus: pending_figma_component_panel_verification
-    variantProperties:
-      Property 1: 默认
-      Property 2: 默认
-      Dark: "Off"
-    familyType: component_set_instance
+    mainComponentNodeId: "12:5923"
+    componentKey: 8e1c51a33014cedd93abd9a311cb755c15be5d11
+    componentKeyStatus: verified
+    mainComponentKeyStatus: verified
+    textProperty:
+      文字内容#21900:10: 文字文字文字文字文字文字文字文字文字文字文字文字文字文字
+    familyType: component_instance
     humanUse: draft_related_question
   - id: message-feed.reasoning-panel
     figmaNodeId: "400:25058"
@@ -126,7 +142,12 @@ componentFamilies:
     specExactName: 思维链
     variantCandidateNodeId: "400:25056"
     variantCandidateExactName: 智能体输出/思考链/完成态/Off/On
-    variantCandidateComponentKeyStatus: pending_figma_component_panel_verification
+    variantCandidateComponentNodeId: "12:5041"
+    variantCandidateComponentKey: a2050605b8db580891c60b370e4c38f7af9961e3
+    variantCandidateComponentKeyStatus: verified
+    verifiedVariables:
+      radius: radius/20
+      fill: color/xzl-color-background-c-card
 
 # [HUMAN REQUIRED]
 usageInstanceGroups:
@@ -212,12 +233,10 @@ examples:
     - figmaNodeId: "400:25042"
       reason: 对话白版包含用户输入、AI 输出、思考链、正文、footer、底部 composer 和关联问。
   needsReview:
-    - name: AI 头像与回答状态正式 componentKey
-      reason: 当前已切换到新设计仓库节点；componentKey 仍需从 Figma 组件面板确认。
     - name: 思考过程组件归属
-      reason: 当前以 400:25058 的思维链语义 frame 为准；仍需确认是否存在独立母组件。
+      reason: 当前以 400:25058 的思维链语义 frame 为准；其候选组件 400:25056 的 componentKey 已确认，但完整思维链仍不是单一 message-feed 组件。
     - name: 黑版 message-feed
-      reason: 当前新设计仓库已确认白版消息流；黑版节点需继续确认。
+      reason: 核心子组件存在 Dark 属性，但 message-feed 作为整体不是单一 Figma 组件，黑版整体组合仍需确认。
     - name: 股票信息卡与 K 线图
       reason: 无正式组件时允许作为 fallback，但必须标清不是正式组件。
   bad:
@@ -304,7 +323,13 @@ observedStructure:
       answerBodyColor: xzl-color-text-b / rgba(255,255,255,0.9)
 
 variants:
-  confirmed: []
+  confirmed:
+    - core_component_keys_verified
+    - user-input Dark=On
+    - assistant-avatar Dark=Off
+    - answer-status Dark=Off
+    - answer-body Dark=On
+    - reasoning-candidate component verified
   candidates:
     - chat-page
     - message-page
@@ -365,17 +390,60 @@ textOverrideFields:
 
 pendingFigmaVerification:
   - id: message-feed-core-component-keys
-    status: TODO_VERIFY_WITH_FIGMA
+    status: verified
     scope: component_key
-    reason: 用户输入、AI 头像、回答状态、正文、关联问和思考链候选节点已确认为 400:*，但 componentSetKey/mainComponentKey 需要 Figma 组件面板或 Code Connect 权限确认。
+    source: PR #10 TODO-10
+    verifiedBy: Figma Plugin API
+    targetNodeIds:
+      userInput: "400:25049"
+      assistantAvatar: "400:25051"
+      answerStatus: "400:25055"
+      answerBody: "400:25137"
+      relatedQuestion: "400:25174"
+      reasoningCandidate: "400:25056"
+    componentKeys:
+      userInput: 2e8952d988afa4e8d09f31fb71cfaca955a33be0
+      assistantAvatar: c31a2eea7b451d9a5a021590037369db86451ee4
+      answerStatus: c151d85e43fc52d3e54d35fdae7d92249efa7a1c
+      answerBody: 4a5b3be332dccc50dc09e51b5f60166da3f52c33
+      relatedQuestion: 8e1c51a33014cedd93abd9a311cb755c15be5d11
+      reasoningCandidate: a2050605b8db580891c60b370e4c38f7af9961e3
+    reviewCommentNodeCorrections:
+      - commentNodeId: "400:25053"
+        actualRole: answer_body_container_frame
+        replacementComponentNodeId: "400:25137"
+      - commentNodeId: "400:25058"
+        actualRole: reasoning_semantic_frame
+        replacementComponentNodeId: "400:25056"
+      - commentNodeId: "400:25063"
+        actualRole: icon_ellipse_inside_reasoning_step
+        replacementComponentNodeId: "400:25056"
   - id: message-feed-business-content-bindings
-    status: TODO_VERIFY_WITH_FIGMA
+    status: pending_manual_figma_business_content_binding
     scope: embedded_business_content
+    source: PR #10 TODO-11
     reason: 指数、A股异动、竞价、资讯分类组件尚未在新设计仓库中定位到稳定节点，不能写成已验证组件。
+    figmaApiFinding: 当前 400:24983 中只读到嵌在 bottom bar 变体内的 `1月版/item/指数模块`，未定位到可作为 message-feed 回答内容复用的稳定指数概览、A股异动、竞价或资讯分类组件。
+    manualAction: 在新设计仓库中定位指数概览、A股异动、竞价、资讯分类组件的稳定 Figma 节点，并记录 nodeId、exactName、componentKey。
+    requiredBindings:
+      - 指数概览组件
+      - A股异动组件
+      - 竞价组件
+      - 资讯分类组件
   - id: message-feed-dark-theme
-    status: TODO_VERIFY_WITH_FIGMA
+    status: partially_verified
     scope: variants
-    reason: 当前白版消息流已确认；黑版 message-feed 仍需按新 section 节点重新确认。
+    source: PR #10 TODO-12
+    verifiedBy: Figma Plugin API
+    reason: 当前 message-feed 不是单一组件；核心子节点已读到 Dark 属性，但整体黑版消息流组合仍需按新 section 节点确认。
+    confirmedDarkSubnodes:
+      - nodeId: "400:25049"
+        variant: Dark=On
+      - nodeId: "400:25137"
+        variant: Dark=On
+      - nodeId: "400:25056"
+        variant: reasoning candidate with Dark=On children
+    unresolved: 需要确认整体黑版 message-feed 组合节点，而不是只确认子组件。
 
 resourceRefs:
   - docs/references/fidelity/chat-fidelity-reconstruction.md

@@ -1818,14 +1818,30 @@ tokens:
   - authoring/components/trading-input.brief.yaml
   - authoring/components/trading-action-button.brief.yaml
 textOverrideFields:
-  status: pending_figma_text_property_verification
-  confirmed: []
+  status: partially_verified_from_figma_plugin_api
+  sourceNodeId: "37:26221"
+  sourceNodeName: TOP母组件
+  confirmed:
+  - ✏️ Time#1060:62
+  - ✏️ %#1408:0
+  - 标题#21307:0
+  - tab文字（2个字）#9:0
+  - tab文字（3个字）#21312:5
 
 pendingFigmaVerification:
 - id: trading-page-modules-text-override-fields
-  status: TODO_VERIFY_WITH_FIGMA
+  status: partially_verified
   scope: text_override_fields
-  reason: 交易页模块 family 与 variants 已记录；可覆盖文本字段仍需从 Figma 组件属性面板确认。
+  source: PR #10 TODO-14
+  reason: Figma Plugin API 已确认 TOP母组件 37:26221 的文本覆盖字段；交易页其余模块仍需逐一检查。
+  figmaApiFinding:
+    checkedNodeId: "37:26221"
+    checkedNodeName: TOP母组件
+    textPropertyInstanceCount: 16
+  manualAction: 继续在 Figma 中逐一检查交易页其余模块文本层与组件属性，补全所有可覆盖文本字段名。
+  writeBackFields:
+  - textOverrideFields.confirmed
+  - componentFamilies.*.textOverrideFields
 resourceRefs:
 - authoring/scenarios/trading.brief.yaml
 - authoring/components/trading-input.brief.yaml

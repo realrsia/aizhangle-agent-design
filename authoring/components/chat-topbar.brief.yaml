@@ -65,10 +65,18 @@ componentFamilies:
     figmaNodeId: "400:25178"
     canonicalName: 全屏对话导航栏
     sourceFigmaExactName: 1月版全屏对话导航栏
-    sourceNameStatus: repository_instance_confirmed_component_set_pending
-    sourceInstanceRole: dialog_page_topbar_light_instance
+    sourceNameStatus: repository_component_set_confirmed
+    sourceInstanceRole: dialog_page_topbar_instance
+    componentSetNodeId: "12:5696"
+    componentSetKey: d6c27504e793aea744afe4c816200fbcce914c5a
+    mainComponentNodeId: "12:5697"
+    componentKey: eac35c8abbd87e668ac8857cffaae0e5b0d9b4db
+    variantProperties:
+      展开: "Off"
+      胶囊数量: "0"
+      Dark: "On"
     familyType: component_instance
-    humanUse: confirmed_dialog_topbar_light_instance
+    humanUse: confirmed_dialog_topbar_instance
     humanRules:
       - 作为对话页固定顶部组件，不作为普通页面 header。
       - 默认对话态优先使用 展开=Off, 胶囊数量=0；需要胶囊时再选择展开变体。
@@ -77,14 +85,10 @@ componentFamilies:
 examples:
   good:
     - figmaNodeId: "400:25178"
-      reason: 设计仓库/2.2 页面背景/对话-白版中的全屏对话导航栏实例，展开=Off, 胶囊数量=0, Dark=Off。
+      reason: 设计仓库/2.2 页面背景/对话-白版中的全屏对话导航栏实例，展开=Off, 胶囊数量=0, Dark=On。
   needsReview:
-    - name: 全屏对话导航栏母组件或组件集来源
-      reason: 旧对话流重复节点已删除；当前只确认到 400:25178 白版实例，组件集和 componentKey 需继续从 Figma 组件面板确认。
-    - name: 黑版、展开态、胶囊数量变体节点
-      reason: 新 section 中尚未确认等价节点，不能继续引用已删除的旧对话流节点。
-    - name: 胶囊数量枚举是否只允许 0/1/2/4
-      reason: 当前从设计仓库节点读取到 0、1、2、4；是否还有其他状态需继续确认。
+    - name: 对话-白版 frame 中 topbar 的 Dark 属性命名
+      reason: Figma 实例 400:25178 位于“对话-白版”frame，但组件属性读取为 Dark=On；生成前应以节点属性为准，不按 frame 名称猜测。
   bad: []
 
 # ============================================================
@@ -99,18 +103,28 @@ figma:
   canvasName: 对话流
   sourceSectionNodeId: "400:24983"
   sourceSectionName: 2.2 页面背景
-  componentSetNodeIdStatus: pending_figma_component_panel_verification
+  componentSetNodeId: "12:5696"
+  componentSetNodeIdStatus: verified
   exampleNodeId: "400:25178"
   canonicalName: 全屏对话导航栏
   sourceFigmaExactName: 1月版全屏对话导航栏
-  sourceNameStatus: repository_instance_confirmed_component_set_pending
-  componentKey: TODO_VERIFY_WITH_FIGMA
-  componentKeyStatus: pending_figma_component_panel_verification
-  mainComponentKeyStatus: pending_figma_component_panel_verification
-  darkVariantNodeIdStatus: pending_figma_node_binding
-  darkVariantComponentKeyStatus: pending_figma_component_panel_verification
-  lightVariantNodeId: "400:25178"
-  lightVariantComponentKeyStatus: pending_figma_component_panel_verification
+  sourceNameStatus: repository_component_set_confirmed
+  componentKey: d6c27504e793aea744afe4c816200fbcce914c5a
+  componentKeyStatus: verified
+  mainComponentNodeId: "12:5697"
+  mainComponentKey: eac35c8abbd87e668ac8857cffaae0e5b0d9b4db
+  mainComponentKeyStatus: verified
+  sourceInstanceVariantProperties:
+    展开: "Off"
+    胶囊数量: "0"
+    Dark: "On"
+  darkVariantNodeId: "12:5697"
+  darkVariantNodeIdStatus: verified
+  darkVariantComponentKey: eac35c8abbd87e668ac8857cffaae0e5b0d9b4db
+  darkVariantComponentKeyStatus: verified
+  lightVariantNodeId: "12:5713"
+  lightVariantComponentKey: 86119071f8fc5b0509977f44780c5c431c7f1fbf
+  lightVariantComponentKeyStatus: verified
   bindingMode: must_use_library_instance
   bindingFailurePolicy: stop_and_recheck
   propertyHints:
@@ -160,9 +174,8 @@ observedStructure:
 
 variants:
   confirmed:
-    - 展开=Off, 胶囊数量=0, Dark=Off
-  candidates:
     - 展开=Off, 胶囊数量=0, Dark=On
+    - 展开=Off, 胶囊数量=0, Dark=Off
     - 展开=On, 胶囊数量=4, Dark=On
     - 展开=On, 胶囊数量=4, Dark=Off
     - 展开=On, 胶囊数量=2, Dark=On
@@ -206,13 +219,22 @@ repositorySearchNotes:
 
 pendingFigmaVerification:
   - id: chat-topbar-component-set-and-keys
-    status: TODO_VERIFY_WITH_FIGMA
+    status: verified
     scope: component_key
-    reason: 400:25178 白版实例已确认；组件集节点、componentKey 和 mainComponentKey 需要 Figma 组件面板或 Code Connect 权限确认。
+    source: PR #10 TODO-7/TODO-8
+    verifiedBy: Figma Plugin API
+    componentSetNodeId: "12:5696"
+    componentSetKey: d6c27504e793aea744afe4c816200fbcce914c5a
+    mainComponentNodeId: "12:5697"
+    mainComponentKey: eac35c8abbd87e668ac8857cffaae0e5b0d9b4db
   - id: chat-topbar-dark-expanded-capsules
-    status: TODO_VERIFY_WITH_FIGMA
+    status: verified
     scope: variants
-    reason: 黑版、展开态和胶囊数量变体不能继续引用旧对话流重复节点，需在新 section 中重新确认。
+    source: PR #10 TODO-9
+    verifiedBy: Figma Plugin API
+    variantCount: 8
+    componentSetNodeId: "12:5696"
+    componentSetKey: d6c27504e793aea744afe4c816200fbcce914c5a
 
 # ============================================================
 # 03_AGENT_EXPANSION_AND_CHECKLIST
