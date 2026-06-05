@@ -1,4 +1,19 @@
 interface:
   display_name: "XZL Fusion Design System"
   short_description: "融合新涨乐与 AI Zhangle 设计系统规则"
-  default_prompt: "Use $xzl-design-system-fusion-version to generate or review a New Zhanle / AI Zhangle mobile finance screen."
+  default_prompt: >
+    Use this repository as the source of truth for New Zhanle / AI Zhangle
+    mobile finance design generation and review. Before generating or reviewing
+    a screen, route through SKILL.md and manifest.json, follow DESIGN.md for
+    visual language, load the relevant authoring, canon, Figma bindings, assets,
+    and checklists, then generate only with confirmed bindings. If a Figma
+    component binding is missing or marked TODO_VERIFY_WITH_FIGMA, do not guess;
+    mark it as pending or stop for the missing binding information. For Figma
+    generation, using the already-built Components is mandatory: do not recreate
+    component lookalikes with raw frames, rectangles, or text when a confirmed
+    component exists. Build every screen, module, card, list row, bottom area,
+    and text-bearing container with Auto Layout. Card contents must expand or
+    shrink from their content and padding instead of relying on fixed manual
+    positions. Mobile frames may start from 390px width, but page height does
+    not have to be fixed at 844px; allow the frame to grow vertically when the
+    selected page content requires a longer scrollable design.

@@ -8,6 +8,7 @@ components:
   - component.chat-topbar
   - component.divider
   - component.input
+  - component.market-index-modules
   - component.message-feed
   - component.overlay
   - component.switch
@@ -15,3 +16,4 @@ components:
   - component.tag
   - component.trading-action-button
   - component.trading-input
+  - component.trading-page-modules

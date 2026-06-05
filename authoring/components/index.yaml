@@ -67,3 +67,13 @@ components:
     sourceRefs:
       - references/foundation/components-trading-inputs.md
       - references/foundation/components-input.md
+  - id: component.market-index-modules
+    brief: authoring/components/market-index-modules.brief.yaml
+    sourceRefs:
+      - authoring/scenarios/market-index.brief.yaml
+  - id: component.trading-page-modules
+    brief: authoring/components/trading-page-modules.brief.yaml
+    sourceRefs:
+      - authoring/scenarios/trading.brief.yaml
+      - authoring/components/trading-input.brief.yaml
+      - authoring/components/trading-action-button.brief.yaml

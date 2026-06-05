@@ -1,0 +1,289 @@
+id: component.trading-page-modules
+name: 交易页面模块组件族
+owner: design-system
+status: draft
+sourceBrief: authoring/components/trading-page-modules.brief.yaml
+classification:
+  primitiveFamily: trading_page_modules
+  componentType: component_family_board
+  riskLevel: high
+  isOrdinaryButton: false
+  isTradingAction: false
+purpose: >
+  Maintains page-level Figma component families for Trading screens: top context,
+  settings panels, and information panels. Shared trading inputs and high-risk
+  trading action buttons stay owned by their independent components.
+usage:
+  usedIn:
+    - trading_context_header
+    - account-switch-header
+    - stock_trading_detail_header
+    - paper-trading-header
+    - trading_setting_panel
+    - condition_order_setting_panel
+    - trading_order_form
+    - trading_info_panel
+    - position_info_panel
+    - contract_info_panel
+    - entrust_info_panel
+    - condition_order_info_panel
+  allowedZones:
+    - trading_page
+    - trading_context_header
+    - trading_setting_panel
+    - trading_info_panel
+    - condition_order_info_panel
+    - position_info_panel
+    - contract_info_panel
+    - entrust_info_panel
+  forbiddenZones:
+    - generic_dashboard_card
+    - generic_form_card
+    - generic_data_table
+    - ordinary_button_group
+    - ai_chat_message_body
+    - marketing_or_content_card
+  requiredPairings:
+    - trading-context
+    - selected-security
+    - component.trading-input
+    - component.trading-action-button
+  forbiddenPairings:
+    - screenshot-as-component-definition
+    - generic-input-only
+    - generic-data-table
+    - trading-submit-area-without-context
+composition:
+  scenarioSource: authoring/scenarios/trading.brief.yaml
+  scenarioRole: 业务组合、风险边界和候选组件引用。
+  dependencyComponents:
+    - component.trading-input
+    - component.trading-action-button
+    - component.bottom-bar
+    - component.switch
+  rule: Scenario frames and source selections are usage evidence only and must not become component families.
+  businessOrder:
+    - establish account/security/simulation context
+    - expose settings and trading parameters
+    - show high-risk trading action through shared action component
+    - show information panels for holdings/contracts/entrust/condition orders/history
+sourcePriority:
+  rule: Follow the current repository source mapping and `docs/references/source-boundaries.md` conflict resolution.
+  numericTokensFontsRadiusSpacingMetrics:
+    - canon/foundations/
+    - bindings/assets/manifest.yaml
+    - local asset/template files
+  pageStructureZonesDensityForbiddenSubstitutions:
+    - canon/archetypes/xzl-fusion-screen-recipes.yaml
+    - canon/components/component-semantics.yaml
+  figmaFacts:
+    - bindings/figma/components.yaml
+    - actual Figma verification
+  visualReview:
+    - DESIGN.md
+    - docs/references/foundations/visual-language.md
+    - docs/references/process/design-taster.md
+    - docs/references/anti-patterns.md
+riskBoundaries:
+  - id: trading-page-context-and-parameter-risk
+    severity: P0
+    rule: Account/security context, trading parameters, and information panels cannot drift independently.
+  - id: trading-page-action-boundary
+    severity: P0
+    rule: Buy, sell, cancel, batch, and repeat-order entries must preserve trading semantics and must not become ordinary buttons.
+  - id: trading-page-shared-control-boundary
+    severity: P0
+    rule: "`component.trading-input` and `component.trading-action-button` are dependencies, not private children of this component family board."
+  - id: trading-page-top-nav-source-drift
+    severity: P0
+    sourceRefs:
+      - authoring/case-studies/top-nav-source-drift-case.md
+    rule: Top navigation source must be locked; account, security, and paper-trading top nav variants cannot be replaced by generic headers.
+  - id: paper-trading-vs-live-trading
+    severity: P0
+    rule: Paper trading and live trading contexts cannot reuse the same top family without the simulation marker.
+  - id: trading-info-panel-specificity
+    severity: P1
+    rule: Holdings, contracts, entrust, condition order, history entrust, and history strategy are not a generic data table.
+componentFamilies:
+  - familyId: trading.top-nav.account-switch
+    figmaNodeId: "37:26291"
+    componentKey: f43a63c1c240dc74881fcc08f323ef58229f2b76
+    parentComponentSetKey: 359d13bedc463187429de22efd6010b6d979cfc2
+    figmaName: 分类=账户切换
+    group: topContext
+  - familyId: trading.top-nav.page-slide
+    figmaNodeId: "37:26322"
+    componentKey: c20c267dffaff9614e660477e3c7156cb0ee0dbb
+    parentComponentSetKey: 359d13bedc463187429de22efd6010b6d979cfc2
+    figmaName: 分类=页面滑动
+    group: topContext
+  - familyId: trading.top-nav.paper-trading
+    figmaNodeId: "37:26305"
+    componentKey: ed6b5cb882bbf96172760276668e9db3679cac85
+    parentComponentSetKey: 359d13bedc463187429de22efd6010b6d979cfc2
+    figmaName: 分类=模拟交易
+    group: topContext
+  - familyId: trading.settings-panel.main
+    figmaNodeId: "37:26556"
+    componentKey: 8183d08eb6c0847f0f2a878ab9460fb13c0c319a
+    figmaName: 设置母组件
+    group: settingsPanel
+  - familyId: trading.settings.code-field
+    figmaNodeId: "37:26558"
+    componentKey: 9e82262eda996d5a1de6b6f423f6daf0db262770
+    figmaName: item/设置/基础设置
+    group: settingsPanel
+  - familyId: trading.settings.order-type-field
+    figmaNodeId: "37:26559"
+    componentKey: 4a0a0db44f4dec20dd1909053c69468bc0b5a533
+    figmaName: item/设置/基础设置
+    group: settingsPanel
+  - familyId: trading.settings.price-stepper
+    figmaNodeId: "37:26560"
+    componentKey: 9e82262eda996d5a1de6b6f423f6daf0db262770
+    figmaName: item/设置/基础设置
+    group: settingsPanel
+  - familyId: trading.settings.amount-summary
+    figmaNodeId: "37:26562"
+    componentKey: 470b7ae64b4164fbdd17916dbcddb0133cd02e82
+    figmaName: item/设置/基础设置
+    group: settingsPanel
+  - familyId: trading.settings.price-range
+    figmaNodeId: "37:26566"
+    componentKey: 324b8d521f63e8291b09eae476d24f80468f8401
+    figmaName: item/设置/高级设置
+    group: settingsPanel
+  - familyId: trading.settings.multiplier-toggle
+    figmaNodeId: "37:26567"
+    componentKey: 324b8d521f63e8291b09eae476d24f80468f8401
+    figmaName: item/设置/高级设置
+    group: settingsPanel
+  - familyId: trading.settings.auto-cancel
+    figmaNodeId: "37:26568"
+    componentKey: 324b8d521f63e8291b09eae476d24f80468f8401
+    figmaName: item/设置/高级设置
+    group: settingsPanel
+  - familyId: trading.settings.monitor-window
+    figmaNodeId: "37:26569"
+    componentKey: 324b8d521f63e8291b09eae476d24f80468f8401
+    figmaName: item/设置/高级设置
+    group: settingsPanel
+  - familyId: trading.info.holdings
+    figmaNodeId: "37:26364"
+    componentKey: a2a9e5103bfa731cf4dbf970ce0363177514c624
+    parentComponentSetKey: 5367dbf9c68c89fa22bc02f71f28e7aa8a25a626
+    figmaName: 分类=持仓, 有内容=On, Dark=Off
+    group: infoPanel
+  - familyId: trading.info.contract
+    figmaNodeId: "37:26384"
+    componentKey: 0f62829629acdebc2d003392b615b6cea9059316
+    parentComponentSetKey: 5367dbf9c68c89fa22bc02f71f28e7aa8a25a626
+    figmaName: 分类=合约, 有内容=On, Dark=Off
+    group: infoPanel
+  - familyId: trading.info.entrust
+    figmaNodeId: "37:26427"
+    componentKey: b462bcec221d2a0485d89c1d8bbce6fa68825c47
+    parentComponentSetKey: 5367dbf9c68c89fa22bc02f71f28e7aa8a25a626
+    figmaName: 分类=委托, 有内容=On, Dark=Off
+    group: infoPanel
+  - familyId: trading.info.condition-order
+    figmaNodeId: "37:26434"
+    componentKey: 744971ecd4383e173207bed9079bd4b174ca7b90
+    parentComponentSetKey: 5367dbf9c68c89fa22bc02f71f28e7aa8a25a626
+    figmaName: 分类=条件单, 有内容=On, Dark=Off
+    group: infoPanel
+  - familyId: trading.info.history-entrust
+    figmaNodeId: "37:26400"
+    componentKey: 92abc1b8937596cef9f593bdd630ad142f732832
+    parentComponentSetKey: 5367dbf9c68c89fa22bc02f71f28e7aa8a25a626
+    figmaName: 分类=历史/历史委托, 有内容=On, Dark=Off
+    group: infoPanel
+  - familyId: trading.info.history-strategy
+    figmaNodeId: "37:26455"
+    componentKey: be29e2c7c22aadf7496ad911297896bc734be63c
+    parentComponentSetKey: 5367dbf9c68c89fa22bc02f71f28e7aa8a25a626
+    figmaName: 分类=历史/历史策略, 有内容=On, Dark=Off
+    group: infoPanel
+  - familyId: trading.info.condition-order.strategy-info
+    figmaNodeId: "37:28486"
+    componentKey: 62cf664737e20bfd6305216970d46377f6881a60
+    figmaName: item/信息/条件单&策略/策略信息
+    group: conditionOrderChildren
+    verificationStatus: component_set_node_confirmed
+  - familyId: trading.info.condition-order.trade-info
+    figmaNodeId: "37:28507"
+    componentKey: TODO_VERIFY_WITH_FIGMA
+    figmaName: item/信息/条件单&策略/交易信息
+    group: conditionOrderChildren
+    verificationStatus: component_set_node_confirmed
+  - familyId: trading.info.condition-order.action-area
+    figmaNodeId: "37:28159"
+    optionComponentKey: ee0988243f57dbb66a15339fd9a89530034e13b7
+    iconComponentSetKey: e62e5eac2d33a45de2cd638a8611335cd7320ee2
+    figmaName: item/信息/操作区域
+    group: conditionOrderChildren
+    verificationStatus: component_set_node_confirmed
+variants:
+  source: authoring/components/trading-page-modules.brief.yaml#familyVariantGroups
+  confirmedExamples:
+    - 分类=账户切换
+    - 分类=页面滑动
+    - 分类=模拟交易
+    - 分类=持仓, 有内容=On, Dark=Off
+    - 分类=委托, 有内容=On, Dark=Off
+    - 分类=条件单, 有内容=On, Dark=Off
+    - rowState=已报, operationStyle=撤单按钮
+    - section=未完成, middleAction=撤单重下
+    - section=已完结, middleAction=再来一单
+states:
+  required:
+    - default
+    - dark
+  optional:
+    - empty
+    - with-content
+slots:
+  topContext:
+    description: 账户、标的或模拟交易顶部上下文。
+  settingsPanel:
+    description: 交易参数设置区。
+  infoPanel:
+    description: 持仓、合约、委托、条件单和历史信息区。
+  sharedTradingInput:
+    componentRef: component.trading-input
+  sharedTradingAction:
+    componentRef: component.trading-action-button
+tokens:
+  source:
+    - canon/foundations/tokens/
+    - authoring/components/trading-input.brief.yaml
+    - authoring/components/trading-action-button.brief.yaml
+textOverrideFields:
+  - TODO_VERIFY_WITH_FIGMA
+assetRefs: []
+usageInstanceGroups:
+  - groupId: trading.usage.selected-top-region
+    figmaNodeId: "37:26221"
+    figmaName: TOP母组件
+    usageType: selected-component-set
+  - groupId: trading.usage.selected-settings-family
+    figmaNodeId: "37:26556"
+    figmaName: 设置母组件
+    usageType: selected-component-family
+  - groupId: trading.usage.selected-info-region
+    figmaNodeId: "37:26343"
+    figmaName: 信息母组件
+    usageType: selected-component-set
+sourceRefs:
+  - authoring/components/trading-page-modules.brief.yaml
+  - authoring/scenarios/trading.brief.yaml
+  - authoring/case-studies/top-nav-source-drift-case.md
+  - authoring/components/trading-input.brief.yaml
+  - authoring/components/trading-action-button.brief.yaml
+  - docs/references/component-brief-workflow.md
+  - docs/references/source-boundaries.md
+figmaBinding:
+  path: bindings/figma/components.yaml
+reviewChecklist:
+  path: canon/checklists/trading-page-modules-review.yaml

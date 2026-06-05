@@ -1,0 +1,324 @@
+id: component.market-index-modules
+name: 大盘模块组件族
+owner: design-system
+status: draft
+sourceBrief: authoring/components/market-index-modules.brief.yaml
+classification:
+  primitiveFamily: market_index_modules
+  componentType: component_family_suite
+  riskLevel: high
+  isOrdinaryButton: false
+  isTradingAction: false
+purpose: >
+  Maintains confirmed Figma component families for the Market Index page:
+  background shell, title, index summary, abnormal A-share, barrage, auction,
+  tabs, news, and first-screen scroll guide. Scenario files own page composition
+  and usage examples only.
+usage:
+  usedIn:
+    - market-index-full-page
+    - market-index-first-screen
+    - html-prototype-market-index
+    - figma-review-market-index
+  allowedZones:
+    - page_shell
+    - market_index_card_background
+    - first_screen_crop_shell
+    - market_index_card_header
+    - page_section_title
+    - market_index_top_summary
+    - market_index_horizontal_scan
+    - abnormal_sector_scan
+    - market_index_signal_map
+    - market_index_signal_barrage
+    - rolling_message_zone
+    - market_index_auction_read
+    - market_index_opening_signal
+    - market_index_content_switch
+    - market_index_news_filter
+    - market_index_news_feed
+    - market_index_opportunity_extension
+    - first_screen_guide
+    - market_index_card_bottom_hint
+  forbiddenZones:
+    - news_list_item
+    - inline_content_module
+    - generic_dashboard_card
+    - bottom_dock
+    - top_nav
+    - full_scroll_body
+  requiredPairings:
+    - full-light-and-dark-reference
+    - first-screen-crop-reference
+    - semantic-top-nav
+    - semantic-bottom-structures
+  forbiddenPairings:
+    - usage-frame-as-family
+    - screenshot-as-component-definition
+    - first-screen-as-primary-truth
+composition:
+  scenarioSource: authoring/scenarios/market-index.brief.yaml
+  scenarioRole: 页面组合、业务规则、全量/首屏 usage 真源。
+  moduleOrderLocked: true
+  indexTypesLocked: true
+  newsTitleLabelsFixed: true
+  pageComposition:
+    topNav: fixed_system_component
+    pageBody: scrollable_market_card
+    bottomBar: fixed_system_component
+    workspaceBottomNav: fixed_required_structure
+  usageTruth:
+    fullDark: "30:16491"
+    fullLight: "30:17191"
+    firstScreenDark: "3:2360"
+    firstScreenLight: "3:4021"
+  sourceBoundaryRule: Scenario/demo frames are usage evidence only; they must not become confirmed component families.
+sourcePriority:
+  rule: Follow the current repository source mapping and `docs/references/source-boundaries.md` conflict resolution.
+  numericTokensFontsRadiusSpacingMetrics:
+    - canon/foundations/
+    - bindings/assets/manifest.yaml
+    - local asset/template files
+  pageStructureZonesDensityForbiddenSubstitutions:
+    - canon/archetypes/xzl-fusion-screen-recipes.yaml
+    - canon/components/component-semantics.yaml
+  figmaFacts:
+    - bindings/figma/components.yaml
+    - actual Figma verification
+  visualReview:
+    - DESIGN.md
+    - docs/references/foundations/visual-language.md
+    - docs/references/process/design-taster.md
+    - docs/references/anti-patterns.md
+riskBoundaries:
+  - id: market-index-background-source-of-truth
+    severity: P0
+    sourceRefs:
+      - authoring/case-studies/market-index-background-shell-source-drift.md
+    rule: Background shell component family must be distinguished from first-screen usage instances before implementation.
+  - id: market-index-background-not-generic-card
+    severity: P0
+    sourceRefs:
+      - authoring/case-studies/market-index-background-shell-source-drift.md
+    rule: Preserve layered shell, glow, texture, stroke, and inner-effect relationships; do not flatten to a generic dashboard card.
+  - id: market-index-title-source-locked
+    severity: P0
+    sourceRefs:
+      - authoring/case-studies/market-index-title-generic-text-drift.md
+    rule: Market title must use the dedicated title family and keep title text, status dot, and status text as separate elements.
+  - id: market-index-title-flow-ownership
+    severity: P1
+    sourceRefs:
+      - authoring/case-studies/market-index-title-generic-text-drift.md
+    rule: Title placement belongs to the market card content flow, not an arbitrary screen-anchored text row.
+  - id: market-index-theme-consistency
+    severity: P0
+    rule: Light and dark are real theme contracts and sometimes structural variants, not simple recolors.
+  - id: market-index-top-nav-source-drift
+    severity: P0
+    sourceRefs:
+      - authoring/case-studies/top-nav-source-drift-case.md
+    rule: Market page top navigation follows source-priority rules; do not replace source-sensitive visual nodes with local lookalikes.
+  - id: market-index-financial-semantics
+    severity: P0
+    rule: Red-up and green-down financial semantics cannot be reversed in index, abnormal A-share, or auction modules.
+componentFamilies:
+  - familyId: market-index.background-shell
+    figmaNodeId: "7:6911"
+    componentKey: 57900b6e064fd94b5c32a1efe9feff70bea8e4d9
+    figmaName: 背景
+    familyRole: main
+    allowedZones:
+      - page_shell
+      - market_index_card_background
+      - first_screen_crop_shell
+  - familyId: market-index.title-block
+    figmaNodeId: "7:6941"
+    componentKey: 4d75187a01c3ad765b44a17f8da1505bde802916
+    figmaName: 标题
+    familyRole: supporting
+    sourceVariants:
+      dark: "7:6301"
+      light: "7:6940"
+  - familyId: market-index.index-summary
+    figmaNodeId: "7:6302"
+    componentKey: 2c8497856e210074e83c2183bcf545ce863041d1
+    figmaName: 指数
+    familyRole: supporting
+  - familyId: market-index.abnormal-a-share
+    figmaNodeId: "7:6303"
+    componentKey: 3255456fccafa816bf6c55f489fd6838b8233773
+    figmaName: A股异动
+    familyRole: supporting
+  - familyId: market-index.hot-question-toggle
+    figmaNodeId: "23:17460"
+    componentKey: f07956989f78bf36f7db0980ceea901bbcef7f56
+    figmaName: A股异动/热问开关
+    familyRole: supporting
+  - familyId: market-index.barrage-panel
+    figmaNodeId: "7:6304"
+    componentKey: cf254d3f385a8f67c0d72cca09a8804371a42f32
+    figmaName: 弹幕
+    familyRole: supporting
+  - familyId: market-index.barrage-chip
+    figmaNodeId: "18:671"
+    componentKey: dce56f741cdde76c8ff3c27e5ffaca7a69c8b60f
+    figmaName: 弹幕/消息
+    familyRole: supporting
+  - familyId: market-index.auction-panel
+    figmaNodeId: "7:6305"
+    componentKey: eb51e27c77855c0da3c2d75c57084f868f333f9e
+    figmaName: 竞价
+    familyRole: supporting
+  - familyId: market-index.tab-strip
+    figmaNodeId: "7:6306"
+    componentKey: fbf10f16cd65f78f3761bdc669b76bea7ef966cb
+    figmaName: tab
+    familyRole: supporting
+    systemLayerStatus: temporary_scene_reference
+  - familyId: market-index.tab-pill
+    figmaNodeId: "3:200"
+    componentKey: 93dd72982c8c516bfc14043c354b8c10f4c31a35
+    figmaName: tab/胶囊
+    familyRole: supporting
+    systemLayerStatus: temporary_scene_reference
+  - familyId: market-index.news-card
+    figmaNodeId: "3:5704"
+    componentKey: e2a6f4fcf59d06d2b7b3ed4e4b9e5a30e38ec130
+    figmaName: 资讯
+    familyRole: supporting
+  - familyId: market-index.news-title
+    figmaNodeId: "22:16610"
+    componentKey: 2d924e405d279a2a4318d4d59d966ed7d76a732c
+    figmaName: 资讯/标题
+    familyRole: supporting
+  - familyId: market-index.news-tip
+    figmaNodeId: "22:16697"
+    componentKey: 0ae9ee8ac6e221c9f3bd0c790e2a28d5840dc346
+    figmaName: 资讯/提示
+    familyRole: supporting
+  - familyId: market-index.scroll-guide
+    figmaNodeId: "64:42977"
+    componentKey: ebb78f7166ea597992916cafa56e249e96397ab0
+    figmaName: 滑动引导
+    familyRole: supporting
+variants:
+  confirmed:
+    - family: market-index.background-shell
+      properties:
+        - 页面
+        - dark
+      values:
+        - 页面=1屏, dark=on
+        - 页面=全屏, dark=on
+        - 页面=1屏, dark=off
+        - 页面=全屏, dark=off
+    - family: market-index.title-block
+      property: dark
+      values:
+        - dark=on
+        - dark=off
+    - family: market-index.hot-question-toggle
+      property: dark
+      values:
+        - dark=on
+        - dark=off
+    - family: market-index.barrage-chip
+      property: Property 1
+      values:
+        - Property 1=普通
+        - Property 1=热点
+    - family: market-index.tab-pill
+      properties:
+        - 选中态
+        - 场景
+        - Dark
+      values:
+        - 选中态=On, 场景=变体/历史记录标签, Dark=On
+        - 选中态=Off, 场景=变体/历史记录标签, Dark=On
+        - 选中态=On, 场景=变体/历史记录标签, Dark=Off
+        - 选中态=Off, 场景=变体/历史记录标签, Dark=Off
+    - family: market-index.news-card
+      property: 分类
+      values:
+        - 分类=板块
+        - 分类=华泰观市
+        - 分类=行情异动
+        - 分类=专属内容
+        - 分类=行情速览
+        - 分类=事件捕手
+        - 分类=市场要闻
+    - family: market-index.news-title
+      properties:
+        - 单行
+        - dark
+      values:
+        - 单行=on, dark=on
+        - 单行=on, dark=off
+        - 单行=off, dark=on
+        - 单行=off, dark=off
+    - family: market-index.news-tip
+      property: 状态
+      values:
+        - 状态=单条
+        - 状态=多条
+    - family: market-index.scroll-guide
+      property: dark
+      values:
+        - dark=On
+        - dark=Off
+states:
+  required:
+    - dark-first-screen
+    - dark-full
+    - light-first-screen
+    - light-full
+slots:
+  shell: 大盘页面和工作卡的背景外壳。
+  title: 大盘标题与市场状态组合区。
+  indexCarousel: 支持左右滑动的指数展示模块。
+  abnormalAShare: A股异动主模块。
+  hotQuestionToggle: A股异动右上角热问开关。
+  barrage: 自动滚动双行弹幕区域。
+  auction: 竞价金额、涨跌停统计、进度条和底部对比信息。
+  tab: 资讯流前内容切换区。
+  newsFeed: 不同分类资讯卡组成的资讯流。
+  scrollGuide: 只在 1屏 初始状态出现、滑动后消失的引导。
+tokens:
+  source:
+    - canon/foundations/tokens/color.tokens.json
+    - bindings/figma/variables.yaml
+  status: theme_must_bind_standard_light_dark_tokens
+textOverrideFields:
+  source: authoring/components/market-index-modules.brief.yaml#textOverrideFields
+  policy: Use only confirmed fields recorded in authoring; do not invent override targets.
+assetRefs: []
+usageInstanceGroups:
+  - groupId: market-index.usage.full-dark
+    figmaNodeId: "30:16491"
+    figmaName: 大盘_全量_dark
+    usageType: positive-example
+  - groupId: market-index.usage.full-light
+    figmaNodeId: "30:17191"
+    figmaName: 大盘_全量_light
+    usageType: positive-example
+  - groupId: market-index.usage.first-screen-dark
+    figmaNodeId: "3:2360"
+    figmaName: 大盘_1屏_dark
+    usageType: first-screen-crop
+  - groupId: market-index.usage.first-screen-light
+    figmaNodeId: "3:4021"
+    figmaName: 大盘_1屏_light
+    usageType: first-screen-crop
+sourceRefs:
+  - authoring/components/market-index-modules.brief.yaml
+  - authoring/scenarios/market-index.brief.yaml
+  - authoring/case-studies/market-index-title-generic-text-drift.md
+  - authoring/case-studies/market-index-background-shell-source-drift.md
+  - authoring/case-studies/top-nav-source-drift-case.md
+  - docs/references/component-brief-workflow.md
+  - docs/references/source-boundaries.md
+figmaBinding:
+  path: bindings/figma/components.yaml
+reviewChecklist:
+  path: canon/checklists/market-index-modules-review.yaml
