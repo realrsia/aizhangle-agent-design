@@ -68,8 +68,8 @@ componentFamilies:
   - id: message-feed.user-input
     figmaNodeId: "400:25049"
     figmaExactName: 用户输入
-    componentSetKey: TODO_VERIFY_WITH_FIGMA
-    mainComponentKey: TODO_VERIFY_WITH_FIGMA
+    componentSetKeyStatus: pending_figma_component_panel_verification
+    mainComponentKeyStatus: pending_figma_component_panel_verification
     variantProperties:
       Dark: "Off"
     familyType: component_set_instance
@@ -77,8 +77,8 @@ componentFamilies:
   - id: message-feed.assistant-avatar
     figmaNodeId: "400:25051"
     figmaExactName: 智能体输出/AI头像
-    componentSetKey: TODO_VERIFY_WITH_FIGMA
-    mainComponentKey: TODO_VERIFY_WITH_FIGMA
+    componentSetKeyStatus: pending_figma_component_panel_verification
+    mainComponentKeyStatus: pending_figma_component_panel_verification
     variantProperties:
       类型: 智能体
       场景: 对话通用
@@ -88,8 +88,8 @@ componentFamilies:
   - id: message-feed.answer-status
     figmaNodeId: "400:25055"
     figmaExactName: 智能体输出/回答状态
-    componentSetKey: TODO_VERIFY_WITH_FIGMA
-    mainComponentKey: TODO_VERIFY_WITH_FIGMA
+    componentSetKeyStatus: pending_figma_component_panel_verification
+    mainComponentKeyStatus: pending_figma_component_panel_verification
     variantProperties:
       状态: 深度思考
       是否展开: "Off"
@@ -99,8 +99,8 @@ componentFamilies:
   - id: message-feed.answer-body
     figmaNodeId: "400:25137"
     figmaExactName: 智能体输出/内容/正文
-    componentSetKey: TODO_VERIFY_WITH_FIGMA
-    mainComponentKey: TODO_VERIFY_WITH_FIGMA
+    componentSetKeyStatus: pending_figma_component_panel_verification
+    mainComponentKeyStatus: pending_figma_component_panel_verification
     variantProperties:
       Property 1: 无序号
       Dark: "Off"
@@ -109,8 +109,8 @@ componentFamilies:
   - id: message-feed.related-question
     figmaNodeId: "400:25174"
     figmaExactName: item/关联问/off
-    componentSetKey: TODO_VERIFY_WITH_FIGMA
-    mainComponentKey: TODO_VERIFY_WITH_FIGMA
+    componentSetKeyStatus: pending_figma_component_panel_verification
+    mainComponentKeyStatus: pending_figma_component_panel_verification
     variantProperties:
       Property 1: 默认
       Property 2: 默认
@@ -126,7 +126,7 @@ componentFamilies:
     specExactName: 思维链
     variantCandidateNodeId: "400:25056"
     variantCandidateExactName: 智能体输出/思考链/完成态/Off/On
-    variantCandidateComponentKey: TODO_VERIFY_WITH_FIGMA
+    variantCandidateComponentKeyStatus: pending_figma_component_panel_verification
 
 # [HUMAN REQUIRED]
 usageInstanceGroups:
@@ -149,55 +149,61 @@ usageInstanceGroups:
 # [HUMAN REQUIRED]
 businessContentComponentRefs:
   - id: message-feed.market-index
-    figmaNodeId: TODO_VERIFY_WITH_FIGMA
     figmaExactName: 指数
-    componentKey: TODO_VERIFY_WITH_FIGMA
     usageType: answer_embedded_business_content
     sourceStatus: pending_new_design_repository_binding
+    pendingFields:
+      - figmaNodeId
+      - componentKey
     note: 用户提问返回市场指数时可作为正式内容组件候选；需在新设计仓库中重新确认节点与 componentKey。
   - id: message-feed.market-movement
-    figmaNodeId: TODO_VERIFY_WITH_FIGMA
     figmaExactName: A股异动
-    componentKey: TODO_VERIFY_WITH_FIGMA
     usageType: answer_embedded_business_content
     sourceStatus: pending_new_design_repository_binding
+    pendingFields:
+      - figmaNodeId
+      - componentKey
     note: 用户提问返回 A 股异动时可作为正式内容组件候选；需在新设计仓库中重新确认热问开关和 dark 变体。
   - id: message-feed.auction
-    figmaNodeId: TODO_VERIFY_WITH_FIGMA
     figmaExactName: 竞价
-    componentKey: TODO_VERIFY_WITH_FIGMA
     usageType: answer_embedded_business_content
     sourceStatus: pending_new_design_repository_binding
+    pendingFields:
+      - figmaNodeId
+      - componentKey
     note: 用户提问返回竞价信息时可作为正式内容组件候选；需在新设计仓库中重新确认节点。
   - id: message-feed.news-sector
-    figmaNodeId: TODO_VERIFY_WITH_FIGMA
     figmaExactName: 分类=板块
-    componentSetKey: TODO_VERIFY_WITH_FIGMA
-    componentKey: TODO_VERIFY_WITH_FIGMA
     variantProperties:
       分类: 板块
     usageType: answer_embedded_business_content
     sourceStatus: pending_new_design_repository_binding
+    pendingFields:
+      - figmaNodeId
+      - componentSetKey
+      - componentKey
     note: 资讯类回答应复用新设计仓库资讯组件，不应重画为普通文本卡。
   - id: message-feed.news-market-movement
-    figmaNodeId: TODO_VERIFY_WITH_FIGMA
     figmaExactName: 分类=行情异动
-    componentSetKey: TODO_VERIFY_WITH_FIGMA
-    componentKey: TODO_VERIFY_WITH_FIGMA
     variantProperties:
       分类: 行情异动
     usageType: answer_embedded_business_content
     sourceStatus: pending_new_design_repository_binding
+    pendingFields:
+      - figmaNodeId
+      - componentSetKey
+      - componentKey
     note: 行情异动资讯内容候选组件；需在新设计仓库中重新确认。
   - id: message-feed.news-market-brief
-    figmaNodeId: TODO_VERIFY_WITH_FIGMA
     figmaExactName: 分类=行情速览
-    componentSetKey: TODO_VERIFY_WITH_FIGMA
-    componentKey: TODO_VERIFY_WITH_FIGMA
     variantProperties:
       分类: 行情速览
     usageType: answer_embedded_business_content
     sourceStatus: pending_new_design_repository_binding
+    pendingFields:
+      - figmaNodeId
+      - componentSetKey
+      - componentKey
     note: 行情速览资讯内容候选组件；需在新设计仓库中重新确认。
 
 # [HUMAN REQUIRED]
@@ -257,9 +263,45 @@ observedStructure:
     - answer-rich-text
     - answer-footer
     - related-questions
-  typography: TODO_VERIFY_WITH_FIGMA
+  typography:
+    userMessage:
+      family: font family/Text
+      style: Regular
+      size: font size/BodyMedium16
+      lineHeight: 1.6
+      letterSpacing: 0
+    answerStatus:
+      family: font family/Text
+      style: Regular
+      size: font size/BodyXSmall 14
+      letterSpacing: 0
+    reasoningStepTitle:
+      family: PingFang SC
+      style: Medium
+      size: 14px
+      lineHeight: 1.5
+    reasoningBody:
+      family: PingFang SC
+      style: Regular
+      size: 14px
+      lineHeight: 1.5
+      letterSpacing: 0.5px
+    answerBody:
+      family: PingFang SC
+      style: Regular
+      size: 16px
+      lineHeight: 24px
+      letterSpacing: 0.5px
   tokens:
     source: bindings/assets/files/design-tokens/chat-fidelity-tokens.json
+    observedFromFigmaMcp:
+      userBubbleBackground: "#DBE9FF"
+      userBubbleBorder: "#A1C7FF"
+      answerStatusTextColor: xzl-color-text-d / "#6D778B"
+      reasoningTitleColor: xzl-color-text-a / "#030303"
+      reasoningBodyColor: xzl-color-text-c / "#353739"
+      reasoningSecondaryColor: xzl-color-text-d / "#6D778B"
+      answerBodyColor: xzl-color-text-b / rgba(255,255,255,0.9)
 
 variants:
   confirmed: []
@@ -301,10 +343,13 @@ tokens:
   reasoningChain:
     specNodeId: "400:25058"
     fontSize: 14px Regular
-    textColor: TODO_VERIFY_WITH_FIGMA
+    textColor:
+      title: xzl-color-text-a / "#030303"
+      body: xzl-color-text-c / "#353739"
+      secondary: xzl-color-text-d / "#6D778B"
     lineHeight: 1.5x
     letterSpacing: 0.5px
-    panelBackground: TODO_VERIFY_WITH_FIGMA
+    panelBackgroundStatus: derived_from_masked_reasoning_frames_pending_variable_name
 
 textOverrideFields:
   - userQuestionText
@@ -317,6 +362,20 @@ textOverrideFields:
   - disclaimerText
   - relatedQuestionText
   - actionLabels
+
+pendingFigmaVerification:
+  - id: message-feed-core-component-keys
+    status: TODO_VERIFY_WITH_FIGMA
+    scope: component_key
+    reason: 用户输入、AI 头像、回答状态、正文、关联问和思考链候选节点已确认为 400:*，但 componentSetKey/mainComponentKey 需要 Figma 组件面板或 Code Connect 权限确认。
+  - id: message-feed-business-content-bindings
+    status: TODO_VERIFY_WITH_FIGMA
+    scope: embedded_business_content
+    reason: 指数、A股异动、竞价、资讯分类组件尚未在新设计仓库中定位到稳定节点，不能写成已验证组件。
+  - id: message-feed-dark-theme
+    status: TODO_VERIFY_WITH_FIGMA
+    scope: variants
+    reason: 当前白版消息流已确认；黑版 message-feed 仍需按新 section 节点重新确认。
 
 resourceRefs:
   - docs/references/fidelity/chat-fidelity-reconstruction.md

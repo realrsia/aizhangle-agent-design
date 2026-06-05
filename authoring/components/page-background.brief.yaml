@@ -375,7 +375,13 @@ observedStructure:
 
 tokens:
   source: 设计仓库页面背景组件内部样式
-  status: TODO_VERIFY_WITH_FIGMA
+  variableNameStatus: pending_figma_variable_panel_verification
+
+pendingFigmaVerification:
+  - id: page-background-token-variable-names
+    status: TODO_VERIFY_WITH_FIGMA
+    scope: token_variable_names
+    reason: 页面背景组件和 Dark 变体已记录；具体 Figma variable/token 名称仍需从变量面板确认。
 
 resourceRefs:
   - figma://pbxELN7TYDDguIgbXfc1zB/400:24983

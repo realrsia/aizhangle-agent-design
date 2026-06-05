@@ -48,7 +48,7 @@ componentFamilies:
     sourceSectionNodeId: "400:24983"
     sourceSectionName: 2.2 页面背景
     mainComponentNodeId: "99:41960"
-    componentKey: TODO_VERIFY_WITH_FIGMA
+    componentKeyStatus: pending_figma_component_panel_verification
     variantProperties:
       Dark: "Off"
       背景类型: 新版工作区/一级
@@ -56,10 +56,12 @@ componentFamilies:
     humanUse: ai_chat_light_page_background_with_light_beams
     visualSignature: 蓝白渐变、顶部斜向光线、浅色长页面底色。
   - id: chat-background.ai-chat-dark
-    figmaNodeId: TODO_VERIFY_WITH_FIGMA
-    figmaExactName: TODO_VERIFY_WITH_FIGMA
-    componentKey: TODO_VERIFY_WITH_FIGMA
-    variantProperties:
+    sourceStatus: pending_figma_node_binding
+    pendingFields:
+      - darkVariantNodeId
+      - darkVariantExactName
+      - darkVariantComponentKey
+    expectedVariantProperties:
       Dark: "On"
     familyType: pending_component_instance
     humanUse: ai_chat_dark_page_background_pending
@@ -120,6 +122,8 @@ figma:
   exampleNodeName: 背景/背景
   mainComponentNodeId: "99:41960"
   componentKey: TODO_VERIFY_WITH_FIGMA
+  componentKeyStatus: pending_figma_component_panel_verification
+  componentKeyVerificationNote: Figma MCP confirmed mainComponentNodeId 99:41960 but did not expose componentKey without component panel / Code Connect access.
   bindingMode: must_use_library_instance
   bindingFailurePolicy: stop_and_recheck
   componentPropertyDefinitions:
@@ -131,7 +135,8 @@ figma:
       type: VARIANT
       variantOptions:
         - "Off"
-        - TODO_VERIFY_WITH_FIGMA_DARK
+      pendingOptions:
+        - "On"
 
 classification:
   primitiveFamily: page_background
@@ -148,7 +153,25 @@ variants:
   heightProperty: page_height_strategy
 
 tokens:
-  source: 设计仓库/2.2 页面背景/对话-白版/背景/背景，token 名称待 Figma 变量面板确认。
+  source: 设计仓库/2.2 页面背景/对话-白版/背景/背景。
+  observedFromFigmaMcp:
+    baseFill: "#F3F5F9"
+    topGradient:
+      from: "#E1EAFF"
+      to: "#F3F5F9"
+      stop: 63.792%
+    lightBeamAssetNodeId: "99:41966"
+  variableNameStatus: pending_figma_variable_panel_verification
+
+pendingFigmaVerification:
+  - id: chat-background-component-key
+    status: TODO_VERIFY_WITH_FIGMA
+    scope: component_key
+    reason: Figma MCP confirmed instance and main component node, but Code Connect/component key access is unavailable in this environment.
+  - id: chat-background-dark-variant
+    status: TODO_VERIFY_WITH_FIGMA
+    scope: dark_variant
+    reason: 当前只确认 light 对话背景 400:25043；黑版节点和组件 key 需由 Figma 组件面板确认。
 
 resourceRefs:
   - figma://pbxELN7TYDDguIgbXfc1zB/212:2

@@ -1818,7 +1818,14 @@ tokens:
   - authoring/components/trading-input.brief.yaml
   - authoring/components/trading-action-button.brief.yaml
 textOverrideFields:
-- TODO_VERIFY_WITH_FIGMA
+  status: pending_figma_text_property_verification
+  confirmed: []
+
+pendingFigmaVerification:
+- id: trading-page-modules-text-override-fields
+  status: TODO_VERIFY_WITH_FIGMA
+  scope: text_override_fields
+  reason: 交易页模块 family 与 variants 已记录；可覆盖文本字段仍需从 Figma 组件属性面板确认。
 resourceRefs:
 - authoring/scenarios/trading.brief.yaml
 - authoring/components/trading-input.brief.yaml

@@ -99,17 +99,18 @@ figma:
   canvasName: 对话流
   sourceSectionNodeId: "400:24983"
   sourceSectionName: 2.2 页面背景
-  componentSetNodeId: TODO_VERIFY_WITH_FIGMA
+  componentSetNodeIdStatus: pending_figma_component_panel_verification
   exampleNodeId: "400:25178"
   canonicalName: 全屏对话导航栏
   sourceFigmaExactName: 1月版全屏对话导航栏
   sourceNameStatus: repository_instance_confirmed_component_set_pending
   componentKey: TODO_VERIFY_WITH_FIGMA
-  mainComponentKey: TODO_VERIFY_WITH_FIGMA
-  darkVariantNodeId: TODO_VERIFY_WITH_FIGMA
-  darkVariantComponentKey: TODO_VERIFY_WITH_FIGMA
+  componentKeyStatus: pending_figma_component_panel_verification
+  mainComponentKeyStatus: pending_figma_component_panel_verification
+  darkVariantNodeIdStatus: pending_figma_node_binding
+  darkVariantComponentKeyStatus: pending_figma_component_panel_verification
   lightVariantNodeId: "400:25178"
-  lightVariantComponentKey: TODO_VERIFY_WITH_FIGMA
+  lightVariantComponentKeyStatus: pending_figma_component_panel_verification
   bindingMode: must_use_library_instance
   bindingFailurePolicy: stop_and_recheck
   propertyHints:
@@ -146,6 +147,16 @@ observedStructure:
   typography: no-title
   tokens:
     source: docs/references/pages/page-headers.md
+    observedFromFigmaMcp:
+      statusTimeTypography:
+        family: SF Pro Text
+        style: Semibold
+        size: 16px
+        lineHeight: 21px
+        letterSpacing: -0.32px
+      closeButtonBackground: rgba(255,255,255,0.1)
+      closeButtonBlur: 4.583px
+      actionSize: 22px
 
 variants:
   confirmed:
@@ -192,6 +203,16 @@ repositorySearchNotes:
     result: fullscreen_chat_topbar_light_instance_found_in_page_background_section
     decision: use_confirmed_light_instance_pending_component_set
     fallbackPolicy: stop_and_recheck_do_not_use_level2_header
+
+pendingFigmaVerification:
+  - id: chat-topbar-component-set-and-keys
+    status: TODO_VERIFY_WITH_FIGMA
+    scope: component_key
+    reason: 400:25178 白版实例已确认；组件集节点、componentKey 和 mainComponentKey 需要 Figma 组件面板或 Code Connect 权限确认。
+  - id: chat-topbar-dark-expanded-capsules
+    status: TODO_VERIFY_WITH_FIGMA
+    scope: variants
+    reason: 黑版、展开态和胶囊数量变体不能继续引用旧对话流重复节点，需在新 section 中重新确认。
 
 # ============================================================
 # 03_AGENT_EXPANSION_AND_CHECKLIST

@@ -110,20 +110,22 @@ figma:
   sourceFigmaExactName: 1月版/母组件
   sourceNameStatus: repository_component_confirmed
   componentKey: TODO_VERIFY_WITH_FIGMA
-  mainComponentKey: TODO_VERIFY_WITH_FIGMA
+  componentKeyStatus: pending_figma_component_panel_verification
+  mainComponentKeyStatus: pending_figma_component_panel_verification
   bindingMode: must_use_library_instance
   bindingFailurePolicy: stop_and_recheck
   fullComposerNodeId: "400:25177"
   simpleVoiceComposerNodeId: "400:29333"
-  fullComposerComponentKey: TODO_VERIFY_WITH_FIGMA
-  simpleVoiceComposerComponentKey: TODO_VERIFY_WITH_FIGMA
+  fullComposerComponentKeyStatus: pending_figma_component_panel_verification
+  simpleVoiceComposerComponentKeyStatus: pending_figma_component_panel_verification
   propertyHints:
     composerType:
       - full_with_agent_chips
       - simple_voice_input
     Dark:
       - "Off"
-      - TODO_VERIFY_WITH_FIGMA_DARK
+    pendingDarkOptions:
+      - "On"
 
 classification:
   primitiveFamily: chat_input
@@ -142,9 +144,29 @@ observedStructure:
     - agent-chip-row
     - bottom-safe-area
     - ai-generated-disclaimer
-  typography: TODO_VERIFY_WITH_FIGMA
+  typography:
+    inputLabel:
+      family: font family/Text
+      style: Medium
+      size: font size/BodyMedium16
+      weight: font weight/Medium
+      letterSpacing: 0
+    agentChip:
+      family: font family/Text
+      style: Regular
+      size: font size/MarkLarge 13
+      weight: font weight/Regular
+      letterSpacing: 0
+    aiDisclosure:
+      family: PingFang SC
+      style: Regular
+      size: 9px
   tokens:
     source: bindings/assets/files/templates/bottom-bar-component.json
+    observedFromFigmaMcp:
+      inputTextColor: xzl-color-primary-dark-blue / "#2D3A67"
+      agentChipBackground: rgba(121,159,255,0.1)
+      aiDisclosureColor: xzl-color-text-e / "#9FABC4"
 
 variants:
   confirmed:
@@ -190,6 +212,16 @@ textOverrideFields:
   - assistantSelectorLabel
   - aiDisclosureText
 
+pendingFigmaVerification:
+  - id: chat-input-component-keys
+    status: TODO_VERIFY_WITH_FIGMA
+    scope: component_key
+    reason: Figma MCP confirmed 400:25177 and 400:29333 instances, but componentKey/mainComponentKey require Figma component panel or Code Connect access.
+  - id: chat-input-dark-and-expanded-states
+    status: TODO_VERIFY_WITH_FIGMA
+    scope: variants
+    reason: 当前只确认白版 full composer 与 simple voice composer；黑版、键盘、打断、关联问展开状态需继续按 Figma 节点确认。
+
 resourceRefs:
   - docs/references/fidelity/chat-fidelity-reconstruction.md
   - docs/references/bottom-bar/variants.md
@@ -217,7 +249,7 @@ reviewChecklist:
   - id: chat-input-state-declared
     severity: P1
     question: 是否声明语音/键盘/默认/打断等状态？
-    passCriteria: 状态来自 Figma 或标记为 TODO_VERIFY_WITH_FIGMA。
+    passCriteria: 状态来自 Figma；未确认状态必须进入 pendingFigmaVerification。
 
 agentExpansion:
   canonComponent:
