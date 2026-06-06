@@ -124,7 +124,8 @@ Use these paths by responsibility:
 4. Load only the matching canonical files from `canon/`.
 5. Resolve Figma or local assets through `bindings/`.
 6. Run the relevant checklist from `canon/checklists/`. For Figma screen generation, always include `canon/checklists/figma-generation-review.yaml`.
-7. If you changed repository files, append a concise entry to `docs/references/change-history.md` with author, time, change summary, touched areas, and validation result.
+7. If `agents/openai.yaml` changes in `default_prompt`, `component_first_figma_generation_prompt`, or `interface.checklist_system.promptToChecklistMappings`, run `ruby tools/sync-openai-checklist-map.rb` before validation so `canon/checklists/figma-generation-review.yaml` stays mapped to the prompt rules.
+8. If you changed repository files, append a concise entry to `docs/references/change-history.md` with author, time, change summary, touched areas, and validation result.
 
 ## Load By Task
 
