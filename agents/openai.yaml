@@ -15,16 +15,21 @@ interface:
       - promptSection: default_prompt.2 Binding 规则
         checklistRuleIds:
           - component-coverage-report-required
+          - component-source-evidence-required
+          - generated-frame-clone-not-counted-as-component
           - confirmed-components-not-redrawn
           - fallback-is-low-fidelity-and-labeled
       - promptSection: default_prompt.3 硬性禁止
         checklistRuleIds:
           - confirmed-components-not-redrawn
+          - generated-frame-clone-not-counted-as-component
           - fallback-is-low-fidelity-and-labeled
           - final-screenshot-and-metadata-verified
       - promptSection: default_prompt.4 Component 优先级
         checklistRuleIds:
           - component-coverage-report-required
+          - component-source-evidence-required
+          - generated-frame-clone-not-counted-as-component
           - confirmed-components-not-redrawn
           - fixed-chrome-separated
           - theme-consistency-dark-light
@@ -39,45 +44,59 @@ interface:
       - promptSection: default_prompt.7 Fallback 与说明位置
         checklistRuleIds:
           - fallback-is-low-fidelity-and-labeled
+          - token-source-evidence-required
           - annotation-outside-screen
       - promptSection: default_prompt.8 交付前失败条件
         checklistRuleIds:
           - final-screenshot-and-metadata-verified
           - theme-consistency-dark-light
+          - token-source-evidence-required
           - realistic-content-no-placeholders
           - confirmed-components-not-redrawn
+          - component-source-evidence-required
+          - partial-component-minimal-fallback
       - promptSection: component_first_figma_generation_prompt.1 生成前检查
         checklistRuleIds:
           - route-before-generation
           - component-coverage-report-required
+          - component-source-evidence-required
       - promptSection: component_first_figma_generation_prompt.2 生成前硬门禁
         checklistRuleIds:
           - component-coverage-report-required
+          - component-source-evidence-required
           - confirmed-components-not-redrawn
+          - generated-frame-clone-not-counted-as-component
       - promptSection: component_first_figma_generation_prompt.3 自绘控件禁止清单
         checklistRuleIds:
           - confirmed-components-not-redrawn
           - fallback-is-low-fidelity-and-labeled
       - promptSection: component_first_figma_generation_prompt.4 组件使用规则
         checklistRuleIds:
+          - component-source-evidence-required
+          - generated-frame-clone-not-counted-as-component
           - confirmed-components-not-redrawn
           - fixed-chrome-separated
           - theme-consistency-dark-light
       - promptSection: component_first_figma_generation_prompt.5 字体兼容
         checklistRuleIds:
           - confirmed-components-not-redrawn
+          - font-blocker-recorded
           - final-screenshot-and-metadata-verified
       - promptSection: component_first_figma_generation_prompt.6 Clone 与 fallback
         checklistRuleIds:
           - confirmed-components-not-redrawn
           - fallback-is-low-fidelity-and-labeled
+          - component-source-evidence-required
+          - generated-frame-clone-not-counted-as-component
       - promptSection: component_first_figma_generation_prompt.7 Partial component 处理
         checklistRuleIds:
+          - partial-component-minimal-fallback
           - fallback-is-low-fidelity-and-labeled
           - annotation-outside-screen
       - promptSection: component_first_figma_generation_prompt.8 主题要求
         checklistRuleIds:
           - theme-consistency-dark-light
+          - token-source-evidence-required
       - promptSection: component_first_figma_generation_prompt.9 屏幕与 annotation 边界
         checklistRuleIds:
           - annotation-outside-screen
@@ -86,6 +105,11 @@ interface:
           - final-screenshot-and-metadata-verified
           - realistic-content-no-placeholders
           - instance-wrapper-not-clipped
+          - component-source-evidence-required
+          - generated-frame-clone-not-counted-as-component
+          - partial-component-minimal-fallback
+          - token-source-evidence-required
+          - font-blocker-recorded
   default_prompt: |
     生成或评审新涨乐 / AI Zhangle 移动金融界面时，以本仓库为唯一事实来源。
 
@@ -98,20 +122,26 @@ interface:
        - 只有 binding 已确认时才生成。
        - 如果 Figma component binding 缺失，或仍标记为 TODO_VERIFY_WITH_FIGMA，不要猜测。
        - 不要伪装成已绑定组件；应标记为 pending，或停止等待补齐绑定信息。
+       - 必须区分原始 componentKey import、设计仓库原始组件实例 clone、既往生成稿 clone、自绘 fallback；既往生成稿 clone 只能作为参考，不算 confirmed component usage。
+       - 每个关键组件必须在右侧 annotation 或交付报告中记录 source evidence：component family、binding status、componentKey 或 source nodeId、使用方式、blocker。
 
     3. 硬性禁止
        - 禁止为了“看起来像”而自定义绘制已有组件，例如 Button、Input、Switch、Tabs、Tag、Card、Top Bar、Bottom Bar、Chat Input、Action Sheet 等。
        - 禁止用 raw frame、rectangle、line、icon 或 text 拼出 confirmed Component 的 lookalike。
        - 禁止在未读取 Figma bindings 和 component brief 前直接开始画页面。
        - 禁止把未绑定模块画成高保真组件；fallback 必须低保真，并明确标注 “未绑定组件” 或 “binding pending”。
+       - 禁止把从历史评测稿、之前生成稿或临时修复稿 clone 的节点报告为原始 confirmed Component 引用。
        - 如果违反以上任一条，本次生成视为失败，必须先返工修复，再交付。
 
     4. Component 优先级
        - Figma 生成必须优先使用已构建的 Components。
        - 只要已有 confirmed Component，就不要用 raw frame、rectangle 或 text 重画 lookalike。
        - 如果某个控件家族已有 confirmed binding，必须优先 import、instantiate 或 clone。
+       - import/instantiate 应优先使用 bindings 中记录的原始 componentKey；clone 应优先来自设计仓库原始组件实例或目标文件中已确认的同源真实实例。
+       - 组件覆盖报告必须包含 source evidence；只有 “看起来像组件” 或 “来自之前生成稿” 不算使用了组件。
        - 只有当组件不存在、权限阻断、字体阻断且无法保留实例结构时，才允许 fallback。
        - 如果页面所需的 confirmed Component 没有被使用，且没有记录经过 import、字体修复、clone 三步后的真实阻断，本次生成视为失败。
+       - 对 partial component，只允许对确实缺失的最小部分 fallback；已验证的子组件或 family 必须优先使用，不能整块自绘替代。
        - Status Bar、Top Bar、Bottom Bar、Chat Input、Action Sheet 这类固定 chrome 若在目标页面应出现，缺失即视为失败；不能用“简化页面”替代。
        - 创建的 frame 如果是黑板 / 深色稿，它里面所有组件、clone、nested instance 都必须使用 dark / 黑板主题变量模式；创建的 frame 如果是白板 / 浅色稿，则内部所有组件必须使用 light / 白板主题变量模式。
        - 禁止在同一个黑板父级 frame 内混入 light 组件，或在白板父级 frame 内混入 dark 组件；发现混用必须先切换变量 mode 或替换正确 variant 后再交付。
@@ -131,12 +161,18 @@ interface:
     7. Fallback 与说明位置
        - 若必须使用未绑定模块，应绘制明确低保真的 fallback block。
        - fallback 图层名或模块标识中必须写 “未绑定组件”，不要假装它是真实组件。
+       - fallback 的临时颜色、描边、字号不等于 token 合规；如果无法绑定 Figma variable/style 或确认组件自带 token，应标记为 “token pending”。
        - 视觉说明、交互说明、binding 报告和 review 注释不要放进屏幕主体。
        - 这些说明统一放到屏幕右侧的 annotation card。
 
     8. 交付前失败条件
        - 如果页面里出现自绘控件 lookalike、未标注 fallback、主题错、组件裁切、占位文案、raw TODO marker，视为未完成。
        - 如果 component coverage report 显示 confirmed Component 未被使用，视为未完成。
+       - 如果 confirmed Component 缺少 componentKey/source nodeId/source instance 证据，视为未完成。
+       - 如果组件来源是历史评测稿或既往生成稿，却被报告成 confirmed Component，视为未完成。
+       - 如果 partial component 被整块 fallback，而不是使用已验证子组件并最小化缺口，视为未完成。
+       - 如果自绘/fallback 区域使用硬编码颜色却报告为 token 合规，视为未完成。
+       - 如果字体阻断未记录缺失字体、尝试步骤和最终处理方式，视为未完成。
        - 如果 HTML 版本没有复用、导出或等价还原 Figma 中的 confirmed Component rendering，视为未完成。
        - 如果黑板 frame 中存在 light 主题组件，或白板 frame 中存在 dark 主题组件，视为未完成。
        - 发现失败条件时，必须先修复并重新验证 metadata 和 screenshot，再汇报。
@@ -148,14 +184,17 @@ interface:
        - 列出每个页面应该使用的 component families。
        - 对每个将使用的 confirmed component key 做一次小型 import/instantiate probe。
        - 确认返回的 component properties 包含目标 light/dark variant。
+       - 为每个 required/confirmed component 预先建立 source evidence 记录：componentKey、source nodeId、source file、expected variant、planned usage。
 
     2. 生成前硬门禁
        - 未列出每个页面的 component families 前，不允许开始绘制页面。
        - 未生成 component coverage report 前，不允许开始绘制页面；报告必须包含 required / optional / confirmed / partial / pending / used / blocker。
        - 未完成 confirmed component key 的 import/instantiate probe 前，不允许创建最终 screen。
+       - 未记录 component source evidence 前，不允许创建最终 screen。
        - 未确认 light/dark variant 前，不允许放置组件或 clone。
        - 如果某个必要组件仍是 TODO_VERIFY_WITH_FIGMA，必须降级为 “binding pending” fallback，或停止等待补齐绑定。
        - 如果某个必要组件已有 confirmed binding，但最终页面未出现对应 Instance 或 clone，本次生成必须返工。
+       - 从历史评测稿或既往生成稿 clone 的节点不能作为硬门禁通过证据；必须追溯到原始 componentKey、source nodeId 或同源真实实例。
 
     3. 自绘控件禁止清单
        - 禁止自绘 Button、Input、Switch、Tabs、Tag、Card、Top Bar、Bottom Bar、Chat Input、Action Sheet、Message Feed 等控件家族。
@@ -169,6 +208,8 @@ interface:
        - 只要 existing Component 可用，就不要用 rectangle 或 text 重画 component lookalike。
        - Bottom Bar、Top Bar、Action Sheet、Chat Input 等固定 chrome 是页面结构的一部分；目标场景需要时必须存在真实 Instance 或 clone。
        - 目标 Figma 文件里的既有 frame 只能作为参考；复用任何结构前，都要检查是否存在 wrong variant、clipped clone 或 placeholder text。
+       - 目标 Figma 文件里的既有生成稿不能作为 confirmed Component 来源；只能作为视觉对照或失败案例。
+       - clone 真实实例时必须说明 clone 来源是原始组件实例、设计仓库源实例、还是同源真实实例；来源不明时降级为 reference，不算 used。
 
     5. 字体兼容
        - 如果因字体或权限导致 Component 无法 instantiate 或 append，先尝试保留真实 component instance。
@@ -178,6 +219,7 @@ interface:
          2. 读取并加载当前 text fonts；无法加载时，将内部中文改为 Noto Sans SC，数字改为 Noto Sans HK。
          3. 从目标文件已有的同 variant 正常实例 clone。
          4. 三步都失败后，才允许 fallback，并在 annotation 写明 blocker。
+       - 字体 blocker 必须记录组件、缺失字体、已尝试步骤、最终处理方式；只写“字体问题”不算通过。
        - 由于当前 Figma 用户体系未开通商业版或团队版，引用字体无法上传云端。
        - 目前解决方式：
          - 中文文字使用 Noto Sans SC。
@@ -190,6 +232,7 @@ interface:
 
     7. Partial component 处理
        - partial component 只使用已确认部分。
+       - partial component 的 fallback 必须最小化：已验证的子组件、候选组件或业务组件必须优先 import/clone，不能整块 message-feed、card group 或 input area 全部自绘。
        - 示例：modal mask 已确认，但 body text override targets 仍 pending 时：
          - 使用 confirmed mask。
          - 创建明确标注的 fallback body。
@@ -199,6 +242,7 @@ interface:
     8. 主题要求
        - 主题是硬要求。
        - 最终交付前，必须确认每个 component clone 或 instance 都解析到要求的 light/dark mode。
+       - 颜色合规必须来自 Figma variable/style、confirmed component 自带渲染，或明确记录为 token pending；脚本硬编码色值不能报告为 token 合规。
        - 如果父级的frame是light/dark mode，它里面的组件就不允许出现相反的模式。
        - 如果创建的 frame 是黑板 / 深色稿，则该 frame 内所有 Components、clones、nested instances 都必须切到 dark / 黑板主题变量 mode。
        - 如果创建的 frame 是白板 / 浅色稿，则该 frame 内所有 Components、clones、nested instances 都必须切到 light / 白板主题变量 mode。
@@ -212,6 +256,10 @@ interface:
     10. 最终验证
        - 生成后必须检查 Figma metadata 和 screenshot rendering。
        - 必须输出或记录 component coverage report，并确认每个 required confirmed Component 都已 used。
+       - 必须输出或记录 component source evidence，并确认 used 的组件不是历史生成稿 clone。
+       - 必须检查 partial component 是否只 fallback 了最小缺口。
+       - 必须检查 token source evidence；无法确认变量或样式时将 fallback 区域标记为 token pending。
+       - 必须检查 font blockers 是否包含缺失字体、尝试步骤与最终处理方式。
        - HTML 版本必须来自 corrected Figma output 的导出、截图或同一组件 renderer；禁止对 confirmed Components 重新写一套 CSS 近似稿。
        - 必须扫描每个 screen 的 frame 主题和内部组件主题；黑板 frame 内出现 light mode、白板 frame 内出现 dark mode，必须先修。
        - 扫描生成屏幕、nested imported instances 和 annotation cards，确认不存在：
@@ -223,5 +271,6 @@ interface:
          - component lookalike。
          - 自绘控件伪装成真实组件。
          - 形似 Button/Input/Switch/Tabs/Tag/Card 但未使用 Instance、clone 或明确 fallback 标注的节点。
+         - 审核说明、componentKey、token pending、blocker、修复说明等文字出现在 screen body。
        - annotation 中缺失 binding 的说明应写成 “binding pending” 或 “text override pending”，不要保留 raw TODO marker。
        - 所有问题修复后再汇报。

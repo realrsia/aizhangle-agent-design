@@ -46,16 +46,21 @@ sourcePromptMappings:
 - promptSection: default_prompt.2 Binding 规则
   checklistRuleIds:
   - component-coverage-report-required
+  - component-source-evidence-required
+  - generated-frame-clone-not-counted-as-component
   - confirmed-components-not-redrawn
   - fallback-is-low-fidelity-and-labeled
 - promptSection: default_prompt.3 硬性禁止
   checklistRuleIds:
   - confirmed-components-not-redrawn
+  - generated-frame-clone-not-counted-as-component
   - fallback-is-low-fidelity-and-labeled
   - final-screenshot-and-metadata-verified
 - promptSection: default_prompt.4 Component 优先级
   checklistRuleIds:
   - component-coverage-report-required
+  - component-source-evidence-required
+  - generated-frame-clone-not-counted-as-component
   - confirmed-components-not-redrawn
   - fixed-chrome-separated
   - theme-consistency-dark-light
@@ -70,45 +75,59 @@ sourcePromptMappings:
 - promptSection: default_prompt.7 Fallback 与说明位置
   checklistRuleIds:
   - fallback-is-low-fidelity-and-labeled
+  - token-source-evidence-required
   - annotation-outside-screen
 - promptSection: default_prompt.8 交付前失败条件
   checklistRuleIds:
   - final-screenshot-and-metadata-verified
   - theme-consistency-dark-light
+  - token-source-evidence-required
   - realistic-content-no-placeholders
   - confirmed-components-not-redrawn
+  - component-source-evidence-required
+  - partial-component-minimal-fallback
 - promptSection: component_first_figma_generation_prompt.1 生成前检查
   checklistRuleIds:
   - route-before-generation
   - component-coverage-report-required
+  - component-source-evidence-required
 - promptSection: component_first_figma_generation_prompt.2 生成前硬门禁
   checklistRuleIds:
   - component-coverage-report-required
+  - component-source-evidence-required
   - confirmed-components-not-redrawn
+  - generated-frame-clone-not-counted-as-component
 - promptSection: component_first_figma_generation_prompt.3 自绘控件禁止清单
   checklistRuleIds:
   - confirmed-components-not-redrawn
   - fallback-is-low-fidelity-and-labeled
 - promptSection: component_first_figma_generation_prompt.4 组件使用规则
   checklistRuleIds:
+  - component-source-evidence-required
+  - generated-frame-clone-not-counted-as-component
   - confirmed-components-not-redrawn
   - fixed-chrome-separated
   - theme-consistency-dark-light
 - promptSection: component_first_figma_generation_prompt.5 字体兼容
   checklistRuleIds:
   - confirmed-components-not-redrawn
+  - font-blocker-recorded
   - final-screenshot-and-metadata-verified
 - promptSection: component_first_figma_generation_prompt.6 Clone 与 fallback
   checklistRuleIds:
   - confirmed-components-not-redrawn
   - fallback-is-low-fidelity-and-labeled
+  - component-source-evidence-required
+  - generated-frame-clone-not-counted-as-component
 - promptSection: component_first_figma_generation_prompt.7 Partial component 处理
   checklistRuleIds:
+  - partial-component-minimal-fallback
   - fallback-is-low-fidelity-and-labeled
   - annotation-outside-screen
 - promptSection: component_first_figma_generation_prompt.8 主题要求
   checklistRuleIds:
   - theme-consistency-dark-light
+  - token-source-evidence-required
 - promptSection: component_first_figma_generation_prompt.9 屏幕与 annotation 边界
   checklistRuleIds:
   - annotation-outside-screen
@@ -117,6 +136,11 @@ sourcePromptMappings:
   - final-screenshot-and-metadata-verified
   - realistic-content-no-placeholders
   - instance-wrapper-not-clipped
+  - component-source-evidence-required
+  - generated-frame-clone-not-counted-as-component
+  - partial-component-minimal-fallback
+  - token-source-evidence-required
+  - font-blocker-recorded
 rules:
 - id: route-before-generation
   severity: error
@@ -149,6 +173,44 @@ rules:
   - bindings/figma/components.yaml
   autofix:
     strategy: produce-coverage-report-and-regenerate-missing-components
+- id: component-source-evidence-required
+  severity: error
+  target: component-source-evidence
+  assert:
+    everyConfirmedComponentHasSourceEvidence: true
+    sourceEvidenceIncludes:
+    - componentFamily
+    - bindingStatus
+    - componentKeyOrSourceNodeId
+    - usageMethod
+    - blockerWhenNotUsed
+    acceptedUsageMethods:
+    - imported_component_key
+    - source_instance_clone
+    - same_source_real_instance_clone
+    fallbackRequiresBlocker: true
+  rationale: Confirmed component usage is only valid when the generated frame can
+    prove the source component or source instance it used.
+  sourceRefs:
+  - agents/openai.yaml
+  - bindings/figma/components.yaml
+  autofix:
+    strategy: import-source-component-or-record-blocker-before-fallback
+- id: generated-frame-clone-not-counted-as-component
+  severity: error
+  target: component-source-evidence
+  assert:
+    generatedEvalFrameCloneIsReferenceOnly: true
+    priorGeneratedFrameCloneDoesNotCountAsConfirmedUsage: true
+    generatedRepairFrameCloneDoesNotCountAsConfirmedUsage: true
+    componentUsageMustTraceToOriginalSource: true
+  rationale: Cloning previous evaluation outputs can preserve a look, but it does
+    not prove that the agent routed to the original design-system component.
+  sourceRefs:
+  - agents/openai.yaml
+  - bindings/figma/components.yaml
+  autofix:
+    strategy: replace-generated-clone-with-component-key-import-or-source-instance-clone
 - id: confirmed-components-not-redrawn
   severity: error
   target: figma-component-usage
@@ -192,6 +254,26 @@ rules:
   - docs/references/figma-binding-policy.md
   autofix:
     strategy: relabel-and-simplify-fallback-block
+- id: partial-component-minimal-fallback
+  severity: error
+  target: partial-component-generation
+  assert:
+    verifiedSubcomponentsUsedBeforeFallback: true
+    fallbackOnlyCoversMissingSubparts: true
+    forbidWholeFamilyFallbackWhenSubcomponentsVerified: true
+    partialFamiliesRequireGapList: true
+    examplePartialFamilies:
+    - component.message-feed
+    - component.action-sheet
+    - component.trading-page-modules
+  rationale: A partial binding still contains usable verified pieces; the agent must
+    not redraw the whole family when only a small subpart is missing.
+  sourceRefs:
+  - agents/openai.yaml
+  - bindings/figma/components.yaml
+  - canon/checklists/message-feed-review.yaml
+  autofix:
+    strategy: replace-broad-fallback-with-verified-subcomponents-and-minimal-gap-blocks
 - id: fixed-chrome-separated
   severity: error
   target: mobile-page-layout
@@ -287,6 +369,41 @@ rules:
   - canon/foundations/themes/light.theme.yaml
   autofix:
     strategy: switch-component-variants-or-variable-mode-to-parent-theme
+- id: token-source-evidence-required
+  severity: error
+  target: token-and-color-source
+  assert:
+    tokenComplianceRequiresSource: true
+    acceptedColorSources:
+    - figma_variable
+    - figma_style
+    - confirmed_component_rendering
+    hardcodedFallbackColorsMarkedTokenPending: true
+    hardcodedFallbackDoesNotPassTokenCompliance: true
+  rationale: A dark-looking or light-looking screen is not token compliant unless
+    its colors come from variables, styles, or confirmed component rendering.
+  sourceRefs:
+  - agents/openai.yaml
+  - DESIGN.md
+  - docs/references/foundations/visual-language.md
+  autofix:
+    strategy: bind-token-source-or-mark-fallback-token-pending
+- id: font-blocker-recorded
+  severity: error
+  target: font-blocker
+  assert:
+    fontBlockersIncludeComponentName: true
+    fontBlockersIncludeMissingFonts: true
+    fontBlockersIncludeAttemptedSteps: true
+    fontBlockersIncludeFinalHandling: true
+    vagueFontProblemNotesDoNotPass: true
+  rationale: Font issues frequently block real component imports; they must be recorded
+    as actionable blockers instead of silently causing lookalike fallback.
+  sourceRefs:
+  - agents/openai.yaml
+  - bindings/figma/components.yaml
+  autofix:
+    strategy: record-font-blocker-and-preserve-real-instance-or-minimal-fallback
 - id: high-risk-trading-actions-not-ordinary-buttons
   severity: error
   target: high-risk-trading-action
@@ -317,4 +434,4 @@ rules:
   - SKILL.md
   autofix:
     strategy: rerun-screenshot-metadata-check-and-repair-p0-failures
-lastSyncedAt: '2026-06-05T23:49:54+08:00'
+lastSyncedAt: '2026-06-06T12:52:23+08:00'

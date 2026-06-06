@@ -785,8 +785,10 @@ components:
       - familyId: message-feed.related-question
         nodeId: "400:25174"
         figmaExactName: item/关联问/off
-        mainComponentKey: 8e1c51a33014cedd93abd9a311cb755c15be5d11
-        textProperty: "文字内容#21900:10"
+        mainComponentNodeId: "11:3623"
+        mainComponentName: Dark=On
+        mainComponentKey: 90d4a50a7da35de7572a6d0bd18dbad4d0f4fa88
+        textProperty: "文字内容#21900:6"
         status: verified
       - familyId: message-feed.reasoning-panel
         nodeId: "400:25058"
