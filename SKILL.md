@@ -17,8 +17,6 @@ Use these paths by responsibility:
 - `AGENTS.md`: repository-level Agent behavior rules. Use it for editing discipline, source-of-truth rules, and human-owned fields.
 - `llms.txt`: short external LLM index. Use it when a lightweight overview is needed instead of the full repository.
 - `README.md`: human-facing overview. Use it to understand what this package is and how it differs from `zhangle-design-skill`.
-- `INSTALL.md`: team onboarding notes. Use it when someone needs to know how to point an Agent at this folder.
-- `VERSIONING.md`: object lifecycle rules. Use it when adding or changing schema-backed canonical objects.
 - `docs/references/change-history.md`: collaboration change record. Append an entry after meaningful repository changes, including Agent-made canon, binding, checklist, docs, schema, renderer, or workflow updates.
 - `authoring/`: human-editing layer. Use this when a human wants to define component or scenario intent without editing complex canonical structures directly.
 - `authoring/README.md`: explains how humans write simple briefs and how Agents expand them.

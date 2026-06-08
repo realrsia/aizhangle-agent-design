@@ -70,14 +70,6 @@
     "foundationTypography": "docs/references/foundations/typography.md",
     "sourcePriority": "Akun foundation/component files own numeric values and implementation rules. Dengpeng design-generation files supplement visual language, composition, hierarchy, density, and design-tasting review."
   },
-  "provenance": {
-    "primarySourcePackage": "../zhangle-design-skill",
-    "fusionSourcePackage": "../各自的分支/0602xzl-design-system-fusion-version_阿琨合并版",
-    "latestYamlFusionSourcePackage": "../各自的分支/0602xzl-design-system-fusion-version_基于最新的yaml合并版",
-    "akunFoundationSourcePackage": "../各自的分支/阿坤-组件搭建",
-    "dengpengDesignGenerationSourcePackage": "../各自的分支/邓鹏-设计生成repo",
-    "sourceNotes": "Original packages are preserved outside this folder. Selected references and assets were copied into docs/, bindings/, canon/, authoring/, and renderers/."
-  },
   "agents": {
     "openai": "agents/openai.yaml"
   }

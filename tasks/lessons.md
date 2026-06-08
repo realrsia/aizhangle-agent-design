@@ -1,5 +1,6 @@
 # Lessons
 
+- When reviewing repository manifests, do not assume `provenance` or old source-package paths are still active dependencies. Treat them as possible migration/history references and verify whether the current repository has already absorbed the needed content before recommending that they remain.
 - When repairing or generating mobile Figma pages, check whether the outer phone frame itself has Auto Layout. If it does, top-level structural zones such as status bar, top nav, scroll/content area, bottom bar, and modal sheets must use `layoutPositioning = ABSOLUTE`; otherwise the parent frame may reflow them and cause fixed chrome overlap.
 - Do not assume increasing a card or content frame height fixes clipping. Inspect inner rows and text nodes too; stock rows, result-card body copy, and sheet descriptions often need their own height, `clipsContent = false`, and text height auto-resize.
 - In modal trading states, hide or fully cover the underlying high-risk action fallback. A clipped pending trading button visible behind a sheet can look like an available ordinary action and should fail the checklist.
