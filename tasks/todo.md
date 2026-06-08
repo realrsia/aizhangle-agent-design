@@ -1,3 +1,52 @@
+# Root Markdown Utility File Review
+
+## Done Criteria
+- Check whether `VERSIONING.md`, `INSTALL.md`, and `GLOSSARY.md` are referenced by current repository entrypoints.
+- Decide whether each file is useful, redundant, or safe to remove.
+- Identify any follow-up edits needed if the files are removed.
+- Record review.
+
+## Plan
+- [x] Read the three root Markdown files.
+- [x] Search repository references to the three filenames and related terms.
+- [x] Compare their content against current README/SKILL/schema usage.
+- [x] Summarize cleanup recommendation.
+
+## Review
+
+- `INSTALL.md` is only referenced by `SKILL.md` and contains outdated old-package path guidance.
+- `VERSIONING.md` is only referenced by `SKILL.md`; its useful rules are generic and already implied by schemas/AGENTS conventions.
+- `GLOSSARY.md` has no active filename references outside itself; content is incomplete and not part of current routing.
+- If deleting `INSTALL.md` and `VERSIONING.md`, update `SKILL.md` to remove their discovery bullets.
+
+---
+
+# Manifest Link Redundancy Review
+
+## Done Criteria
+- Explain what `manifest.json` is for in plain language.
+- Identify whether every referenced local file or folder exists.
+- Separate necessary index links from potentially redundant convenience links.
+- Do not edit `manifest.json` unless the redundant-link cleanup is clear and low-risk.
+- Record validation and review notes.
+
+## Plan
+- [x] Read project instructions and existing lessons.
+- [x] Parse `manifest.json`.
+- [x] Check all manifest paths against the repository.
+- [x] Summarize cleanup candidates and risk level.
+- [x] Record review.
+
+## Review
+
+- `manifest.json` parses successfully.
+- Checked 54 path-like fields; 53 exist locally.
+- One missing path: `provenance.primarySourcePackage` -> `../zhangle-design-skill`.
+- The main redundancy is intentional-looking cross-indexing: broad folders plus specific index files, and `DESIGN.md` listed both as a general entrypoint and an aesthetics entrypoint.
+- Recommended not editing automatically until downstream consumers confirm whether they rely on specific manifest keys.
+
+---
+
 # Related Question Component Mapping Repair
 
 ## Done Criteria
