@@ -56,8 +56,8 @@ forbiddenPairings:
 # [HUMAN REQUIRED]
 examples:
   good:
-    - assetPath: assets/examples/mobile-home-workbench.png
-      reason: 页面模块卡片与内部信息组层级可区分。
+    - name: mobile-home-workbench-context
+      reason: 页面模块卡片与内部信息组层级可区分；以 canon 和 Figma component binding 为准，不依赖本地截图。
   needsReview: []
   bad:
     - name: 页面级模块被当作内部二级卡

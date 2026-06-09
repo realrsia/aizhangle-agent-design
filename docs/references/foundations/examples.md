@@ -1,6 +1,6 @@
 # Positive Examples
 
-Use this file as an index for approved positive examples. Store screenshot copies in `assets/examples/`.
+Use this file as an index for approved positive examples. Use confirmed Figma links, component bindings, or maintained case-study notes as the reference source.
 
 When a task references a positive example, imitate only the parts relevant to the requested surface. For financial table-list tasks with explicit fields, use `Watchlist and Holdings Table Lists` as the primary layout example. Do not inherit unrelated page chrome, search bars, add buttons, bottom navigation, or old row-list structures unless the user explicitly asks for a complete page shell.
 
@@ -9,7 +9,7 @@ When a task references a positive example, imitate only the parts relevant to th
 ```markdown
 ## Example: [short name]
 
-- Screenshot: `assets/examples/[file-name]`
+- Reference source: Figma link, component binding, or maintained case-study notes
 - Figma link:
 - Page link:
 - User note:
@@ -22,7 +22,7 @@ When a task references a positive example, imitate only the parts relevant to th
 
 ## Example: Watchlist and Holdings Table Lists
 
-- Screenshot: `assets/examples/list-watchlist-holdings.png`
+- Reference source: confirmed Figma link below
 - Figma link: https://www.figma.com/design/otAkZjevsWXeTDul44K2Qc/%E5%88%97%E8%A1%A8skill?node-id=0-1&t=EEFEFtJfLLfpPPFM-1
 - Page link:
 - User note: This screenshot is the approved reference for 自选列表 and 持仓列表 table structure.
@@ -40,7 +40,7 @@ When a task references a positive example, imitate only the parts relevant to th
 
 ## Example: Tag System
 
-- Screenshot: `assets/examples/tag-system.png`
+- Reference source: confirmed Figma link below
 - Figma link: https://www.figma.com/design/H7Z2WIuqgotu6iUVbdo63N/%E6%A0%87%E7%AD%BEskill?node-id=0-1&t=D7p8MuSL89WnLZbQ-1
 - Page link:
 - User note: This screenshot is the approved reference for global security and signal tags.
@@ -55,7 +55,7 @@ When a task references a positive example, imitate only the parts relevant to th
 
 ## Example: Mobile Home Workbench
 
-- Screenshot: `assets/examples/mobile-home-workbench.png`
+- Reference source: confirmed Figma page/component binding or maintained case-study notes
 - Figma link:
 - Page link:
 - User note: This mobile app home/workbench is correct and can be used as a positive example.
@@ -75,7 +75,7 @@ When a task references a positive example, imitate only the parts relevant to th
 
 ## Example: Market Overview Page Semantics
 
-- Screenshot: `assets/examples/market-overview-watchlist.png`
+- Reference source: confirmed Figma page/component binding or maintained case-study notes
 - Figma link:
 - Page link:
 - User note: This screenshot is an approved reference for market-page semantics and app atmosphere. It is not a layout source for 自选列表, 持仓列表, or other financial table lists.
@@ -97,7 +97,7 @@ When a task references a positive example, imitate only the parts relevant to th
 
 ## Example: Trading Order Page
 
-- Screenshot: `assets/examples/trading-order-page.png`
+- Reference source: confirmed Figma page/component binding or maintained case-study notes
 - Figma link:
 - Page link:
 - User note: This trading page is correct and can be used as a positive example.
@@ -118,7 +118,7 @@ When a task references a positive example, imitate only the parts relevant to th
 
 ## Example: Stock Detail Page
 
-- Screenshot: `assets/examples/stock-detail-page.png`
+- Reference source: confirmed Figma page/component binding or maintained case-study notes
 - Figma link:
 - Page link:
 - User note: This stock detail page is correct and can be used as a positive example.
@@ -139,7 +139,7 @@ When a task references a positive example, imitate only the parts relevant to th
 
 ## Example: Holdings Portfolio Page
 
-- Screenshot: `assets/examples/holdings-portfolio-page.png`
+- Reference source: confirmed Figma page/component binding or maintained case-study notes
 - Figma link:
 - Page link:
 - User note: This holdings page is correct and can be used as a positive example.
@@ -160,7 +160,7 @@ When a task references a positive example, imitate only the parts relevant to th
 
 ## Example: Dense Tags in Holdings
 
-- Screenshot: `assets/examples/holdings-portfolio-page.png`
+- Reference source: confirmed Figma page/component binding or maintained case-study notes
 - Figma link:
 - Page link:
 - User note: This tag-dense holdings page is correct and can be used as a positive example.
@@ -179,7 +179,7 @@ When a task references a positive example, imitate only the parts relevant to th
 
 ## Example: Overlays, Popovers, and Sheets
 
-- Screenshot: `assets/examples/overlays-popovers-sheets.png`
+- Reference source: confirmed Figma page/component binding or maintained case-study notes
 - Figma link:
 - Page link:
 - User note: These modal, semi-floating, and dropdown states are correct and can be used as positive examples.
@@ -200,7 +200,7 @@ When a task references a positive example, imitate only the parts relevant to th
 
 ## Example: Button System
 
-- Screenshot: `assets/examples/buttons-system.png`
+- Reference source: confirmed Figma button binding plus `canon/components/button.meta.yaml`
 - Figma link:
 - Page link:
 - User note: This button screenshot is both a positive example and a button specification reference.
@@ -220,7 +220,7 @@ When a task references a positive example, imitate only the parts relevant to th
 
 ## Example: Switch System
 
-- Screenshot: `assets/examples/switch-system.png`
+- Reference source: confirmed Figma switch binding plus `canon/components/switch.meta.yaml`
 - Figma link:
 - Page link:
 - User note: This switch screenshot is both a positive example and a switch specification reference.
@@ -238,7 +238,7 @@ When a task references a positive example, imitate only the parts relevant to th
 
 ## Example: Radio and Checkbox Components
 
-- Screenshot: `assets/examples/radio-checkbox-switches.png`
+- Reference source: confirmed Figma switch binding plus `canon/components/switch.meta.yaml`
 - Figma link:
 - Page link:
 - User note: This Figma component screenshot is an approved reference for radio, multi checkbox, and check-icon-only variants.

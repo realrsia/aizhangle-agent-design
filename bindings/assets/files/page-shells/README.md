@@ -6,8 +6,7 @@ Use the integrated page shell references as the production source:
 - `references/pages/page-backgrounds.md`
 - `references/pages/page-headers.md`
 - `references/pages/platform-ios-chrome.md`
-- `assets/backgrounds/`
-- `assets/page-headers/`
+- confirmed Figma page-shell and header bindings
 
 Use AI Zhangle screen recipes for page-zone composition:
 

@@ -2,10 +2,10 @@
 
 Reserved for importers, exporters, validators, and build scripts.
 
-## Prompt / Checklist Sync
+## Checklist Maintenance
 
-- `sync-openai-checklist-map.rb`: run `ruby tools/sync-openai-checklist-map.rb` after editing `agents/openai.yaml` prompt rules or `interface.checklist_system.promptToChecklistMappings`.
-- The script copies OpenAI prompt-to-rule mappings into `canon/checklists/figma-generation-review.yaml` so Figma generation constraints stay available as second-pass checklist items.
+- Figma generation constraints live in `SKILL.md`.
+- Keep `canon/checklists/figma-generation-review.yaml` aligned manually when those hard constraints change.
 
 Recommended next scripts:
 

@@ -79,7 +79,7 @@ Verify:
 - When hidden, following data columns move left.
 - No blank placeholder column remains after hiding K线图.
 - The mini trend visual remains `62x40` when visible.
-- Use archived Figma-exported assets from `assets/charts/mini-trends/` for 5日, 分时, and 日K; do not recreate approximate chart paths.
+- Use confirmed Figma mini-trend bindings for 5日, 分时, and 日K; do not recreate approximate chart paths.
 - Declare a list-level `miniTrendState` for each 自选列表 instance.
 - `miniTrendState` is one of `5日`, `分时`, or `日K`.
 - If the user does not specify a mini trend state, default `miniTrendState` to `5日`.
@@ -131,4 +131,3 @@ Verify:
 - Signal tags default to one line.
 - Signal tags may wrap when needed, increasing row height.
 - Wrapped signal tags do not change column widths.
-

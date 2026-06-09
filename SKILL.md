@@ -5,238 +5,233 @@ description: Use this skill to generate, review, repair, or prototype AI Zhangle
 
 # Zhangle Agent Design System
 
-Use this as the Agent entrypoint. This file is a router, not the source of truth.
+这个文件是 Agent 的任务路由说明，不是路径总表，也不是设计规范的最终真源。
 
-## Path Map
+路径和入口以 `manifest.json` 为准。执行任务时先读取 `manifest.json` 定位相关文件，再按本文件判断任务类型、读取顺序、验证方式和交付要求。
 
-Use these paths by responsibility:
+## 基本原则
 
-- `manifest.json`: machine-readable index for the whole repository. Load this first to discover entrypoints, canonical folders, schemas, bindings, and generated outputs.
-- `SKILL.md`: Agent task router. Use it to decide what to load for generation, review, repair, Figma lookup, component work, page work, or token lookup.
-- `DESIGN.md`: aesthetic system entrypoint. Use it for visual generation, visual review, design tasting, hierarchy, density, atmosphere, and source-priority decisions between Akun foundation rules and Dengpeng visual-language rules.
-- `AGENTS.md`: repository-level Agent behavior rules. Use it for editing discipline, source-of-truth rules, and human-owned fields.
-- `llms.txt`: short external LLM index. Use it when a lightweight overview is needed instead of the full repository.
-- `README.md`: human-facing overview. Use it to understand what this package is and how it differs from `zhangle-design-skill`.
-- `docs/references/change-history.md`: collaboration change record. Append an entry after meaningful repository changes, including Agent-made canon, binding, checklist, docs, schema, renderer, or workflow updates.
-- `authoring/`: human-editing layer. Use this when a human wants to define component or scenario intent without editing complex canonical structures directly.
-- `authoring/README.md`: explains how humans write simple briefs and how Agents expand them.
-- `authoring/components/index.yaml`: latest component authoring index imported from the YAML fusion version. Load it first when adding, reviewing, or expanding component briefs.
-- `authoring/components/*.brief.yaml`: latest human-maintained component briefs. Start here when adding or changing a component; these files are the primary source for component purpose, scenarios, risk boundaries, zones, pairings, and examples.
-- `authoring/scenarios/*.brief.yaml`: human-maintained business scenario briefs. Start here when adding or changing a page/business route.
-- `authoring/case-studies/`: human-authored examples, bugs, and review evidence.
-- `.github/PULL_REQUEST_TEMPLATE.md`: PR review checklist for human-defined content, Agent-expanded content, and validation status.
-- `agents/openai.yaml`: installed-agent interface metadata imported from the Akun fusion source.
-- `schemas/`: schema definitions. Use this to validate whether canonical files are shaped correctly.
-- `schemas/component.schema.json`: component metadata contract. Use it when creating or reviewing `canon/components/*.meta.yaml`.
-- `schemas/checklist.schema.json`: executable checklist contract. Use it when creating or reviewing `canon/checklists/*.yaml`.
-- `schemas/resource.schema.json`: resource reference contract. Use it when describing Figma files, Figma variables, local assets, docs, or code links.
-- `schemas/component-brief.schema.yaml`: latest component brief contract. Use it to validate `authoring/components/*.brief.yaml`.
-- `schemas/component-meta.schema.yaml`: latest component meta contract. Use it to validate expanded files in `canon/components/`.
-- `schemas/checklist.schema.yaml`: latest component checklist contract. Use it to validate `canon/checklists/*-review.yaml`.
-- `schemas/index.yaml`: schema index for the latest YAML component workflow.
-- `canon/`: canonical source layer. This is where design-system truth should live.
-- `canon/foundations/tokens/`: token source of truth. Use it for colors, typography, spacing, radius, and future design-token groups.
-- `canon/foundations/tokens/color.tokens.json`: first-stage canonical color tokens. Use this instead of raw colors.
-- `canon/foundations/tokens/xzl-token-mapping.source.json`: copied source mapping from the old package. Use only for provenance or migration checks.
-- `canon/foundations/tokens/typography.tokens.json`: typography token source imported from the Akun foundation flow.
-- `canon/foundations/tokens/radius.tokens.json`: radius token source imported from the Akun foundation flow.
-- `canon/foundations/themes/`: theme mappings. Use this to resolve light/dark semantic roles.
-- `canon/foundations/themes/light.theme.yaml`: light-mode semantic token mapping.
-- `canon/foundations/themes/dark.theme.yaml`: dark-mode semantic token mapping.
-- `canon/foundations/themes/product-line-overrides/`: reserved for market, trading, account, chat, or other product-line theme differences.
-- `canon/foundations/semantics/`: domain semantics. Use this for financial color meaning and other product-specific rules.
-- `canon/foundations/semantics/financial-semantics.yaml`: red/green financial meaning. Use it to prevent reversed market semantics.
-- `canon/components/`: canonical component metadata. Use this for props, variants, states, slots, usage rules, bindings, and review checks.
-- `canon/components/index.yaml`: latest component meta index. Use it to discover expanded component metadata files.
-- `canon/components/*.meta.yaml`: Agent-expanded component metadata derived from the latest component briefs.
-- `canon/components/component-semantics.yaml`: fusion component semantic registry. Use it for allowed zones, forbidden substitutions, and component role guidance.
-- `canon/archetypes/`: page structure models. Use this for reusable page skeletons such as list, detail, form, and chat pages.
-- `canon/archetypes/mobile-list-page.yaml`: first-stage mobile financial list page skeleton.
-- `canon/archetypes/mobile-chat-page.yaml`: first-stage AI chat/message page skeleton.
-- `canon/archetypes/ai-zhangle-screen-recipes.source.yaml`: copied source archetype recipes from the old package. Use for migration and comparison.
-- `canon/archetypes/xzl-fusion-screen-recipes.yaml`: Akun fusion page recipes. Use it as the stronger fusion source for page zones, density, and forbidden substitutions.
-- `canon/scenarios/`: business scenarios. Use this to map a task such as watchlist or AI chat onto archetypes, components, and checks.
-- `canon/scenarios/watchlist.yaml`: watchlist business route and constraints.
-- `canon/scenarios/ai-chat.yaml`: AI chat business route and fidelity constraints.
-- `canon/checklists/`: executable validation rules. Use this before delivering generated or reviewed work.
-- `canon/checklists/index.yaml`: latest component checklist index.
-- `canon/checklists/*-review.yaml`: component-level executable review checklists derived from the latest component briefs.
-- `canon/checklists/visual-review.yaml`: first-stage cross-surface visual review checklist.
-- `canon/checklists/figma-generation-review.yaml`: second-pass Figma generation checklist mapped from `agents/openai.yaml`; use it after Figma screen generation to turn prompt constraints into concrete pass/fail repair items.
-- `canon/checklists/page-output-checklist.source.json`: copied source checklist from the old package. Use for migration and comparison.
-- `canon/checklists/radius-output-checklist.source.json`: copied radius checklist from the fusion source. Use for migration and radius review.
-- `bindings/`: connection layer. Use this to locate Figma resources, local assets, and future code links without polluting canonical rules.
-- `bindings/figma/`: Figma binding layer. Use this for files, variables, components, nodes, and future Code Connect or Dev Resources links.
-- `bindings/figma/files.yaml`: known Figma file keys and their roles.
-- `bindings/figma/variables.yaml`: canonical token to Figma variable mapping candidates.
-- `bindings/figma/critical-bindings.yaml`: strong Figma component binding registry from the Akun fusion source. Use it for high-risk controls before Figma generation or review.
-- `bindings/figma/components.yaml`: latest component-level Figma binding map. Use it alongside `critical-bindings.yaml`; do not treat `TODO_VERIFY_WITH_FIGMA` entries as confirmed component keys.
-- `bindings/figma/components.source.yaml`: copied source Figma component registry. Use for exact component names, variant hints, and migration.
-- `bindings/assets/`: local asset binding layer. Use this to locate copied fonts, icons, backgrounds, templates, examples, and token files.
-- `bindings/assets/manifest.yaml`: local asset index. Use this before referencing a file under `bindings/assets/files/`.
-- `bindings/assets/manifest.yaml` also maps latest brief paths such as `assets/tokens/`, `assets/templates/`, and `assets/examples/` to the main repo's `bindings/assets/files/` storage.
-- `bindings/assets/files/`: copied asset files from `zhangle-design-skill/assets/`. Use as the physical file store, not as semantic truth.
-- `bindings/assets/fusion-files/`: copied asset files from the Akun fusion source. Use as offline references, prototype fallbacks, and visual evidence.
-- `docs/`: human-readable explanation layer. Use this for background, examples, case studies, and long-form reference reading.
-- `docs/references/`: copied reference documents from the old package. Use when prose detail is needed after canonical files.
-- `docs/references/authoring-workflow.md`: human/Agent component brief workflow. Use it to understand how brief files become formal repo files.
-- `docs/references/component-brief-workflow.md`: latest component brief workflow from the YAML fusion version. Use this as the current source for component brief zone format and expansion rules.
-- `docs/references/foundations/tokens.md`: Akun foundation token usage rules. Use this as the primary prose rule for token use.
-- `docs/references/foundations/typography.md`: Akun foundation typography and financial numeric font rules. Use this as the primary prose rule for font implementation.
-- `docs/references/foundations/visual-language.md`: Dengpeng visual language and aesthetic reference. Use this for atmosphere, composition, density, hierarchy, icon policy, and design intent after foundation values are loaded.
-- `docs/references/process/design-taster.md`: Dengpeng design-tasting review process adapted for AI Zhangle. Use this after the archetype and component set are selected.
-- `docs/references/process/impeccable-adaptation.md`: AI Zhangle-specific aesthetic anti-pattern lens.
-- `docs/references/git-collaboration.md`: Git branch and PR workflow for multi-person collaboration.
-- `docs/references/change-history.md`: required modification log for collaborators and Agents.
-- `docs/references/figma-binding-policy.md`: strong/weak/archive Figma binding policy imported from the Akun fusion source.
-- `docs/references/source-boundaries.md`: source precedence and conflict-resolution rules from the Akun fusion source.
-- `docs/references/visual-audit-chain.md`: review chain from intent reading through repair brief generation.
-- `docs/references/anti-patterns.md`: named structural, visual, and production-quality anti-patterns.
-- `docs/case-studies/`: reserved for structured good/bad examples and historical design bugs.
-- `docs/generated/`: generated human-readable docs derived from canonical data.
-- `docs/generated/components/index.md`: generated component documentation index. Keep this index-only unless long-form docs are explicitly requested.
-- `docs/generated/`: generated human-readable indexes derived from canonical data. Do not edit these as source of truth.
-- `renderers/`: low-fidelity renderer layer. Use it when generating H5 or HTML prototypes.
-- `renderers/html/component-renderers.yaml`: maps canonical/Figma component identity to low-fidelity HTML renderer strategies.
-- `renderers/html/page-renderers.yaml`: maps scenarios and archetypes to low-fidelity HTML page renderer strategies.
-- `sources/`: provenance notes. Use this to record where source material came from and how it was migrated.
-- `sources/README.md`: current source-package note pointing back to `zhangle-design-skill`.
-- `sources/fusion-akun/README.md`: source record for the Akun fusion package merge.
-- `tests/`: validation fixtures and checks. Use this for schema, checklist, and regression tests.
-- `tools/`: import, export, validation, and build scripts. Use this for future automation.
+- `manifest.json` 负责维护仓库路径、入口、目录和路由。
+- `SKILL.md` 只负责说明不同任务该怎么做。
+- `canon/` 是设计系统真源，承载 tokens、components、archetypes、scenarios 和 checklists。
+- `authoring/` 是人类维护输入层，适合写组件意图、业务场景、风险边界和示例。
+- `bindings/` 是连接层，用来查 Figma、assets 和未来 code links，不把连接信息写进 canon 真源。
+- `docs/` 是解释层，只在 canon、authoring、bindings 不够时作为补充阅读。
+- `docs/generated/` 是生成结果，不要当作可编辑真源。
+- 涉及视觉生成、视觉评审、design tasting、层级、密度、氛围或美感判断时，必须读取 `DESIGN.md`。
+- 涉及仓库编辑纪律、人类拥有字段、source-of-truth 规则时，遵循 `AGENTS.md`。
 
-## Always Start
+## 开始任何任务
 
-1. Identify the task type:
-   - design generation
-   - design review
-   - Figma binding lookup
-   - component specification
-   - page or business scenario specification
-   - component or scenario brief authoring
-   - H5 / HTML low-fidelity prototype generation
-   - token lookup
-   - visual generation or aesthetic review
-2. Load `manifest.json`.
-3. Load `DESIGN.md` when the task involves visual generation, visual review, aesthetic direction, design tasting, hierarchy, density, polish, or "does this look right".
-4. Load only the matching canonical files from `canon/`.
-5. Resolve Figma or local assets through `bindings/`.
-6. Run the relevant checklist from `canon/checklists/`. For Figma screen generation, always include `canon/checklists/figma-generation-review.yaml`.
-7. If `agents/openai.yaml` changes in `default_prompt`, `component_first_figma_generation_prompt`, or `interface.checklist_system.promptToChecklistMappings`, run `ruby tools/sync-openai-checklist-map.rb` before validation so `canon/checklists/figma-generation-review.yaml` stays mapped to the prompt rules.
-8. If you changed repository files, append a concise entry to `docs/references/change-history.md` with author, time, change summary, touched areas, and validation result.
+1. 判断任务类型：设计生成、设计评审、Figma binding 查询、组件规范、页面或业务场景规范、brief 编写或扩展、H5 / HTML low-fidelity prototype、token 查询、视觉审美评审。
+2. 读取 `manifest.json`，用它定位本次任务需要的入口和目录。
+3. 只读取和本次任务相关的最小文件集合。
+4. 如果任务涉及视觉质量，读取 `DESIGN.md`。
+5. 如果需要 Figma 或本地资产，优先通过 `bindings/` 定位。
+6. 交付前运行相关 `canon/checklists/`。如果目标是 Figma screen generation，必须包含 `canon/checklists/figma-generation-review.yaml`。
+7. 如果改动了 Figma generation 规则，同步检查 `canon/checklists/figma-generation-review.yaml`，保证 checklist 仍覆盖这些硬性约束。
+8. 如果改动了仓库结构、canon、bindings、checklists、docs、schemas、renderers 或 workflow 文档，在 `docs/references/change-history.md` 追加简洁记录。
 
-## Load By Task
+## 按任务读取
 
 ### Component Generation
 
-Load:
+读取：
 
-- `authoring/components/index.yaml`: discovers the available latest component briefs and source references.
-- `authoring/components/{component-id}.brief.yaml`: primary source for component purpose, scenarios, risk boundaries, zones, pairings, examples, and status.
-- `docs/references/component-brief-workflow.md`: provides the three-zone brief model and human/Agent/Figma responsibility split.
-- `schemas/component-brief.schema.yaml`: validates the human-authored brief shape.
-- `schemas/component.schema.json`: validates the component metadata shape.
-- `schemas/component-meta.schema.yaml`: validates latest expanded component metadata when using the YAML workflow.
-- `canon/foundations/tokens/color.tokens.json`: provides canonical color tokens.
-- `canon/components/button.meta.yaml` or the matching component file: provides component props, variants, states, usage rules, and review checks.
-- `canon/checklists/{component-id}-review.yaml`: validates the component-specific output.
-- `bindings/figma/components.yaml`: provides component-level Figma binding status, variant hints, and verification gaps.
-- `bindings/figma/critical-bindings.yaml` when the component is high-risk or must be a real Figma instance: provides strong binding requirements.
-- `bindings/figma/components.source.yaml` when Figma components are involved: provides exact Figma component names, hints, and binding cautions.
-- `canon/checklists/visual-review.yaml`: validates the output before delivery.
+- `authoring/components/index.yaml`：确认可用组件 brief。
+- `authoring/components/{component-id}.brief.yaml`：读取组件目的、业务场景、风险边界、区域、搭配关系、示例和状态。
+- `docs/references/component-brief-workflow.md`：理解三段式 brief 模型，以及人类、Agent、Figma 之间的责任边界。
+- `schemas/component-brief.schema.yaml`：验证 brief 结构。
+- `schemas/component.schema.json` 和 `schemas/component-meta.schema.yaml`：验证 expanded component metadata。
+- `canon/foundations/tokens/color.tokens.json`：使用 canonical color tokens，避免 raw colors。
+- 对应的 `canon/components/{component-id}.meta.yaml`：读取 props、variants、states、slots、usage rules、bindings 和 review checks。
+- `canon/checklists/{component-id}-review.yaml`：验证组件输出。
+- `bindings/figma/components.yaml`：读取组件级 Figma binding、variant hints 和 verification gaps。
+- `bindings/figma/critical-bindings.yaml`：当组件是 high-risk control 或必须是真实 Figma instance 时读取。
+- `bindings/figma/components.source.yaml`：需要 Figma exact name、variant hints 或 migration evidence 时读取。
+- `canon/checklists/visual-review.yaml`：交付前做视觉检查。
 
 ### Component Brief Authoring Or Expansion
 
-Load:
+读取：
 
-- `docs/references/component-brief-workflow.md`: current source for the component brief format.
-- `authoring/components/index.yaml`: component brief entry list.
-- `authoring/components/{component-id}.brief.yaml`: human-owned judgment and Agent-extracted facts.
-- `schemas/component-brief.schema.yaml`: brief validation.
-- `canon/components/{component-id}.meta.yaml`: Agent-expanded component metadata.
-- `canon/checklists/{component-id}-review.yaml`: component review checklist.
-- `bindings/figma/components.yaml`: component-level Figma binding map.
-- `docs/generated/components/index.md`: generated component docs index.
+- `docs/references/component-brief-workflow.md`：确认 component brief 格式。
+- `authoring/components/index.yaml`：确认组件 brief 入口。
+- `authoring/components/{component-id}.brief.yaml`：读取人类拥有的判断和 Agent 提取事实。
+- `schemas/component-brief.schema.yaml`：验证 brief。
+- `canon/components/{component-id}.meta.yaml`：扩展或核对 component metadata。
+- `canon/checklists/{component-id}-review.yaml`：扩展或核对 review checklist。
+- `bindings/figma/components.yaml`：更新或核对 Figma binding map。
+- `docs/generated/components/index.md`：需要时更新生成索引。
 
-Keep `01_HUMAN_REQUIRED` fields human-authored or human-approved. Agents may draft structure, extract Figma facts, and expand canon/checklist/binding outputs, but must mark uncertain facts with `TODO_HUMAN_CONFIRM` or `TODO_VERIFY_WITH_FIGMA`.
+`01_HUMAN_REQUIRED` 字段必须由人类撰写或确认。Agent 可以起草结构、提取 Figma facts、扩展 canon/checklist/binding，但不确定内容必须标记为 `TODO_HUMAN_CONFIRM` 或 `TODO_VERIFY_WITH_FIGMA`。
 
 ### Page Or Scenario Generation
 
-Load:
+读取：
 
-- `DESIGN.md` when the task asks for visual generation, redesign, aesthetic direction, or a complete screen.
-- `docs/references/foundations/visual-language.md`: applies AI Zhangle atmosphere, density, hierarchy, dark/light posture, icon policy, and composition rules.
-- `docs/references/foundations/tokens.md` and `docs/references/foundations/typography.md`: apply Akun foundation token and font rules before visual polish.
-- `authoring/scenarios/*.brief.yaml` when the scenario is new or human intent is being revised: provides product-owned scenario judgment.
-- `canon/archetypes/*.yaml`: provides page skeletons and zone structure.
-- `canon/scenarios/*.yaml`: maps business intent to archetypes, components, and constraints.
-- matching `canon/components/*.meta.yaml`: provides the component-level rules needed by the page.
-- `bindings/assets/manifest.yaml`: resolves local assets such as icons, fonts, backgrounds, templates, and examples.
-- `canon/checklists/visual-review.yaml`: validates the full page or scenario output.
-- `canon/checklists/figma-generation-review.yaml`: validates component coverage, fixed chrome, Auto Layout, fallback labels, annotations, themes, and screenshot/metadata before delivery.
+- `DESIGN.md`：当任务是完整页面、视觉生成、redesign 或 aesthetic direction 时读取。
+- `docs/references/foundations/visual-language.md`：读取 AI Zhangle 的氛围、构图、密度、层级、dark/light 姿态和 icon policy。
+- `docs/references/foundations/tokens.md` 和 `docs/references/foundations/typography.md`：先确认基础 token 和字体规则，再做视觉 polish。
+- `authoring/scenarios/*.brief.yaml`：当业务场景是新的，或人类意图正在调整时读取。
+- `canon/archetypes/*.yaml`：读取页面骨架和 zone 结构。
+- `canon/scenarios/*.yaml`：把业务意图映射到 archetypes、components 和 constraints。
+- 相关 `canon/components/*.meta.yaml`：读取页面中组件的规则。
+- `bindings/assets/manifest.yaml`：需要 icons、fonts、backgrounds、templates 或 examples 时读取。
+- `canon/checklists/visual-review.yaml`：检查完整页面或场景输出。
+- `canon/checklists/figma-generation-review.yaml`：检查组件覆盖、fixed chrome、Auto Layout、fallback labels、annotations、themes、screenshots 和 metadata。
 
 ### Aesthetic Direction Or Design Tasting
 
-Load:
+读取：
 
-- `DESIGN.md`: aesthetic source priority and route.
-- `docs/references/foundations/visual-language.md`: visual language, atmosphere, layout, density, hierarchy, typography principles, iconography, and composition rules.
-- `docs/references/process/design-taster.md`: structured design-tasting workflow and polish order.
-- `docs/references/process/impeccable-adaptation.md`: AI Zhangle-specific aesthetic anti-patterns.
-- `docs/references/visual-audit-chain.md`: review chain for intent, visual audit, evidence, and repair brief.
-- `docs/references/anti-patterns.md`: named visual and structural issues.
-- `docs/references/foundations/tokens.md`, `docs/references/foundations/typography.md`, `canon/foundations/tokens/*.json`, and theme files before changing any color, font, radius, or spacing.
+- `DESIGN.md`：确认 aesthetic route 和 source priority。
+- `docs/references/foundations/visual-language.md`：读取视觉语言、氛围、布局、密度、层级、字体原则、iconography 和 composition。
+- `docs/references/process/design-taster.md`：按结构化流程做 design tasting 和 polish。
+- `docs/references/process/impeccable-adaptation.md`：检查 AI Zhangle 特定审美问题。
+- `docs/references/visual-audit-chain.md`：按意图理解、视觉审计、证据、repair brief 的顺序评审。
+- `docs/references/anti-patterns.md`：识别结构、视觉和生产质量 anti-patterns。
+- `docs/references/foundations/tokens.md`、`docs/references/foundations/typography.md`、`canon/foundations/tokens/*.json` 和 theme files：改颜色、字体、圆角或间距前必须读取。
 
-Source priority: use Akun foundation files for numeric values and implementation rules; use Dengpeng visual-language files for aesthetic judgment and missing composition guidance.
+视觉判断可以补充缺失的构图和美感信息，但不能覆盖 foundation files 已经定义的 color、typography、radius、spacing 或 component metrics。
 
 ### H5 Or HTML Low-Fidelity Prototype
 
-Load:
+读取：
 
-- matching `canon/scenarios/*.yaml`: identifies the business route.
-- matching `canon/archetypes/*.yaml`: provides the page skeleton.
-- matching `canon/components/*.meta.yaml`: provides component identity and usage rules.
-- `bindings/figma/critical-bindings.yaml`: verifies maintained component identity where available.
-- `renderers/html/component-renderers.yaml`: maps components to low-fidelity DOM/CSS strategies.
-- `renderers/html/page-renderers.yaml`: maps page shells to low-fidelity HTML strategies.
-- `bindings/assets/manifest.yaml`: resolves local fallback assets for prototype use only.
-- `canon/checklists/visual-review.yaml`: validates the prototype as low-fidelity output.
+- 相关 `canon/scenarios/*.yaml`：确认业务路线。
+- 相关 `canon/archetypes/*.yaml`：确认页面骨架。
+- 相关 `canon/components/*.meta.yaml`：确认组件身份和使用规则。
+- `bindings/figma/critical-bindings.yaml`：确认 maintained components 的身份要求。
+- `renderers/html/component-renderers.yaml`：确认组件如何转成 low-fidelity DOM/CSS。
+- `renderers/html/page-renderers.yaml`：确认页面壳和场景如何渲染。
+- `bindings/assets/manifest.yaml`：仅用于 prototype fallback assets。
+- `canon/checklists/visual-review.yaml`：验证 prototype 输出。
 
 ### Visual Review
 
-Load:
+读取：
 
-- `DESIGN.md`: aesthetic review route and source priority.
-- `canon/checklists/visual-review.yaml`: provides executable review rules.
-- matching component, archetype, and scenario files: provides the expected source rules for the reviewed surface.
-- `docs/references/foundations/review-report.md`: provides the human-readable report format and severity language.
-- `docs/references/process/design-taster.md`: provides hierarchy, density, layout, typography, icon, theme, chart, and polish checks.
-- `docs/references/foundations/visual-language.md`: provides AI Zhangle aesthetic intent and composition rules.
+- `DESIGN.md`：确认视觉评审路线。
+- `canon/checklists/visual-review.yaml`：执行可检查规则。
+- 相关 component、archetype 和 scenario files：确认被评审页面应遵守的源规则。
+- `docs/references/foundations/review-report.md`：需要人类可读评审报告时读取。
+- `docs/references/process/design-taster.md`：检查 hierarchy、density、layout、typography、icon、theme、chart 和 polish。
+- `docs/references/foundations/visual-language.md`：确认 AI Zhangle aesthetic intent 和 composition rules。
 
 ### Token Or Theme Lookup
 
-Load:
+读取：
 
-- `canon/foundations/tokens/color.tokens.json`: canonical color token values.
-- `canon/foundations/themes/light.theme.yaml`: light-mode semantic mappings.
-- `canon/foundations/themes/dark.theme.yaml`: dark-mode semantic mappings.
-- `canon/foundations/tokens/xzl-token-mapping.source.json` if source provenance is needed: old-package mapping used for migration checks, not the editing truth.
+- `canon/foundations/tokens/color.tokens.json`：canonical color token values。
+- `canon/foundations/themes/light.theme.yaml`：light mode semantic mappings。
+- `canon/foundations/themes/dark.theme.yaml`：dark mode semantic mappings。
+- `canon/foundations/tokens/xzl-token-mapping.source.json`：只在需要 provenance 或 migration check 时读取，不作为编辑真源。
 
-## Non-Negotiable Rules
+### Figma Binding Lookup
 
-- Do not use raw colors outside token source files.
-- Do not treat `generated/` files as editable truth.
-- Do not guess Figma component variants or variable names.
-- Do not treat local SVGs, PNGs, fonts, or JSON templates as real Figma component instances.
-- For maintained components, Figma component IDs are the primary design source.
-- H5 prototypes may use Figma IDs as component identity evidence, but must render through `renderers/html/` rules.
-- Do not turn financial pages into generic dashboard cards.
-- Do not skip checklist validation before delivery.
-- Keep high-risk financial interaction rules human-authored and human-reviewed.
+读取：
 
-## Output Expectations
+- `bindings/figma/components.yaml`：组件级 Figma binding map。
+- `bindings/figma/critical-bindings.yaml`：高风险控件和必须真实绑定的组件。
+- `bindings/figma/files.yaml`：Figma file 信息。
+- `bindings/figma/variables.yaml`：token 到 Figma variables 的映射候选。
 
-For generation:
+不要把 `TODO_VERIFY_WITH_FIGMA` 当成确认过的 component key 或 node id。
+
+## Figma Generation 硬性约束
+
+这些规则从 `agents/openai.yaml` 迁回本文件。它们是 Agent 生成或修复 Figma 页面时必须执行的核心约束，不是 UI metadata。
+
+### 路由与读取
+
+- 生成或评审新涨乐 / AI Zhangle 移动金融界面时，以本仓库为唯一事实来源。
+- 先按 `manifest.json` 和本文件完成路由，再读取相关 `authoring/`、`canon/`、Figma `bindings/`、`assets` 和 `checklists`。
+- 涉及视觉生成或视觉评审时，必须遵循 `DESIGN.md` 的视觉语言。
+
+### Binding 规则
+
+- 只有 Figma binding 已确认时，才把目标模块当作 confirmed component 使用。
+- 如果 Figma component binding 缺失，或仍标记为 `TODO_VERIFY_WITH_FIGMA`，不要猜测 component key、variant 或 override property。
+- 不要伪装成已绑定组件；应标记为 `binding pending`、`未绑定组件`，或停止等待补齐绑定信息。
+
+### Component 优先级
+
+- Figma 生成必须优先使用目标 Figma 文件或已确认 library 中的 existing Components。
+- 只要已有 confirmed Component，就不要用 raw frame、rectangle 或 text 重画 lookalike。
+- 页面应通过 import、instantiate 或 clone confirmed Components 来搭建。
+- 使用 component 前，列出页面应该使用的 component families，并对每个 confirmed component key 做小型 import / instantiate probe。
+- 必须选择正确 variant，并显式确认 light / dark variable mode。
+- 目标 Figma 文件里的既有 frame 只能作为参考；复用任何结构前，都要检查是否存在 wrong variant、clipped clone 或 placeholder text。
+
+### Auto Layout 规则
+
+- 每个 screen、module、card、list row、bottom area 和承载文字的容器都要使用 Auto Layout。
+- 卡片内容应根据真实内容和 padding 自适应伸缩，不要依赖固定手工坐标。
+- 移动端 frame 可从 390px 宽开始，但页面高度不必固定为 844px；当场景需要滚动内容时，允许 frame 纵向增长。
+- Status Bar、Top Bar、Bottom Bar / Chat Input 等固定 chrome 应独立放在顶部或底部，不要混入普通内容流。
+- 内容区可以用多层 Auto Layout 承载 section、card、row 和内部 module。
+- 任何包含 Instance 的 Auto Layout wrapper，高度都必须大于或等于内部 Instance，避免组件被裁切。
+- 含文字内容的非结构容器优先 Hug Contents，不要用 Fixed Height 裁切真实业务文案。
+- Auto Layout 内的多行正文文字优先 Fill Container；只有小标签、数字列、图标标签或已验证组件内部可以固定宽度。
+- 对话页 `message-feed-scroll` 必须覆盖全部消息流子内容；reasoning panel 或 message-feed wrapper 缩放后要重新计算父级高度。
+- Bottom Bar / Chat Input 必须固定在 frame 最底部，并与内容区保留至少 40px 可见间距，不允许覆盖消息流。
+
+### 内容规则
+
+- 生成屏幕主体里不要留下占位、提示或说明文案，例如重复 dummy 字符、泛化标签、未解析 prompt。
+- 应基于页面意图填入真实感金融、新闻或对话内容，保证页面可读。
+- `文字文字`、`placeholder`、`dummy`、`TODO` 等内容只能出现在右侧说明里的明确 blocker，不得出现在产品屏幕主体或业务示例中。
+
+### 字体兼容
+
+- 如果因字体或权限导致 Component 无法 instantiate 或 append，先尝试保留真实 component instance。
+- 放置前可把实例内部文字字体覆盖为项目当前可用字体。
+- 当前 Figma 用户体系未开通商业版或团队版时，不要假设引用字体能上传云端。
+- 字体不可用时，中文文字使用 `Noto Sans SC`，数字文字使用 `Noto Sans HK`，并在右侧 annotation 说明 blocker。
+
+### Clone、Partial Component 与 Fallback
+
+- 只有在能够保留结构时，才 clone confirmed Component。
+- 如果无法保留结构，使用清晰标注的 `未绑定组件` 或 `binding pending` fallback module。
+- fallback 原因写到右侧 annotation panel。
+- partial component 只使用已确认部分。
+- 例如 modal mask 已确认，但 body text override targets 仍 pending 时：使用 confirmed mask，创建明确标注的 fallback body，不要强行把业务文案写进未验证 component，也不要重画 component lookalike。
+
+### 主题要求
+
+- 主题是硬要求。
+- 最终交付前，必须确认每个 component clone 或 instance 都解析到要求的 light / dark mode。
+- 如果父级 Frame 是 light / dark mode，里面的组件不允许出现相反模式。
+
+### 屏幕与 Annotation 边界
+
+- 生成屏幕主体中不要放说明、binding 报告或 review 注释。
+- 视觉说明、交互说明、binding 报告、review 注释和 fallback blocker 统一放在屏幕右侧 annotation card。
+
+### 最终验证
+
+- 生成后必须检查 Figma metadata 和 screenshot rendering。
+- 扫描生成屏幕、nested imported instances 和 annotation cards，确认不存在：占位文案、未解析 prompt marker、raw TODO marker、wrong theme variant、clipped instance、Fixed Height 裁切文字、多行正文固定宽度导致换行异常、`message-feed-scroll` 没有覆盖子内容、Bottom Bar 覆盖内容或未保留 40px 间距、component lookalike。
+- annotation 中缺失 binding 的说明应写成 `binding pending` 或 `text override pending`，不要保留 raw TODO marker。
+- 所有问题修复后再汇报。
+
+## 不可违反的规则
+
+- 不要在 token source files 之外直接使用 raw colors。
+- 不要把 `docs/generated/` 当作可编辑真源。
+- 不要猜 Figma component variants、variable names、component keys 或 node ids。
+- 不要把本地 SVG、PNG、fonts、JSON templates 当成真实 Figma component instances。
+- maintained components 以 Figma component IDs 作为主要设计来源。
+- H5 / HTML prototypes 可以使用 Figma IDs 作为 identity evidence，但必须通过 `renderers/html/` 规则渲染。
+- 不要把金融业务页面画成通用 dashboard cards。
+- 交付前不要跳过 checklist validation。
+- high-risk financial interaction rules 必须由人类撰写和审核。
+- 旧 source package 路径只可作为历史迁移信息；除非任务明确要求追溯旧来源，否则不要让 Agent 回头依赖旧目录。
+
+## 交付说明
+
+生成类任务需要说明：
 
 - task type
 - loaded canonical files
@@ -244,10 +239,10 @@ For generation:
 - component or scenario decisions
 - Figma/local asset bindings
 - checklist summary
-- Figma generation checklist summary when the output target is Figma
+- 如果目标是 Figma，补充 Figma generation checklist summary
 - open gaps
 
-For review:
+评审类任务需要说明：
 
 - severity
 - location

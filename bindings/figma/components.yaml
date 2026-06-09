@@ -199,7 +199,7 @@ components:
     importMetadataStatus: pending_reverification_after_library_polish
     libraryPublishStatus: published_polished_version_reported_by_user
     crossFileImportStatus: resolved_reported_by_user
-    fontCompatibilityPolicy: agents/openai.yaml#component_first_figma_generation_prompt.font_compatibility
+    fontCompatibilityPolicy: SKILL.md#字体兼容
     lastVerifiedAt: "2026-06-05"
     lastVerifiedTargetFileKey: 2irbg73G1Yw2O9BFs3FjQR
     familyBindings:

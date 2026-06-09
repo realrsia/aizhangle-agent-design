@@ -245,19 +245,10 @@
       "分时",
       "日K"
     ],
-    "miniTrendAssets": {
-      "5日": {
-        "light": "assets/charts/mini-trends/mini-trend-5d-light.svg",
-        "dark": "assets/charts/mini-trends/mini-trend-5d-dark.svg"
-      },
-      "分时": {
-        "light": "assets/charts/mini-trends/mini-trend-minute-light.svg",
-        "dark": "assets/charts/mini-trends/mini-trend-minute-dark.svg"
-      },
-      "日K": {
-        "light": "assets/charts/mini-trends/mini-trend-daily-k-light.svg",
-        "dark": "assets/charts/mini-trends/mini-trend-daily-k-dark.svg"
-      }
+    "miniTrendBindings": {
+      "5日": "figma-mini-trend-5d",
+      "分时": "figma-mini-trend-minute",
+      "日K": "figma-mini-trend-daily-k"
     },
     "filterableColumns": [
       "最新",

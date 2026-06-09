@@ -72,7 +72,7 @@ Use templates/assets:
 - `assets/templates/watchlist-header-tools.json`
 - `assets/templates/filterable-table-header.json`
 - `assets/templates/watchlist-output-checklist.json`
-- `assets/charts/mini-trends/`
+- confirmed Figma mini-trend bindings
 - `assets/icons/table-sort-arrows.svg`
 - `assets/icons/watchlist-header-*.svg`
 
@@ -294,4 +294,3 @@ Load:
 - relevant audit files such as `references/lists/audit.md`, `references/bottom-bar/audit.md`, `references/buttons/audit.md`, `references/switches/audit.md`, or `references/tags/audit.md`
 
 Output findings before summary.
-

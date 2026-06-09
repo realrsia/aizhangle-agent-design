@@ -56,8 +56,8 @@ forbiddenPairings:
 # [HUMAN REQUIRED]
 examples:
   good:
-    - assetPath: assets/examples/overlays-popovers-sheets.png
-      reason: 覆盖移动端浮层、popover 和 sheet 模式。
+    - name: overlays-popovers-sheets
+      reason: 覆盖移动端浮层、popover 和 sheet 模式；以 canon 和 Figma component binding 为准，不依赖本地截图。
   needsReview: []
   bad:
     - name: 使用桌面网页弹窗样式

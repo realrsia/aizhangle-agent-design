@@ -208,7 +208,7 @@ Verify:
 - Non-movement fields use ordinary text tokens.
 - Dark mode must not turn all text white or remove red/green distinction.
 
-## Rule: Use assets for mini trend charts
+## Rule: Use approved bindings for mini trend charts
 
 Use approved mini trend assets from Figma instead of inventing chart shapes.
 
@@ -220,6 +220,5 @@ Verify:
 - Three chart states are `5日`, `分时`, and `日K`.
 - Each chart uses the fixed `62x40` visual size.
 - The chart area does not change size when the chart state changes.
-- Generated specs reference approved Figma/assets and do not hand-draw final mini trend charts unless explicitly asked.
-- Use the archived SVG assets in `assets/charts/mini-trends/` for `5日`, `分时`, and `日K` in light and dark modes when available.
-
+- Generated specs reference approved Figma bindings/assets and do not hand-draw final mini trend charts unless explicitly asked.
+- Use confirmed Figma mini-trend bindings for `5日`, `分时`, and `日K` in light and dark modes when available. If the binding is missing, declare a binding gap instead of drawing an approximate chart.

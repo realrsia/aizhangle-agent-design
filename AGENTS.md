@@ -45,7 +45,7 @@ This repository is schema-first. Prefer canonical files over prose.
 - Do not treat local SVGs, PNGs, fonts, or JSON templates as maintained Figma component instances.
 - For maintained components, Figma component IDs are the primary design source.
 - HTML prototypes may use Figma IDs as component identity and binding evidence, but must render through local HTML renderer rules.
-- For visual rules, Akun foundation/component files own numeric values and implementation details. Dengpeng design-generation files supplement atmosphere, composition, hierarchy, density, and design-tasting review.
+- For visual rules, foundation and component files own numeric values and implementation details. Visual-language references supplement atmosphere, composition, hierarchy, density, and design-tasting review.
 - Do not introduce new color, typography, radius, or spacing systems from aesthetic notes when foundation files already define the value.
 
 ## Human-Owned Fields
@@ -81,16 +81,14 @@ Agents may draft, normalize, validate, and suggest improvements, but must not in
 - Use `.github/PULL_REQUEST_TEMPLATE.md` for review notes.
 - Run JSON/YAML validation before merging.
 
-## Fusion Source Rule
+## Imported Reference Rule
 
-`sources/fusion-akun/` records the merge from the Akun fusion package.
-
-Use imported fusion files as follows:
+Use imported reference files as follows:
 
 - `authoring/components/*.brief.yaml`: current component brief source for purpose, scenarios, risk boundaries, zones, pairings, and examples.
 - `bindings/figma/components.yaml`: component-level Figma binding status and variant hints; entries marked `TODO_VERIFY_WITH_FIGMA` are not confirmed component keys.
 - `bindings/figma/critical-bindings.yaml`: strong Figma binding requirements.
 - `canon/components/component-semantics.yaml`: component semantic placement guidance.
-- `canon/archetypes/xzl-fusion-screen-recipes.yaml`: fusion page recipes.
+- `canon/archetypes/xzl-fusion-screen-recipes.yaml`: page recipes.
 - `docs/references/visual-audit-chain.md` and `docs/references/anti-patterns.md`: review workflow and anti-pattern lenses.
-- `bindings/assets/fusion-files/`: offline reference and prototype fallback assets.
+- `bindings/assets/files/`: local tokens, templates, icons, fonts, and limited offline renderer assets; Figma component bindings remain canonical for page generation.

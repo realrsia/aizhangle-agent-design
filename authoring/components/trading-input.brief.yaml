@@ -56,8 +56,8 @@ forbiddenPairings:
 # [HUMAN REQUIRED]
 examples:
   good:
-    - assetPath: assets/examples/trading-order-page.png
-      reason: 交易输入结构与交易表单上下文完整。
+    - name: trading-order-page-context
+      reason: 交易输入结构与交易表单上下文完整；以 canon 和 Figma component binding 为准，不依赖本地截图。
   needsReview: []
   bad:
     - name: 用普通输入框替代数字步进输入

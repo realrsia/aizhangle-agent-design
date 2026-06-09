@@ -21,7 +21,6 @@ renderers:
     localFallbacks:
       - bindings/assets/files/bottom-bar/icons/
       - bindings/assets/files/templates/bottom-bar-component.json
-      - bindings/assets/fusion-files/templates/bottom-bar-component.json
     sceneVariantDefaults:
       market-index:
         scene: 首页场景

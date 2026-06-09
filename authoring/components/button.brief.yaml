@@ -60,8 +60,8 @@ forbiddenPairings:
 # [HUMAN REQUIRED]
 examples:
   good:
-    - assetPath: assets/examples/buttons-system.png
-      reason: 按钮类型、尺寸、结构和状态矩阵完整。
+    - name: button-system-matrix
+      reason: 按钮类型、尺寸、结构和状态矩阵完整；以 canon 和 Figma component binding 为准，不依赖本地截图。
   needsReview: []
   bad:
     - name: 用普通主按钮承载买入
