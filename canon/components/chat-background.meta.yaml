@@ -51,69 +51,58 @@ riskBoundaries:
     rule: Theme and page height must select the matching dark/light and one-screen/full-screen variant.
 componentFamilies:
   - familyId: chat-background.repository-background
-    displayName: 设计仓库背景组件组
+    displayName: 设计仓库背景/母组件
     fileName: 设计仓库
-    fileKey: N0GqvW0qr9niOnWxjzyulU
-    groupNodeId: "7:6911"
-    sectionNodeId: "23:17482"
-    componentKey: 57900b6e064fd94b5c32a1efe9feff70bea8e4d9
+    fileKey: pbxELN7TYDDguIgbXfc1zB
+    sectionNodeId: "400:24983"
+    sectionName: 2.2 页面背景
+    figmaExactName: 背景/母组件
+    componentSetKey: e7d0e3570253b5e750c00103dd65780e31461aa7
+    importApi: importComponentSetByKeyAsync
     bindingMode: must_use_library_instance
     bindingFailurePolicy: stop_and_recheck
     componentPropertyDefinitions:
-      页面:
+      分类:
         type: VARIANT
         variantOptions:
-          - 1屏
-          - 全屏
-      dark:
+          - 新版工作区/一级
+          - 新版二级页
+          - 新三级页
+          - KYC
+          - Agent
+          - 临时对话浮层
+          - 通栏卡片
+          - 非通栏卡片
+          - 旧一级页
+          - 旧二级页
+          - 大片
+      Dark:
         type: VARIANT
         variantOptions:
-          - "on"
-          - "off"
+          - "On"
+          - "Off"
 variants:
   confirmed:
-    - id: chat-background-one-screen-dark
+    - id: chat-background-workspace-dark
       familyId: chat-background.repository-background
-      figmaNodeId: "7:6308"
-      figmaExactName: 页面=1屏, dark=on
-      componentKey: 8fc63b06eaaeb352df3ce3ca38969f00923d5e5d
+      figmaExactName: 分类=新版工作区/一级, Dark=On
+      componentKey: 96ce857c0183e6d76f1d7877af90c4a5509864fe
       variantProperties:
-        页面: 1屏
-        dark: "on"
-      humanUse: dark_theme_short_page_background
-    - id: chat-background-full-screen-dark
+        分类: 新版工作区/一级
+        Dark: "On"
+      humanUse: dark_theme_ai_chat_page_background
+    - id: chat-background-workspace-light
       familyId: chat-background.repository-background
-      figmaNodeId: "31:18747"
-      figmaExactName: 页面=全屏, dark=on
-      componentKey: eb6f8da9e8da594be4425a5a3304391ab0b4b3b0
+      figmaExactName: 分类=新版工作区/一级, Dark=Off
+      componentKey: a3a4ab7790fb34ab0cb1708986b968024fc70729
       variantProperties:
-        页面: 全屏
-        dark: "on"
-      humanUse: dark_theme_long_page_background
-    - id: chat-background-one-screen-light
-      familyId: chat-background.repository-background
-      figmaNodeId: "7:6910"
-      figmaExactName: 页面=1屏, dark=off
-      componentKey: e8e966317feacf946bec7c575a41ca935887c4c4
-      variantProperties:
-        页面: 1屏
-        dark: "off"
-      humanUse: light_theme_short_page_background
-    - id: chat-background-full-screen-light
-      familyId: chat-background.repository-background
-      figmaNodeId: "31:18755"
-      figmaExactName: 页面=全屏, dark=off
-      componentKey: 86c486150135c86e46456c2fc842a16b25b09b3a
-      variantProperties:
-        页面: 全屏
-        dark: "off"
-      humanUse: light_theme_long_page_background
+        分类: 新版工作区/一级
+        Dark: "Off"
+      humanUse: light_theme_ai_chat_page_background
 states:
   required:
-    - dark-one-screen
-    - dark-full-screen
-    - light-one-screen
-    - light-full-screen
+    - dark-workspace-level-one
+    - light-workspace-level-one
 slots:
   pageRoot:
     required: true
@@ -121,13 +110,13 @@ slots:
   theme:
     required: true
     values:
-      dark: dark=on
-      light: dark=off
+      dark: Dark=On
+      light: Dark=Off
   height:
     required: true
     values:
-      shortPage: 页面=1屏
-      longPage: 页面=全屏
+      shortPage: resize_instance_to_page_height
+      longPage: resize_instance_to_page_height
 tokens:
   source: 设计仓库背景变量/组件待确认
   status: TODO_VERIFY_WITH_FIGMA

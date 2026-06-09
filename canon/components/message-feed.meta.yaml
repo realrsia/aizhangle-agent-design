@@ -52,7 +52,25 @@ riskBoundaries:
     rule: Keep shell, layout, block, item, content, and action hierarchy; numbered frames are not semantic sources.
   - id: message-feed-fallback
     severity: P0
-    rule: Stock cards, K-line charts, or unverified business content may be fallback only when clearly marked as non-canonical; reasoning uses the verified 设计仓库 component binding.
+    rule: Stock cards, K-line charts, unverified business content, and light answer body may be fallback only when clearly marked as non-canonical; reasoning uses the verified 设计仓库 component binding.
+  - id: message-feed-answer-body-light-fallback
+    severity: P0
+    rule: 设计仓库 currently confirms 智能体输出/正文 only for Dark=On; light pages must not use the Dark=On answer body and may temporarily use fallback / non-canonical / answer-body-light.
+  - id: message-feed-reasoning-light-variant
+    severity: P0
+    rule: 设计仓库 confirms 智能体输出/思考链 has a Dark=Off variant; light long pages must use 状态=完成态, 1月版=On, Dark=Off and must not use Dark=On or item/思考链/1月版.
+  - id: message-feed-fallback-auto-layout
+    severity: P0
+    rule: message-feed fallback modules must use Auto Layout for text-bearing cards, charts, recommendation rationale, risk disclaimer, and light answer-body fallback; text should use fill-width plus Hug Contents/auto-height instead of fixed-height compression.
+  - id: message-feed-layout-wrapper-transparent
+    severity: P0
+    rule: Auto Layout wrappers created only to position verified component instances must be visually transparent; fills, strokes, and effects must be empty so user input, avatar, status, reasoning, body, and related-question visuals come only from their imported design components.
+  - id: message-feed-business-light-theme-adapted
+    severity: P0
+    rule: When embedding `指数` or `A股异动` in light message-feed pages, verify light theme support; if only a single dark-style component key is available, adapt text, axis, and hot-question colors to light theme and mark the adaptation until a real light variant is verified.
+  - id: message-feed-long-page-visual-spacing
+    severity: P1
+    rule: Long-page lower content must pass visual rhythm checks, not only geometry overlap checks; chart-to-rationale, rationale-to-disclaimer, and disclaimer-to-related-question spacing must remain readable.
   - id: message-feed-financial-disclaimer
     severity: P1
     rule: Financial answers involving stocks, prices, K-lines, or risk prompts must preserve example/non-investment-advice semantics.
@@ -106,6 +124,20 @@ componentFamilies:
     variantProperties:
       分类: 无序号
       Dark: "On"
+    supportedThemes:
+      - dark
+    missingFormalVariants:
+      - theme: light
+        requiredProperties:
+          分类: 无序号
+          Dark: "Off"
+        status: missing_in_design_repository
+        temporaryFallbackAllowed: true
+        fallbackName: fallback / non-canonical / answer-body-light
+        fallbackRules:
+          - Use only for light message-feed answer body until 设计仓库 provides Dark=Off.
+          - Keep high-fidelity typography, spacing, color semantics, and container behavior.
+          - Do not use the Dark=On answer-body component in light pages.
   - familyId: message-feed.related-question
     sourceFileName: 设计仓库
     sourceFileKey: pbxELN7TYDDguIgbXfc1zB
@@ -134,6 +166,16 @@ componentFamilies:
       状态: 完成态
       1月版: "On"
       Dark: "On"
+    supportedThemes:
+      - light
+      - dark
+    verifiedVariants:
+      - theme: light
+        mainComponentKey: a3466a76c7ab60b39eb00b1aa7b1b0df14dbc2b8
+        figmaExactName: 状态=完成态, 1月版=On, Dark=Off
+      - theme: dark
+        mainComponentKeyStatus: verified_design_repository_search
+        figmaExactName: 状态=完成态, 1月版=On, Dark=On
 variants:
   confirmed: []
   candidates:
@@ -162,6 +204,48 @@ slots:
     description: 免责声明、来源、辅助功能。
   relatedQuestions:
     description: 关联问列表，位于回答内容之后，不进入底部输入栏。
+fallbackLayoutRules:
+  appliesTo:
+    - fallback / non-canonical / stock-recommendation-card
+    - fallback / non-canonical / stock-trend-chart
+    - answer-detail / recommendation-rationale
+    - financial-risk-disclaimer
+    - fallback / non-canonical / answer-body-light
+  layoutRequirements:
+    outerContainerLayoutMode: VERTICAL
+    textHorizontalSizing: fill-width
+    textVerticalSizing: hug-contents-or-auto-height
+    parentHeightRule: content-height-plus-padding-and-gaps
+    spacingSource: auto-layout-padding-and-itemSpacing
+  forbiddenPatterns:
+    - textAutoResize=NONE on multiline explanatory copy
+    - fixed parent height that removes expected padding
+    - manual y-coordinate stacks for primary fallback text flow
+    - near-zero width tag or pill wrappers that rely on overflow visibility
+  longPageSpacingMinimums:
+    chartToRecommendationRationale: 18
+    recommendationRationaleToRiskDisclaimer: 14
+    riskDisclaimerToRelatedQuestions: 16
+
+wrapperTransparencyRules:
+  appliesTo:
+    - message-row / user-question
+    - message-row / assistant-answer
+    - layout wrappers around verified design-repository instances
+  required:
+    fills: []
+    strokes: []
+    effects: []
+    visualSource: verified component instance, not wrapper
+  allowedVisibleWrappers:
+    - fallback / non-canonical / stock-recommendation-card
+    - fallback / non-canonical / stock-trend-chart
+    - answer-detail / recommendation-rationale
+    - financial-risk-disclaimer
+    - fallback / non-canonical / answer-body-light
+  validation:
+    - check parent wrapper fills/strokes/effects for every verified message-feed component instance.
+    - check descendant overflow in addition to direct sibling overlap.
 tokens:
   source:
     - bindings/assets/files/design-tokens/chat-fidelity-tokens.json
@@ -222,12 +306,20 @@ businessContentComponentRefs:
     figmaExactName: 指数
     componentKey: 2c8497856e210074e83c2183bcf545ce863041d1
     usageType: answer_embedded_business_content
+    themeSupport:
+      dark: verified_single_component
+      light: variant_not_confirmed
+    lightUsagePolicy: adapt_text_colors_and_mark_theme_adapter_until_light_variant_is_verified
   - id: message-feed.market-movement
     figmaNodeId: "7:6303"
     figmaExactName: A股异动
     componentKey: 3255456fccafa816bf6c55f489fd6838b8233773
     usageType: answer_embedded_business_content
     status: variant-details-need-verification
+    themeSupport:
+      dark: verified_single_component
+      light: variant_not_confirmed
+    lightUsagePolicy: adapt_text_axis_and_hot_question_colors_until_light_variant_is_verified
   - id: message-feed.auction
     figmaNodeId: "7:6305"
     figmaExactName: 竞价

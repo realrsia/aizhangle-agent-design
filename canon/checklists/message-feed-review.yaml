@@ -14,6 +14,22 @@ items:
     severity: P0
     question: 股票卡、K线图等非已验证组件是否被声明为 fallback 或待确认？
     passCriteria: fallback 不被写成已验证组件实例，也不进入 confirmed component family。
+  - id: message-feed-answer-body-light-fallback
+    severity: P0
+    question: 白版回答正文是否没有误用 Dark=On 的智能体输出/正文组件？
+    passCriteria: 设计仓库缺少 `智能体输出/正文` 的 Dark=Off 正式变体时，白版正文使用 `fallback / non-canonical / answer-body-light`，不暂停生成；黑版正文仍使用 Dark=On 正式组件。
+  - id: message-feed-reasoning-light-variant
+    severity: P0
+    question: 白版思考链是否使用设计仓库 Dark=Off 正式组件？
+    passCriteria: 白版长页使用 `智能体输出/思考链` 的 `状态=完成态, 1月版=On, Dark=Off`，不得使用 Dark=On 或 `item/思考链/1月版` 替代。
+  - id: message-feed-fallback-auto-layout
+    severity: P0
+    question: message-feed fallback 模块是否使用 Auto Layout / Hug Contents 承载动态文字？
+    passCriteria: 股票卡、走势图说明、推荐结论、风险说明、白版正文 fallback 的父级容器用 Auto Layout 表达 padding/gap；多行文字横向 fill-width、纵向 Hug Contents 或 auto-height，不用 fixed-height 文本框压缩内容。
+  - id: message-feed-layout-wrapper-transparent
+    severity: P0
+    question: 为排版新增的 message-row/wrapper 是否保持透明？
+    passCriteria: 承载用户输入、AI头像、回答状态、思考链、正文、关联问等正式组件实例的外层 Auto Layout wrapper 的 fills/strokes/effects 均为空；只有明确声明的 fallback 内容卡允许有可见背景。
   - id: message-feed-not-generic-card-grid
     severity: P0
     question: 是否没有用通用卡片堆叠替代对话消息结构？
@@ -30,10 +46,18 @@ items:
     severity: P1
     question: 股票走势、价格、K 线或风险提示是否保留示例/非投资建议语义？
     passCriteria: 金融回答不得制造确定性收益或投资建议错觉，免责声明/来源/限制不被删掉。
+  - id: message-feed-long-page-lower-spacing
+    severity: P1
+    question: 长页下半部分是否通过视觉节奏检查，而不只是没有几何重叠？
+    passCriteria: 走势图到推荐结论至少 18px，推荐结论到风险说明至少 14px，风险说明到关联问至少 16px；推荐结论和风险说明父级高度保留完整 padding，不能按最小可容纳高度贴底。
   - id: message-feed-business-components-preferred
     severity: P2
     question: 指数、A股异动、竞价、资讯等业务内容是否优先复用设计仓库候选组件？
     passCriteria: 已记录 componentKey 的业务内容候选不被重画成普通文本卡。
+  - id: message-feed-business-light-theme-adapted
+    severity: P0
+    question: 白版中的指数/A股异动业务组件是否完成浅色主题适配？
+    passCriteria: 指数、A股异动若只有单个暗色组件 key，白版必须把标题、指数名、tab、坐标轴、时间轴和热问开关切到浅色主题文字/底色；不得保留白色文字落在白色 wrapper 上。
   - id: message-feed-text-overrides-verified
     severity: P2
     question: 用户问题、回答正文、免责声明、关联问和操作文案的覆盖目标是否经过 Figma 验证？

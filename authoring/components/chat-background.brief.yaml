@@ -41,17 +41,17 @@ riskWarnings:
 # [HUMAN REQUIRED]
 componentFamilies:
   - id: chat-background.ai-chat-light
-    figmaNodeId: "400:25043"
-    figmaExactName: 背景/背景
+    sourceStatus: verified_from_figma_plugin_api
+    figmaNodeId: TODO_VERIFY_WITH_FIGMA
+    figmaExactName: 分类=新版工作区/一级, Dark=Off
     sourceFrameNodeId: "400:25042"
     sourceFrameName: 对话-白版
     sourceSectionNodeId: "400:24983"
     sourceSectionName: 2.2 页面背景
-    componentSetNodeId: "99:41900"
-    componentSetKey: 9f6660b69bfd31672ac187b946e7c0bb838b03b2
-    mainComponentNodeId: "99:41960"
-    componentKey: b30e295b0157c7f8f9a68dc42f7b1f8cd5521a9f
-    componentKeyStatus: verified
+    componentSetNodeId: TODO_VERIFY_WITH_FIGMA
+    componentSetKey: e7d0e3570253b5e750c00103dd65780e31461aa7
+    componentKey: a3a4ab7790fb34ab0cb1708986b968024fc70729
+    componentKeyStatus: verified_design_repository_search
     variantProperties:
       Dark: "Off"
       分类: 新版工作区/一级
@@ -125,12 +125,11 @@ figma:
   sourceFrameName: 对话-白版
   exampleNodeId: "400:25043"
   exampleNodeName: 背景/背景
-  componentSetNodeId: "99:41900"
-  componentSetKey: 9f6660b69bfd31672ac187b946e7c0bb838b03b2
-  mainComponentNodeId: "99:41960"
-  componentKey: b30e295b0157c7f8f9a68dc42f7b1f8cd5521a9f
-  componentKeyStatus: verified
-  componentKeyVerificationNote: PR #10 TODO-1/TODO-2；verified via Figma Plugin API from instance 400:25043 and main component 99:41960.
+  componentSetNodeId: TODO_VERIFY_WITH_FIGMA
+  componentSetKey: e7d0e3570253b5e750c00103dd65780e31461aa7
+  componentKey: a3a4ab7790fb34ab0cb1708986b968024fc70729
+  componentKeyStatus: verified_design_repository_search
+  componentKeyVerificationNote: verified via design-system search and Figma Plugin API; use 背景/母组件 分类=新版工作区/一级 variants, not legacy 背景/背景.
   bindingMode: must_use_library_instance
   bindingFailurePolicy: stop_and_recheck
   componentPropertyDefinitions:
@@ -185,10 +184,9 @@ pendingFigmaVerification:
     scope: component_key
     source: PR #10 TODO-1/TODO-2
     verifiedBy: Figma Plugin API
-    componentSetNodeId: "99:41900"
-    componentSetKey: 9f6660b69bfd31672ac187b946e7c0bb838b03b2
-    mainComponentNodeId: "99:41960"
-    componentKey: b30e295b0157c7f8f9a68dc42f7b1f8cd5521a9f
+    componentSetNodeId: TODO_VERIFY_WITH_FIGMA
+    componentSetKey: e7d0e3570253b5e750c00103dd65780e31461aa7
+    componentKey: a3a4ab7790fb34ab0cb1708986b968024fc70729
   - id: chat-background-dark-variant
     status: verified
     scope: dark_variant
