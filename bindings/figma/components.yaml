@@ -749,55 +749,61 @@ components:
     sourceBrief: authoring/components/message-feed.brief.yaml
     fileName: 设计仓库
     fileKey: pbxELN7TYDDguIgbXfc1zB
-    canvasNodeId: "212:2"
-    canvasName: 对话流
-    sourceSectionNodeId: "400:24983"
-    sourceSectionName: 2.2 页面背景
+    libraryName: 设计仓库
+    libraryKey: lk-c538e1c2245e9be8f74d500c18ca0e580552aaf85cca34696f0c4d14263639e0f6d34b3f0a9e3a1a499577caf381e9367eba34c2382f45c87ed0b9d649bc45cb
+    sourceUrl: https://www.figma.com/design/pbxELN7TYDDguIgbXfc1zB/%E8%AE%BE%E8%AE%A1%E4%BB%93%E5%BA%93?node-id=392-67790
     exampleNodeId: "400:25048"
-    figmaExactName: Frame 2147231007
+    figmaExactName: 对话-白版 / message-feed stack
     componentKey: not_a_component_instance
-    priorityFrameNodeId: "400:25048"
+    priorityFrameNodeId: "400:25042"
+    priorityStackNodeId: "400:25048"
+    selectionStatus: design_repository_component_keys_verified_by_search
+    lastVerifiedAt: "2026-06-09"
     familyBindings:
       - familyId: message-feed.user-input
-        nodeId: "400:25049"
         figmaExactName: 用户输入
-        componentSetKey: d7188f12d4ad14bb02c4cd19b9b7f256ac8d90f6
-        mainComponentKey: 2e8952d988afa4e8d09f31fb71cfaca955a33be0
-        status: verified
+        componentSetKey: cd88f044980031d1599d775b60c1ebfaa0e6f72f
+        importApi: importComponentSetByKeyAsync
+        bindingMode: must_use_library_instance
+        bindingFailurePolicy: stop_and_recheck
+        status: verified_design_repository_search
       - familyId: message-feed.assistant-avatar
-        nodeId: "400:25051"
         figmaExactName: 智能体输出/AI头像
-        componentSetKey: 9dd3bb3033c39dc9fdf1afcf55561f0ea12901f6
-        mainComponentKey: c31a2eea7b451d9a5a021590037369db86451ee4
-        status: verified
+        componentSetKey: de98953642dc8d50eee0b25d5453fcb5a641c7b7
+        importApi: importComponentSetByKeyAsync
+        bindingMode: must_use_library_instance
+        bindingFailurePolicy: stop_and_recheck
+        status: verified_design_repository_search
       - familyId: message-feed.answer-status
-        nodeId: "400:25055"
         figmaExactName: 智能体输出/回答状态
-        componentSetKey: e0b01d695002624f8f675556763eb99fec510e27
-        mainComponentKey: c151d85e43fc52d3e54d35fdae7d92249efa7a1c
-        status: verified
+        componentSetKey: d7b693bd0ddc9a4209c6915c7aba5d4f17869945
+        importApi: importComponentSetByKeyAsync
+        bindingMode: must_use_library_instance
+        bindingFailurePolicy: stop_and_recheck
+        status: verified_design_repository_search
       - familyId: message-feed.answer-body
-        nodeId: "400:25137"
-        figmaExactName: 智能体输出/内容/正文
-        componentSetKey: 7d286f187e60b5c4b26a45009e71c4f5e7b7a04c
-        mainComponentKey: 4a5b3be332dccc50dc09e51b5f60166da3f52c33
-        status: verified
+        figmaExactName: 智能体输出/正文
+        componentSetKey: 5f21c28d3c07d477b36d55b34fc3492122ca07c6
+        importApi: importComponentSetByKeyAsync
+        bindingMode: must_use_library_instance
+        bindingFailurePolicy: stop_and_recheck
+        status: verified_design_repository_search
       - familyId: message-feed.related-question
-        nodeId: "400:25174"
-        figmaExactName: item/关联问/off
-        mainComponentNodeId: "11:3623"
-        mainComponentName: Dark=On
-        mainComponentKey: 90d4a50a7da35de7572a6d0bd18dbad4d0f4fa88
-        textProperty: "文字内容#21900:6"
-        status: verified
+        figmaExactName: 关联问
+        componentSetKey: 437ea70cb6f4bd7cc3306b31ed58bbc372c5b803
+        itemComponentSetKey: dac61d187b6588b817e6cc9bdc1eab87d28bc71f
+        importApi: importComponentSetByKeyAsync
+        bindingMode: must_use_library_instance
+        bindingFailurePolicy: stop_and_recheck
+        status: verified_design_repository_search
       - familyId: message-feed.reasoning-panel
-        nodeId: "400:25058"
-        figmaExactName: 思维链
-        candidateNodeId: "400:25056"
-        candidateFigmaExactName: 智能体输出/思考链/完成态/Off/On
-        candidateComponentNodeId: "12:5041"
-        candidateComponentKey: a2050605b8db580891c60b370e4c38f7af9961e3
-        status: semantic-frame-with-verified-candidate-component
+        figmaExactName: 智能体输出/思考链
+        componentSetKey: 217b02802185d4a9053dd4c9e477b67bd3f8000a
+        januaryComponentSetKey: 3aef969e2174f71ef5951a1af9abf40dc5d3460a
+        importApi: importComponentSetByKeyAsync
+        bindingMode: must_use_library_instance
+        bindingFailurePolicy: stop_and_recheck
+        status: verified_design_repository_search
     businessContentComponentRefs:
       - id: message-feed.market-index
         nodeId: "I400:26698;20477:77864"
@@ -837,14 +843,18 @@ components:
         nodeId: "400:25042"
         figmaExactName: 对话-白版
         usageType: demo_frame
-      - groupId: message-feed.stack-white-demo
+      - groupId: message-feed.dialog-white-stack
         nodeId: "400:25048"
         figmaExactName: Frame 2147231007
-        usageType: message_stack_frame
-      - groupId: message-feed.related-questions-reference
+        usageType: message_feed_stack_reference
+      - groupId: message-feed.related-questions-white
         nodeId: "400:25173"
         figmaExactName: related_questions_stack
         usageType: related_questions_reference
+      - groupId: message-feed.agent-component-section
+        nodeId: "392:67790"
+        figmaExactName: 4.1 agent智能体组件
+        usageType: component_source_section
     textOverrideTargets:
       userQuestionText:
         status: verified_component_property_ref

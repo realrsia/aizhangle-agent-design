@@ -52,25 +52,29 @@ riskBoundaries:
     rule: Keep shell, layout, block, item, content, and action hierarchy; numbered frames are not semantic sources.
   - id: message-feed-fallback
     severity: P0
-    rule: Stock cards, K-line charts, reasoning panels, or unverified business content may be fallback only when clearly marked as non-canonical.
+    rule: Stock cards, K-line charts, or unverified business content may be fallback only when clearly marked as non-canonical; reasoning uses the verified 设计仓库 component binding.
   - id: message-feed-financial-disclaimer
     severity: P1
     rule: Financial answers involving stocks, prices, K-lines, or risk prompts must preserve example/non-investment-advice semantics.
 componentFamilies:
   - familyId: message-feed.user-input
-    figmaNodeId: "400:25049"
+    sourceFileName: 设计仓库
+    sourceFileKey: pbxELN7TYDDguIgbXfc1zB
     figmaExactName: 用户输入
-    componentSetKey: d7188f12d4ad14bb02c4cd19b9b7f256ac8d90f6
-    mainComponentKey: 2e8952d988afa4e8d09f31fb71cfaca955a33be0
+    componentSetKey: cd88f044980031d1599d775b60c1ebfaa0e6f72f
+    bindingStatus: verified_design_repository_search
+    importApi: importComponentSetByKeyAsync
     familyType: component_set_instance
     humanUse: draft_user_question_bubble
     variantProperties:
       Dark: "On"
   - familyId: message-feed.assistant-avatar
-    figmaNodeId: "400:25051"
+    sourceFileName: 设计仓库
+    sourceFileKey: pbxELN7TYDDguIgbXfc1zB
     figmaExactName: 智能体输出/AI头像
-    componentSetKey: 9dd3bb3033c39dc9fdf1afcf55561f0ea12901f6
-    mainComponentKey: c31a2eea7b451d9a5a021590037369db86451ee4
+    componentSetKey: de98953642dc8d50eee0b25d5453fcb5a641c7b7
+    bindingStatus: verified_design_repository_search
+    importApi: importComponentSetByKeyAsync
     familyType: component_set_instance
     humanUse: draft_assistant_identity
     variantProperties:
@@ -78,10 +82,12 @@ componentFamilies:
       场景: 对话通用
       Dark: "Off"
   - familyId: message-feed.answer-status
-    figmaNodeId: "400:25055"
+    sourceFileName: 设计仓库
+    sourceFileKey: pbxELN7TYDDguIgbXfc1zB
     figmaExactName: 智能体输出/回答状态
-    componentSetKey: e0b01d695002624f8f675556763eb99fec510e27
-    mainComponentKey: c151d85e43fc52d3e54d35fdae7d92249efa7a1c
+    componentSetKey: d7b693bd0ddc9a4209c6915c7aba5d4f17869945
+    bindingStatus: verified_design_repository_search
+    importApi: importComponentSetByKeyAsync
     familyType: component_set_instance
     humanUse: draft_answer_status_or_reasoning_entry
     variantProperties:
@@ -89,20 +95,25 @@ componentFamilies:
       是否展开: "Off"
       Dark: "Off"
   - familyId: message-feed.answer-body
-    figmaNodeId: "400:25137"
-    figmaExactName: 智能体输出/内容/正文
-    componentSetKey: 7d286f187e60b5c4b26a45009e71c4f5e7b7a04c
-    mainComponentKey: 4a5b3be332dccc50dc09e51b5f60166da3f52c33
+    sourceFileName: 设计仓库
+    sourceFileKey: pbxELN7TYDDguIgbXfc1zB
+    figmaExactName: 智能体输出/正文
+    componentSetKey: 5f21c28d3c07d477b36d55b34fc3492122ca07c6
+    bindingStatus: verified_design_repository_search
+    importApi: importComponentSetByKeyAsync
     familyType: component_set_instance
     humanUse: draft_answer_body
     variantProperties:
-      Property 1: 无序号
+      分类: 无序号
       Dark: "On"
   - familyId: message-feed.related-question
-    figmaNodeId: "400:25174"
-    figmaExactName: item/关联问/off
-    mainComponentKey: 8e1c51a33014cedd93abd9a311cb755c15be5d11
-    textProperty: "文字内容#21900:10"
+    sourceFileName: 设计仓库
+    sourceFileKey: pbxELN7TYDDguIgbXfc1zB
+    figmaExactName: 关联问
+    componentSetKey: 437ea70cb6f4bd7cc3306b31ed58bbc372c5b803
+    itemComponentSetKey: dac61d187b6588b817e6cc9bdc1eab87d28bc71f
+    bindingStatus: verified_design_repository_search
+    importApi: importComponentSetByKeyAsync
     familyType: component_set_instance
     humanUse: draft_related_question
     variantProperties:
@@ -110,15 +121,19 @@ componentFamilies:
       Property 2: 默认
       Dark: "On"
   - familyId: message-feed.reasoning-panel
-    figmaNodeId: "400:25058"
-    figmaExactName: 思维链
-    familyType: spec_frame_with_component_instance_candidate
+    sourceFileName: 设计仓库
+    sourceFileKey: pbxELN7TYDDguIgbXfc1zB
+    figmaExactName: 智能体输出/思考链
+    componentSetKey: 217b02802185d4a9053dd4c9e477b67bd3f8000a
+    januaryComponentSetKey: 3aef969e2174f71ef5951a1af9abf40dc5d3460a
+    bindingStatus: verified_design_repository_search
+    importApi: importComponentSetByKeyAsync
+    familyType: component_set_instance
     humanUse: reasoning_chain_panel_do_not_render_as_generic_card
-    variantCandidateNodeId: "400:25056"
-    variantCandidateExactName: 智能体输出/思考链/完成态/Off/On
-    variantCandidateComponentNodeId: "12:5041"
-    variantCandidateComponentKey: a2050605b8db580891c60b370e4c38f7af9961e3
-    status: semantic-frame-with-verified-candidate-component
+    variantProperties:
+      状态: 完成态
+      1月版: "On"
+      Dark: "On"
 variants:
   confirmed: []
   candidates:
@@ -188,14 +203,22 @@ usageInstanceGroups:
     figmaNodeId: "400:25042"
     figmaExactName: 对话-白版
     usageType: demo_frame
-  - groupId: message-feed.stack-white-demo
+    sourceFileKey: pbxELN7TYDDguIgbXfc1zB
+  - groupId: message-feed.dialog-white-stack
     figmaNodeId: "400:25048"
     figmaExactName: Frame 2147231007
-    usageType: message_stack_frame
-  - groupId: message-feed.related-questions-reference
+    usageType: message_feed_stack_reference
+    sourceFileKey: pbxELN7TYDDguIgbXfc1zB
+  - groupId: message-feed.related-questions-white
     figmaNodeId: "400:25173"
     figmaExactName: related_questions_stack
     usageType: related_questions_reference
+    sourceFileKey: pbxELN7TYDDguIgbXfc1zB
+  - groupId: message-feed.agent-component-section
+    figmaNodeId: "392:67790"
+    figmaExactName: 4.1 agent智能体组件
+    usageType: component_source_section
+    sourceFileKey: pbxELN7TYDDguIgbXfc1zB
 businessContentComponentRefs:
   - id: message-feed.market-index
     figmaNodeId: "I400:26698;20477:77864"
@@ -242,6 +265,11 @@ sourceRefs:
   - figma://pbxELN7TYDDguIgbXfc1zB/400:25048
   - docs/references/fidelity/chat-fidelity-reconstruction.md
   - canon/archetypes/mobile-chat-page.yaml
+  - figma://pbxELN7TYDDguIgbXfc1zB/392:67806
+  - figma://pbxELN7TYDDguIgbXfc1zB/392:67877
+  - figma://pbxELN7TYDDguIgbXfc1zB/392:67955
+  - figma://pbxELN7TYDDguIgbXfc1zB/392:68085
+  - figma://pbxELN7TYDDguIgbXfc1zB/392:68096
 figmaBinding:
   path: bindings/figma/components.yaml
 reviewChecklist:

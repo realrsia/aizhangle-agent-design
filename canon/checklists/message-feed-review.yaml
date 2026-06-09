@@ -12,7 +12,7 @@ items:
     passCriteria: 主要 block 命名清晰，不以 numbered Frame 或 Group 作为语义组件来源。
   - id: message-feed-fallback-declared
     severity: P0
-    question: 股票卡、K线图、思考过程等非已验证组件是否被声明为 fallback 或待确认？
+    question: 股票卡、K线图等非已验证组件是否被声明为 fallback 或待确认？
     passCriteria: fallback 不被写成已验证组件实例，也不进入 confirmed component family。
   - id: message-feed-not-generic-card-grid
     severity: P0
@@ -25,7 +25,7 @@ items:
   - id: message-feed-reasoning-not-generic-card
     severity: P1
     question: 思考链是否没有被画成任意普通卡片？
-    passCriteria: 思考链使用已记录的思维链规范或待确认组件候选；未确认时标记 fallback/pending。
+    passCriteria: 思考链使用设计仓库 `智能体输出/思考链` 或 `item/思考链/1月版` 组件绑定，不重画为普通卡片。
   - id: message-feed-financial-risk-copy
     severity: P1
     question: 股票走势、价格、K 线或风险提示是否保留示例/非投资建议语义？
