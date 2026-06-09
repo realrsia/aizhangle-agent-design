@@ -81,45 +81,68 @@ componentFamilies:
   - id: message-feed.assistant-avatar
     figmaNodeId: "400:25051"
     figmaExactName: 智能体输出/AI头像
-    componentSetNodeId: "12:4765"
-    componentSetKey: 9dd3bb3033c39dc9fdf1afcf55561f0ea12901f6
-    mainComponentNodeId: "12:4801"
-    componentKey: c31a2eea7b451d9a5a021590037369db86451ee4
-    componentSetKeyStatus: verified
-    mainComponentKeyStatus: verified
+    sourceAreaNodeId: "392:67806"
+    sourceAreaName: 智能体输出/AI头像
+    sourceFileName: 设计仓库
+    sourceFileKey: pbxELN7TYDDguIgbXfc1zB
+    sourceSectionName: 4.1 agent智能体组件
+    componentSetKeyStatus: pending_design_repo_component_key
+    mainComponentKeyStatus: pending_design_repo_component_key
+    oldSystemControlsBindingStatus: removed_do_not_import
     variantProperties:
       类型: 智能体
       场景: 对话通用
       Dark: "Off"
+    designRepoCandidateSymbols:
+      - nodeId: "392:67842"
+        figmaExactName: 类型=智能体, 场景=对话通用, Dark=Off
+      - nodeId: "392:67807"
+        figmaExactName: 类型=智能体, 场景=对话通用, Dark=On
     familyType: component_set_instance
     humanUse: draft_assistant_identity
   - id: message-feed.answer-status
     figmaNodeId: "400:25055"
     figmaExactName: 智能体输出/回答状态
-    componentSetNodeId: "12:4914"
-    componentSetKey: e0b01d695002624f8f675556763eb99fec510e27
-    mainComponentNodeId: "12:4980"
-    componentKey: c151d85e43fc52d3e54d35fdae7d92249efa7a1c
-    componentSetKeyStatus: verified
-    mainComponentKeyStatus: verified
+    sourceAreaNodeId: "392:67877"
+    sourceAreaName: 智能体输出/回答状态
+    sourceFileName: 设计仓库
+    sourceFileKey: pbxELN7TYDDguIgbXfc1zB
+    sourceSectionName: 4.1 agent智能体组件
+    componentSetKeyStatus: pending_design_repo_component_key
+    mainComponentKeyStatus: pending_design_repo_component_key
+    oldSystemControlsBindingStatus: removed_do_not_import
     variantProperties:
       状态: 深度思考
       是否展开: "Off"
       Dark: "Off"
+    designRepoCandidateSymbols:
+      - nodeId: "392:67943"
+        figmaExactName: 状态=深度思考, 是否展开=Off,Dark=Off
+      - nodeId: "392:67901"
+        figmaExactName: 状态=深度思考, 是否展开=Off,Dark=On
     familyType: component_set_instance
     humanUse: draft_answer_status_or_reasoning_entry
   - id: message-feed.answer-body
     figmaNodeId: "400:25137"
     figmaExactName: 智能体输出/内容/正文
-    componentSetNodeId: "12:5080"
-    componentSetKey: 7d286f187e60b5c4b26a45009e71c4f5e7b7a04c
-    mainComponentNodeId: "12:5081"
-    componentKey: 4a5b3be332dccc50dc09e51b5f60166da3f52c33
-    componentSetKeyStatus: verified
-    mainComponentKeyStatus: verified
+    sourceAreaNodeId: "392:68085"
+    sourceAreaName: 智能体输出/正文
+    sourceFileName: 设计仓库
+    sourceFileKey: pbxELN7TYDDguIgbXfc1zB
+    sourceSectionName: 4.1 agent智能体组件
+    componentSetKeyStatus: pending_design_repo_component_key
+    mainComponentKeyStatus: pending_design_repo_component_key
+    oldSystemControlsBindingStatus: removed_do_not_import
     variantProperties:
-      Property 1: 无序号
+      分类: 无序号
       Dark: "On"
+    designRepoCandidateSymbols:
+      - nodeId: "392:68086"
+        figmaExactName: 分类=无序号, Dark=On
+      - nodeId: "392:68088"
+        figmaExactName: 分类=实心圆序号, Dark=On
+      - nodeId: "392:68092"
+        figmaExactName: 分类=空心圆序号, Dark=On
     familyType: component_set_instance
     humanUse: draft_answer_body
   - id: message-feed.related-question
@@ -140,11 +163,24 @@ componentFamilies:
     humanUse: reasoning_chain_panel_do_not_render_as_generic_card
     specNodeId: "400:25058"
     specExactName: 思维链
-    variantCandidateNodeId: "400:25056"
-    variantCandidateExactName: 智能体输出/思考链/完成态/Off/On
-    variantCandidateComponentNodeId: "12:5041"
-    variantCandidateComponentKey: a2050605b8db580891c60b370e4c38f7af9961e3
-    variantCandidateComponentKeyStatus: verified
+    sourceAreaNodeId: "392:67955"
+    sourceAreaName: 智能体输出/思考链
+    sourceFileName: 设计仓库
+    sourceFileKey: pbxELN7TYDDguIgbXfc1zB
+    sourceSectionName: 4.1 agent智能体组件
+    variantCandidateNodeId: "392:67956"
+    variantCandidateExactName: 状态=完成态, 1月版=On, Dark=1月版
+    completedReasoningAreaNodeId: "392:68096"
+    completedReasoningAreaName: 智能体输出/思考链/已完成
+    completedReasoningCandidateSymbols:
+      - nodeId: "392:68110"
+        figmaExactName: 有无子序列=Off, 一月版=On, Dark=On
+      - nodeId: "392:68105"
+        figmaExactName: 有无子序列=Off, 一月版=Off, Dark=On
+      - nodeId: "392:68097"
+        figmaExactName: 有无子序列=On, 一月版=Off, Dark=On
+    oldSystemControlsBindingStatus: removed_do_not_import
+    variantCandidateComponentKeyStatus: pending_design_repo_component_key
     verifiedVariables:
       radius: radius/20
       fill: color/xzl-color-background-c-card
@@ -234,7 +270,7 @@ examples:
       reason: 对话白版包含用户输入、AI 输出、思考链、正文、footer、底部 composer 和关联问。
   needsReview:
     - name: 思考过程组件归属
-      reason: 当前以 400:25058 的思维链语义 frame 为准；其候选组件 400:25056 的 componentKey 已确认，但完整思维链仍不是单一 message-feed 组件。
+      reason: 当前以 400:25058 的思维链语义 frame 为准；候选组件需迁移到设计仓库 392:67955 / 392:68096，真实 componentKey 仍需 probe 确认。
     - name: 黑版 message-feed
       reason: 核心子组件存在 Dark 属性，但 message-feed 作为整体不是单一 Figma 组件，黑版整体组合仍需确认。
     - name: 股票信息卡与 K 线图
@@ -324,12 +360,8 @@ observedStructure:
 
 variants:
   confirmed:
-    - core_component_keys_verified
     - user-input Dark=On
-    - assistant-avatar Dark=Off
-    - answer-status Dark=Off
-    - answer-body Dark=On
-    - reasoning-candidate component verified
+    - related-question component instance
   candidates:
     - chat-page
     - message-page
@@ -337,6 +369,7 @@ variants:
     - short-answer
     - related-page-opened
     - dark-theme
+    - design-repo-agent-components-pending-component-key-probe
 
 states:
   - id: default
@@ -389,35 +422,30 @@ textOverrideFields:
   - actionLabels
 
 pendingFigmaVerification:
-  - id: message-feed-core-component-keys
-    status: verified
+  - id: message-feed-agent-component-key-migration
+    status: TODO_VERIFY_WITH_FIGMA
     scope: component_key
-    source: PR #10 TODO-10
-    verifiedBy: Figma Plugin API
-    targetNodeIds:
-      userInput: "400:25049"
-      assistantAvatar: "400:25051"
-      answerStatus: "400:25055"
-      answerBody: "400:25137"
-      relatedQuestion: "400:25174"
-      reasoningCandidate: "400:25056"
-    componentKeys:
-      userInput: 2e8952d988afa4e8d09f31fb71cfaca955a33be0
-      assistantAvatar: c31a2eea7b451d9a5a021590037369db86451ee4
-      answerStatus: c151d85e43fc52d3e54d35fdae7d92249efa7a1c
-      answerBody: 4a5b3be332dccc50dc09e51b5f60166da3f52c33
-      relatedQuestion: 8e1c51a33014cedd93abd9a311cb755c15be5d11
-      reasoningCandidate: a2050605b8db580891c60b370e4c38f7af9961e3
-    reviewCommentNodeCorrections:
-      - commentNodeId: "400:25053"
-        actualRole: answer_body_container_frame
-        replacementComponentNodeId: "400:25137"
-      - commentNodeId: "400:25058"
-        actualRole: reasoning_semantic_frame
-        replacementComponentNodeId: "400:25056"
-      - commentNodeId: "400:25063"
-        actualRole: icon_ellipse_inside_reasoning_step
-        replacementComponentNodeId: "400:25056"
+    source: figma-design-repo-migration-handoff
+    finding: 旧系统控件 key 会导致 Skill评测 生成结果从 `系统控件` import 母组件，即使外层 fileName/fileKey 写成设计仓库。
+    rule: agent 智能体输出组件不得再 import 旧系统控件 key；未拿到设计仓库真实 componentKey 前必须 stop_and_recheck 或输出 `未绑定组件` fallback 标注。
+    designRepoSourceAreas:
+      assistantAvatar: "392:67806"
+      answerStatus: "392:67877"
+      reasoningPanel: "392:67955"
+      answerBody: "392:68085"
+      completedReasoning: "392:68096"
+    designRepoCandidateSymbols:
+      assistantAvatarLight: "392:67842"
+      assistantAvatarDark: "392:67807"
+      answerStatusDeepThinkingLight: "392:67943"
+      answerStatusDeepThinkingDark: "392:67901"
+      answerBodyNoNumberDark: "392:68086"
+      reasoningPanelJanuaryDark: "392:67956"
+      completedReasoningJanuaryDark: "392:68110"
+    requiredProbe:
+      - importComponentByKeyAsync
+      - importComponentSetByKeyAsync
+      - verify imported instance source shows 设计仓库, not 系统控件
   - id: message-feed-business-content-bindings
     status: pending_manual_figma_business_content_binding
     scope: embedded_business_content
@@ -460,6 +488,11 @@ resourceRefs:
   - figma://pbxELN7TYDDguIgbXfc1zB/400:25137
   - figma://pbxELN7TYDDguIgbXfc1zB/400:25173
   - figma://pbxELN7TYDDguIgbXfc1zB/400:25174
+  - figma://pbxELN7TYDDguIgbXfc1zB/392:67806
+  - figma://pbxELN7TYDDguIgbXfc1zB/392:67877
+  - figma://pbxELN7TYDDguIgbXfc1zB/392:67955
+  - figma://pbxELN7TYDDguIgbXfc1zB/392:68085
+  - figma://pbxELN7TYDDguIgbXfc1zB/392:68096
 
 # ============================================================
 # 03_AGENT_EXPANSION_AND_CHECKLIST
@@ -479,6 +512,10 @@ reviewChecklist:
     severity: P0
     question: 股票卡、K线图、思考过程等非已验证组件是否被声明为 fallback 或待确认？
     passCriteria: fallback 不被写成已验证组件实例。
+  - id: message-feed-no-system-controls-import
+    severity: P0
+    question: 智能体输出组件是否避免导入旧系统控件母组件？
+    passCriteria: assistant-avatar、answer-status、answer-body、reasoning-panel 不得使用旧系统控件 key；未确认设计仓库 componentKey 时必须 stop_and_recheck 或标记未绑定 fallback。
   - id: related-questions-after-answer
     severity: P1
     question: 关联问是否位于回答内容之后，且不进入底部输入栏？
