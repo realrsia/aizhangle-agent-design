@@ -8,9 +8,9 @@ classification:
   componentType: page-shell-foundation
   riskLevel: high
 purpose: >
-  Background component group for AI Chat and message pages. It provides dark/light
-  and one-screen/full-screen page backgrounds and must be used instead of
-  hand-drawn color rectangles or screenshot backgrounds.
+  AI Chat page background for the current design-repository dialog flow. It uses
+  the page-background component source with the dialog-flow light-beam treatment,
+  not a home-card background, pure color fill, hand-drawn gradient, or screenshot.
 usage:
   usedIn:
     - ai-chat-page
@@ -48,14 +48,17 @@ riskBoundaries:
     rule: Do not replace the repository background component or variable with a hand-drawn rectangle.
   - id: chat-background-theme-height
     severity: P1
-    rule: Theme and page height must select the matching dark/light and one-screen/full-screen variant.
+    rule: Dark/light selection must use the confirmed Figma `Dark` property; do not infer theme from frame names alone.
 componentFamilies:
   - familyId: chat-background.repository-background
     displayName: 设计仓库背景/母组件
     fileName: 设计仓库
     fileKey: pbxELN7TYDDguIgbXfc1zB
+    canvasNodeId: "212:2"
+    canvasName: 对话流
     sectionNodeId: "400:24983"
     sectionName: 2.2 页面背景
+    componentSetNodeId: "400:26745"
     figmaExactName: 背景/母组件
     componentSetKey: e7d0e3570253b5e750c00103dd65780e31461aa7
     importApi: importComponentSetByKeyAsync
@@ -85,7 +88,10 @@ variants:
   confirmed:
     - id: chat-background-workspace-dark
       familyId: chat-background.repository-background
+      figmaNodeId: "400:26896"
       figmaExactName: 分类=新版工作区/一级, Dark=On
+      componentSetNodeId: "400:26745"
+      componentSetKey: e7d0e3570253b5e750c00103dd65780e31461aa7
       componentKey: 96ce857c0183e6d76f1d7877af90c4a5509864fe
       variantProperties:
         分类: 新版工作区/一级
@@ -93,7 +99,10 @@ variants:
       humanUse: dark_theme_ai_chat_page_background
     - id: chat-background-workspace-light
       familyId: chat-background.repository-background
+      figmaNodeId: "400:26805"
       figmaExactName: 分类=新版工作区/一级, Dark=Off
+      componentSetNodeId: "400:26745"
+      componentSetKey: e7d0e3570253b5e750c00103dd65780e31461aa7
       componentKey: a3a4ab7790fb34ab0cb1708986b968024fc70729
       variantProperties:
         分类: 新版工作区/一级
@@ -118,8 +127,18 @@ slots:
       shortPage: resize_instance_to_page_height
       longPage: resize_instance_to_page_height
 tokens:
-  source: 设计仓库背景变量/组件待确认
-  status: TODO_VERIFY_WITH_FIGMA
+  source: 设计仓库页面背景组件内部样式
+  status: verified_with_figma_partial_variable_exposure
+  observed:
+    - baseFill #F3F5F9
+    - topGradient #E1EAFF to #F3F5F9
+    - lightBeamAssetNode 99:41966
+  verifiedVariablesFromBackgroundSet:
+    - radius/20
+    - color/xzl-color-background-a
+    - color/xzl-color-background-b
+    - color/xzl-color-background-d-card
+  figmaFinding: Node `400:25043` itself exposes no variable defs; use its confirmed component instance and parent background set variables as source evidence.
 assetRefs: []
 sourceRefs:
   - authoring/components/chat-background.brief.yaml

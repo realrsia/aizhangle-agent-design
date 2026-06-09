@@ -24,9 +24,9 @@ items:
     passCriteria: 顶部 47px iOS 状态区和 44px 对话 header 都存在。
   - id: chat-topbar-formal-source-marked
     severity: P2
-    question: 正式设计仓库来源未确认时，是否明确标记为对话流实例来源？
-    passCriteria: 使用 `对话流GUI与规范实测` 实例时保留 pending formal source 说明，不原创对话 header。
+    question: 是否使用当前设计仓库对话流来源，而不是旧实测文件或原创 header？
+    passCriteria: "来源指向 `figma://pbxELN7TYDDguIgbXfc1zB/400:25178`，并使用 `1月版全屏对话导航栏`。"
   - id: chat-topbar-light-variant-verified
     severity: P3
-    question: 白版 Dark=Off 变体是否已完成 Figma 验证？
-    passCriteria: 未确认前作为 candidate 或 `TODO_VERIFY_WITH_FIGMA`，不能当作完整已验证 variant。
+    question: 当 frame 名称与节点 `Dark` 属性冲突时，是否触发复核而不是按名称猜测？
+    passCriteria: "`400:25178` 以节点属性为准；如自动化依赖 frame 名称，先标记复核。"
