@@ -33,6 +33,7 @@ This repository is schema-first. Prefer canonical files over prose.
 
 - Keep IDs stable.
 - Add `sourceRefs` when a file comes from prior work.
+- After meaningful repository changes, append an entry to `docs/references/change-history.md` with author, time, changed areas, summary, and validation result. Agents may do this automatically.
 - Do not edit generated artifacts as truth.
 - When adding a component, add or update:
   - `authoring/components/index.yaml`

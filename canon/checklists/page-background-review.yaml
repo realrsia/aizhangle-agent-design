@@ -1,0 +1,35 @@
+componentId: component.page-background
+sourceBrief: authoring/components/page-background.brief.yaml
+items:
+  - id: page-background-hierarchy-match
+    severity: P0
+    question: 页面是否按真实层级选择背景分类，而不是按视觉相似度或截图选择？
+    passCriteria: 一级页用 `新版工作区/一级`；AI Chat、个股详情、交易、我的、账户等二级页用 `新版二级页`；设置和三层以上页面用 `新三级页`。
+  - id: page-background-theme-pair
+    severity: P0
+    question: 黑版和白版是否使用同一 `分类` 下的 `Dark=On/Off` 配对？
+    passCriteria: 不跨分类混用主题背景，不用手写色值模拟黑白版。
+  - id: page-background-library-instance
+    severity: P0
+    question: 背景是否来自 `背景/母组件` 的 Figma library instance？
+    passCriteria: 组件来源可追溯到 `figma://pbxELN7TYDDguIgbXfc1zB/400:26745`，而不是普通矩形、渐变块或截图。
+  - id: page-background-bottom-layer
+    severity: P1
+    question: 背景是否位于 page root 最底层，且没有压住导航、内容、底栏或浮层？
+    passCriteria: top_nav、scroll_content_body、bottom_bar 和显式浮层都在背景之上。
+  - id: page-background-scope-exclusions
+    severity: P1
+    question: 是否没有把 KYC、Agent、临时对话浮层、卡片背景、旧版背景纳入本组件范围？
+    passCriteria: 这些 excluded categories 不出现在 page-background 的 confirmed variants 中。
+  - id: page-background-example-not-family
+    severity: P1
+    question: 示例页面、截图、demo 或 prototype 是否没有被登记为 confirmed component family？
+    passCriteria: 只有 `背景/母组件` 是 family；页面 frame 只作为 usage evidence。
+  - id: page-background-dimensions-checked
+    severity: P2
+    question: 使用背景时是否保持 390x844 fixed 顶部底图语义，且长页只用底部颜色延展？
+    passCriteria: 0-844 区域使用完整 Page Background；超过 844 的区域取该背景最底部颜色填充，不纵向拉伸、不裁成卡片、不平铺。
+  - id: page-background-token-verification
+    severity: P3
+    question: 内部背景 token / variable 名称是否只记录 Figma 实际读到的内容？
+    passCriteria: 只写入 Figma 已读到的变量名；未暴露变量的 variant 记录为已检索无顶层变量别名。

@@ -1,0 +1,191 @@
+id: component.page-background
+name: 页面背景
+owner: design-system
+status: draft
+sourceBrief: authoring/components/page-background.brief.yaml
+classification:
+  primitiveFamily: page_background
+  componentType: page-shell-foundation
+  riskLevel: high
+purpose: >
+  Defines the reusable new Zhangle page-level background component set for
+  level-1, level-2, and level-3-plus pages, with paired dark and light variants.
+usage:
+  usedIn:
+    - primary-workspace-page
+    - secondary-business-page
+    - ai-chat-flow-page
+    - stock-detail-page
+    - trading-page
+    - my-page
+    - account-page
+    - system-settings-page
+    - trading-function-settings-page
+    - tertiary-or-deeper-page
+  allowedZones:
+    - page_background
+    - app_shell_background
+    - page_root
+    - workspace_page_root
+    - secondary_page_root
+    - tertiary_page_root
+  forbiddenZones:
+    - content_card
+    - message_feed
+    - bottom_bar
+    - top_nav
+    - modal_body
+    - screenshot_layer
+  requiredPairings:
+    - matching-page-hierarchy
+    - matching-theme-dark-on-or-off
+  forbiddenPairings:
+    - hand_drawn_solid_rect
+    - screenshot_background
+    - old-page-background-variant
+    - agent-background-variant
+    - kyc-background-variant
+    - temporary-dialog-background-variant
+sourcePriority:
+  rule: Follow the current repository source mapping and `docs/references/source-boundaries.md` conflict resolution.
+  numericTokensFontsRadiusSpacingMetrics:
+    - canon/foundations/
+    - bindings/assets/manifest.yaml
+    - local asset/template files
+  pageStructureZonesDensityForbiddenSubstitutions:
+    - fusion screen recipes
+    - canon/components/component-semantics.yaml
+  figmaFacts:
+    - bindings/figma/components.yaml
+    - actual Figma verification
+  visualReview:
+    - DESIGN.md
+    - docs/references/foundations/visual-language.md
+    - docs/references/process/design-taster.md
+    - docs/references/anti-patterns.md
+riskBoundaries:
+  - id: page-background-wrong-hierarchy
+    severity: P0
+    rule: 一级、二级、三级及更深层页面不得跨层级混用背景 variant。
+  - id: page-background-theme-mismatch
+    severity: P0
+    rule: 黑白版必须使用同一 `分类` 下的 `Dark=On/Off` 配对。
+  - id: page-background-example-vs-component
+    severity: P1
+    rule: 示例页面、截图、demo、prototype 只能作为 usage evidence，不得写成 confirmed component family。
+componentFamilies:
+  - familyId: page-background.repository-background
+    figmaNodeId: "400:26745"
+    figmaExactName: 背景/母组件
+    componentKey: e7d0e3570253b5e750c00103dd65780e31461aa7
+    familyType: component_set
+    bindingMode: must_use_library_instance
+variants:
+  propertyDefinitions:
+    分类:
+      type: VARIANT
+      relevantOptions:
+        - 新版工作区/一级
+        - 新版二级页
+        - 新三级页
+    Dark:
+      type: VARIANT
+      relevantOptions:
+        - "On"
+        - "Off"
+  confirmed:
+    - id: page-background.primary-dark
+      figmaNodeId: "400:26896"
+      componentKey: 96ce857c0183e6d76f1d7877af90c4a5509864fe
+      figmaExactName: 分类=新版工作区/一级, Dark=On
+    - id: page-background.secondary-dark
+      figmaNodeId: "400:26887"
+      componentKey: ca3a343a58c18e625f9a7f10fe14faf125ca5c6e
+      figmaExactName: 分类=新版二级页, Dark=On
+    - id: page-background.tertiary-dark
+      figmaNodeId: "400:26886"
+      componentKey: 4e0fef2ae562e8f70988f5018c16b696b7ded4af
+      figmaExactName: 分类=新三级页, Dark=On
+    - id: page-background.primary-light
+      figmaNodeId: "400:26805"
+      componentKey: a3a4ab7790fb34ab0cb1708986b968024fc70729
+      figmaExactName: 分类=新版工作区/一级, Dark=Off
+    - id: page-background.secondary-light
+      figmaNodeId: "400:26800"
+      componentKey: 61dc4ada24787f491585bf54ff0e0ef4f8712431
+      figmaExactName: 分类=新版二级页, Dark=Off
+    - id: page-background.tertiary-light
+      figmaNodeId: "400:26798"
+      componentKey: 6f4c8c1c9abff12c361c61572819e0e7a0a0ad2b
+      figmaExactName: 分类=新三级页, Dark=Off
+selectionRules:
+  level1: 分类=新版工作区/一级
+  level2: 分类=新版二级页
+  level3Plus: 分类=新三级页
+  dark: Dark=On
+  light: Dark=Off
+layoutBehavior:
+  canonicalBitmap:
+    width: 390
+    height: 844
+  placement:
+    position: fixed
+    anchor: top
+    rule: 背景按 390x844 页面底图固定在页面顶部使用。
+  longPageExtension:
+    appliesWhen: page_content_height_gt_844
+    rule: 页面长度超过 844 时，844 以下区域使用当前 Page Background 最底部颜色继续填充。
+    forbidden:
+      - stretch_bitmap_vertically
+      - crop_into_card_background
+      - tile_as_repeating_pattern
+      - infer_new_gradient
+  widthPolicy:
+    rule: 默认按 390 宽页面使用；非 390 宽页面不在本次规则中扩展为新构图。
+states:
+  required:
+    - level-1-dark
+    - level-1-light
+    - level-2-dark
+    - level-2-light
+    - level-3-plus-dark
+    - level-3-plus-light
+  excluded:
+    - kyc
+    - agent
+    - temporary-dialog-sheet
+    - full-width-card
+    - non-full-width-card
+    - old-level-1
+    - old-level-2
+    - large-card
+slots:
+  pageRoot:
+    required: true
+    description: 页面根层底图，位于导航、内容、底栏和浮层之下。
+  pageLevel:
+    required: true
+    values:
+      level1: 新版工作区/一级
+      level2: 新版二级页
+      level3Plus: 新三级页
+  theme:
+    required: true
+    values:
+      dark: Dark=On
+      light: Dark=Off
+tokens:
+  source: 设计仓库页面背景组件内部样式
+  variableNameStatus: partially_verified_with_figma
+  verifiedVariables:
+    - radius/20
+    - color/xzl-color-background-a
+    - color/xzl-color-background-b
+    - color/xzl-color-background-d-card
+assets:
+  localAssetRefs: []
+resourceRefs:
+  - figma://pbxELN7TYDDguIgbXfc1zB/400:24983
+  - figma://pbxELN7TYDDguIgbXfc1zB/400:26745
+verificationGaps:
+  - Figma variable read on `400:26745` exposed the variables listed above; some variant internals still use direct fills or nested children rather than top-level variable aliases.

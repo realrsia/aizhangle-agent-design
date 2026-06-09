@@ -11,6 +11,7 @@ components:
   - component.market-index-modules
   - component.message-feed
   - component.overlay
+  - component.page-background
   - component.switch
   - component.tabs
   - component.tag

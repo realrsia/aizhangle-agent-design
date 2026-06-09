@@ -1,0 +1,437 @@
+id: checklist.figma-generation-review
+kind: checklist
+schemaVersion: 1
+version: 0.1.0
+status: draft
+title: Figma Generation Review Checklist
+summary: Second-pass checklist for Figma screens generated from Agent prompts, especially
+  rules mirrored from agents/openai.yaml.
+appliesTo:
+  archetypes:
+  - archetype.mobile-chat-page
+  - archetype.mobile-list-page
+  - archetype.market-overview-page
+  scenarios:
+  - scenario.ai-chat
+  - scenario.watchlist
+  components:
+  - component.action-sheet
+  - component.bottom-bar
+  - component.chat-background
+  - component.chat-input
+  - component.chat-topbar
+  - component.message-feed
+  - component.page-background
+  - component.trading-action-button
+  - component.trading-input
+  - component.trading-page-modules
+sourceAgentPrompt:
+  path: agents/openai.yaml
+  fields:
+  - interface.default_prompt
+  - interface.component_first_figma_generation_prompt
+sync:
+  source: agents/openai.yaml#interface.checklist_system.promptToChecklistMappings
+  tool: tools/sync-openai-checklist-map.rb
+  generatedField: sourcePromptMappings
+  policy: 'When default_prompt or component_first_figma_generation_prompt changes,
+    update promptToChecklistMappings and run the sync tool so the generation checklist
+    records which prompt sections drive each second-pass review rule.
+
+'
+sourcePromptMappings:
+- promptSection: default_prompt.1 读取顺序
+  checklistRuleIds:
+  - route-before-generation
+- promptSection: default_prompt.2 Binding 规则
+  checklistRuleIds:
+  - component-coverage-report-required
+  - component-source-evidence-required
+  - generated-frame-clone-not-counted-as-component
+  - confirmed-components-not-redrawn
+  - fallback-is-low-fidelity-and-labeled
+- promptSection: default_prompt.3 硬性禁止
+  checklistRuleIds:
+  - confirmed-components-not-redrawn
+  - generated-frame-clone-not-counted-as-component
+  - fallback-is-low-fidelity-and-labeled
+  - final-screenshot-and-metadata-verified
+- promptSection: default_prompt.4 Component 优先级
+  checklistRuleIds:
+  - component-coverage-report-required
+  - component-source-evidence-required
+  - generated-frame-clone-not-counted-as-component
+  - confirmed-components-not-redrawn
+  - fixed-chrome-separated
+  - theme-consistency-dark-light
+- promptSection: default_prompt.5 Auto Layout 规则
+  checklistRuleIds:
+  - fixed-chrome-separated
+  - nested-auto-layout-required
+  - instance-wrapper-not-clipped
+- promptSection: default_prompt.6 内容规则
+  checklistRuleIds:
+  - realistic-content-no-placeholders
+- promptSection: default_prompt.7 Fallback 与说明位置
+  checklistRuleIds:
+  - fallback-is-low-fidelity-and-labeled
+  - token-source-evidence-required
+  - annotation-outside-screen
+- promptSection: default_prompt.8 交付前失败条件
+  checklistRuleIds:
+  - final-screenshot-and-metadata-verified
+  - theme-consistency-dark-light
+  - token-source-evidence-required
+  - realistic-content-no-placeholders
+  - confirmed-components-not-redrawn
+  - component-source-evidence-required
+  - partial-component-minimal-fallback
+- promptSection: component_first_figma_generation_prompt.1 生成前检查
+  checklistRuleIds:
+  - route-before-generation
+  - component-coverage-report-required
+  - component-source-evidence-required
+- promptSection: component_first_figma_generation_prompt.2 生成前硬门禁
+  checklistRuleIds:
+  - component-coverage-report-required
+  - component-source-evidence-required
+  - confirmed-components-not-redrawn
+  - generated-frame-clone-not-counted-as-component
+- promptSection: component_first_figma_generation_prompt.3 自绘控件禁止清单
+  checklistRuleIds:
+  - confirmed-components-not-redrawn
+  - fallback-is-low-fidelity-and-labeled
+- promptSection: component_first_figma_generation_prompt.4 组件使用规则
+  checklistRuleIds:
+  - component-source-evidence-required
+  - generated-frame-clone-not-counted-as-component
+  - confirmed-components-not-redrawn
+  - fixed-chrome-separated
+  - theme-consistency-dark-light
+- promptSection: component_first_figma_generation_prompt.5 字体兼容
+  checklistRuleIds:
+  - confirmed-components-not-redrawn
+  - font-blocker-recorded
+  - final-screenshot-and-metadata-verified
+- promptSection: component_first_figma_generation_prompt.6 Clone 与 fallback
+  checklistRuleIds:
+  - confirmed-components-not-redrawn
+  - fallback-is-low-fidelity-and-labeled
+  - component-source-evidence-required
+  - generated-frame-clone-not-counted-as-component
+- promptSection: component_first_figma_generation_prompt.7 Partial component 处理
+  checklistRuleIds:
+  - partial-component-minimal-fallback
+  - fallback-is-low-fidelity-and-labeled
+  - annotation-outside-screen
+- promptSection: component_first_figma_generation_prompt.8 主题要求
+  checklistRuleIds:
+  - theme-consistency-dark-light
+  - token-source-evidence-required
+- promptSection: component_first_figma_generation_prompt.9 屏幕与 annotation 边界
+  checklistRuleIds:
+  - annotation-outside-screen
+- promptSection: component_first_figma_generation_prompt.10 最终验证
+  checklistRuleIds:
+  - final-screenshot-and-metadata-verified
+  - realistic-content-no-placeholders
+  - instance-wrapper-not-clipped
+  - component-source-evidence-required
+  - generated-frame-clone-not-counted-as-component
+  - partial-component-minimal-fallback
+  - token-source-evidence-required
+  - font-blocker-recorded
+rules:
+- id: route-before-generation
+  severity: error
+  target: figma-generation-process
+  assert:
+    manifestLoaded: true
+    designEntrypointLoaded: true
+    relevantAuthoringCanonBindingsLoaded: true
+    generationStartedOnlyAfterRouting: true
+  rationale: Figma generation must not start before routing through the repository
+    source of truth.
+  sourceRefs:
+  - agents/openai.yaml
+  - SKILL.md
+  - manifest.json
+  - DESIGN.md
+  autofix:
+    strategy: stop-load-required-sources-and-regenerate
+- id: component-coverage-report-required
+  severity: error
+  target: component-coverage-report
+  assert:
+    requiredOptionalConfirmedPartialPendingUsedBlockerReported: true
+    requiredConfirmedComponentsAllUsedOrBlocked: true
+    blockersRecordedBeforeFallback: true
+  rationale: A generation cannot be reviewed reliably without knowing which required
+    components were used, pending, or blocked.
+  sourceRefs:
+  - agents/openai.yaml
+  - bindings/figma/components.yaml
+  autofix:
+    strategy: produce-coverage-report-and-regenerate-missing-components
+- id: component-source-evidence-required
+  severity: error
+  target: component-source-evidence
+  assert:
+    everyConfirmedComponentHasSourceEvidence: true
+    sourceEvidenceIncludes:
+    - componentFamily
+    - bindingStatus
+    - componentKeyOrSourceNodeId
+    - usageMethod
+    - blockerWhenNotUsed
+    acceptedUsageMethods:
+    - imported_component_key
+    - source_instance_clone
+    - same_source_real_instance_clone
+    fallbackRequiresBlocker: true
+  rationale: Confirmed component usage is only valid when the generated frame can
+    prove the source component or source instance it used.
+  sourceRefs:
+  - agents/openai.yaml
+  - bindings/figma/components.yaml
+  autofix:
+    strategy: import-source-component-or-record-blocker-before-fallback
+- id: generated-frame-clone-not-counted-as-component
+  severity: error
+  target: component-source-evidence
+  assert:
+    generatedEvalFrameCloneIsReferenceOnly: true
+    priorGeneratedFrameCloneDoesNotCountAsConfirmedUsage: true
+    generatedRepairFrameCloneDoesNotCountAsConfirmedUsage: true
+    componentUsageMustTraceToOriginalSource: true
+  rationale: Cloning previous evaluation outputs can preserve a look, but it does
+    not prove that the agent routed to the original design-system component.
+  sourceRefs:
+  - agents/openai.yaml
+  - bindings/figma/components.yaml
+  autofix:
+    strategy: replace-generated-clone-with-component-key-import-or-source-instance-clone
+- id: confirmed-components-not-redrawn
+  severity: error
+  target: figma-component-usage
+  assert:
+    confirmedComponentsUseInstanceCloneOrImport: true
+    forbidRawLookalikeForConfirmedFamilies: true
+    forbiddenLookalikeFamilies:
+    - Button
+    - Input
+    - Switch
+    - Tabs
+    - Tag
+    - Card
+    - Top Bar
+    - Bottom Bar
+    - Chat Input
+    - Action Sheet
+    - Message Feed
+  rationale: Confirmed Figma components are the design source and must not be replaced
+    by lookalike raw frames.
+  sourceRefs:
+  - agents/openai.yaml
+  - bindings/figma/components.yaml
+  - bindings/figma/critical-bindings.yaml
+  autofix:
+    strategy: replace-lookalikes-with-confirmed-instance-or-mark-fallback
+- id: fallback-is-low-fidelity-and-labeled
+  severity: error
+  target: fallback-module
+  assert:
+    fallbackAllowedOnlyWhenBindingMissingOrBlocked: true
+    fallbackMustBeLowFidelity: true
+    fallbackLayerNameContains:
+    - 未绑定组件
+    - binding pending
+    fallbackDoesNotMimicConfirmedComponent: true
+  rationale: Pending bindings must stay visibly pending and cannot masquerade as production
+    components.
+  sourceRefs:
+  - agents/openai.yaml
+  - docs/references/figma-binding-policy.md
+  autofix:
+    strategy: relabel-and-simplify-fallback-block
+- id: partial-component-minimal-fallback
+  severity: error
+  target: partial-component-generation
+  assert:
+    verifiedSubcomponentsUsedBeforeFallback: true
+    fallbackOnlyCoversMissingSubparts: true
+    forbidWholeFamilyFallbackWhenSubcomponentsVerified: true
+    partialFamiliesRequireGapList: true
+    examplePartialFamilies:
+    - component.message-feed
+    - component.action-sheet
+    - component.trading-page-modules
+  rationale: A partial binding still contains usable verified pieces; the agent must
+    not redraw the whole family when only a small subpart is missing.
+  sourceRefs:
+  - agents/openai.yaml
+  - bindings/figma/components.yaml
+  - canon/checklists/message-feed-review.yaml
+  autofix:
+    strategy: replace-broad-fallback-with-verified-subcomponents-and-minimal-gap-blocks
+- id: fixed-chrome-separated
+  severity: error
+  target: mobile-page-layout
+  assert:
+    fixedChromeOutsideScrollContent: true
+    fixedChromePinnedTopOrBottom: true
+    contentAvoidsFixedChromeOverlap: true
+    chromeFamilies:
+    - Status Bar
+    - Top Bar
+    - Bottom Bar
+    - Chat Input
+    - Action Sheet
+  rationale: Status, top, bottom, chat input, and modal chrome are structural zones,
+    not ordinary scrolling content.
+  sourceRefs:
+  - agents/openai.yaml
+  - canon/archetypes/mobile-chat-page.yaml
+  - canon/archetypes/mobile-list-page.yaml
+  autofix:
+    strategy: move-chrome-to-fixed-zone-and-adjust-content-padding
+- id: nested-auto-layout-required
+  severity: error
+  target: auto-layout-structure
+  assert:
+    screenUsesAutoLayout: true
+    textBearingContainersUseAutoLayout: true
+    contentSectionsUseNestedAutoLayout: true
+    cardContentResizesFromContentAndPadding: true
+    noManualCoordinateLayoutForDynamicContent: true
+  rationale: Generated screens must be editable and resilient to real financial copy
+    length.
+  sourceRefs:
+  - agents/openai.yaml
+  - DESIGN.md
+  - docs/references/foundations/visual-language.md
+  autofix:
+    strategy: convert-content-blocks-to-nested-auto-layout
+- id: instance-wrapper-not-clipped
+  severity: error
+  target: instance-wrapper
+  assert:
+    wrapperHeightGreaterThanOrEqualToContainedInstance: true
+    clipsContentDoesNotHideInstanceTextOrControls: true
+    screenshotShowsNoInstanceClipping: true
+  rationale: Auto Layout wrappers must not clip imported instances or nested component
+    text.
+  sourceRefs:
+  - agents/openai.yaml
+  - canon/checklists/visual-review.yaml
+  autofix:
+    strategy: increase-wrapper-height-or-set-hug-fit-content
+- id: realistic-content-no-placeholders
+  severity: error
+  target: generated-screen-content
+  assert:
+    noRepeatedDummyCharacters: true
+    noGenericPlaceholderLabels: true
+    noRawTodoOrPromptMarkers: true
+    realisticFinancialNewsChatContentInjected: true
+  rationale: Evaluation screens must be readable business examples, not prompt scaffolds.
+  sourceRefs:
+  - agents/openai.yaml
+  - docs/references/business-scenarios.md
+  autofix:
+    strategy: replace-placeholder-copy-with-representative-business-content
+- id: annotation-outside-screen
+  severity: error
+  target: annotation-and-review-notes
+  assert:
+    screenBodyContainsNoBindingReport: true
+    screenBodyContainsNoVisualOrInteractionExplanation: true
+    rightSideAnnotationCardPresentWhenNotesExist: true
+  rationale: Visual/interaction/binding notes must not pollute the generated product
+    screen.
+  sourceRefs:
+  - agents/openai.yaml
+  autofix:
+    strategy: move-notes-to-right-side-annotation-card
+- id: theme-consistency-dark-light
+  severity: error
+  target: themed-figma-frame
+  assert:
+    parentFrameThemeMatchesAllComponents: true
+    darkFrameContainsNoLightComponents: true
+    lightFrameContainsNoDarkComponents: true
+    explicitVariableModeOrVariantChecked: true
+  rationale: A dark or light screen is invalid if imported components retain the opposite
+    theme.
+  sourceRefs:
+  - agents/openai.yaml
+  - canon/foundations/themes/dark.theme.yaml
+  - canon/foundations/themes/light.theme.yaml
+  autofix:
+    strategy: switch-component-variants-or-variable-mode-to-parent-theme
+- id: token-source-evidence-required
+  severity: error
+  target: token-and-color-source
+  assert:
+    tokenComplianceRequiresSource: true
+    acceptedColorSources:
+    - figma_variable
+    - figma_style
+    - confirmed_component_rendering
+    hardcodedFallbackColorsMarkedTokenPending: true
+    hardcodedFallbackDoesNotPassTokenCompliance: true
+  rationale: A dark-looking or light-looking screen is not token compliant unless
+    its colors come from variables, styles, or confirmed component rendering.
+  sourceRefs:
+  - agents/openai.yaml
+  - DESIGN.md
+  - docs/references/foundations/visual-language.md
+  autofix:
+    strategy: bind-token-source-or-mark-fallback-token-pending
+- id: font-blocker-recorded
+  severity: error
+  target: font-blocker
+  assert:
+    fontBlockersIncludeComponentName: true
+    fontBlockersIncludeMissingFonts: true
+    fontBlockersIncludeAttemptedSteps: true
+    fontBlockersIncludeFinalHandling: true
+    vagueFontProblemNotesDoNotPass: true
+  rationale: Font issues frequently block real component imports; they must be recorded
+    as actionable blockers instead of silently causing lookalike fallback.
+  sourceRefs:
+  - agents/openai.yaml
+  - bindings/figma/components.yaml
+  autofix:
+    strategy: record-font-blocker-and-preserve-real-instance-or-minimal-fallback
+- id: high-risk-trading-actions-not-ordinary-buttons
+  severity: error
+  target: high-risk-trading-action
+  assert:
+    tradingActionsUseTradingActionButtonOrPendingFallback: true
+    ordinaryButtonDoesNotRepresentBuySellCancelSubmit: true
+    riskContextVisible: true
+  rationale: Buy, sell, cancel, submit, and permission-sensitive trading actions cannot
+    be disguised as ordinary buttons.
+  sourceRefs:
+  - agents/openai.yaml
+  - canon/checklists/trading-action-button-review.yaml
+  - canon/checklists/trading-page-modules-review.yaml
+  autofix:
+    strategy: replace-ordinary-action-with-trading-component-or-pending-risk-fallback
+- id: final-screenshot-and-metadata-verified
+  severity: error
+  target: delivery-verification
+  assert:
+    figmaMetadataChecked: true
+    screenshotRenderingChecked: true
+    failedChecklistItemsBecomeFixItems: true
+    noDeliveryUntilP0FailuresFixed: true
+  rationale: Checklist failures should produce concrete modifications before delivery,
+    not just a written caveat.
+  sourceRefs:
+  - agents/openai.yaml
+  - SKILL.md
+  autofix:
+    strategy: rerun-screenshot-metadata-check-and-repair-p0-failures
+lastSyncedAt: '2026-06-06T12:52:23+08:00'

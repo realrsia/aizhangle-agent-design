@@ -166,7 +166,7 @@ tokens:
   source:
     - bindings/assets/files/design-tokens/chat-fidelity-tokens.json
   reasoningChain:
-    specNodeId: "2:34475"
+    specNodeId: "400:25058"
     fontSize: 14px Regular
     textColor: xzl-color-text-a 70% / #FFFFFF 70%
     lineHeight: 1.5x
@@ -176,25 +176,28 @@ assetRefs:
   - asset.tokens.chat-fidelity
 textOverrideFields:
   - field: userQuestionText
-    status: TODO_VERIFY_WITH_FIGMA
+    status: verified_component_property_ref
+    propertyRef: "输入内容#21832:0"
   - field: assistantName
-    status: TODO_VERIFY_WITH_FIGMA
+    status: verified_component_property_ref
+    propertyRef: "助手名称#21832:3"
   - field: reasoningStatusText
-    status: TODO_VERIFY_WITH_FIGMA
+    status: verified_no_text_override_on_priority_stack
   - field: reasoningStepText
-    status: TODO_VERIFY_WITH_FIGMA
+    status: verified_no_text_override_on_priority_stack
   - field: answerTitle
-    status: TODO_VERIFY_WITH_FIGMA
+    status: verified_no_text_override_on_priority_stack
   - field: answerBody
-    status: TODO_VERIFY_WITH_FIGMA
+    status: verified_no_text_override_on_priority_stack
   - field: answerListItems
-    status: TODO_VERIFY_WITH_FIGMA
+    status: verified_no_text_override_on_priority_stack
   - field: disclaimerText
-    status: TODO_VERIFY_WITH_FIGMA
+    status: verified_no_text_override_on_priority_stack
   - field: relatedQuestionText
-    status: TODO_VERIFY_WITH_FIGMA
+    status: verified_component_property_ref
+    propertyRef: "文字内容#21900:10"
   - field: actionLabels
-    status: TODO_VERIFY_WITH_FIGMA
+    status: verified_no_text_override_on_priority_stack
 usageInstanceGroups:
   - groupId: message-feed.dialog-white-demo
     figmaNodeId: "400:25042"
@@ -218,48 +221,48 @@ usageInstanceGroups:
     sourceFileKey: pbxELN7TYDDguIgbXfc1zB
 businessContentComponentRefs:
   - id: message-feed.market-index
-    figmaNodeId: "7:6302"
-    figmaExactName: 指数
-    componentKey: 2c8497856e210074e83c2183bcf545ce863041d1
+    figmaNodeId: "I400:26698;20477:77864"
+    figmaExactName: 1月版/item/指数模块
+    componentKey: 7959f0066bb76667e1998a550ad23d0c3459141a
     usageType: answer_embedded_business_content
+    status: verified_usage_instance_in_dialog_section
   - id: message-feed.market-movement
-    figmaNodeId: "7:6303"
-    figmaExactName: A股异动
-    componentKey: 3255456fccafa816bf6c55f489fd6838b8233773
+    figmaNodeId: null
+    figmaExactName: null
+    componentKey: null
     usageType: answer_embedded_business_content
-    status: variant-details-need-verification
+    status: verified_not_found_in_dialog_section
   - id: message-feed.auction
-    figmaNodeId: "7:6305"
-    figmaExactName: 竞价
-    componentKey: eb51e27c77855c0da3c2d75c57084f868f333f9e
+    figmaNodeId: null
+    figmaExactName: null
+    componentKey: null
     usageType: answer_embedded_business_content
+    status: verified_not_found_in_dialog_section
   - id: message-feed.news-sector
-    figmaNodeId: "7:6307"
-    figmaExactName: 分类=板块
-    componentSetKey: e2a6f4fcf59d06d2b7b3ed4e4b9e5a30e38ec130
-    componentKey: 1a5170acfe89f8d8f92e27b6cc46e9b3d577ed66
+    figmaNodeId: "400:25785"
+    figmaExactName: 所属板块
+    componentSetKey: null
+    componentKey: e916bcb23e1e79e53e85f21da2975feba0f43504
     usageType: answer_embedded_business_content
-    variantProperties:
-      分类: 板块
+    status: verified_usage_instance_in_dialog_section
   - id: message-feed.news-market-movement
-    figmaNodeId: "3:5699"
-    figmaExactName: 分类=行情异动
-    componentSetKey: e2a6f4fcf59d06d2b7b3ed4e4b9e5a30e38ec130
-    componentKey: 12bb01f84286e97abf2197e09e691a395153a2fe
+    figmaNodeId: null
+    figmaExactName: null
+    componentSetKey: null
+    componentKey: null
     usageType: answer_embedded_business_content
-    variantProperties:
-      分类: 行情异动
+    status: verified_not_found_in_dialog_section
   - id: message-feed.news-market-brief
-    figmaNodeId: "3:5701"
-    figmaExactName: 分类=行情速览
-    componentSetKey: e2a6f4fcf59d06d2b7b3ed4e4b9e5a30e38ec130
-    componentKey: e994ef9cdac9229c834264a41feb12d08f3709ba
+    figmaNodeId: "400:29001"
+    figmaExactName: 行情速览浮层
+    componentSetKey: null
+    componentKey: null
     usageType: answer_embedded_business_content
-    variantProperties:
-      分类: 行情速览
+    status: verified_frame_not_component
 sourceRefs:
   - authoring/components/message-feed.brief.yaml
   - authoring/scenarios/ai-chat.brief.yaml
+  - figma://pbxELN7TYDDguIgbXfc1zB/400:25048
   - docs/references/fidelity/chat-fidelity-reconstruction.md
   - canon/archetypes/mobile-chat-page.yaml
   - figma://pbxELN7TYDDguIgbXfc1zB/392:67806

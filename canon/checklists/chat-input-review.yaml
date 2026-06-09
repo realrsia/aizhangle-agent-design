@@ -20,8 +20,8 @@ items:
     passCriteria: 黑版使用 `场景=对话 ... Dark=On`；白版使用 `场景=对话 ... Dark=Off`。
   - id: chat-input-state-declared
     severity: P1
-    question: 语音、键盘、默认、打断等状态是否声明为已验证或待验证？
-    passCriteria: 默认态已绑定；语音/键盘/打断等未验证状态必须保留 `TODO_VERIFY_WITH_FIGMA` 或 candidate 标记。
+    question: 语音、键盘、默认、打断等状态是否声明为已验证或 candidate？
+    passCriteria: 默认态和已读取的文字 override 已绑定；未完整验证的非默认状态只作为 candidate，不写成 confirmed variant。
   - id: chat-input-safe-area-retained
     severity: P1
     question: 是否保留底部安全区与 AI 生成提示？

@@ -58,5 +58,5 @@ items:
     passCriteria: 空态只切换内容区为空态卡片，不展示列表、批量操作或融资/融券数据。
   - id: trading-text-overrides-not-guessed
     severity: P3
-    question: 文本覆盖字段是否仍保留待验证，而没有被猜测成真实 override target？
-    passCriteria: "当前 `textOverrideFields` 仍为 `TODO_VERIFY_WITH_FIGMA`，自动覆盖前必须验证。"
+    question: 文本覆盖字段是否来自 Figma 实际读取，而不是猜测成真实 override target？
+    passCriteria: 当前 `textOverrideFields` 至少记录条件单交易信息、策略信息和持仓信息区中已验证的 text property refs。

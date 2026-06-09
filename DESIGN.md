@@ -46,6 +46,7 @@ For screen generation or redesign:
 3. Load Akun foundation sources for tokens, typography, radius, spacing, fonts, and component metrics.
 4. Load `docs/references/foundations/visual-language.md` to apply AI Zhangle atmosphere, density, hierarchy, and dark/light posture.
 5. Run the relevant component checklist plus `canon/checklists/visual-review.yaml`.
+6. For Figma generation, also run `canon/checklists/figma-generation-review.yaml` so OpenAI prompt constraints become concrete second-pass repair items.
 
 ## Visual Review Route
 
