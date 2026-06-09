@@ -759,6 +759,18 @@ components:
     priorityStackNodeId: "400:25048"
     selectionStatus: design_repository_component_keys_verified_by_search
     lastVerifiedAt: "2026-06-09"
+    oldSystemControlsPolicy:
+      status: removed_do_not_import
+      reason: 旧系统控件 key 会让生成结果从 `系统控件` import 母组件，即使外层 fileName/fileKey 写成设计仓库。
+      rule: message-feed 智能体输出组件必须使用这里记录的设计仓库 component set key。
+      blockedFamilies:
+        - message-feed.assistant-avatar
+        - message-feed.answer-status
+        - message-feed.answer-body
+        - message-feed.reasoning-panel
+      verificationRule:
+        - use importComponentSetByKeyAsync with verified design-repository componentSetKey
+        - verify imported instance source is 设计仓库, not 系统控件
     familyBindings:
       - familyId: message-feed.user-input
         figmaExactName: 用户输入
@@ -769,25 +781,54 @@ components:
         status: verified_design_repository_search
       - familyId: message-feed.assistant-avatar
         figmaExactName: 智能体输出/AI头像
+        sourceAreaNodeId: "392:67806"
+        sourceAreaName: 智能体输出/AI头像
+        sourceSectionName: 4.1 agent智能体组件
         componentSetKey: de98953642dc8d50eee0b25d5453fcb5a641c7b7
         importApi: importComponentSetByKeyAsync
         bindingMode: must_use_library_instance
         bindingFailurePolicy: stop_and_recheck
         status: verified_design_repository_search
+        oldSystemControlsBindingStatus: removed_do_not_import
+        candidateSymbols:
+          - nodeId: "392:67842"
+            figmaExactName: 类型=智能体, 场景=对话通用, Dark=Off
+          - nodeId: "392:67807"
+            figmaExactName: 类型=智能体, 场景=对话通用, Dark=On
       - familyId: message-feed.answer-status
         figmaExactName: 智能体输出/回答状态
+        sourceAreaNodeId: "392:67877"
+        sourceAreaName: 智能体输出/回答状态
+        sourceSectionName: 4.1 agent智能体组件
         componentSetKey: d7b693bd0ddc9a4209c6915c7aba5d4f17869945
         importApi: importComponentSetByKeyAsync
         bindingMode: must_use_library_instance
         bindingFailurePolicy: stop_and_recheck
         status: verified_design_repository_search
+        oldSystemControlsBindingStatus: removed_do_not_import
+        candidateSymbols:
+          - nodeId: "392:67943"
+            figmaExactName: 状态=深度思考, 是否展开=Off,Dark=Off
+          - nodeId: "392:67901"
+            figmaExactName: 状态=深度思考, 是否展开=Off,Dark=On
       - familyId: message-feed.answer-body
         figmaExactName: 智能体输出/正文
+        sourceAreaNodeId: "392:68085"
+        sourceAreaName: 智能体输出/正文
+        sourceSectionName: 4.1 agent智能体组件
         componentSetKey: 5f21c28d3c07d477b36d55b34fc3492122ca07c6
         importApi: importComponentSetByKeyAsync
         bindingMode: must_use_library_instance
         bindingFailurePolicy: stop_and_recheck
         status: verified_design_repository_search
+        oldSystemControlsBindingStatus: removed_do_not_import
+        candidateSymbols:
+          - nodeId: "392:68086"
+            figmaExactName: 分类=无序号, Dark=On
+          - nodeId: "392:68088"
+            figmaExactName: 分类=实心圆序号, Dark=On
+          - nodeId: "392:68092"
+            figmaExactName: 分类=空心圆序号, Dark=On
       - familyId: message-feed.related-question
         figmaExactName: 关联问
         componentSetKey: 437ea70cb6f4bd7cc3306b31ed58bbc372c5b803
@@ -798,12 +839,28 @@ components:
         status: verified_design_repository_search
       - familyId: message-feed.reasoning-panel
         figmaExactName: 智能体输出/思考链
+        sourceAreaNodeId: "392:67955"
+        sourceAreaName: 智能体输出/思考链
+        sourceSectionName: 4.1 agent智能体组件
         componentSetKey: 217b02802185d4a9053dd4c9e477b67bd3f8000a
+        completedReasoningAreaNodeId: "392:68096"
+        completedReasoningAreaName: 智能体输出/思考链/已完成
         januaryComponentSetKey: 3aef969e2174f71ef5951a1af9abf40dc5d3460a
         importApi: importComponentSetByKeyAsync
         bindingMode: must_use_library_instance
         bindingFailurePolicy: stop_and_recheck
         status: verified_design_repository_search
+        oldSystemControlsBindingStatus: removed_do_not_import
+        candidateSymbols:
+          - nodeId: "392:67956"
+            figmaExactName: 状态=完成态, 1月版=On, Dark=1月版
+        completedReasoningCandidateSymbols:
+          - nodeId: "392:68110"
+            figmaExactName: 有无子序列=Off, 一月版=On, Dark=On
+          - nodeId: "392:68105"
+            figmaExactName: 有无子序列=Off, 一月版=Off, Dark=On
+          - nodeId: "392:68097"
+            figmaExactName: 有无子序列=On, 一月版=Off, Dark=On
     businessContentComponentRefs:
       - id: message-feed.market-index
         nodeId: "I400:26698;20477:77864"

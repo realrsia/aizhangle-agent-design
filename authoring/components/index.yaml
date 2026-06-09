@@ -42,6 +42,11 @@ components:
     sourceRefs:
       - authoring/scenarios/ai-chat.brief.yaml
       - figma://pbxELN7TYDDguIgbXfc1zB/400:25048
+      - figma://pbxELN7TYDDguIgbXfc1zB/392:67806
+      - figma://pbxELN7TYDDguIgbXfc1zB/392:67877
+      - figma://pbxELN7TYDDguIgbXfc1zB/392:67955
+      - figma://pbxELN7TYDDguIgbXfc1zB/392:68085
+      - figma://pbxELN7TYDDguIgbXfc1zB/392:68096
   - id: component.divider
     brief: authoring/components/divider.brief.yaml
     sourceRefs:

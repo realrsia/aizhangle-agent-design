@@ -14,6 +14,10 @@ items:
     severity: P0
     question: 股票卡、K线图等非已验证组件是否被声明为 fallback 或待确认？
     passCriteria: fallback 不被写成已验证组件实例，也不进入 confirmed component family。
+  - id: message-feed-no-system-controls-import
+    severity: P0
+    question: 智能体输出组件是否避免导入旧系统控件母组件？
+    passCriteria: assistant-avatar、answer-status、answer-body、reasoning-panel 必须使用设计仓库 component set key，并验证导入来源不是 `系统控件`。
   - id: message-feed-not-generic-card-grid
     severity: P0
     question: 是否没有用通用卡片堆叠替代对话消息结构？
