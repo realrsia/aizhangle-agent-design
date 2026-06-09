@@ -11,7 +11,7 @@ status: draft
 # [HUMAN REQUIRED]
 purpose: >
   用于 AI 对话页的一屏和长页面背景。生成页面时应优先使用设计仓库/2.2 页面背景
-  中的背景/背景组件实例或变量，尤其是带蓝白渐变与斜向光线的平铺背景，
+  中的背景/母组件正式变体或变量，尤其是带蓝白渐变与斜向光线的平铺背景，
   不要用首页卡片背景、近似纯色块或普通卡片 surface 重画。
 
 # [HUMAN REQUIRED]
@@ -25,7 +25,7 @@ humanRules:
     - 根据页面主题选择已确认的对话页背景变体；当前新设计仓库已确认 light 对话背景。
     - 根据页面高度选择一屏或长页面背景策略；长回答页背景必须覆盖滚动内容露出的页面底层。
     - 背景应位于页面底层，不遮挡 topbar、message_feed、bottom_input。
-    - 必须优先使用 设计仓库/2.2 页面背景/对话-白版/背景/背景。
+    - 必须优先使用 设计仓库/2.2 页面背景/背景/母组件 的 分类=新版工作区/一级, Dark=Off / Dark=On 正式变体。
   dont:
     - 不要用手写色值或普通矩形替代设计仓库背景组件。
     - 不要把背景放入 message_feed 滚动内容。
@@ -42,20 +42,20 @@ riskWarnings:
 componentFamilies:
   - id: chat-background.ai-chat-light
     sourceStatus: verified_from_figma_plugin_api
-    figmaNodeId: TODO_VERIFY_WITH_FIGMA
+    figmaNodeId: "400:26805"
     figmaExactName: 分类=新版工作区/一级, Dark=Off
     sourceFrameNodeId: "400:25042"
     sourceFrameName: 对话-白版
     sourceSectionNodeId: "400:24983"
     sourceSectionName: 2.2 页面背景
-    componentSetNodeId: TODO_VERIFY_WITH_FIGMA
+    componentSetNodeId: "400:26745"
     componentSetKey: e7d0e3570253b5e750c00103dd65780e31461aa7
     componentKey: a3a4ab7790fb34ab0cb1708986b968024fc70729
     componentKeyStatus: verified_design_repository_search
     variantProperties:
       Dark: "Off"
       分类: 新版工作区/一级
-    familyType: component_instance
+    familyType: component_variant
     humanUse: ai_chat_light_page_background_with_light_beams
     visualSignature: 蓝白渐变、顶部斜向光线、浅色长页面底色。
   - id: chat-background.ai-chat-dark
@@ -123,9 +123,9 @@ figma:
   sourceSectionName: 2.2 页面背景
   sourceFrameNodeId: "400:25042"
   sourceFrameName: 对话-白版
-  exampleNodeId: "400:25043"
-  exampleNodeName: 背景/背景
-  componentSetNodeId: TODO_VERIFY_WITH_FIGMA
+  exampleNodeId: "400:26805"
+  exampleNodeName: 分类=新版工作区/一级, Dark=Off
+  componentSetNodeId: "400:26745"
   componentSetKey: e7d0e3570253b5e750c00103dd65780e31461aa7
   componentKey: a3a4ab7790fb34ab0cb1708986b968024fc70729
   componentKeyStatus: verified_design_repository_search
@@ -168,7 +168,7 @@ variants:
   heightProperty: page_height_strategy
 
 tokens:
-  source: 设计仓库/2.2 页面背景/对话-白版/背景/背景。
+  source: 设计仓库/2.2 页面背景/背景/母组件 分类=新版工作区/一级, Dark=Off。
   observedFromFigmaMcp:
     baseFill: "#F3F5F9"
     topGradient:
@@ -184,7 +184,7 @@ pendingFigmaVerification:
     scope: component_key
     source: PR #10 TODO-1/TODO-2
     verifiedBy: Figma Plugin API
-    componentSetNodeId: TODO_VERIFY_WITH_FIGMA
+    componentSetNodeId: "400:26745"
     componentSetKey: e7d0e3570253b5e750c00103dd65780e31461aa7
     componentKey: a3a4ab7790fb34ab0cb1708986b968024fc70729
   - id: chat-background-dark-variant
@@ -200,8 +200,9 @@ resourceRefs:
   - figma://pbxELN7TYDDguIgbXfc1zB/212:2
   - figma://pbxELN7TYDDguIgbXfc1zB/400:24983
   - figma://pbxELN7TYDDguIgbXfc1zB/400:25042
-  - figma://pbxELN7TYDDguIgbXfc1zB/400:25043
-  - figma://pbxELN7TYDDguIgbXfc1zB/99:41960
+  - figma://pbxELN7TYDDguIgbXfc1zB/400:26745
+  - figma://pbxELN7TYDDguIgbXfc1zB/400:26805
+  - figma://pbxELN7TYDDguIgbXfc1zB/400:26896
 
 # ============================================================
 # 03_AGENT_EXPANSION_AND_CHECKLIST
@@ -212,11 +213,11 @@ reviewChecklist:
   - id: chat-background-uses-library
     severity: P0
     question: 页面背景是否使用设计仓库背景组件或变量，而不是手写色块？
-    passCriteria: 背景来源可追溯到 设计仓库/2.2 页面背景/背景/背景。
+    passCriteria: 背景来源可追溯到 设计仓库/2.2 页面背景/背景/母组件。
   - id: chat-background-theme-match
     severity: P0
     question: 黑版/白版是否使用正确 dark 变体？
-    passCriteria: 白版使用 400:25043；黑版未确认时必须停下复查，不能 fallback 到首页卡片背景。
+    passCriteria: 白版使用 400:26805；黑版使用 400:26896；未确认时必须停下复查，不能 fallback 到首页卡片背景。
   - id: chat-background-height-match
     severity: P1
     question: 长页面是否使用全屏背景变体？
