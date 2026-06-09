@@ -6,6 +6,13 @@ status: draft
 title: Figma Files
 summary: Known Figma files referenced by the source packages.
 files:
+  - id: figma.design-repository
+    fileKey: pbxELN7TYDDguIgbXfc1zB
+    title: 设计仓库
+    role: primary_published_component_library
+    sourceRefs:
+      - bindings/figma/components.yaml
+      - authoring/components/message-feed.brief.yaml
   - id: figma.ai-zhangle-library
     fileKey: WVlhA7fa8R0Vxam7Q0nP0S
     title: AI Zhangle

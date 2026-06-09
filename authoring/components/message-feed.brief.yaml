@@ -35,7 +35,7 @@ humanRules:
 # [HUMAN REQUIRED]
 riskWarnings:
   - 消息流是对话页主体，层级错会导致页面看起来像普通内容页。
-  - 思考过程当前待确认组件归属，不能当普通卡片随意重画。
+  - 思考过程已绑定设计仓库组件，生成时必须导入组件，不能当普通卡片随意重画。
   - 股票信息卡和 K 线图无正式组件时允许 fallback，但必须标清不是正式组件。
   - 指数、A股异动、资讯等行情内容若在回答中出现，应优先使用设计仓库业务内容组件，不要重画成普通卡片。
   - 设计仓库 3.3 底bar组件 section 未确认包含 AI 头像/回答状态正式组件；不能因此自行重画。
@@ -86,8 +86,9 @@ componentFamilies:
     sourceFileName: 设计仓库
     sourceFileKey: pbxELN7TYDDguIgbXfc1zB
     sourceSectionName: 4.1 agent智能体组件
-    componentSetKeyStatus: pending_design_repo_component_key
-    mainComponentKeyStatus: pending_design_repo_component_key
+    componentSetKey: de98953642dc8d50eee0b25d5453fcb5a641c7b7
+    componentSetKeyStatus: verified_design_repository_search
+    mainComponentKeyStatus: not_required_for_component_set_import
     oldSystemControlsBindingStatus: removed_do_not_import
     variantProperties:
       类型: 智能体
@@ -108,8 +109,9 @@ componentFamilies:
     sourceFileName: 设计仓库
     sourceFileKey: pbxELN7TYDDguIgbXfc1zB
     sourceSectionName: 4.1 agent智能体组件
-    componentSetKeyStatus: pending_design_repo_component_key
-    mainComponentKeyStatus: pending_design_repo_component_key
+    componentSetKey: d7b693bd0ddc9a4209c6915c7aba5d4f17869945
+    componentSetKeyStatus: verified_design_repository_search
+    mainComponentKeyStatus: not_required_for_component_set_import
     oldSystemControlsBindingStatus: removed_do_not_import
     variantProperties:
       状态: 深度思考
@@ -130,8 +132,9 @@ componentFamilies:
     sourceFileName: 设计仓库
     sourceFileKey: pbxELN7TYDDguIgbXfc1zB
     sourceSectionName: 4.1 agent智能体组件
-    componentSetKeyStatus: pending_design_repo_component_key
-    mainComponentKeyStatus: pending_design_repo_component_key
+    componentSetKey: 5f21c28d3c07d477b36d55b34fc3492122ca07c6
+    componentSetKeyStatus: verified_design_repository_search
+    mainComponentKeyStatus: not_required_for_component_set_import
     oldSystemControlsBindingStatus: removed_do_not_import
     variantProperties:
       分类: 无序号
@@ -180,7 +183,9 @@ componentFamilies:
       - nodeId: "392:68097"
         figmaExactName: 有无子序列=On, 一月版=Off, Dark=On
     oldSystemControlsBindingStatus: removed_do_not_import
-    variantCandidateComponentKeyStatus: pending_design_repo_component_key
+    componentSetKey: 217b02802185d4a9053dd4c9e477b67bd3f8000a
+    januaryComponentSetKey: 3aef969e2174f71ef5951a1af9abf40dc5d3460a
+    variantCandidateComponentKeyStatus: verified_design_repository_search
     verifiedVariables:
       radius: radius/20
       fill: color/xzl-color-background-c-card
@@ -270,7 +275,7 @@ examples:
       reason: 对话白版包含用户输入、AI 输出、思考链、正文、footer、底部 composer 和关联问。
   needsReview:
     - name: 思考过程组件归属
-      reason: 当前以 400:25058 的思维链语义 frame 为准；候选组件需迁移到设计仓库 392:67955 / 392:68096，真实 componentKey 仍需 probe 确认。
+      reason: 设计仓库已可检索 `智能体输出/思考链` 与 `item/思考链/1月版` component set key；生成时必须导入组件，不得重画普通卡片。
     - name: 黑版 message-feed
       reason: 核心子组件存在 Dark 属性，但 message-feed 作为整体不是单一 Figma 组件，黑版整体组合仍需确认。
     - name: 股票信息卡与 K 线图
@@ -369,7 +374,7 @@ variants:
     - short-answer
     - related-page-opened
     - dark-theme
-    - design-repo-agent-components-pending-component-key-probe
+    - design-repo-agent-components-verified-by-search
 
 states:
   - id: default
@@ -423,11 +428,19 @@ textOverrideFields:
 
 pendingFigmaVerification:
   - id: message-feed-agent-component-key-migration
-    status: TODO_VERIFY_WITH_FIGMA
+    status: verified_by_search_design_system
     scope: component_key
     source: figma-design-repo-migration-handoff
-    finding: 旧系统控件 key 会导致 Skill评测 生成结果从 `系统控件` import 母组件，即使外层 fileName/fileKey 写成设计仓库。
-    rule: agent 智能体输出组件不得再 import 旧系统控件 key；未拿到设计仓库真实 componentKey 前必须 stop_and_recheck 或输出 `未绑定组件` fallback 标注。
+    finding: 旧系统控件 key 会导致生成结果从 `系统控件` import 母组件，即使外层 fileName/fileKey 写成设计仓库。
+    rule: agent 智能体输出组件不得再 import 旧系统控件 key；生成时必须优先使用下方设计仓库 component set key。
+    verifiedComponentSetKeys:
+      userInput: cd88f044980031d1599d775b60c1ebfaa0e6f72f
+      assistantAvatar: de98953642dc8d50eee0b25d5453fcb5a641c7b7
+      answerStatus: d7b693bd0ddc9a4209c6915c7aba5d4f17869945
+      answerBody: 5f21c28d3c07d477b36d55b34fc3492122ca07c6
+      reasoningPanel: 217b02802185d4a9053dd4c9e477b67bd3f8000a
+      januaryReasoning: 3aef969e2174f71ef5951a1af9abf40dc5d3460a
+      relatedQuestion: 437ea70cb6f4bd7cc3306b31ed58bbc372c5b803
     designRepoSourceAreas:
       assistantAvatar: "392:67806"
       answerStatus: "392:67877"
@@ -442,9 +455,8 @@ pendingFigmaVerification:
       answerBodyNoNumberDark: "392:68086"
       reasoningPanelJanuaryDark: "392:67956"
       completedReasoningJanuaryDark: "392:68110"
-    requiredProbe:
-      - importComponentByKeyAsync
-      - importComponentSetByKeyAsync
+    requiredGenerationRule:
+      - use importComponentSetByKeyAsync with verifiedComponentSetKeys
       - verify imported instance source shows 设计仓库, not 系统控件
   - id: message-feed-business-content-bindings
     status: pending_manual_figma_business_content_binding
@@ -510,12 +522,12 @@ reviewChecklist:
     passCriteria: 主要 block 命名清晰，不以 numbered Frame 作为语义源。
   - id: message-feed-fallback-declared
     severity: P0
-    question: 股票卡、K线图、思考过程等非已验证组件是否被声明为 fallback 或待确认？
+    question: 股票卡、K线图等非已验证组件是否被声明为 fallback 或待确认？
     passCriteria: fallback 不被写成已验证组件实例。
   - id: message-feed-no-system-controls-import
     severity: P0
     question: 智能体输出组件是否避免导入旧系统控件母组件？
-    passCriteria: assistant-avatar、answer-status、answer-body、reasoning-panel 不得使用旧系统控件 key；未确认设计仓库 componentKey 时必须 stop_and_recheck 或标记未绑定 fallback。
+    passCriteria: assistant-avatar、answer-status、answer-body、reasoning-panel 不得使用旧系统控件 key；必须使用已记录的设计仓库 component set key。
   - id: related-questions-after-answer
     severity: P1
     question: 关联问是否位于回答内容之后，且不进入底部输入栏？
