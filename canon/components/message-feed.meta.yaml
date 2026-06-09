@@ -89,36 +89,58 @@ componentFamilies:
   - familyId: message-feed.assistant-avatar
     sourceFileName: 设计仓库
     sourceFileKey: pbxELN7TYDDguIgbXfc1zB
+    sourceAreaNodeId: "392:67806"
+    sourceAreaName: 智能体输出/AI头像
+    sourceSectionName: 4.1 agent智能体组件
     figmaExactName: 智能体输出/AI头像
     componentSetKey: de98953642dc8d50eee0b25d5453fcb5a641c7b7
     bindingStatus: verified_design_repository_search
     importApi: importComponentSetByKeyAsync
+    oldSystemControlsBindingStatus: removed_do_not_import
     familyType: component_set_instance
     humanUse: draft_assistant_identity
     variantProperties:
       类型: 智能体
       场景: 对话通用
       Dark: "Off"
+    candidateSymbols:
+      - nodeId: "392:67842"
+        figmaExactName: 类型=智能体, 场景=对话通用, Dark=Off
+      - nodeId: "392:67807"
+        figmaExactName: 类型=智能体, 场景=对话通用, Dark=On
   - familyId: message-feed.answer-status
     sourceFileName: 设计仓库
     sourceFileKey: pbxELN7TYDDguIgbXfc1zB
+    sourceAreaNodeId: "392:67877"
+    sourceAreaName: 智能体输出/回答状态
+    sourceSectionName: 4.1 agent智能体组件
     figmaExactName: 智能体输出/回答状态
     componentSetKey: d7b693bd0ddc9a4209c6915c7aba5d4f17869945
     bindingStatus: verified_design_repository_search
     importApi: importComponentSetByKeyAsync
+    oldSystemControlsBindingStatus: removed_do_not_import
     familyType: component_set_instance
     humanUse: draft_answer_status_or_reasoning_entry
     variantProperties:
       状态: 深度思考
       是否展开: "Off"
       Dark: "Off"
+    candidateSymbols:
+      - nodeId: "392:67943"
+        figmaExactName: 状态=深度思考, 是否展开=Off,Dark=Off
+      - nodeId: "392:67901"
+        figmaExactName: 状态=深度思考, 是否展开=Off,Dark=On
   - familyId: message-feed.answer-body
     sourceFileName: 设计仓库
     sourceFileKey: pbxELN7TYDDguIgbXfc1zB
+    sourceAreaNodeId: "392:68085"
+    sourceAreaName: 智能体输出/正文
+    sourceSectionName: 4.1 agent智能体组件
     figmaExactName: 智能体输出/正文
     componentSetKey: 5f21c28d3c07d477b36d55b34fc3492122ca07c6
     bindingStatus: verified_design_repository_search
     importApi: importComponentSetByKeyAsync
+    oldSystemControlsBindingStatus: removed_do_not_import
     familyType: component_set_instance
     humanUse: draft_answer_body
     variantProperties:
@@ -155,11 +177,17 @@ componentFamilies:
   - familyId: message-feed.reasoning-panel
     sourceFileName: 设计仓库
     sourceFileKey: pbxELN7TYDDguIgbXfc1zB
+    sourceAreaNodeId: "392:67955"
+    sourceAreaName: 智能体输出/思考链
+    sourceSectionName: 4.1 agent智能体组件
     figmaExactName: 智能体输出/思考链
     componentSetKey: 217b02802185d4a9053dd4c9e477b67bd3f8000a
     januaryComponentSetKey: 3aef969e2174f71ef5951a1af9abf40dc5d3460a
+    completedReasoningAreaNodeId: "392:68096"
+    completedReasoningAreaName: 智能体输出/思考链/已完成
     bindingStatus: verified_design_repository_search
     importApi: importComponentSetByKeyAsync
+    oldSystemControlsBindingStatus: removed_do_not_import
     familyType: component_set_instance
     humanUse: reasoning_chain_panel_do_not_render_as_generic_card
     variantProperties:
@@ -303,6 +331,26 @@ usageInstanceGroups:
     figmaExactName: 4.1 agent智能体组件
     usageType: component_source_section
     sourceFileKey: pbxELN7TYDDguIgbXfc1zB
+generationRules:
+  oldSystemControlsPolicy:
+    status: removed_do_not_import
+    rule: Use importComponentSetByKeyAsync with the verified 设计仓库 component set keys for agent output families; do not import old 系统控件 keys.
+    mustVerify:
+      - imported instance source shows 设计仓库
+      - imported instance source does not show 系统控件
+    affectedFamilies:
+      - message-feed.assistant-avatar
+      - message-feed.answer-status
+      - message-feed.answer-body
+      - message-feed.reasoning-panel
+    verifiedComponentSetKeys:
+      userInput: cd88f044980031d1599d775b60c1ebfaa0e6f72f
+      assistantAvatar: de98953642dc8d50eee0b25d5453fcb5a641c7b7
+      answerStatus: d7b693bd0ddc9a4209c6915c7aba5d4f17869945
+      answerBody: 5f21c28d3c07d477b36d55b34fc3492122ca07c6
+      reasoningPanel: 217b02802185d4a9053dd4c9e477b67bd3f8000a
+      januaryReasoning: 3aef969e2174f71ef5951a1af9abf40dc5d3460a
+      relatedQuestion: 437ea70cb6f4bd7cc3306b31ed58bbc372c5b803
 businessContentComponentRefs:
   - id: message-feed.market-index
     figmaNodeId: "7:6302"
