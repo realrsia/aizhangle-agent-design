@@ -40,6 +40,8 @@
     "figma": "bindings/figma/",
     "figmaComponents": "bindings/figma/components.yaml",
     "criticalFigmaBindings": "bindings/figma/critical-bindings.yaml",
+    "figmaFiles": "bindings/figma/files.yaml",
+    "figmaVariables": "bindings/figma/variables.yaml",
     "assets": "bindings/assets/manifest.yaml"
   },
   "renderers": {

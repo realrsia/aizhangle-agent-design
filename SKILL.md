@@ -139,6 +139,8 @@ description: Use this skill to generate, review, repair, or prototype AI Zhangle
 
 不要把 `TODO_VERIFY_WITH_FIGMA` 当成确认过的 component key 或 node id。
 
+判定组件是否可绑定前，必须先读取 `bindings/figma/components.yaml`。不要只根据 `canon/`、当前画板、截图效果或 `manifest.json` 路由判断组件缺失。
+
 ## Figma Generation 硬性约束
 
 这些规则从 `agents/openai.yaml` 迁回本文件。它们是 Agent 生成或修复 Figma 页面时必须执行的核心约束，不是 UI metadata。
@@ -147,20 +149,22 @@ description: Use this skill to generate, review, repair, or prototype AI Zhangle
 
 - 生成或评审新涨乐 / AI Zhangle 移动金融界面时，以本仓库为唯一事实来源。
 - 先按 `manifest.json` 和本文件完成路由，再读取相关 `authoring/`、`canon/`、Figma `bindings/`、`assets` 和 `checklists`。
+- 涉及 Figma 生成时，`bindings/figma/components.yaml` 是判断 component family、component key、component set key、variant 和 import API 的必读文件；读取失败时先停止并说明 blocker，不要直接改用 fallback。
 - 涉及视觉生成或视觉评审时，必须遵循 `DESIGN.md` 的视觉语言。
 
 ### Binding 规则
 
-- 只有 Figma binding 已确认时，才把目标模块当作 confirmed component 使用。
+- 只有 Figma binding 已确认时，才把目标模块当作 confirmed component 使用；确认来源优先查 `bindings/figma/components.yaml`，再查对应 `canon/components/*.meta.yaml`。
 - 如果 Figma component binding 缺失，或仍标记为 `TODO_VERIFY_WITH_FIGMA`，不要猜测 component key、variant 或 override property。
 - 不要伪装成已绑定组件；应标记为 `binding pending`、`未绑定组件`，或停止等待补齐绑定信息。
+- `componentKey: not_a_component_instance` 只表示外层容器不是可 import 的组件，不代表它的子 family 不可用。遇到这种结构时，继续读取同一条目下的 `familyBindings`；凡是 `status: verified*` 且有 `componentKey`、`componentSetKey` 或明确 `importApi` 的 family，都应按 confirmed component family 使用。
 
 ### Component 优先级
 
 - Figma 生成必须优先使用目标 Figma 文件或已确认 library 中的 existing Components。
 - 只要已有 confirmed Component，就不要用 raw frame、rectangle 或 text 重画 lookalike。
 - 页面应通过 import、instantiate 或 clone confirmed Components 来搭建。
-- 使用 component 前，列出页面应该使用的 component families，并对每个 confirmed component key 做小型 import / instantiate probe。
+- 使用 component 前，列出页面应该使用的 component families，并对每个 confirmed `componentKey` 或 `componentSetKey` 做小型 import / instantiate probe。
 - 必须选择正确 variant，并显式确认 light / dark variable mode。
 - 目标 Figma 文件里的既有 frame 只能作为参考；复用任何结构前，都要检查是否存在 wrong variant、clipped clone 或 placeholder text。
 
@@ -194,6 +198,7 @@ description: Use this skill to generate, review, repair, or prototype AI Zhangle
 
 - 只有在能够保留结构时，才 clone confirmed Component。
 - 如果无法保留结构，使用清晰标注的 `未绑定组件` 或 `binding pending` fallback module。
+- 在标记 `binding pending` 前，必须说明已经检查过的 binding 条目、缺失的字段和失败原因；如果 `familyBindings` 中存在 verified 子组件，只能对缺失的局部模块 fallback，不能把整个组件族降级为未绑定。
 - fallback 原因写到右侧 annotation panel。
 - partial component 只使用已确认部分。
 - 例如 modal mask 已确认，但 body text override targets 仍 pending 时：使用 confirmed mask，创建明确标注的 fallback body，不要强行把业务文案写进未验证 component，也不要重画 component lookalike。
