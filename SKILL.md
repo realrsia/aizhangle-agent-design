@@ -203,12 +203,11 @@ description: Use this skill to generate, review, repair, or prototype AI Zhangle
 
 ### 字体兼容
 
-- 如果因字体或权限导致 Component 无法 instantiate 或 append，先尝试保留真实 component instance。
-- 放置前可把实例内部文字字体覆盖为项目当前可用字体。
-- 当前 Figma 用户体系未开通商业版或团队版时，不要假设引用字体能上传云端。
-- 字体不可用时，中文文字使用 `Noto Sans SC`，数字文字使用 `Noto Sans HK`，并在右侧 annotation 说明 blocker。
-- 字体 blocker 必须走完整修复路径：先按 key import / instantiate 到隔离 probe，读取实际 text font segments，加载可用字体，尝试把实例内部文字替换为 `Noto Sans SC` / `Noto Sans HK` 并保留组件结构；必要时寻找同一目标文件中来自原始 design-system source 的真实 instance clone。禁止在第一次 append 或 font load 失败后直接重绘 confirmed component family。
-- 如果以上修复路径仍失败，对 required confirmed 组件应停止交付并报告 blocker；只有非 required 或未确认 binding 的局部模块可以 fallback。
+- PingFang SC、涨乐财富体等商业或团队字体在当前账号权限下可能无法通过云字体解决；这些字体缺失不构成 component binding blocker。
+- 字体不可用时，必须优先保留真实 component instance / clone 结构，并将内部中文文字替换为 `Noto Sans SC`，数字文字替换为 `Noto Sans HK`；不要因为 PingFang SC 或涨乐财富体缺失而降级重绘组件。
+- 如果 append / mutate 被 unloaded font 拦截，先按 key import / instantiate 到隔离 probe，读取实际 text font segments，加载可用字体，替换实例内部文字字体后再 append；必要时寻找同一目标文件中来自原始 design-system source 的真实 instance clone。
+- 字体替换结果写入右侧 annotation 的 component report，表述为 `font substituted: PingFang SC / ZLCaiFuTi -> Noto Sans SC / Noto Sans HK`，不要写成 binding blocker。
+- 只有在字体替换后仍无法保留组件结构，且存在非字体原因导致 import / instantiate / clone 失败时，才按组件 blocker 处理。
 
 ### Clone、Partial Component 与 Fallback
 

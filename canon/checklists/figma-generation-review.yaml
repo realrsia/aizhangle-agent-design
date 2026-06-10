@@ -369,30 +369,29 @@ rules:
   - docs/references/foundations/visual-language.md
   autofix:
     strategy: build-token-source-map-bind-variables-or-mark-fallback-token-pending
-- id: font-blocker-recorded
+- id: component-font-substitution-preserves-instance
   severity: error
-  target: font-blocker
+  target: component-font-substitution
   assert:
-    fontBlockersIncludeComponentName: true
-    fontBlockersIncludeMissingFonts: true
-    fontBlockersIncludeAttemptedSteps: true
-    attemptedStepsInclude:
-    - key_import_or_instantiate_probe
-    - font_segment_inspection
-    - available_font_load
-    - internal_text_font_replacement_attempt
-    - verified_source_instance_clone_search
-    fontBlockersIncludeFinalHandling: true
+    missingCommercialOrTeamFontsDoNotBecomeBindingBlocker: true
+    pingFangScOrZlCaiFuTiMissingUsesNotoSubstitution: true
+    componentInstanceOrCloneStructurePreservedAfterFontSubstitution: true
+    fontSubstitutionReportIncludes:
+    - componentFamily
+    - originalFont
+    - substitutedFont
+    - affectedTextScope
     firstFontFailureDoesNotPermitRedraw: true
-    requiredConfirmedFontBlockerStopsDelivery: true
+    fontSubstitutionFailureRequiresNonFontBlockerBeforeFallback: true
     vagueFontProblemNotesDoNotPass: true
-  rationale: Font issues frequently block real component imports; they must be recorded
-    as actionable blockers instead of silently causing lookalike fallback.
+  rationale: Current team account permissions may not support PingFang SC or
+    ZLCaiFuTi cloud fonts. Missing fonts should be repaired by Noto substitution
+    while preserving real component instances, not treated as permission to redraw.
   sourceRefs:
   - SKILL.md
   - bindings/figma/components.yaml
   autofix:
-    strategy: record-font-blocker-and-preserve-real-instance-or-minimal-fallback
+    strategy: substitute-noto-fonts-preserve-component-instance-and-report
 - id: high-risk-trading-actions-not-ordinary-buttons
   severity: error
   target: high-risk-trading-action
