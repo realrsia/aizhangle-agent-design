@@ -5,7 +5,7 @@ items:
   - id: chat-background-uses-library
     severity: P0
     question: 页面背景是否使用设计仓库背景组件或变量，而不是手写色块？
-    passCriteria: 背景来源可追溯到 `设计仓库 / 对话流 / 2.2 页面背景` 的 `400:25043` 或 `400:26896`。
+    passCriteria: 背景来源可追溯到 `设计仓库 / 对话流 / 2.2 页面背景 / 背景/母组件` 的 `400:26745`；白版使用 `400:26805`，黑版使用 `400:26896`。
   - id: chat-background-not-screenshot
     severity: P0
     question: 是否没有把页面截图、普通矩形或近似色块当成可复用背景？
@@ -17,7 +17,7 @@ items:
   - id: chat-background-light-beam-source
     severity: P1
     question: 白版 AI Chat 背景是否保留对话流光线平铺效果？
-    passCriteria: 使用 `400:25043` / `背景/背景`，不替换成首页卡片背景、普通二级页纯色或手绘渐变。
+    passCriteria: 使用 `400:26805` / `背景/母组件` 的 `分类=新版工作区/一级, Dark=Off`，不替换成首页卡片背景、普通二级页纯色或手绘渐变。
   - id: chat-background-layer-root
     severity: P1
     question: 背景是否位于页面根层底部，而没有进入 message_feed、topbar 或 bottom_input？

@@ -549,35 +549,47 @@ components:
     sourceBrief: authoring/components/chat-background.brief.yaml
     fileName: 设计仓库
     fileKey: pbxELN7TYDDguIgbXfc1zB
+    libraryName: 设计仓库
+    libraryKey: lk-c538e1c2245e9be8f74d500c18ca0e580552aaf85cca34696f0c4d14263639e0f6d34b3f0a9e3a1a499577caf381e9367eba34c2382f45c87ed0b9d649bc45cb
     canvasNodeId: "212:2"
     canvasName: 对话流
     sectionNodeId: "400:24983"
     sectionName: 2.2 页面背景
     componentSetNodeId: "400:26745"
     componentSetName: 背景/母组件
-    componentKey: e7d0e3570253b5e750c00103dd65780e31461aa7
+    componentSetKey: e7d0e3570253b5e750c00103dd65780e31461aa7
+    importApi: importComponentSetByKeyAsync
     componentPropertyDefinitions:
       分类:
         type: VARIANT
         variantOptions:
           - 新版工作区/一级
+          - 新版二级页
+          - 新三级页
+          - KYC
+          - Agent
+          - 临时对话浮层
+          - 通栏卡片
+          - 非通栏卡片
+          - 旧一级页
+          - 旧二级页
+          - 大片
       Dark:
         type: VARIANT
         variantOptions:
           - "On"
           - "Off"
     confirmedVariants:
-      - variantId: chat-background-ai-chat-light
-        nodeId: "400:25043"
-        componentSetNodeId: "99:41900"
-        componentSetKey: 9f6660b69bfd31672ac187b946e7c0bb838b03b2
-        mainComponentNodeId: "99:41960"
-        componentKey: b30e295b0157c7f8f9a68dc42f7b1f8cd5521a9f
-        figmaExactName: 背景/背景
+      - variantId: chat-background-workspace-light
+        nodeId: "400:26805"
+        componentSetNodeId: "400:26745"
+        componentSetKey: e7d0e3570253b5e750c00103dd65780e31461aa7
+        componentKey: a3a4ab7790fb34ab0cb1708986b968024fc70729
+        figmaExactName: 分类=新版工作区/一级, Dark=Off
         variantProperties:
           分类: 新版工作区/一级
           Dark: "Off"
-      - variantId: chat-background-ai-chat-dark
+      - variantId: chat-background-workspace-dark
         nodeId: "400:26896"
         componentSetNodeId: "400:26745"
         componentSetKey: e7d0e3570253b5e750c00103dd65780e31461aa7
@@ -587,7 +599,8 @@ components:
           分类: 新版工作区/一级
           Dark: "On"
     verificationGaps:
-      - Background light-beam asset node `99:41966` is observed, but complete variable names still need Figma verification.
+      - 背景/母组件 supports 844px base height; long pages should resize the instance to the frame height, not switch to legacy 页面=全屏 variants.
+      - Design repository background variable/token binding is described by authoring but still needs exact Figma variable verification before treating token values as facts.
   component.chat-input:
     bindingMode: must_use_library_instance
     bindingFailurePolicy: stop_and_recheck
@@ -820,15 +833,35 @@ components:
         importApi: importComponentSetByKeyAsync
         bindingMode: must_use_library_instance
         bindingFailurePolicy: stop_and_recheck
-        status: verified_design_repository_search
-        oldSystemControlsBindingStatus: removed_do_not_import
-        candidateSymbols:
-          - nodeId: "392:68086"
-            figmaExactName: 分类=无序号, Dark=On
-          - nodeId: "392:68088"
-            figmaExactName: 分类=实心圆序号, Dark=On
-          - nodeId: "392:68092"
-            figmaExactName: 分类=空心圆序号, Dark=On
+        status: verified_dark_only_light_variant_missing
+        supportedThemes:
+          - dark
+        supportedVariants:
+          - figmaExactName: 分类=无序号, Dark=On
+            componentKey: f759c1ecc1c8ed3574e81d412212418357880049
+            variantProperties:
+              分类: 无序号
+              Dark: "On"
+          - figmaExactName: 分类=实心圆序号, Dark=On
+            componentKey: 10f2445615de6122299751d7ce66bf1129fc6fbe
+            variantProperties:
+              分类: 实心圆序号
+              Dark: "On"
+          - figmaExactName: 分类=空心圆序号, Dark=On
+            componentKey: a3f07528cf1350ec7f58d13eab4e2c48daa1f654
+            variantProperties:
+              分类: 空心圆序号
+              Dark: "On"
+        temporaryFallbacks:
+          - theme: light
+            missingFormalVariant: 分类=无序号, Dark=Off
+            fallbackMode: allowed_without_pause
+            fallbackName: fallback / non-canonical / answer-body-light
+            bindingFailurePolicyOverride: use_fallback_and_mark_non_canonical
+            constraints:
+              - Only applies to light message-feed answer body.
+              - Do not import or use Dark=On answer-body for light pages.
+              - Keep high-fidelity text hierarchy, spacing, and color semantics.
       - familyId: message-feed.related-question
         figmaExactName: 关联问
         componentSetKey: 437ea70cb6f4bd7cc3306b31ed58bbc372c5b803
@@ -850,28 +883,37 @@ components:
         bindingMode: must_use_library_instance
         bindingFailurePolicy: stop_and_recheck
         status: verified_design_repository_search
-        oldSystemControlsBindingStatus: removed_do_not_import
-        candidateSymbols:
-          - nodeId: "392:67956"
-            figmaExactName: 状态=完成态, 1月版=On, Dark=1月版
-        completedReasoningCandidateSymbols:
-          - nodeId: "392:68110"
-            figmaExactName: 有无子序列=Off, 一月版=On, Dark=On
-          - nodeId: "392:68105"
-            figmaExactName: 有无子序列=Off, 一月版=Off, Dark=On
-          - nodeId: "392:68097"
-            figmaExactName: 有无子序列=On, 一月版=Off, Dark=On
+        verifiedVariants:
+          - theme: light
+            figmaExactName: 状态=完成态, 1月版=On, Dark=Off
+            mainComponentKey: a3466a76c7ab60b39eb00b1aa7b1b0df14dbc2b8
+          - theme: dark
+            figmaExactName: 状态=完成态, 1月版=On, Dark=On
     businessContentComponentRefs:
       - id: message-feed.market-index
-        nodeId: "I400:26698;20477:77864"
-        figmaExactName: 1月版/item/指数模块
-        componentKey: 7959f0066bb76667e1998a550ad23d0c3459141a
-        status: verified_usage_instance_in_dialog_section
+        nodeId: "7:6302"
+        figmaExactName: 指数
+        componentKey: 2c8497856e210074e83c2183bcf545ce863041d1
+        status: verified_component_key_theme_variant_incomplete
+        themeSupport:
+          dark: verified_single_component
+          light: variant_not_confirmed
+        lightUsagePolicy: adapt_text_colors_and_mark_theme_adapter_until_light_variant_is_verified
+        dialogSectionUsageCandidate:
+          nodeId: "I400:26698;20477:77864"
+          figmaExactName: 1月版/item/指数模块
+          componentKey: 7959f0066bb76667e1998a550ad23d0c3459141a
+          status: verified_usage_instance_in_dialog_section
       - id: message-feed.market-movement
-        nodeId: null
-        figmaExactName: null
-        componentKey: null
-        status: verified_not_found_in_dialog_section
+        nodeId: "7:6303"
+        figmaExactName: A股异动
+        componentKey: 3255456fccafa816bf6c55f489fd6838b8233773
+        status: verified_component_key_theme_variant_incomplete
+        themeSupport:
+          dark: verified_single_component
+          light: variant_not_confirmed
+        lightUsagePolicy: adapt_text_axis_and_hot_question_colors_until_light_variant_is_verified
+        dialogSectionSearchStatus: verified_not_found_in_dialog_section
       - id: message-feed.auction
         nodeId: null
         figmaExactName: null
