@@ -79,6 +79,45 @@ rules:
   - bindings/figma/components.yaml
   autofix:
     strategy: import-source-component-or-record-blocker-before-fallback
+- id: component-key-probe-before-generation
+  severity: error
+  target: figma-generation-process
+  assert:
+    componentFamilyMapCompletedBeforeMainScreenMutation: true
+    everyConfirmedFamilyHasKeyProbeResult: true
+    probeResultIncludes:
+    - familyId
+    - componentKeyOrComponentSetKey
+    - importApi
+    - intendedVariantOrTheme
+    - status
+    - blockerIfFailed
+    requiredConfirmedProbeFailureStopsDelivery: true
+    noHighFidelityFallbackAfterProbeFailure: true
+  rationale: From-scratch generation must still use existing ComponentsKey. A failed
+    import probe does not permit drawing a polished lookalike screen from raw frames.
+  sourceRefs:
+  - SKILL.md
+  - bindings/figma/components.yaml
+  autofix:
+    strategy: build-component-family-map-run-key-probes-and-stop-on-required-failures
+- id: all-fallback-screen-forbidden
+  severity: error
+  target: figma-component-usage
+  assert:
+    screenNotPrimarilyRawFallbackWhenConfirmedComponentsExist: true
+    fixedChromeNotFallbackWhenConfirmedBindingExists: true
+    messageFeedVerifiedChildrenNotFallbackWhenKeysExist: true
+    requiredConfirmedComponentsImportedOrDeliveryBlocked: true
+    annotationCannotDowngradeP0ComponentFailureToPass: true
+  rationale: A complete-looking screen made mostly from fallback frames hides the
+    fact that the design system was not actually used.
+  sourceRefs:
+  - SKILL.md
+  - bindings/figma/components.yaml
+  - canon/components/message-feed.meta.yaml
+  autofix:
+    strategy: replace-fallback-lookalikes-with-component-key-imports-or-mark-output-nonfinal
 - id: generated-frame-clone-not-counted-as-component
   severity: error
   target: component-source-evidence
@@ -312,20 +351,24 @@ rules:
   target: token-and-color-source
   assert:
     tokenComplianceRequiresSource: true
+    tokenSourceMapCompletedBeforeMainScreenMutation: true
     acceptedColorSources:
     - figma_variable
     - figma_style
     - confirmed_component_rendering
+    - canonical_token_marked_token_binding_pending_for_low_fidelity_fallback
     hardcodedFallbackColorsMarkedTokenPending: true
     hardcodedFallbackDoesNotPassTokenCompliance: true
+    noClaimOfNormativeColorWithoutVariableStyleOrConfirmedComponentEvidence: true
   rationale: A dark-looking or light-looking screen is not token compliant unless
     its colors come from variables, styles, or confirmed component rendering.
   sourceRefs:
   - SKILL.md
   - DESIGN.md
+  - bindings/figma/variables.yaml
   - docs/references/foundations/visual-language.md
   autofix:
-    strategy: bind-token-source-or-mark-fallback-token-pending
+    strategy: build-token-source-map-bind-variables-or-mark-fallback-token-pending
 - id: font-blocker-recorded
   severity: error
   target: font-blocker
@@ -333,7 +376,15 @@ rules:
     fontBlockersIncludeComponentName: true
     fontBlockersIncludeMissingFonts: true
     fontBlockersIncludeAttemptedSteps: true
+    attemptedStepsInclude:
+    - key_import_or_instantiate_probe
+    - font_segment_inspection
+    - available_font_load
+    - internal_text_font_replacement_attempt
+    - verified_source_instance_clone_search
     fontBlockersIncludeFinalHandling: true
+    firstFontFailureDoesNotPermitRedraw: true
+    requiredConfirmedFontBlockerStopsDelivery: true
     vagueFontProblemNotesDoNotPass: true
   rationale: Font issues frequently block real component imports; they must be recorded
     as actionable blockers instead of silently causing lookalike fallback.

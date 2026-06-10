@@ -151,6 +151,8 @@ description: Use this skill to generate, review, repair, or prototype AI Zhangle
 - 先按 `manifest.json` 和本文件完成路由，再读取相关 `authoring/`、`canon/`、Figma `bindings/`、`assets` 和 `checklists`。
 - 涉及 Figma 生成时，`bindings/figma/components.yaml` 是判断 component family、component key、component set key、variant 和 import API 的必读文件；读取失败时先停止并说明 blocker，不要直接改用 fallback。
 - 涉及视觉生成或视觉评审时，必须遵循 `DESIGN.md` 的视觉语言。
+- 从零生成不等于从零绘制组件。只要目标场景已有 confirmed 或 partial confirmed component family，生成前必须先完成 component-family map，列出每个模块的 `familyId`、`componentKey` / `componentSetKey`、`importApi`、variant / theme、文字覆盖状态和 blocker 状态。
+- 在 component-family map 和 token-source map 完成前，不允许创建主屏主体。最多只能创建右侧 annotation 或临时 probe 节点；probe 失败后必须清理或明确标注，不得把 probe 失败直接升级为整屏重绘。
 
 ### Binding 规则
 
@@ -167,6 +169,18 @@ description: Use this skill to generate, review, repair, or prototype AI Zhangle
 - 使用 component 前，列出页面应该使用的 component families，并对每个 confirmed `componentKey` 或 `componentSetKey` 做小型 import / instantiate probe。
 - 必须选择正确 variant，并显式确认 light / dark variable mode。
 - 目标 Figma 文件里的既有 frame 只能作为参考；复用任何结构前，都要检查是否存在 wrong variant、clipped clone 或 placeholder text。
+- 对 confirmed fixed chrome 和核心消息组件，probe 失败是 P0 blocker，不是降级成高保真自绘的许可。示例：chat-topbar、chat-input / bottom bar、message-feed 的 verified 子组件、action-sheet mask / title / button area、trading action controls。
+- 如果 required confirmed 组件整体无法 import / instantiate / clone，必须停止交付或生成明显非最终的 blocker frame；不得交付一个看起来完整但主要由 raw frames 重绘的页面。
+- 允许 fallback 的范围只能是没有 confirmed binding 的局部业务模块，或 partial family 中确实缺失的子区域。fallback 必须低保真、图层名含 `未绑定组件 / binding pending`，且右侧 annotation 写清检查过哪些 binding 条目、缺失字段和失败原因。
+- 每个已放置 confirmed component 都必须能在右侧 annotation 或 metadata 中追溯到来源：`componentFamily`、`componentKey` / `componentSetKey` 或 source instance node、`usageMethod`、variant / theme。没有来源证据的“像组件”按重绘失败处理。
+
+### Token 与变量门禁
+
+- Figma 生成必须优先使用 Figma variables、styles 或 confirmed component rendering 承载颜色、字体、圆角、阴影和间距。
+- 生成前必须读取 `bindings/figma/variables.yaml`，并尽力用 `search_design_system` 或目标文件变量检查验证变量/样式是否可用。
+- 不要把手写 RGB / hex 当作规范颜色。只有以下来源可以通过 token compliance：Figma variable、Figma style、confirmed component instance 的原始渲染、或 canonical token 明确映射后仍在 annotation 标为 `token binding pending` 的低保真 fallback。
+- 如果变量或样式无法解析，可以做局部低保真 fallback，但必须在右侧 annotation 说明 `token binding pending`；不得声称页面“引用了规范颜色”。
+- 对 red / green 等金融语义色，必须使用 canonical financial semantics 或 confirmed component token；不能按视觉感觉选色。
 
 ### Auto Layout 规则
 
@@ -193,6 +207,8 @@ description: Use this skill to generate, review, repair, or prototype AI Zhangle
 - 放置前可把实例内部文字字体覆盖为项目当前可用字体。
 - 当前 Figma 用户体系未开通商业版或团队版时，不要假设引用字体能上传云端。
 - 字体不可用时，中文文字使用 `Noto Sans SC`，数字文字使用 `Noto Sans HK`，并在右侧 annotation 说明 blocker。
+- 字体 blocker 必须走完整修复路径：先按 key import / instantiate 到隔离 probe，读取实际 text font segments，加载可用字体，尝试把实例内部文字替换为 `Noto Sans SC` / `Noto Sans HK` 并保留组件结构；必要时寻找同一目标文件中来自原始 design-system source 的真实 instance clone。禁止在第一次 append 或 font load 失败后直接重绘 confirmed component family。
+- 如果以上修复路径仍失败，对 required confirmed 组件应停止交付并报告 blocker；只有非 required 或未确认 binding 的局部模块可以 fallback。
 
 ### Clone、Partial Component 与 Fallback
 

@@ -26,18 +26,34 @@ humanRules:
     - 按 shell、layout、block、item、content、action 层级组织。
     - 长回答先保证结构层级，再修视觉细节。
     - AI 头像、回答状态、正文、关联问优先使用设计仓库/对话流中已出现的实例或组件。
+    - 白版回答正文若设计仓库缺少 Dark=Off 正式变体，暂时允许使用高保真 fallback 文本容器；必须标注为 fallback / non-canonical / answer-body-light。
+    - 白版思考链必须使用设计仓库 `智能体输出/思考链` 的 Dark=Off 正式变体，不得改用 item/思考链/1月版 或手绘 fallback。
+    - message-feed 内的 fallback 股票卡、走势图、推荐结论、风险说明、白版正文容器必须使用 Auto Layout 表达父子关系、padding、gap 和文本流。
+    - fallback 中的文字节点纵向优先使用 Hug Contents / auto-height；父级容器高度必须由文本内容、padding 和 gap 自然撑开。
+    - 为了排版新增的 message-row、wrapper、container 只能承载布局；若其子级是正式设计组件实例，父级必须保持透明，fills/strokes/effects 均为空。
+    - 白版嵌入 `指数`、`A股异动` 等大盘业务组件时，必须确认组件是否存在 light 主题；若只有暗色组件，必须做高保真浅色主题适配并标注，不得出现白色标题/坐标轴文字落在白色卡片上。
   dont:
     - 不要把 numbered Frame 或 Group 当作语义组件来源。
     - 不要把关联问、免责声明、辅助功能散落到页面根层。
     - 不要用通用卡片堆叠替代对话消息结构。
     - 不要原创 AI 头像、回答状态、关联问或思考链样式来替代未绑定组件。
+    - 不要在白版页面使用 Dark=On 的智能体输出/正文组件，也不要通过覆盖白字变量伪装成白版正式组件。
+    - 不要在白版页面使用 Dark=On 的智能体输出/思考链组件，也不要通过覆盖白字变量伪装成白版正式组件。
+    - 不要用固定高度文本框或手写 y 坐标把长文本、风险说明、结论说明压进最小高度。
+    - 不要让承载用户输入、AI 头像、回答状态、思考链、正文、关联问等正式组件实例的外层 wrapper 产生可见背景、描边或阴影。
+    - 不要把只有暗色文本 token 的 `指数`、`A股异动` 组件直接放进白版卡片容器。
 
 # [HUMAN REQUIRED]
 riskWarnings:
   - 消息流是对话页主体，层级错会导致页面看起来像普通内容页。
   - 思考过程已绑定设计仓库组件，生成时必须导入组件，不能当普通卡片随意重画。
+  - 智能体输出/正文当前只确认了 Dark=On 组件；白版正文 Dark=Off 暂缺时可临时 fallback，但必须清楚标注，不得当作正式组件实例。
+  - 智能体输出/思考链已确认 Dark=Off 正式变体；白版若误用 Dark=On 或 item/思考链/1月版，会出现白色文字和结构漂移。
   - 股票信息卡和 K 线图无正式组件时允许 fallback，但必须标清不是正式组件。
+  - fallback 模块通过几何不重叠不代表合格；必须验证文本未被固定高度压缩，父级 padding 没有被吃掉，长页下半部分保留可读间距。
+  - Auto Layout 包裹层若保留 Figma 默认白色 fill，会在黑白页面中制造多余底色；生成后必须检查正式组件实例的父级 wrapper 没有可见 fills/strokes/effects。
   - 指数、A股异动、资讯等行情内容若在回答中出现，应优先使用设计仓库业务内容组件，不要重画成普通卡片。
+  - 指数、A股异动当前在 message-feed 中只记录到单个业务组件 key；若未确认 light variant，白版必须校验并适配文字颜色、坐标轴颜色和热问开关主题。
   - 设计仓库 3.3 底bar组件 section 未确认包含 AI 头像/回答状态正式组件；不能因此自行重画。
 
 # [HUMAN REQUIRED]
@@ -139,6 +155,20 @@ componentFamilies:
     variantProperties:
       分类: 无序号
       Dark: "On"
+    supportedThemes:
+      - dark
+    missingFormalVariants:
+      - theme: light
+        requiredProperties:
+          分类: 无序号
+          Dark: "Off"
+        status: missing_in_design_repository
+        temporaryFallbackAllowed: true
+        fallbackName: fallback / non-canonical / answer-body-light
+        fallbackRules:
+          - 仅限白版回答正文缺少 Dark=Off 正式组件时使用。
+          - 必须高保真贴合设计仓库正文排版、字号、行高、圆角和颜色语义。
+          - 不得使用 Dark=On 正文组件，不得把 fallback 写成已验证组件实例。
     designRepoCandidateSymbols:
       - nodeId: "392:68086"
         figmaExactName: 分类=无序号, Dark=On
@@ -182,6 +212,16 @@ componentFamilies:
         figmaExactName: 有无子序列=Off, 一月版=Off, Dark=On
       - nodeId: "392:68097"
         figmaExactName: 有无子序列=On, 一月版=Off, Dark=On
+    supportedThemes:
+      - light
+      - dark
+    verifiedVariants:
+      - theme: light
+        mainComponentKey: a3466a76c7ab60b39eb00b1aa7b1b0df14dbc2b8
+        figmaExactName: 状态=完成态, 1月版=On, Dark=Off
+      - theme: dark
+        mainComponentKeyStatus: verified_design_repository_search
+        figmaExactName: 状态=完成态, 1月版=On, Dark=On
     oldSystemControlsBindingStatus: removed_do_not_import
     componentSetKey: 217b02802185d4a9053dd4c9e477b67bd3f8000a
     januaryComponentSetKey: 3aef969e2174f71ef5951a1af9abf40dc5d3460a
@@ -213,19 +253,25 @@ businessContentComponentRefs:
   - id: message-feed.market-index
     figmaExactName: 指数
     usageType: answer_embedded_business_content
-    sourceStatus: pending_new_design_repository_binding
-    pendingFields:
-      - figmaNodeId
-      - componentKey
-    note: 用户提问返回市场指数时可作为正式内容组件候选；需在新设计仓库中重新确认节点与 componentKey。
+    sourceStatus: verified_component_key_theme_variant_incomplete
+    figmaNodeId: "7:6302"
+    componentKey: 2c8497856e210074e83c2183bcf545ce863041d1
+    themeSupport:
+      dark: verified_single_component
+      light: variant_not_confirmed
+    lightUsagePolicy: adapt_text_colors_and_mark_theme_adapter_until_light_variant_is_verified
+    note: 用户提问返回市场指数时可作为正式内容组件候选；白版使用前必须确认没有白色标题文字落在白色卡片上。
   - id: message-feed.market-movement
     figmaExactName: A股异动
     usageType: answer_embedded_business_content
-    sourceStatus: pending_new_design_repository_binding
-    pendingFields:
-      - figmaNodeId
-      - componentKey
-    note: 用户提问返回 A 股异动时可作为正式内容组件候选；需在新设计仓库中重新确认热问开关和 dark 变体。
+    sourceStatus: verified_component_key_theme_variant_incomplete
+    figmaNodeId: "7:6303"
+    componentKey: 3255456fccafa816bf6c55f489fd6838b8233773
+    themeSupport:
+      dark: verified_single_component
+      light: variant_not_confirmed
+    lightUsagePolicy: adapt_text_axis_and_hot_question_colors_until_light_variant_is_verified
+    note: 用户提问返回 A 股异动时可作为正式内容组件候选；白版使用前必须确认标题、tab、坐标轴和热问开关均为浅色主题。
   - id: message-feed.auction
     figmaExactName: 竞价
     usageType: answer_embedded_business_content
@@ -393,12 +439,55 @@ slots:
     description: AI 头像和身份行。
   reasoningPanel:
     description: 思维链步骤、展开收起和检索内容。
+    lightVariant: 使用设计仓库 `智能体输出/思考链` 的 状态=完成态, 1月版=On, Dark=Off 正式组件。
   answerBody:
     description: 标题、正文、列表、表格等回答正文。
+    temporaryLightFallback: 设计仓库暂缺 Dark=Off 正式正文组件；白版可用 fallback / non-canonical / answer-body-light，不暂停生成。
   answerFooter:
     description: 免责声明、来源、辅助功能。
   relatedQuestions:
     description: 关联问列表。
+
+fallbackLayoutRules:
+  appliesTo:
+    - fallback / non-canonical / stock-recommendation-card
+    - fallback / non-canonical / stock-trend-chart
+    - answer-detail / recommendation-rationale
+    - financial-risk-disclaimer
+    - fallback / non-canonical / answer-body-light
+  requiredStructure:
+    - outerContainer.layoutMode must be VERTICAL when children stack vertically.
+    - parent padding and itemSpacing must express visual spacing; do not rely on manual y coordinates for primary text flow.
+    - multiline text uses fill-width on the horizontal axis and Hug Contents / auto-height on the vertical axis.
+    - parent height must be at least text rendered height plus vertical padding and sibling gaps.
+  forbiddenStructure:
+    - textAutoResize=NONE for multiline explanatory copy.
+    - fixed-height parent containers that remove bottom padding or make copy visually crowded.
+    - tag or pill wrappers with near-zero width that depend on overflow visibility.
+  longPageSpacingMinimums:
+    chartToRecommendationRationale: 18
+    recommendationRationaleToRiskDisclaimer: 14
+    riskDisclaimerToRelatedQuestions: 16
+
+wrapperTransparencyRules:
+  appliesTo:
+    - message-row / user-question
+    - message-row / assistant-answer
+    - layout wrappers around verified design-repository instances
+  required:
+    - wrapper nodes created only for Auto Layout must set fills: []
+    - wrapper nodes created only for Auto Layout must set strokes: []
+    - wrapper nodes created only for Auto Layout must set effects: []
+    - verified component instances keep their own visual fills, strokes, effects, and variants; do not move the visual style to the wrapper.
+  allowedVisibleWrappers:
+    - fallback / non-canonical / stock-recommendation-card
+    - fallback / non-canonical / stock-trend-chart
+    - answer-detail / recommendation-rationale
+    - financial-risk-disclaimer
+    - fallback / non-canonical / answer-body-light
+  validation:
+    - compare direct wrapper fills/strokes/effects against previous known-good pages when repairing layout.
+    - descendant-overflow checks must run together with parent-wrapper visibility checks; geometry overlap alone is not sufficient.
 
 tokens:
   source:
@@ -524,6 +613,22 @@ reviewChecklist:
     severity: P0
     question: 股票卡、K线图等非已验证组件是否被声明为 fallback 或待确认？
     passCriteria: fallback 不被写成已验证组件实例。
+  - id: message-feed-answer-body-light-fallback
+    severity: P0
+    question: 白版回答正文是否避免使用 Dark=On 正式组件？
+    passCriteria: 设计仓库缺少 Dark=Off 正文组件时，白版正文使用 `fallback / non-canonical / answer-body-light`，并保持高保真排版；黑版仍使用 Dark=On 正式组件。
+  - id: message-feed-reasoning-light-variant
+    severity: P0
+    question: 白版思考链是否使用设计仓库 Dark=Off 正式组件？
+    passCriteria: 白版长页使用 `智能体输出/思考链` 的 `状态=完成态, 1月版=On, Dark=Off`，不得使用 Dark=On 或 `item/思考链/1月版` 替代。
+  - id: message-feed-layout-wrapper-transparent
+    severity: P0
+    question: 为排版新增的 message-row/wrapper 是否保持透明？
+    passCriteria: 承载正式组件实例的外层 Auto Layout wrapper 的 fills/strokes/effects 均为空；只有明确声明的 fallback 内容卡允许有可见背景。
+  - id: message-feed-business-light-theme-adapted
+    severity: P0
+    question: 白版中的指数/A股异动业务组件是否完成浅色主题适配？
+    passCriteria: 指数、A股异动若只有单个暗色组件 key，白版必须把标题、指数名、tab、坐标轴、时间轴和热问开关切到浅色主题文字/底色；不得保留白色文字落在白色 wrapper 上。
   - id: message-feed-no-system-controls-import
     severity: P0
     question: 智能体输出组件是否避免导入旧系统控件母组件？
