@@ -1,4 +1,4 @@
 interface:
-  display_name: "AI Zhangle Design System"
-  short_description: "生成、评审和修复 AI 涨乐移动端设计"
-  default_prompt: "Use $zhangle-agent-design-system to generate, review, or repair an AI Zhangle mobile design with the repository canon, bindings, and checklists."
+  display_name: "AI涨乐产品原型生成"
+  short_description: "基于AI涨乐设计规范，生成贴近AI涨乐设计风格的页面原型"
+  default_prompt: "使用 $zhangle-agent-design-system 生成或修改 AI涨乐App移动端页面原型，包括大盘/交易/下单/自选/持仓/AI 对话/任务助手等页面或组件。"
