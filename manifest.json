@@ -8,7 +8,7 @@
   "entrypoints": {
     "skill": "SKILL.md",
     "design": "DESIGN.md",
-    "agents": "AGENTS.md",
+    "agentCompatibility": "AGENTS.md",
     "llms": "llms.txt",
     "humanAuthoring": "authoring/README.md",
     "changeHistory": "docs/references/change-history.md",

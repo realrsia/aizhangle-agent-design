@@ -4,20 +4,14 @@ This repository is an Agent-readable design-system source for AI Zhangle / New Z
 
 Start with:
 
-- `SKILL.md`
-- `manifest.json`
-- `DESIGN.md`
-- `authoring/components/index.yaml`
-- `docs/references/component-brief-workflow.md`
-- `canon/foundations/tokens/color.tokens.json`
-- `schemas/component.schema.json`
-- `schemas/component-brief.schema.yaml`
-- `canon/checklists/visual-review.yaml`
+- `SKILL.md`: canonical Agent behavior, task routing, business keywords, editing rules, Figma generation constraints, and delivery requirements.
+- `manifest.json`: machine-readable path index.
+- `DESIGN.md`: visual generation, visual review, design tasting, hierarchy, density, atmosphere, and polish.
 
-Human reference material is under `docs/references/`.
+`AGENTS.md` is a compatibility entry only. Do not treat it as a separate rule source.
 
-Generated outputs are under `generated/` and are not source of truth.
+Human-authored inputs live under `authoring/`. Canonical machine-readable truth lives under `canon/`. Figma and local resource bindings live under `bindings/`. Low-fidelity HTML renderer rules live under `renderers/`.
 
-For component work, treat `authoring/components/*.brief.yaml` as the human-authored input and expand it into `canon/components/`, `canon/checklists/`, `bindings/figma/components.yaml`, and `docs/generated/components/index.md`.
+For component work, treat `authoring/components/*.brief.yaml` as the human-authored input and expand it into `canon/components/`, `canon/checklists/`, `bindings/figma/components.yaml`, and `docs/generated/components/index.md` when needed.
 
-For visual generation or aesthetic review, start with `DESIGN.md`. Foundation files own base values; visual-language references supplement atmosphere, hierarchy, density, and design tasting.
+For scenario or page work, use `SKILL.md` business routing keywords first, then load the matching `authoring/scenarios/`, `canon/scenarios/`, `canon/archetypes/`, component meta, Figma bindings, and review checklists.

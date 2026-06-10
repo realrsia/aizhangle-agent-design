@@ -19,7 +19,66 @@ description: Use this skill to generate, review, repair, or prototype AI Zhangle
 - `docs/` 是解释层，只在 canon、authoring、bindings 不够时作为补充阅读。
 - `docs/generated/` 是生成结果，不要当作可编辑真源。
 - 涉及视觉生成、视觉评审、design tasting、层级、密度、氛围或美感判断时，必须读取 `DESIGN.md`。
-- 涉及仓库编辑纪律、人类拥有字段、source-of-truth 规则时，遵循 `AGENTS.md`。
+- 本文件是 Agent 行为和仓库维护规则的主入口；`AGENTS.md` 仅作为兼容入口。
+
+## 仓库维护规则
+
+### Source Of Truth
+
+- Tokens：`canon/foundations/tokens/`
+- Components：`canon/components/`
+- Archetypes：`canon/archetypes/`
+- Business scenarios：`canon/scenarios/`
+- Review rules：`canon/checklists/`
+- Aesthetic entrypoint：`DESIGN.md`
+- Visual language and design tasting：`docs/references/foundations/visual-language.md`、`docs/references/process/design-taster.md`、`docs/references/process/impeccable-adaptation.md`
+- Figma bindings：`bindings/figma/`
+- Local assets：`bindings/assets/manifest.yaml`
+- Human brief inputs：`authoring/`
+- HTML low-fidelity renderer rules：`renderers/html/`
+
+### Editing Rules
+
+- 保持已有 ID 稳定。
+- 有来源迁移或引用关系时，补充 `sourceRefs`。
+- 不要把 `docs/generated/` 或生成物当作可编辑真源。
+- 不要把本地 SVG、PNG、fonts、JSON templates 当作 maintained Figma component instances。
+- maintained components 以 Figma component IDs 作为主要设计来源。
+- H5 / HTML prototypes 可以使用 Figma IDs 作为 identity evidence，但必须通过 `renderers/html/` 规则渲染。
+- Foundation 和 component files 拥有 color、typography、radius、spacing、component metrics 等准确值；视觉语言文件只补充氛围、构图、层级、密度和 design-tasting 判断。
+- 不要从审美笔记中引入新的 color、typography、radius 或 spacing 系统。
+- 新增或修改 component 时，同步检查 `authoring/components/index.yaml`、对应 brief、`canon/components/`、`canon/checklists/`、`bindings/figma/components.yaml` 和 schema 是否需要更新。
+- 修改仓库结构、canon、bindings、checklists、docs、schemas、renderers 或 workflow 文档后，在 `docs/references/change-history.md` 追加简洁记录。
+- 合并前至少运行相关 JSON / YAML 解析校验。
+
+### Human-Owned Fields
+
+以下内容必须由人类撰写或确认，Agent 可以起草、规范化、验证和提出建议，但不能把未确认内容当作最终事实：
+
+- `description`
+- `usageRules`
+- `aiWarnings`
+- `businessScenarios`
+- financial risk boundaries
+- destructive or trading-action rules
+- `purpose`
+- `usedIn`
+- `humanRules`
+- `riskWarnings`
+- `allowedZones`
+- `forbiddenZones`
+- `requiredPairings`
+- `forbiddenPairings`
+- `examples`
+- component `status`
+
+### Collaboration Workflow
+
+- 人类优先编辑 `authoring/` 中的简单 brief。
+- Agent 将 brief 扩展到 `canon/`、`bindings/`、`canon/checklists/` 和 `docs/generated/`。
+- Component 工作使用三段式 YAML brief：`01_HUMAN_REQUIRED`、`02_AGENT_EXTRACTED`、`03_AGENT_EXPANSION_AND_CHECKLIST`。
+- 视觉生成或评审从 `DESIGN.md` 开始，再读取最小相关 foundation、component、scenario 和 review 文件。
+- 每次 PR 或批量变更尽量聚焦一个 component、scenario、token group、checklist、Figma binding group 或 case study。
 
 ## 开始任何任务
 
@@ -31,6 +90,19 @@ description: Use this skill to generate, review, repair, or prototype AI Zhangle
 6. 交付前运行相关 `canon/checklists/`。如果目标是 Figma screen generation，必须包含 `canon/checklists/figma-generation-review.yaml`。
 7. 如果改动了 Figma generation 规则，同步检查 `canon/checklists/figma-generation-review.yaml`，保证 checklist 仍覆盖这些硬性约束。
 8. 如果改动了仓库结构、canon、bindings、checklists、docs、schemas、renderers 或 workflow 文档，在 `docs/references/change-history.md` 追加简洁记录。
+
+## 业务路由关键词
+
+这个列表只负责把用户口语中的业务词路由到正确文件，不替代 `authoring/scenarios/`、`canon/scenarios/`、`canon/archetypes/` 或组件规范。
+
+- 大盘、市场总览、指数、涨跌榜、异动、竞价、弹幕、资讯、涨停猎手：读取 `authoring/scenarios/market-index.brief.yaml`、`canon/archetypes/market-overview-page.yaml` 和 `canon/components/market-index-modules.meta.yaml`；如果 `canon/scenarios/market-index.yaml` 已存在，再读取它作为机器场景路由。
+- 自选、持仓、行情列表、金融表格、K线图、最新价、涨幅、涨跌、成交额、换手率：读取 `canon/scenarios/watchlist.yaml`、`canon/archetypes/mobile-list-page.yaml`、`docs/references/lists/financial-table-list.md`、`docs/references/lists/watchlist.md` 和相关 table/list templates。
+- 交易、下单、买入、卖出、撤单、条件单、委托、历史委托、模拟交易、实盘交易：读取 `authoring/scenarios/trading.brief.yaml`、相关 trading component brief / meta 和交易风险 checklist；如果 `canon/scenarios/trading.yaml` 已存在，再读取它作为机器场景路由。
+- AI 对话、消息、问答、追问、关联问题、思考过程、回答状态、底部输入栏：读取 `authoring/scenarios/ai-chat.brief.yaml`、`canon/scenarios/ai-chat.yaml`、`canon/archetypes/mobile-chat-page.yaml`、`canon/components/message-feed.meta.yaml` 和 `canon/components/chat-input.meta.yaml`。
+- Bottom Bar、底部输入、语音输入、键盘输入、任务助手、陪伴、首页入口展开、个股详情预交易：读取相关 `authoring/scenarios/bottom-bar-*.brief.yaml`、`canon/components/bottom-bar.meta.yaml` 和 `bindings/figma/components.yaml` 中的 bottom-bar family。
+- Action Sheet、弹窗、协议确认、AI 结果说明、输入任务、高风险交易确认：读取 `authoring/scenarios/action-sheet-modal-usage.brief.yaml`、`canon/components/action-sheet.meta.yaml` 和相关 action-sheet checklist / binding。
+- 视觉风格、审美、氛围、层级、密度、polish、design tasting：读取 `DESIGN.md`、`docs/references/foundations/visual-language.md`、`docs/references/process/design-taster.md` 和 `docs/references/process/impeccable-adaptation.md`。
+- Figma 组件 key、component family、variant、变量、样式、绑定缺失：读取 `bindings/figma/components.yaml`、`bindings/figma/critical-bindings.yaml`、`bindings/figma/files.yaml` 和 `bindings/figma/variables.yaml`。
 
 ## 按任务读取
 
@@ -77,7 +149,7 @@ description: Use this skill to generate, review, repair, or prototype AI Zhangle
 - `canon/archetypes/*.yaml`：读取页面骨架和 zone 结构。
 - `canon/scenarios/*.yaml`：把业务意图映射到 archetypes、components 和 constraints。
 - 相关 `canon/components/*.meta.yaml`：读取页面中组件的规则。
-- `bindings/assets/manifest.yaml`：需要 icons、fonts、backgrounds、templates 或 examples 时读取。
+- `bindings/assets/manifest.yaml`：需要 icons、fonts、templates 或 prototype fallback assets 时读取。
 - `canon/checklists/visual-review.yaml`：检查完整页面或场景输出。
 - `canon/checklists/figma-generation-review.yaml`：检查组件覆盖、fixed chrome、Auto Layout、fallback labels、annotations、themes、screenshots 和 metadata。
 
