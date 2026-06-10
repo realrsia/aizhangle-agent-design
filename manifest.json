@@ -4,7 +4,7 @@
   "schemaVersion": 1,
   "version": "0.1.0",
   "status": "mvp",
-  "description": "Schema-first Agent-readable design-system repository for AI Zhangle / New Zhangle.",
+  "description": "Machine-readable path index for the schema-first AI Zhangle / New Zhangle design-system repository.",
   "entrypoints": {
     "skill": "SKILL.md",
     "design": "DESIGN.md",
@@ -40,6 +40,8 @@
     "figma": "bindings/figma/",
     "figmaComponents": "bindings/figma/components.yaml",
     "criticalFigmaBindings": "bindings/figma/critical-bindings.yaml",
+    "figmaFiles": "bindings/figma/files.yaml",
+    "figmaVariables": "bindings/figma/variables.yaml",
     "assets": "bindings/assets/manifest.yaml"
   },
   "renderers": {
@@ -67,8 +69,7 @@
     "visualAuditChain": "docs/references/visual-audit-chain.md",
     "antiPatterns": "docs/references/anti-patterns.md",
     "foundationTokens": "docs/references/foundations/tokens.md",
-    "foundationTypography": "docs/references/foundations/typography.md",
-    "sourcePriority": "Akun foundation/component files own numeric values and implementation rules. Dengpeng design-generation files supplement visual language, composition, hierarchy, density, and design-tasting review."
+    "foundationTypography": "docs/references/foundations/typography.md"
   },
   "agents": {
     "openai": "agents/openai.yaml"

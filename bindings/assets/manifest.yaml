@@ -4,22 +4,17 @@ schemaVersion: 1
 version: 0.1.0
 status: draft
 title: Local Asset Manifest
-summary: Local asset binding layer copied from zhangle-design-skill and the Akun fusion source.
+summary: Local asset binding layer for assets copied into this repository.
 basePath: bindings/assets/files
 sourceRefs:
-  - ../zhangle-design-skill/assets
-  - ../各自的分支/0602xzl-design-system-fusion-version_阿琨合并版/assets
-  - ../各自的分支/0602xzl-design-system-fusion-version_基于最新的yaml合并版/assets
+  - bindings/assets/files
 pathAliases:
   - alias: assets/tokens/
     resolvesTo: bindings/assets/files/design-tokens/
-    reason: Latest component briefs keep the original fusion asset path.
+    reason: Some component briefs keep legacy asset aliases; resolve them to local copied files.
   - alias: assets/templates/
     resolvesTo: bindings/assets/files/templates/
-    reason: Latest component briefs keep the original fusion asset path.
-  - alias: assets/examples/
-    resolvesTo: bindings/assets/files/examples/
-    reason: Latest component briefs keep the original fusion asset path.
+    reason: Some component briefs keep legacy asset aliases; resolve them to local copied files.
 assetGroups:
   - id: design-tokens
     kind: token-source
@@ -45,27 +40,11 @@ assetGroups:
     useFor:
       - bottom-bar-backgrounds
       - bottom-bar-icons
-      - bottom-bar-examples
-  - id: examples
-    kind: screenshot-example
-    path: examples/
-    useFor:
-      - visual-reference
-      - case-study-evidence
   - id: fonts
     kind: font
     path: fonts/
     useFor:
       - financial-numeric-font
-  - id: fusion-files
-    kind: fusion-source-assets
-    path: ../fusion-files/
-    useFor:
-      - offline-reference
-      - prototype-fallback
-      - visual-evidence
-    notCanonicalFor:
-      - maintained-figma-component-instance
   - id: radius-tokens
     kind: token-source
     path: design-tokens/radius-tokens.json
@@ -129,27 +108,6 @@ resourceRefs:
   - id: asset.template.trading-input-output-checklist
     type: local-asset
     locator: bindings/assets/files/templates/trading-input-output-checklist.json
-  - id: asset.example.buttons-system
-    type: local-asset
-    locator: bindings/assets/files/examples/buttons-system.png
-  - id: asset.example.stock-detail-page
-    type: local-asset
-    locator: bindings/assets/files/examples/stock-detail-page.png
-  - id: asset.example.mobile-home-workbench
-    type: local-asset
-    locator: bindings/assets/files/examples/mobile-home-workbench.png
-  - id: asset.example.overlays-popovers-sheets
-    type: local-asset
-    locator: bindings/assets/files/examples/overlays-popovers-sheets.png
-  - id: asset.example.switch-system
-    type: local-asset
-    locator: bindings/assets/files/examples/switch-system.png
-  - id: asset.example.tag-system
-    type: local-asset
-    locator: bindings/assets/files/examples/tag-system.png
-  - id: asset.example.trading-order-page
-    type: local-asset
-    locator: bindings/assets/files/examples/trading-order-page.png
   - id: asset.template.page-typography-scale
     type: local-asset
     locator: bindings/assets/files/templates/page-typography-scale.json
@@ -202,41 +160,3 @@ resourceRefs:
       - offline-generation
     notCanonicalFor:
       - maintained-figma-component-instance
-  - id: asset.bottom-bar.examples
-    type: local-asset
-    assetKind: screenshot-example
-    locator: bindings/assets/files/bottom-bar/examples/
-    role: bottom-bar-visual-evidence
-    useFor:
-      - visual-reference
-      - case-study-evidence
-  - id: asset.bottom-bar.example.positive
-    type: local-asset
-    assetKind: screenshot-example
-    locator: bindings/assets/files/bottom-bar/examples/bottom-bar-positive-examples.png
-    role: positive-example
-    sourceRefs:
-      - authoring/case-studies/bottom-bar-global-layer-and-visual-references.md
-  - id: asset.bottom-bar.example.icon-shadow-annotations
-    type: local-asset
-    assetKind: screenshot-example
-    locator: bindings/assets/files/bottom-bar/examples/bottom-bar-icon-shadow-annotations.png
-    role: visual-annotation
-  - id: asset.bottom-bar.external.home-entry-img-5422
-    type: external-reference
-    assetKind: screenshot-example
-    locator: /Users/penn/Downloads/IMG_5422.PNG
-    status: TODO_HUMAN_CONFIRM
-    role: home-entry-expanded-reference
-    sourceRefs:
-      - authoring/scenarios/bottom-bar-home-entry-expanded.brief.yaml
-      - authoring/case-studies/bottom-bar-home-entry-expanded.md
-  - id: asset.bottom-bar.external.home-entry-img-5423
-    type: external-reference
-    assetKind: screenshot-example
-    locator: /Users/penn/Downloads/IMG_5423.PNG
-    status: TODO_HUMAN_CONFIRM
-    role: home-entry-expanded-reference
-    sourceRefs:
-      - authoring/scenarios/bottom-bar-home-entry-expanded.brief.yaml
-      - authoring/case-studies/bottom-bar-home-entry-expanded.md

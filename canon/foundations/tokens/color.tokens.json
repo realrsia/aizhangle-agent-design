@@ -1,11 +1,11 @@
 {
   "$schema": "https://design-tokens.github.io/community-group/format/",
-  "$description": "MVP DTCG-style color token source extracted from zhangle-design-skill token mapping. This file is the canonical color source for first-stage Agent use.",
+  "$description": "MVP DTCG-style color token source. This file is the canonical color source for first-stage Agent use.",
   "$extensions": {
     "zhangle": {
       "sourceRefs": [
-        "../zhangle-design-skill/assets/design-tokens/token-mapping.json",
-        "../zhangle-design-skill/assets/design-tokens/xzl-color-tokens.csv"
+        "bindings/assets/files/design-tokens/token-mapping.json",
+        "bindings/assets/files/design-tokens/xzl-color-tokens.csv"
       ],
       "financialSemantics": {
         "red": "rising_or_positive",

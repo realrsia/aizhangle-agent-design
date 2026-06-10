@@ -63,8 +63,8 @@ forbiddenPairings:
 # [HUMAN REQUIRED]
 examples:
   good:
-    - assetPath: assets/examples/tag-system.png
-      reason: 覆盖标的、信号和状态标签的语义分组。
+    - name: tag-system-matrix
+      reason: 覆盖标的、信号和状态标签的语义分组；以 canon 和 Figma component binding 为准，不依赖本地截图。
   needsReview: []
   bad:
     - name: 用红绿标签代替涨跌数字颜色

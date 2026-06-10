@@ -74,9 +74,7 @@ This index lists the actual integrated material in this skill. It is not a sourc
 - `assets/templates/`
 - `assets/icons/`
 - `assets/fonts/`
-- `assets/backgrounds/`
-- `assets/page-headers/`
+- confirmed Figma page-shell/header bindings
 - `assets/bottom-bar/`
 - `assets/charts/`
-- `assets/examples/`
-
+- confirmed Figma links, component bindings, and maintained case-study notes

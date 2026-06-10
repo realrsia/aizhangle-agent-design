@@ -27,6 +27,12 @@ layout:
   fixedZones:
     - topbar
     - bottom_input
+  contentRules:
+    bottomInputGapPxMin: 40
+    messageFeedMustCoverChildren: true
+    messageFeedCannotBeCoveredByBottomInput: true
+    explicitSpacerBeforeBottomInput: recommended
 reviewDefaults:
   - checklist.visual-review
   - checklist.chat-fidelity-source
+  - checklist.figma-generation-review

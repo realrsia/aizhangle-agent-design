@@ -59,8 +59,8 @@ forbiddenPairings:
 # [HUMAN REQUIRED]
 examples:
   good:
-    - assetPath: assets/examples/switch-system.png
-      reason: 覆盖 switch、checkbox、radio、segmented 和 icon toggle。
+    - name: switch-system-matrix
+      reason: 覆盖 switch、checkbox、radio、segmented 和 icon toggle；以 canon 和 Figma component binding 为准，不依赖本地截图。
   needsReview: []
   bad:
     - name: 用按钮样式表现开关状态

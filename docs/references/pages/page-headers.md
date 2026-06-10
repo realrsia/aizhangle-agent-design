@@ -4,9 +4,9 @@
 
 Use normalized asset names in rules and output. Do not cite raw source filenames as the implementation contract.
 
-- Home sidebar entry: `assets/page-headers/home-sidebar-entry-light.png`, `assets/page-headers/home-sidebar-entry-dark.png`.
+- Home sidebar entry: confirmed Figma header/sidebar-entry component or binding.
 - Level-2 close button: `assets/icons/header-close-filled-light.svg`, `assets/icons/header-close-filled-dark.svg`.
-- Level-2 tabs: `assets/page-headers/level2-tab-{2char|3char}-{selected|unselected}-{light|dark}.png`.
+- Level-2 tabs: confirmed Figma tab component or binding.
 - Level-3 back icon: `assets/icons/header-back-outlined.svg`.
 - Full-screen conversation icons: `assets/icons/header-message-outlined.svg`, `assets/icons/header-play-outlined.svg`.
 - Half-screen conversation icons: `assets/icons/header-close-outlined.svg`, `assets/icons/header-fullscreen-outlined.svg`, `assets/icons/header-play-outlined-sheet.svg`.
@@ -37,7 +37,7 @@ Verify:
 - Gap from the top iOS system region to home header is `9px`.
 - Header layout box is `40 x 40`, positioned at `x=330`, `y=56` on a `390 x 844` page.
 - The layout box right edge is `20px` from the screen right edge.
-- The sidebar entry asset is mode-matched and displayed at its native `78 x 78` visual size; the visual shadow/glow may overflow the `40 x 40` layout box.
+- The sidebar entry visual is mode-matched and displayed at its native `78 x 78` visual size; the visual shadow/glow may overflow the `40 x 40` layout box.
 - No title, search, tab, or bottom divider appears in the home header.
 
 ## Rule: Level-2 headers use left information and optional right tabs
@@ -62,12 +62,12 @@ Verify:
 - In the `53px` variant, close button vertically centers to the title+description text group; the text group and tab group top-align to the header top, with tabs aligned to the title row.
 - Avoid title strings that collide with right tabs; list this as an open gap instead of compressing, wrapping, or inventing alternate layout.
 
-## Rule: Level-2 right tabs use image backgrounds and tokenized text
+## Rule: Level-2 right tabs use approved Figma visuals and tokenized text
 
 When level-2 tabs are present, place them in the right area.
 
 Why:
-The tabs use exported background assets with glow/selected effects, so ordinary CSS pills will not match.
+The tabs use maintained selected/unselected visuals with glow/selected effects, so ordinary CSS pills will not match.
 
 Verify:
 
@@ -79,7 +79,7 @@ Verify:
 - Text top offset inside the tab background is `7.5px`.
 - Selected text uses PingFang SC Medium `14px`, token `text-b`.
 - Unselected text uses PingFang SC Regular `14px`, token `text-c`.
-- Light/dark mode selects the matching tab background asset and token mode values.
+- Light/dark mode selects the matching tab visual variant and token mode values.
 
 ## Rule: Level-3 header is a centered-title nav bar
 

@@ -369,7 +369,6 @@ assetRefs:
   - template.bottom-bar
   - asset.bottom-bar.backgrounds
   - asset.bottom-bar.icons
-  - asset.bottom-bar.examples
 sourceRefs:
   - authoring/components/bottom-bar.brief.yaml
   - authoring/scenarios/bottom-bar-fullscreen-dialog.brief.yaml

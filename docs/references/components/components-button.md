@@ -4,7 +4,7 @@ Use this file as the button router. Button rules cover the mobile app product on
 
 Positive/spec example:
 
-- `assets/examples/buttons-system.png`
+- Use the button component matrix in canon and the confirmed Figma button bindings; do not depend on local screenshot examples.
 
 Load the smallest relevant button references:
 

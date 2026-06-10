@@ -18,31 +18,30 @@ Verify:
 
 Use these background assignments:
 
-- Level 1: home page, plus pages explicitly specified as level 1. Asset: `assets/backgrounds/page-background-level1-light.png` or `assets/backgrounds/page-background-level1-dark.png`.
-- Level 2: stock detail page, 自选, 持仓页, trading page, and pages entered from a level-1 entry. Asset: `assets/backgrounds/page-background-level2-light.png` or `assets/backgrounds/page-background-level2-dark.png`.
+- Level 1: home page, plus pages explicitly specified as level 1. Use the confirmed Figma page-shell/background component when available.
+- Level 2: stock detail page, 自选, 持仓页, trading page, and pages entered from a level-1 entry. Use the confirmed Figma page-shell/background component when available.
 - Level 3: pages entered from a level-2 page. Use the design token `background-a` (`xzl/color/background/page`, source `xzl-color-background-a`) instead of an image.
 
 Why:
-Level 1 and level 2 pages use image backgrounds; level 3 pages use the plain page background token.
+Level 1 and level 2 pages use the maintained Figma background shell when available; level 3 pages use the plain page background token.
 
 Verify:
 
 - 首页 uses the level-1 background unless the task explicitly specifies another level-1 page.
 - 自选 and 持仓页 are treated as level-2 tabs of the same page background category.
 - Trading pages and stock detail pages use the level-2 background.
-- Level-3 pages use `background-a` and do not use the level-1 or level-2 image assets.
+- Level-3 pages use `background-a` and do not use the level-1 or level-2 shell treatment.
 
-## Rule: Display page background images at 1x viewport size
+## Rule: Display page background shells at viewport size
 
-The provided background images are `@3x` assets. Place them in Figma or HTML at their `1x` design size.
+When a Figma background shell is cloned or an HTML preview fallback is used, place it at the viewport design size.
 
 Why:
-Using raw pixel dimensions directly would triple the visual size and break the `390 x 844` viewport.
+Using raw export dimensions directly can break the `390 x 844` viewport.
 
 Verify:
 
 - Level-1 and level-2 page backgrounds display at `390 x 844`.
-- Source page background assets are `1170 x 2532` or the documented `@3x` equivalent.
 - Background images are placed below the content layer.
 - Do not add a background color, overlay, opacity layer, blur, or gradient mask on top of these page backgrounds.
 
@@ -55,9 +54,9 @@ Conversation sheets have their own fixed dimensions and should not replace the p
 
 Verify:
 
-- Agent conversation sheet uses `assets/backgrounds/agent-sheet-background-light.png` or `assets/backgrounds/agent-sheet-background-dark.png`, displayed at `390 x 760`.
-- Temporary conversation sheet uses `assets/backgrounds/temporary-chat-sheet-background-light.png` or `assets/backgrounds/temporary-chat-sheet-background-dark.png`, displayed at `390 x 674`.
-- The active light/dark mode selects the matching sheet background asset.
+- Agent conversation sheet uses the confirmed Figma sheet background, displayed at `390 x 760`.
+- Temporary conversation sheet uses the confirmed Figma sheet background, displayed at `390 x 674`.
+- The active light/dark mode selects the matching sheet background variant.
 - The sheet background sits below the sheet header and sheet content.
 - Minor source-asset pixel differences caused by export rounding are allowed; displayed design dimensions must match the specified 1x size.
 

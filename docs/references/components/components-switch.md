@@ -4,7 +4,7 @@ Use this file as the switch router. Switch rules cover mobile app UI and Figma g
 
 Positive/spec example:
 
-- `assets/examples/switch-system.png`
+- Use the switch component matrix in canon and the confirmed Figma switch bindings; do not depend on local screenshot examples.
 
 Load the smallest relevant switch references:
 

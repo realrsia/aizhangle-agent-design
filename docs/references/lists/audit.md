@@ -88,7 +88,7 @@ Use this checklist for 自选列表, 持仓列表, and future financial table-li
 - Missing `holding-output-checklist` results for a generated 持股列表 is P1.
 - Ignoring `holdings-generation-contract.md` for 持股/持仓 generation is P1 when required columns, header tools, scroll completeness, frozen-row rules, or dual-line typography are affected.
 - Using the old Market Overview row/sparkline/price-change summary as a substitute for the table-list contract is P1.
-- Mini trend charts use archived Figma-exported assets and are not hand-drawn approximations.
+- Mini trend charts use confirmed Figma bindings and are not hand-drawn approximations.
 - Watchlist declares one list-level `miniTrendState`; missing declaration is P2.
 - If unspecified by the user, `miniTrendState` defaults to `5日`.
 - One watchlist instance shows only one mini trend state, not 5日/分时/日K simultaneously.
@@ -113,4 +113,3 @@ For list findings, include:
 - Expected token, value, or behavior.
 - Suggested fix.
 - Rule source file.
-

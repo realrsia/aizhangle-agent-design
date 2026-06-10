@@ -59,6 +59,15 @@ riskBoundaries:
   - id: message-feed-financial-disclaimer
     severity: P1
     rule: Financial answers involving stocks, prices, K-lines, or risk prompts must preserve example/non-investment-advice semantics.
+  - id: message-feed-parent-covers-children
+    severity: P0
+    rule: Message feed and reasoning panel wrappers must be resized from child bounds; they cannot clip reasoning chains, answer body text, tables, charts, or related questions.
+  - id: message-feed-bottom-input-clearance
+    severity: P0
+    rule: Message feed content must end before the fixed chat input and keep at least 40px visible clearance from Bottom Bar / Chat Input.
+  - id: message-feed-text-sizing
+    severity: P1
+    rule: Multi-line answer, reasoning, disclaimer, and related-question text should use Fill Container width and Hug height unless a verified source component owns the internal sizing.
 componentFamilies:
   - familyId: message-feed.user-input
     sourceFileName: 设计仓库
@@ -268,6 +277,15 @@ usageInstanceGroups:
     usageType: component_source_section
     sourceFileKey: pbxELN7TYDDguIgbXfc1zB
 generationRules:
+  layoutResilience:
+    messageFeedScrollMustCoverChildren: true
+    recomputeWrapperHeightAfterInstanceResize: true
+    forbidBottomInputOverlap: true
+    bottomInputGapPxMin: 40
+    textSizing:
+      multilineBodyWidth: fill_container
+      textHeight: hug_contents
+      parentContainerHeight: hug_contents_unless_structural
   oldSystemControlsPolicy:
     status: removed_do_not_import
     rule: Use importComponentSetByKeyAsync with the verified 设计仓库 component set keys for agent output families; do not import old 系统控件 keys.
