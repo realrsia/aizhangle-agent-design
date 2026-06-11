@@ -83,6 +83,12 @@ riskBoundaries:
   - id: message-feed-text-sizing
     severity: P1
     rule: Multi-line answer, reasoning, disclaimer, and related-question text should use Fill Container width and Hug height unless a verified source component owns the internal sizing.
+  - id: message-feed-related-question-single-slot
+    severity: P0
+    rule: PRD wording such as 快捷追问, 后续追问, 关联问题, related questions, and follow-up prompts all map to the `message-feed.related-question` semantic slot by default. When the confirmed related-question component is present, do not add a second self-drawn quick-question or follow-up card in the same answer stack.
+  - id: message-feed-related-question-text-override
+    severity: P1
+    rule: If related-question text cannot be overridden through verified component properties, preserve the confirmed component and document `text override pending`; do not create a duplicate fallback module just to show custom prompt copy.
 componentFamilies:
   - familyId: message-feed.user-input
     sourceFileName: 设计仓库
@@ -179,6 +185,17 @@ componentFamilies:
     importApi: importComponentSetByKeyAsync
     familyType: component_set_instance
     humanUse: draft_related_question
+    semanticSlot:
+      id: relatedQuestions
+      aliases:
+        - 快捷追问
+        - 后续追问
+        - 关联问题
+        - related questions
+        - follow-up prompts
+      exclusivityRule: one_related_question_area_per_answer_stack
+      duplicateFallbackPolicy: forbidden_when_confirmed_component_present
+      textOverrideFallback: keep_component_and_mark_text_override_pending
     variantProperties:
       Property 1: 默认
       Property 2: 默认

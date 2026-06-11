@@ -3,7 +3,7 @@ name: zhangle-agent-design-system
 description: Use this skill to generate, review, repair, or prototype AI Zhangle / New Zhangle mobile design outputs through a schema-first, Agent-readable design-system repository.
 ---
 
-# Zhangle Agent Design System
+# AI Zhangle Agent Design system
 
 这个文件是 Agent 的任务路由说明，不是路径总表，也不是设计规范的最终真源。
 
@@ -240,6 +240,9 @@ description: Use this skill to generate, review, repair, or prototype AI Zhangle
 - 页面应通过 import、instantiate 或 clone confirmed Components 来搭建。
 - 使用 component 前，列出页面应该使用的 component families，并对每个 confirmed `componentKey` 或 `componentSetKey` 做小型 import / instantiate probe。
 - 必须选择正确 variant，并显式确认 light / dark variable mode。
+- 不允许只按 `Dark=On`、`Dark=Off`、组件名包含关系或循环覆盖式 fuzzy match 选择 component set child。选择 variant 时必须一次性匹配完整 `expectedVariantProperties` / `variantProperties`；如果 confirmed variant 已有 `componentKey`，优先直接 `importComponentByKeyAsync` 导入该 variant。
+- 放置 confirmed component 后必须反查实际来源和 variant：记录 `mainComponent.name`、`mainComponent.parent.name`、可读的 `componentProperties` 或实际 variant 名；若与 expected variant 不一致，必须修复后再交付。
+- AI Chat 场景的背景和底部输入是 P0 语义组件：背景必须使用 AI Chat 对话背景 expected variant，不得退回旧二级页/首页背景；底部输入必须使用 `场景=对话` 的 chat input / bottom bar variant，不得使用 `场景=默认` 首页 Bottom Bar。
 - 目标 Figma 文件里的既有 frame 只能作为参考；复用任何结构前，都要检查是否存在 wrong variant、clipped clone 或 placeholder text。
 - 对 confirmed fixed chrome 和核心消息组件，probe 失败是 P0 blocker，不是降级成高保真自绘的许可。示例：chat-topbar、chat-input / bottom bar、message-feed 的 verified 子组件、action-sheet mask / title / button area、trading action controls。
 - 如果 required confirmed 组件整体无法 import / instantiate / clone，必须停止交付或生成明显非最终的 blocker frame；不得交付一个看起来完整但主要由 raw frames 重绘的页面。
@@ -250,9 +253,12 @@ description: Use this skill to generate, review, repair, or prototype AI Zhangle
 
 - Figma 生成必须优先使用 Figma variables、styles 或 confirmed component rendering 承载颜色、字体、圆角、阴影和间距。
 - 生成前必须读取 `bindings/figma/variables.yaml`，并尽力用 `search_design_system` 或目标文件变量检查验证变量/样式是否可用。
+- 在创建主屏主体前，必须产出 `token-source map` 和 `typography-source map`，至少覆盖 page background、card/surface、divider、primary/secondary/tertiary text、action blue、finance red/green、radius、正文/标题/标签字号和多行行高。map 必须写入右侧 annotation 或任务记录，并标明每项来源是 Figma variable、Figma style、confirmed component rendering、canonical token pending，还是 blocker。
 - 不要把手写 RGB / hex 当作规范颜色。只有以下来源可以通过 token compliance：Figma variable、Figma style、confirmed component instance 的原始渲染、或 canonical token 明确映射后仍在 annotation 标为 `token binding pending` 的低保真 fallback。
 - 如果变量或样式无法解析，可以做局部低保真 fallback，但必须在右侧 annotation 说明 `token binding pending`；不得声称页面“引用了规范颜色”。
+- 高保真 fallback 模块不得使用 raw colors、任意 opacity、任意字号、任意行高或任意圆角。若 token / typography source 无法证明，模块必须降级为低保真 `未绑定组件 / token binding pending`，或停止等待补齐绑定。
 - 对 red / green 等金融语义色，必须使用 canonical financial semantics 或 confirmed component token；不能按视觉感觉选色。
+- 多行正文和对话正文必须映射到 typography scale，并按规范使用 160% line-height；金融数字必须使用涨乐财富体或记录明确的数字字体替代，不能静默使用普通字体。
 
 ### Auto Layout 规则
 
@@ -272,6 +278,8 @@ description: Use this skill to generate, review, repair, or prototype AI Zhangle
 - 生成屏幕主体里不要留下占位、提示或说明文案，例如重复 dummy 字符、泛化标签、未解析 prompt。
 - 应基于页面意图填入真实感金融、新闻或对话内容，保证页面可读。
 - `文字文字`、`placeholder`、`dummy`、`TODO` 等内容只能出现在右侧说明里的明确 blocker，不得出现在产品屏幕主体或业务示例中。
+- 在 AI Chat / message-feed 中，PRD 里的“快捷追问”“后续追问”“关联问题”“related questions”“follow-up prompts”默认都是同一个 `message-feed.related-question` 语义槽。只要该 confirmed component 可用，不允许再新增第二个自绘快捷追问 / 关联问 fallback 卡片。
+- 如果 `message-feed.related-question` 的文案无法通过 verified property 覆盖，保留组件结构并在 annotation 标记 `text override pending`；不要为了写入文案而额外画一个重复模块。只有 PRD 明确要求两个不同模块，且 annotation 说明语义差异时，才允许同时出现。
 
 ### 字体兼容
 
@@ -305,6 +313,7 @@ description: Use this skill to generate, review, repair, or prototype AI Zhangle
 
 - 生成后必须检查 Figma metadata 和 screenshot rendering。
 - 扫描生成屏幕、nested imported instances 和 annotation cards，确认不存在：占位文案、未解析 prompt marker、raw TODO marker、wrong theme variant、clipped instance、Fixed Height 裁切文字、多行正文固定宽度导致换行异常、`message-feed-scroll` 没有覆盖子内容、Bottom Bar 覆盖内容或未保留 40px 间距、component lookalike。
+- 交付前必须额外运行四类检查：actual-vs-expected component variant 检查、fallback token source 检查、fallback typography scale 检查、related-question / quick-follow-up duplicate semantic slot 检查。
 - annotation 中缺失 binding 的说明应写成 `binding pending` 或 `text override pending`，不要保留 raw TODO marker。
 - 所有问题修复后再汇报。
 

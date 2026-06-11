@@ -1,4 +1,4 @@
-# AI Zhangle Agent Design System
+# AI Zhangle Agent Design system
 
 This repository is an Agent-readable design-system source for AI Zhangle / New Zhangle mobile screens.
 
