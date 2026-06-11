@@ -1,4 +1,4 @@
-# AI Zhangle Design System
+# AI Zhangle Agent Design system
 
 ## 1. Visual Theme & Atmosphere
 

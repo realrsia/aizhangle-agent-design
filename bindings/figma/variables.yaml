@@ -12,6 +12,57 @@ bindingStrategy:
   verifyBeforeWrite: true
   stopIfVariableMissing: true
   doNotGuessCollectionsOrModes: true
+  generationPreflightRequired: true
+  unresolvedVariablePolicy:
+    highFidelityFallback: stop_or_downgrade_to_low_fidelity_token_binding_pending
+    lowFidelityFallback: allowed_only_with_annotation
+    annotationPhrase: token binding pending
+  requiredGenerationCoverage:
+    - id: page_background
+      canonicalCandidates:
+        - xzl.color.background.page
+        - xzl.color.background.pageDark
+      usage: mobile screen background
+    - id: card_or_surface
+      canonicalCandidates:
+        - xzl.color.background.base
+        - xzl.color.background.baseDark
+        - xzl.color.background.cardLevel1
+        - xzl.color.background.cardLevel1Dark
+      usage: non-component fallback card surfaces
+    - id: divider
+      canonicalCandidates:
+        - xzl.color.divider.base
+        - xzl.color.divider.baseDark
+      usage: borders and dividers in fallback modules
+    - id: text_primary
+      canonicalCandidates:
+        - xzl.color.text.primary
+        - xzl.color.text.primaryDark
+      usage: main text in fallback modules
+    - id: text_secondary
+      canonicalCandidates:
+        - xzl.color.text.secondary
+        - xzl.color.text.secondaryDark
+      usage: secondary explanatory text
+    - id: text_tertiary
+      canonicalCandidates:
+        - xzl.color.text.tertiary
+        - xzl.color.text.tertiaryDark
+      usage: hints, captions, metadata
+    - id: action_blue
+      canonicalCandidates:
+        - xzl.color.primary.blue
+        - xzl.color.primary.blueDark
+      usage: source links and primary AI actions
+    - id: finance_red
+      canonicalCandidates:
+        - xzl.color.primary.red
+      usage: rising or positive financial numeric states
+    - id: finance_green
+      canonicalCandidates:
+        - xzl.color.primary.green
+      usage: falling or negative financial numeric states
 collections:
   - id: figma.collection.xzl-colors
     status: pending-verification

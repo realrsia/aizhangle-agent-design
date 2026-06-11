@@ -346,6 +346,35 @@ rules:
   - canon/foundations/themes/light.theme.yaml
   autofix:
     strategy: switch-component-variants-or-variable-mode-to-parent-theme
+- id: exact-component-variant-match-required
+  severity: error
+  target: component-variant-selection
+  assert:
+    componentSetChildSelectedByExactVariantProperties: true
+    fuzzyNameMatchAloneForbidden: true
+    confirmedVariantComponentKeyPreferredWhenAvailable: true
+    placedInstanceActualVariantComparedWithExpected: true
+    aiChatBackgroundUsesExpectedVariant:
+      分类: 新版工作区/一级
+      Dark: "On"
+    aiChatBottomInputUsesExpectedVariant:
+      场景: 对话
+      有关联问: "Off"
+      有陪伴: "Off"
+      有指数: "Off"
+      Dark: "On"
+    defaultHomeBottomBarForbiddenForAiChat: true
+    oldSecondaryBackgroundForbiddenForAiChat: true
+  rationale: Importing a correct component set is insufficient if the placed child
+    variant is semantically wrong. AI Chat background and Bottom Bar variants must
+    match the full expected property set, not just dark mode.
+  sourceRefs:
+  - SKILL.md
+  - bindings/figma/components.yaml
+  - canon/components/chat-input.meta.yaml
+  - authoring/scenarios/ai-chat.brief.yaml
+  autofix:
+    strategy: import-confirmed-variant-key-or-reselect-child-by-exact-properties
 - id: token-source-evidence-required
   severity: error
   target: token-and-color-source
@@ -357,8 +386,21 @@ rules:
     - figma_style
     - confirmed_component_rendering
     - canonical_token_marked_token_binding_pending_for_low_fidelity_fallback
+    requiredTokenSourceMapIncludes:
+    - page_background
+    - card_or_surface
+    - divider
+    - text_primary
+    - text_secondary
+    - text_tertiary
+    - action_blue
+    - finance_red
+    - finance_green
+    - radius
     hardcodedFallbackColorsMarkedTokenPending: true
     hardcodedFallbackDoesNotPassTokenCompliance: true
+    highFidelityFallbackUsesNoRawRgbOrHex: true
+    unresolvedVariablesRequireLowFidelityOrStop: true
     noClaimOfNormativeColorWithoutVariableStyleOrConfirmedComponentEvidence: true
   rationale: A dark-looking or light-looking screen is not token compliant unless
     its colors come from variables, styles, or confirmed component rendering.
@@ -369,6 +411,50 @@ rules:
   - docs/references/foundations/visual-language.md
   autofix:
     strategy: build-token-source-map-bind-variables-or-mark-fallback-token-pending
+- id: typography-source-evidence-required
+  severity: error
+  target: typography-source
+  assert:
+    typographySourceMapCompletedBeforeFallbackDrawing: true
+    fallbackTextMapsToTypographyScale: true
+    multilineConversationTextUses160PercentLineHeight: true
+    financialNumbersUseZlCaiFuTiOrDocumentedNumericFontSubstitution: true
+    arbitraryFontSizesForbiddenInHighFidelityFallback: true
+    arbitraryLineHeightsForbiddenInHighFidelityFallback: true
+    fontSubstitutionDoesNotEraseTypographyMapping: true
+  rationale: Fallback business modules must still follow the page typography scale;
+    arbitrary sizes and line heights create designs that cannot be traced to the
+    system.
+  sourceRefs:
+  - SKILL.md
+  - docs/references/foundations/typography.md
+  - canon/foundations/tokens/typography.tokens.json
+  autofix:
+    strategy: map-text-to-typography-scale-or-downgrade-fallback-to-token-pending
+- id: related-question-single-semantic-slot
+  severity: error
+  target: mobile-chat-related-questions
+  assert:
+    quickFollowUpPromptsRouteToMessageFeedRelatedQuestion: true
+    noDuplicateFallbackQuickQuestionCardWhenRelatedQuestionComponentPresent: true
+    relatedQuestionTextOverrideGapMarkedAsTextOverridePending: true
+    duplicateAllowedOnlyWhenPrdDefinesDistinctModulesAndAnnotationExplainsDifference: true
+    duplicateLayerNameScanIncludes:
+    - 快捷追问
+    - 后续追问
+    - 关联问
+    - related question
+    - follow-up
+    - quick question
+  rationale: PRD quick follow-up prompts and the design-system related-question component
+    represent the same answer-stack slot by default. Duplicating them creates a
+    semantic and visual error.
+  sourceRefs:
+  - SKILL.md
+  - canon/components/message-feed.meta.yaml
+  - canon/archetypes/mobile-chat-page.yaml
+  autofix:
+    strategy: remove-duplicate-fallback-and-populate-or-annotate-related-question-component
 - id: component-font-substitution-preserves-instance
   severity: error
   target: component-font-substitution

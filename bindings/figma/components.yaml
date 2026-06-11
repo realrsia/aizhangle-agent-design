@@ -559,6 +559,18 @@ components:
     componentSetName: 背景/母组件
     componentSetKey: e7d0e3570253b5e750c00103dd65780e31461aa7
     importApi: importComponentSetByKeyAsync
+    aiChatExpectedVariant:
+      theme: dark
+      variantId: chat-background-workspace-dark
+      componentKey: 96ce857c0183e6d76f1d7877af90c4a5509864fe
+      importApi: importComponentByKeyAsync
+      figmaExactName: 分类=新版工作区/一级, Dark=On
+      expectedVariantProperties:
+        分类: 新版工作区/一级
+        Dark: "On"
+      selectionRule:
+        - Use this direct component key for dark AI Chat backgrounds.
+        - Do not select by matching `Dark=On` alone; old secondary-page variants such as `分类=旧二级页, Dark=On` are invalid for AI Chat.
     componentPropertyDefinitions:
       分类:
         type: VARIANT
@@ -589,6 +601,9 @@ components:
         variantProperties:
           分类: 新版工作区/一级
           Dark: "Off"
+        expectedVariantProperties:
+          分类: 新版工作区/一级
+          Dark: "Off"
       - variantId: chat-background-workspace-dark
         nodeId: "400:26896"
         componentSetNodeId: "400:26745"
@@ -596,6 +611,9 @@ components:
         componentKey: 96ce857c0183e6d76f1d7877af90c4a5509864fe
         figmaExactName: 分类=新版工作区/一级, Dark=On
         variantProperties:
+          分类: 新版工作区/一级
+          Dark: "On"
+        expectedVariantProperties:
           分类: 新版工作区/一级
           Dark: "On"
     verificationGaps:
@@ -619,6 +637,21 @@ components:
     componentSetNodeId: "99:48375"
     repositoryComponentSetName: 1月版/母组件
     formalComponentAlias: component.bottom-bar
+    aiChatExpectedVariant:
+      theme: dark
+      variantId: chat-input-dialog-dark
+      componentKey: ceda34ec270acdbe0377ac8d917e5c499ac6c9a5
+      importApi: importComponentByKeyAsync
+      figmaExactName: 场景=对话, 有关联问=Off, 有陪伴=Off, 有指数=Off, Dark=On
+      expectedVariantProperties:
+        场景: 对话
+        有关联问: "Off"
+        有陪伴: "Off"
+        有指数: "Off"
+        Dark: "On"
+      selectionRule:
+        - Use this direct component key for dark AI Chat bottom input.
+        - Do not use the home/default variant `场景=默认, 有关联问=Off, 有陪伴=Off, 有指数=Off, Dark=On` for AI Chat pages.
     variantProperties:
       场景:
         - 对话
@@ -657,14 +690,32 @@ components:
         nodeId: "99:48383"
         componentKey: ceda34ec270acdbe0377ac8d917e5c499ac6c9a5
         figmaExactName: 场景=对话, 有关联问=Off, 有陪伴=Off, 有指数=Off, Dark=On
+        expectedVariantProperties:
+          场景: 对话
+          有关联问: "Off"
+          有陪伴: "Off"
+          有指数: "Off"
+          Dark: "On"
       - variantId: chat-input-dialog-light
         nodeId: "99:48392"
         componentKey: 3a879d55e7022088fd5cf27d10c508f6658c15f5
         figmaExactName: 场景=对话, 有关联问=Off, 有陪伴=Off, 有指数=Off, Dark=Off
+        expectedVariantProperties:
+          场景: 对话
+          有关联问: "Off"
+          有陪伴: "Off"
+          有指数: "Off"
+          Dark: "Off"
       - variantId: chat-input-simple-voice-dark
         nodeId: "99:48376"
         componentKey: db61f1dfdab2371d6c4b22c58686f852f7360910
         figmaExactName: 场景=默认, 有关联问=Off, 有陪伴=Off, 有指数=Off, Dark=On
+        expectedVariantProperties:
+          场景: 默认
+          有关联问: "Off"
+          有陪伴: "Off"
+          有指数: "Off"
+          Dark: "On"
     candidateStates:
       - voice
       - keyboard
