@@ -1,48 +1,47 @@
-# Authoring Workflow
+# Authoring 工作流
 
-This folder is the human-editing layer.
+本目录是人类编辑层。
 
-Humans should write simple briefs here. Agents expand those briefs into `canon/`, `bindings/`, `canon/checklists/`, and `docs/generated/`.
+人类应在这里编写简明的 brief。Agent 根据这些 brief 扩展生成 `canon/`、`bindings/`、`canon/checklists/` 和 `docs/generated/` 中的内容。
 
-Core principle:
+核心原则：
 
-> Humans write judgment. Agents write structure. Figma provides facts. Git reviews changes. Checklists govern delivery.
+> 人类负责判断，Agent 负责结构化，Figma 提供事实，Git 负责变更审查，Checklists 约束交付。
 
-## What Humans Edit
+## 人类编辑什么
 
-- `authoring/components/index.yaml`: component brief index. Use it to find the current brief file and source references.
-- `authoring/components/*.brief.yaml`: component intent, usage rules, risk warnings, zones, pairings, and examples.
-- `authoring/scenarios/*.brief.yaml`: business scenario intent, required page structure, component needs, and forbidden patterns.
-- `authoring/case-studies/*.md`: good examples, bad examples, historical bugs, and review evidence.
+- `authoring/components/index.yaml`：组件 brief 索引，用于查找当前 brief 文件及其来源引用。
+- `authoring/components/*.brief.yaml`：组件意图、使用规则、风险警告、区域、配对关系和示例。
+- `authoring/scenarios/*.brief.yaml`：业务场景意图、必需的页面结构、组件需求和禁止模式。
 
-For component work, the latest YAML fusion version is the current source for this layer. Keep each component brief in three zones:
+对于组件维护，以最新的 YAML 融合版本作为本层当前真源。每份组件 brief 保持以下三个区域：
 
-- `01_HUMAN_REQUIRED`: purpose, scenarios, rules, risk warnings, zones, pairings, examples, and status.
-- `02_AGENT_EXTRACTED`: Figma facts, observed structure, variants, states, slots, tokens, and resource refs.
-- `03_AGENT_EXPANSION_AND_CHECKLIST`: review checklist and target output paths.
+- `01_HUMAN_REQUIRED`：用途、场景、规则、风险警告、区域、配对关系、示例和状态。
+- `02_AGENT_EXTRACTED`：Figma 事实、观察到的结构、变体、状态、插槽、tokens 和资源引用。
+- `03_AGENT_EXPANSION_AND_CHECKLIST`：评审 checklist 和目标输出路径。
 
-Use `TODO_HUMAN_CONFIRM` for unresolved human decisions and `TODO_VERIFY_WITH_FIGMA` for unverified Figma facts.
+未解决的人工决策使用 `TODO_HUMAN_CONFIRM` 标记，尚未验证的 Figma 事实使用 `TODO_VERIFY_WITH_FIGMA` 标记。
 
-## What Agents Expand
+## Agent 扩展什么
 
-From a component brief, Agent may update:
+Agent 可以根据组件 brief 更新：
 
 - `canon/components/*.meta.yaml`
 - `canon/checklists/*-review.yaml`
 - `bindings/figma/components.yaml`
-- `bindings/assets/manifest.yaml` when asset references change
+- 资源引用发生变化时更新 `bindings/assets/manifest.yaml`
 - `docs/generated/components/index.md`
 
-From a scenario brief, Agent may update:
+Agent 可以根据场景 brief 更新：
 
 - `canon/scenarios/*.yaml`
 - `canon/archetypes/*.yaml`
 - `canon/checklists/*.yaml`
 - `docs/generated/scenarios/*.md`
 
-## Required Review
+## 必需的人工评审
 
-Human reviewers must approve:
+以下字段必须由人工评审者确认：
 
 - `purpose`
 - `usedIn`
@@ -55,11 +54,11 @@ Human reviewers must approve:
 - `examples`
 - `status`
 
-Agents may draft these fields, but they are not final until reviewed by a human owner.
+Agent 可以起草这些字段，但在人工负责人完成评审之前，内容不能视为最终版本。
 
-## Current Component Briefs
+## 当前组件 Brief
 
-Use `authoring/components/index.yaml` as the entry point. The current first batch covers:
+以 `authoring/components/index.yaml` 作为入口。当前第一批组件包括：
 
 - bottom bar
 - button

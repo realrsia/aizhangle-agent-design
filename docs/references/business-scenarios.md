@@ -6,7 +6,7 @@ Load this file after `SKILL.md`. It tells the agent which integrated materials t
 
 Load for any full page, component family, or review:
 
-- `references/foundations/visual-language.md`
+- `canon/foundations/visual-language.md`
 - `references/foundations/tokens.md`
 - `references/foundations/typography.md`
 - `references/foundations/component-decision.md` when choosing button/tab/switch behavior

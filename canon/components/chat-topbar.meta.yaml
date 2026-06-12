@@ -2,7 +2,6 @@ id: component.chat-topbar
 name: 对话顶部导航栏
 owner: design-system
 status: draft
-sourceBrief: authoring/components/chat-topbar.brief.yaml
 classification:
   primitiveFamily: chat_topbar
   componentType: navigation

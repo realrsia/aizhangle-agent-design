@@ -2,7 +2,6 @@ id: component.market-index-modules
 name: 大盘模块组件族
 owner: design-system
 status: draft
-sourceBrief: authoring/components/market-index-modules.brief.yaml
 classification:
   primitiveFamily: market_index_modules
   componentType: component_family_suite
@@ -87,37 +86,27 @@ sourcePriority:
     - actual Figma verification
   visualReview:
     - DESIGN.md
-    - docs/references/foundations/visual-language.md
+    - canon/foundations/visual-language.md
     - docs/references/process/design-taster.md
     - docs/references/anti-patterns.md
 riskBoundaries:
   - id: market-index-background-source-of-truth
     severity: P0
-    sourceRefs:
-      - authoring/case-studies/market-index-background-shell-source-drift.md
     rule: Background shell component family must be distinguished from first-screen usage instances before implementation.
   - id: market-index-background-not-generic-card
     severity: P0
-    sourceRefs:
-      - authoring/case-studies/market-index-background-shell-source-drift.md
     rule: Preserve layered shell, glow, texture, stroke, and inner-effect relationships; do not flatten to a generic dashboard card.
   - id: market-index-title-source-locked
     severity: P0
-    sourceRefs:
-      - authoring/case-studies/market-index-title-generic-text-drift.md
     rule: Market title must use the dedicated title family and keep title text, status dot, and status text as separate elements.
   - id: market-index-title-flow-ownership
     severity: P1
-    sourceRefs:
-      - authoring/case-studies/market-index-title-generic-text-drift.md
     rule: Title placement belongs to the market card content flow, not an arbitrary screen-anchored text row.
   - id: market-index-theme-consistency
     severity: P0
     rule: Light and dark are real theme contracts and sometimes structural variants, not simple recolors.
   - id: market-index-top-nav-source-drift
     severity: P0
-    sourceRefs:
-      - authoring/case-studies/top-nav-source-drift-case.md
     rule: Market page top navigation follows source-priority rules; do not replace source-sensitive visual nodes with local lookalikes.
   - id: market-index-financial-semantics
     severity: P0
@@ -313,9 +302,6 @@ usageInstanceGroups:
 sourceRefs:
   - authoring/components/market-index-modules.brief.yaml
   - authoring/scenarios/market-index.brief.yaml
-  - authoring/case-studies/market-index-title-generic-text-drift.md
-  - authoring/case-studies/market-index-background-shell-source-drift.md
-  - authoring/case-studies/top-nav-source-drift-case.md
   - docs/references/component-brief-workflow.md
   - docs/references/source-boundaries.md
 figmaBinding:

@@ -4,7 +4,7 @@ This index lists the actual integrated material in this skill. It is not a sourc
 
 ## Foundations
 
-- `references/foundations/visual-language.md`: AI Zhangle visual language, tokens, typography ramp, icon policy, component stylings, layout rules.
+- `canon/foundations/visual-language.md`: AI Zhangle visual language, tokens, typography ramp, icon policy, component stylings, layout rules.
 - `references/foundations/tokens.md`: production token rules and raw-color policy.
 - `references/foundations/typography.md`: PingFang SC and 涨乐财富体 rules.
 - `references/foundations/component-decision.md`: button/tab/switch selection guidance.

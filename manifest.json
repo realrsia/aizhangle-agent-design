@@ -8,7 +8,6 @@
   "entrypoints": {
     "skill": "SKILL.md",
     "design": "DESIGN.md",
-    "agentCompatibility": "AGENTS.md",
     "llms": "llms.txt",
     "humanAuthoring": "authoring/README.md",
     "changeHistory": "docs/references/change-history.md",
@@ -19,7 +18,6 @@
     "componentIndex": "authoring/components/index.yaml",
     "componentBriefWorkflow": "docs/references/component-brief-workflow.md",
     "scenarios": "authoring/scenarios/",
-    "caseStudies": "authoring/case-studies/",
     "workflow": "docs/references/authoring-workflow.md"
   },
   "canonical": {
@@ -63,7 +61,7 @@
   },
   "aesthetics": {
     "entrypoint": "DESIGN.md",
-    "visualLanguage": "docs/references/foundations/visual-language.md",
+    "visualLanguage": "canon/foundations/visual-language.md",
     "designTaster": "docs/references/process/design-taster.md",
     "impeccableAdaptation": "docs/references/process/impeccable-adaptation.md",
     "visualAuditChain": "docs/references/visual-audit-chain.md",

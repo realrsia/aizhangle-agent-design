@@ -2,7 +2,6 @@ id: component.message-feed
 name: 对话消息流
 owner: design-system
 status: draft
-sourceBrief: authoring/components/message-feed.brief.yaml
 classification:
   primitiveFamily: message_feed
   componentType: content-layout

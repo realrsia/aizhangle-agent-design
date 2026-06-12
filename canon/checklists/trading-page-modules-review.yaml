@@ -1,8 +1,6 @@
 componentId: component.trading-page-modules
 sourceBrief: authoring/components/trading-page-modules.brief.yaml
 sourceScenario: authoring/scenarios/trading.brief.yaml
-sourceCaseStudies:
-  - authoring/case-studies/top-nav-source-drift-case.md
 items:
   - id: trading-page-modules-family-location
     severity: P0

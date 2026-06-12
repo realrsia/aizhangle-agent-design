@@ -2,7 +2,6 @@ id: component.trading-page-modules
 name: 交易页面模块组件族
 owner: design-system
 status: draft
-sourceBrief: authoring/components/trading-page-modules.brief.yaml
 classification:
   primitiveFamily: trading_page_modules
   componentType: component_family_board
@@ -81,7 +80,7 @@ sourcePriority:
     - actual Figma verification
   visualReview:
     - DESIGN.md
-    - docs/references/foundations/visual-language.md
+    - canon/foundations/visual-language.md
     - docs/references/process/design-taster.md
     - docs/references/anti-patterns.md
 riskBoundaries:
@@ -96,8 +95,6 @@ riskBoundaries:
     rule: "`component.trading-input` and `component.trading-action-button` are dependencies, not private children of this component family board."
   - id: trading-page-top-nav-source-drift
     severity: P0
-    sourceRefs:
-      - authoring/case-studies/top-nav-source-drift-case.md
     rule: Top navigation source must be locked; account, security, and paper-trading top nav variants cannot be replaced by generic headers.
   - id: paper-trading-vs-live-trading
     severity: P0
@@ -297,7 +294,6 @@ usageInstanceGroups:
 sourceRefs:
   - authoring/components/trading-page-modules.brief.yaml
   - authoring/scenarios/trading.brief.yaml
-  - authoring/case-studies/top-nav-source-drift-case.md
   - authoring/components/trading-input.brief.yaml
   - authoring/components/trading-action-button.brief.yaml
   - docs/references/component-brief-workflow.md

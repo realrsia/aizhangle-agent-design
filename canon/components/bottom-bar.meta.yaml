@@ -2,7 +2,6 @@ id: component.bottom-bar
 name: 底部栏
 owner: design-system
 status: draft
-sourceBrief: authoring/components/bottom-bar.brief.yaml
 classification:
   primitiveFamily: bottom_bar
   componentType: fixed-bottom-composer-and-action-bar
@@ -378,9 +377,6 @@ sourceRefs:
   - authoring/scenarios/bottom-bar-stock-detail-and-pretrade.brief.yaml
   - authoring/scenarios/bottom-bar-companion-reminder.brief.yaml
   - authoring/scenarios/bottom-bar-stock-related-question-idle-toast.brief.yaml
-  - authoring/case-studies/bottom-bar-global-layer-and-visual-references.md
-  - authoring/case-studies/bottom-bar-input-pill-component-set.md
-  - authoring/case-studies/bottom-bar-long-press-voice-input.md
   - docs/references/bottom-bar/base.md
   - docs/references/bottom-bar/variants.md
   - docs/references/bottom-bar/icons.md

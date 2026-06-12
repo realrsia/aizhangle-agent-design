@@ -2,7 +2,6 @@ id: component.trading-input
 name: 交易输入框组件族
 owner: design-system
 status: draft
-sourceBrief: authoring/components/trading-input.brief.yaml
 classification:
   primitiveFamily: trading_input
   componentType: input

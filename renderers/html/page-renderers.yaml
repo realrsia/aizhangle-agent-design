@@ -3,8 +3,8 @@ kind: renderer-registry
 schemaVersion: 1
 version: 0.1.0
 status: draft
-title: HTML Page Renderers
-summary: Low-fidelity H5 page renderer mappings for Agent-generated prototypes.
+title: HTML 页面渲染器
+summary: 面向 Agent 生成高保证原型 H5 页面渲染器映射。
 renderers:
   - id: renderer.html.watchlist-page
     sourceScenario: scenario.watchlist

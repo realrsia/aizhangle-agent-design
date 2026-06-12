@@ -2,7 +2,6 @@ id: component.page-background
 name: 页面背景
 owner: design-system
 status: draft
-sourceBrief: authoring/components/page-background.brief.yaml
 classification:
   primitiveFamily: page_background
   componentType: page-shell-foundation
@@ -60,7 +59,7 @@ sourcePriority:
     - actual Figma verification
   visualReview:
     - DESIGN.md
-    - docs/references/foundations/visual-language.md
+    - canon/foundations/visual-language.md
     - docs/references/process/design-taster.md
     - docs/references/anti-patterns.md
 riskBoundaries:

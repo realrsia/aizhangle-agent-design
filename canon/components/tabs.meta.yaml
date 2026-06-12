@@ -2,7 +2,6 @@ id: component.tabs
 name: 标签页
 owner: design-system
 status: draft
-sourceBrief: authoring/components/tabs.brief.yaml
 classification:
   primitiveFamily: tabs
   componentType: navigation

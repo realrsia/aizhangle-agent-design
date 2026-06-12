@@ -2,7 +2,6 @@ id: component.input
 name: 普通输入框
 owner: design-system
 status: draft
-sourceBrief: authoring/components/input.brief.yaml
 classification:
   primitiveFamily: input
   componentType: input

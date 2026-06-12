@@ -3,9 +3,9 @@ kind: renderer-registry
 schemaVersion: 1
 version: 0.1.0
 status: draft
-title: HTML Component Renderers
-summary: Low-fidelity HTML renderer mappings for Agent-generated H5 prototypes.
-principle: "Figma component IDs are identity evidence; local HTML renderer rules produce the low-fidelity DOM/CSS representation."
+title: HTML 组件渲染器
+summary: 面向 Agent 生成 H5 高保真原型 HTML 渲染器映射。
+principle: "Figma 组件 ID 用作身份依据；本地 HTML 渲染器规则负责生成高保真的 DOM/CSS 表达。"
 renderers:
   - id: renderer.html.bottom-bar
     sourceComponent: component.bottom-bar

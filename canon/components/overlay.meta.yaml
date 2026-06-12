@@ -2,7 +2,6 @@ id: component.overlay
 name: 浮层
 owner: design-system
 status: draft
-sourceBrief: authoring/components/overlay.brief.yaml
 classification:
   primitiveFamily: overlay
   componentType: layer

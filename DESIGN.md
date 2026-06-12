@@ -50,7 +50,7 @@ Use this map to locate the right source without copying full tables into this en
 | Typography rules | `docs/references/foundations/typography.md` | `canon/foundations/tokens/typography.tokens.json` |
 | Radius values | Component references for usage rules | `canon/foundations/tokens/radius.tokens.json` |
 | Financial red/green semantics | `docs/references/foundations/tokens.md` | `canon/foundations/semantics/financial-semantics.yaml` |
-| Visual language | `docs/references/foundations/visual-language.md` | Review checklists under `canon/checklists/` |
+| Visual language | `canon/foundations/visual-language.md` | Review checklists under `canon/checklists/` |
 | Fonts, local token files, templates, examples, and assets | `bindings/assets/files/**/README.md` | `bindings/assets/manifest.yaml` |
 
 ## Foundation Summary
@@ -68,7 +68,7 @@ These summaries are quick orientation only. Load the mapped files above for exac
 
 Load these files for aesthetic decisions:
 
-- `docs/references/foundations/visual-language.md`: primary visual language and composition reference. It defines the AI Zhangle mood, density, hierarchy, dark/light posture, icon policy, layout principles, and common aesthetic failure modes.
+- `canon/foundations/visual-language.md`: primary visual language and composition reference. It defines the AI Zhangle mood, density, hierarchy, dark/light posture, icon policy, layout principles, and common aesthetic failure modes.
 - `docs/references/process/design-taster.md`: design-tasting review process. Use it after a draft has a selected page archetype and component set.
 - `docs/references/process/impeccable-adaptation.md`: local anti-pattern lens for AI Zhangle aesthetics.
 - `docs/references/visual-audit-chain.md`: visual review chain from intent reading to repair brief.
@@ -93,7 +93,7 @@ For screen generation or redesign:
 1. Select the page archetype and scenario from `canon/archetypes/` and `canon/scenarios/`.
 2. Load matching component briefs and component meta files.
 3. Load foundation sources for tokens, typography, radius, spacing, fonts, and component metrics.
-4. Load `docs/references/foundations/visual-language.md` to apply AI Zhangle atmosphere, density, hierarchy, and dark/light posture.
+4. Load `canon/foundations/visual-language.md` to apply AI Zhangle atmosphere, density, hierarchy, and dark/light posture.
 5. Run the relevant component checklist plus `canon/checklists/visual-review.yaml`.
 6. For Figma generation, also run `canon/checklists/figma-generation-review.yaml` so the hard constraints in `SKILL.md` become concrete second-pass repair items.
 

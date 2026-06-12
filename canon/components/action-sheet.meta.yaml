@@ -2,7 +2,6 @@ id: component.action-sheet
 name: Action Sheet 弹窗
 owner: design-system
 status: draft
-sourceBrief: authoring/components/action-sheet.brief.yaml
 classification:
   primitiveFamily: overlay
   componentType: modal-action-sheet
@@ -13,11 +12,9 @@ classification:
   isModal: true
   requiresMask: true
 purpose: >
-  Modal layer for New Zhangle / AI Zhangle content that requires the user to stop,
-  read, confirm, consent, or complete an operation. It covers ordinary notices,
-  risk warnings, trading confirmations, AI disclosures, permission/operation
-  confirmations, reading dialogs, action sheets, agreement dialogs, AI Chat source
-  dialogs, app version dialogs, and major update dialogs.
+  用于新涨乐 / AI 涨乐中需要用户暂停当前流程，进行阅读、确认、同意或完成操作的模态层。
+  覆盖普通通知、风险提示、交易确认、AI 免责声明、权限与操作确认、阅读型弹窗、
+  Action Sheet、协议弹窗、AI Chat 来源弹窗、App 版本弹窗和重大更新弹窗。
 usage:
   usedIn:
     - ordinary-notice
@@ -61,11 +58,11 @@ usage:
 layoutContract:
   modality:
     type: modal
-    rule: Action Sheet covered by this brief is modal.
+    rule: 本 brief 覆盖的 Action Sheet 均为模态弹窗。
   mask:
     required: true
     colorIntent: black-translucent
-    rule: A black translucent mask sits below the sheet and above page content.
+    rule: 黑色半透明蒙层位于弹窗下方、页面正文上方。
   zIndex:
     semanticLayer: modal-overlay-layer
     allowedAbove:
@@ -79,23 +76,23 @@ layoutContract:
       - page_demo_frame
   dismissal:
     defaultForHighRisk: explicit_user_action_required
-    rule: Dismiss, mask-dismiss, and auto-dismiss behavior must come from the family or variant rule.
+    rule: 关闭、点击蒙层关闭和自动关闭行为必须由对应 family 或 variant 规则决定。
 riskBoundaries:
   - id: modal-interrupts-flow
     severity: P1
-    rule: Action Sheet interrupts the current user flow and must be necessary.
+    rule: Action Sheet 会打断用户当前流程，必须确认这种打断确有必要。
   - id: trading-and-fund-confirmation
     severity: P0
-    rule: Trading, fund, account permission, or cancel/revoke actions require risk copy, primary/secondary actions, and an explicit confirmation path.
+    rule: 涉及交易、资金、账户权限或取消、撤销操作时，必须提供风险文案、主次操作和明确的确认路径。
   - id: agreement-and-permission-consent
     severity: P0
-    rule: Agreement, authorization, or permission flows cannot use simple close as consent.
+    rule: 协议、授权或权限流程不能把简单关闭视为用户同意。
   - id: ai-content-disclosure
     severity: P1
-    rule: AI disclaimer, source expansion, and data-index explanation must state source, limitation, and traceability.
+    rule: AI 免责声明、来源展开和数据索引说明必须明确来源、限制和可追溯性。
   - id: mask-and-layering
     severity: P1
-    rule: Mask must not cover the sheet body or action buttons.
+    rule: 蒙层不得覆盖弹窗正文或操作按钮。
 componentFamilies:
   confirmed:
     - familyId: action-sheet.main
@@ -261,16 +258,16 @@ slots:
   mask:
     required: true
     componentFamily: action-sheet.mask
-    selectionRule: GUI阅读型 uses reading mask; GUI任务型, LUI对话型, and Dialog弹窗 use regular full modal mask.
+    selectionRule: GUI阅读型使用 reading mask；GUI任务型、LUI对话型和 Dialog弹窗使用 regular full modal mask。
   surface:
     required: true
-    description: Modal sheet surface.
+    description: 模态弹窗主体表面。
   title:
     required: true
     editable: true
     componentFamily: action-sheet.title-area
     textProperty: "Text#13085:0"
-    aliasRule: LUI对话型 maps to title-area LUI阅读型; Dialog弹窗 maps to title-area Dialog弹层.
+    aliasRule: LUI对话型映射到标题区的 LUI阅读型；Dialog弹窗映射到标题区的 Dialog弹层。
   body:
     required: true
     editable: true
@@ -406,7 +403,6 @@ usageInstanceGroups:
 sourceRefs:
   - authoring/components/action-sheet.brief.yaml
   - authoring/scenarios/action-sheet-modal-usage.brief.yaml
-  - authoring/case-studies/action-sheet-modal-usage.md
   - docs/references/component-brief-workflow.md
   - references/foundation/components-overlay.md
   - references/foundation/components-button.md

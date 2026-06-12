@@ -2,7 +2,6 @@ id: component.divider
 name: 分割线
 owner: design-system
 status: draft
-sourceBrief: authoring/components/divider.brief.yaml
 classification:
   primitiveFamily: divider
   componentType: separator

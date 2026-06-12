@@ -2,7 +2,6 @@ id: component.switch
 name: 开关与选择控件
 owner: design-system
 status: draft
-sourceBrief: authoring/components/switch.brief.yaml
 classification:
   primitiveFamily: switch
   componentType: state-control

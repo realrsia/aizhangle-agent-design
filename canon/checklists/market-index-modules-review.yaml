@@ -1,10 +1,6 @@
 componentId: component.market-index-modules
 sourceBrief: authoring/components/market-index-modules.brief.yaml
 sourceScenario: authoring/scenarios/market-index.brief.yaml
-sourceCaseStudies:
-  - authoring/case-studies/market-index-title-generic-text-drift.md
-  - authoring/case-studies/market-index-background-shell-source-drift.md
-  - authoring/case-studies/top-nav-source-drift-case.md
 items:
   - id: market-index-component-facts-owned-by-component-brief
     severity: P0

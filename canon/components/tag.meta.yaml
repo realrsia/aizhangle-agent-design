@@ -2,7 +2,6 @@ id: component.tag
 name: 标签
 owner: design-system
 status: draft
-sourceBrief: authoring/components/tag.brief.yaml
 classification:
   primitiveFamily: tag
   componentType: display

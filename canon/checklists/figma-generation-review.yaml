@@ -231,7 +231,7 @@ rules:
   sourceRefs:
   - SKILL.md
   - DESIGN.md
-  - docs/references/foundations/visual-language.md
+  - canon/foundations/visual-language.md
   autofix:
     strategy: convert-content-blocks-to-nested-auto-layout
 - id: instance-wrapper-not-clipped
@@ -408,7 +408,7 @@ rules:
   - SKILL.md
   - DESIGN.md
   - bindings/figma/variables.yaml
-  - docs/references/foundations/visual-language.md
+  - canon/foundations/visual-language.md
   autofix:
     strategy: build-token-source-map-bind-variables-or-mark-fallback-token-pending
 - id: typography-source-evidence-required

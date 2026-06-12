@@ -2,7 +2,6 @@ id: component.trading-action-button
 name: 交易行动点按钮
 owner: design-system
 status: draft
-sourceBrief: authoring/components/trading-action-button.brief.yaml
 classification:
   primitiveFamily: trading_action
   componentType: action

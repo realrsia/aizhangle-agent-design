@@ -2,7 +2,6 @@ id: component.chat-background
 name: 对话页背景
 owner: design-system
 status: draft
-sourceBrief: authoring/components/chat-background.brief.yaml
 classification:
   primitiveFamily: page_background
   componentType: page-shell-foundation

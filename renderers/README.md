@@ -1,7 +1,7 @@
 # Renderers
 
-This folder is for low-fidelity output renderers.
+本目录用于存放低保真输出渲染器。
 
-Figma component IDs remain the primary design truth for maintained components. HTML renderers use those IDs as identity and binding evidence, but render through local DOM/CSS rules.
+对于持续维护的组件，Figma 组件 ID 仍是首要设计真源。HTML 渲染器使用这些 ID 作为组件身份和绑定依据，但通过本地 DOM/CSS 规则进行渲染。
 
-Local SVGs, PNGs, fonts, and JSON templates may be used as fallback prototype assets. They are not maintained Figma component instances.
+本地 SVG、PNG、字体和 JSON 模板可以用作原型兜底资源，但它们不是持续维护的 Figma 组件实例。

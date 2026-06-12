@@ -17,5 +17,5 @@ This folder collects machine-readable token sources copied from existing package
 
 ## 待补充
 
-- Extract AI Zhangle tokens from `references/foundations/visual-language.md`.
+- Extract AI Zhangle tokens from `canon/foundations/visual-language.md`.
 - Define conflict resolution between NZL fidelity tokens and XZL production tokens.

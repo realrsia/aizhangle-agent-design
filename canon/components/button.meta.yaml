@@ -2,7 +2,6 @@ id: component.button
 name: 普通按钮
 owner: design-system
 status: draft
-sourceBrief: authoring/components/button.brief.yaml
 classification:
   primitiveFamily: button
   componentType: action

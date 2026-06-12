@@ -2,7 +2,6 @@ id: component.chat-input
 name: 对话输入栏
 owner: design-system
 status: draft
-sourceBrief: authoring/components/chat-input.brief.yaml
 classification:
   primitiveFamily: chat_input
   componentType: navigation-and-input

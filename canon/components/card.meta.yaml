@@ -2,7 +2,6 @@ id: component.card
 name: 卡片
 owner: design-system
 status: draft
-sourceBrief: authoring/components/card.brief.yaml
 classification:
   primitiveFamily: card
   componentType: surface
