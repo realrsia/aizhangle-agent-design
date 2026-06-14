@@ -110,6 +110,11 @@ tokens:
     - docs/references/pages/page-backgrounds.md
 assetRefs: []
 textOverrideFields: []
+htmlRuntime:
+  assetPath: renderers/html/components/top-bar/top-bar.assets.inline.js
+  path: renderers/html/components/top-bar/top-bar.inline.js
+  customElement: xzl-chat-top-bar
+  defaultInteraction: static
 repositorySearchNotes:
   - source: figma://pbxELN7TYDDguIgbXfc1zB/400:25178
     result: current_design_repository_dialog_flow_source

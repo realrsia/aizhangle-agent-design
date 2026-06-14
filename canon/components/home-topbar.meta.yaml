@@ -1,0 +1,72 @@
+id: component.home-topbar
+name: 首页顶部导航栏
+owner: design-system
+status: draft
+classification:
+  primitiveFamily: home_topbar
+  componentType: fixed-home-navigation
+  riskLevel: high
+purpose: >
+  首页体系固定顶部导航，包含 iOS 状态区和右侧 Yomi 助手入口。
+  首页出招、首页大盘、首页早点听、首页提醒和首页任务共用同一结构。
+usage:
+  usedIn:
+    - app-home-出招-page
+    - app-home-大盘-page
+    - app-home-早点听-page
+    - app-home-提醒-page
+    - app-home-任务-page
+  allowedZones:
+    - page_root_top
+    - fixed_topbar
+  forbiddenZones:
+    - scroll_content_body
+    - ordinary_card_header
+    - secondary_page_title_header
+  requiredPairings:
+    - component.page-background
+    - matching-theme
+riskBoundaries:
+  - id: home-topbar-scene
+    severity: P0
+    rule: 首页 Top Bar 只用于首页体系，不得替代全屏对话或二级页面标题栏。
+  - id: home-topbar-transparent-background
+    severity: P1
+    rule: Top Bar 自身保持透明，直接覆盖在当前一级页面背景上。
+variants:
+  confirmed:
+    - id: home-topbar-dark
+      figmaNodeId: "713:40812"
+      theme: dark
+      width: 390
+      height: 115
+    - id: home-topbar-light
+      figmaNodeId: "713:40841"
+      theme: light
+      width: 390
+      height: 115
+slots:
+  statusRegion:
+    required: true
+    height: 44
+  assistantEntryRow:
+    required: true
+    top: 56
+    height: 40
+  assistantEntry:
+    required: true
+    width: 40
+    height: 40
+    right: 20
+htmlRuntime:
+  assetPath: renderers/html/components/top-bar/top-bar.assets.inline.js
+  path: renderers/html/components/top-bar/top-bar.inline.js
+  customElement: xzl-home-top-bar
+  defaultInteraction: static
+assetRefs:
+  - asset.home-topbar.orbs
+sourceRefs:
+  - figma://pbxELN7TYDDguIgbXfc1zB/713:40812
+  - figma://pbxELN7TYDDguIgbXfc1zB/713:40841
+reviewChecklist:
+  path: canon/checklists/home-topbar-review.yaml

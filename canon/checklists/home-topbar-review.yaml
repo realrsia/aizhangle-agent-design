@@ -1,0 +1,22 @@
+componentId: component.home-topbar
+items:
+  - id: home-topbar-scene-match
+    severity: P0
+    question: 是否只在首页出招、首页大盘、首页早点听、首页提醒和首页任务使用首页 Top Bar？
+    passCriteria: 全屏对话继续使用 chat-topbar，二级页面不使用首页 Top Bar。
+  - id: home-topbar-runtime-reused
+    severity: P0
+    question: HTML Demo 是否直接复用首页 Top Bar runtime？
+    passCriteria: 先内联 `top-bar.assets.inline.js`，再内联 `top-bar.inline.js`，页面使用 `xzl-home-top-bar`，不逐页重画。
+  - id: home-topbar-theme-match
+    severity: P1
+    question: 黑白主题是否使用对应 Figma 视觉素材？
+    passCriteria: dark 对应 `713:40812`，light 对应 `713:40841`，Yomi 头像球不得跨主题复用。
+  - id: home-topbar-background-transparent
+    severity: P1
+    question: Top Bar 是否透明叠加在一级页面背景上？
+    passCriteria: Top Bar 不增加纯色、模糊或渐变底层，背景连续来自 `component.page-background`。
+  - id: home-topbar-metrics
+    severity: P2
+    question: 是否保持 390x115、状态区 44px 和右侧入口 40px 的固定结构？
+    passCriteria: 右侧入口距页面右边 20px，入口行从页面顶部 56px 开始。

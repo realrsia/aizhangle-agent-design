@@ -29,6 +29,8 @@ usage:
     - account-page
     - position-page
     - app-my-position-page
+    - limit-up-hunter-page
+    - event-catcher-page
   allowedZones:
     - mobile_frame_bottom
     - primary_page_bottom_composer
@@ -44,6 +46,8 @@ usage:
     - ai_chat_message_body
     - generic_form_footer
     - marketing_or_banner_area
+    - secondary-page-without-persistent-input
+    - campaign-or-topic-page-without-bottom-actions
   requiredPairings:
     - page-context
     - safe-area
@@ -156,6 +160,10 @@ componentFamilies:
 scenarios:
   - id: homepage-scene
     displayName: 首页场景
+    usageRule: >
+      用于首页体系及大部分核心一级页面，包括首页、早点听、账户、交易、
+      涨停猎手、事件捕手等；左侧为交易入口，中间为输入/按住说话，
+      右侧为自选或我的入口。
     variants:
       - default-dark
       - default-light
@@ -171,6 +179,7 @@ scenarios:
       - app-watchlist-entry-expanded-page
   - id: fullscreen-chat-scene
     displayName: 全屏对话场景
+    usageRule: 仅用于 AI 对话页和任务助手页。
     variants:
       - chat-dark
       - chat-light
@@ -183,6 +192,7 @@ scenarios:
     aliases:
       - 交易场景
       - 个股交易
+    usageRule: 仅在已有明确证券标的的个股详情页展示输入胶囊和买、卖、撤入口。
     variants:
       - trading-dark
       - trading-light
@@ -197,8 +207,11 @@ scenarios:
       - trading-related-light
       - trading-related-index-dark
       - trading-related-index-light
-  - id: companion-scene
-    displayName: 陪伴场景
+  - id: companion-overlay
+    displayName: 陪伴叠加模块
+    compositionRule: >
+      陪伴不是独立 Bottom Bar 场景，而是可叠加在首页态、个股态或其他已确认
+      Bottom Bar 上方的悬浮模块；覆盖页面正文，不预留独立高度，不推高页面内容。
     variants:
       - default-companion-dark
       - default-companion-light
@@ -206,6 +219,10 @@ scenarios:
       - stock-index-companion-light
       - trading-index-companion-dark
       - trading-index-companion-light
+  - id: no-bottom-bar
+    displayName: 无 Bottom Bar
+    usageRule: 次级页面、专题页或没有持续输入/底部操作需求的页面不渲染 Bottom Bar。
+    renderRule: omit-component
   - id: long-press-voice-input
     displayName: 长按语音输入
     componentFamily: bottom-bar.voice-input
@@ -340,7 +357,7 @@ slots:
   collapseEntryButton: 首页入口展开后的向下箭头收起按钮。
   tradingActions: 个股交易上下文中的买、卖、撤行动入口。
   agentSuggestionChips: 全屏对话场景的 AI 助手建议胶囊。
-  companionModule: 陪伴人物、提醒文案、可选详情链接和左对齐操作按钮。
+  companionModule: 陪伴人物、提醒文案和双层下滑箭头；作为悬浮覆盖层叠加，不占页面布局高度。
   indexModule: 指数名称、代码、现价、涨跌额、涨跌幅。
   relatedQuestionToast: 用户空闲后的关联问 Toast。
   aiGeneratedDisclosure: AI 内容披露文案“内容由AI生成”。

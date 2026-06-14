@@ -3,21 +3,23 @@ kind: scenario
 schemaVersion: 1
 version: 0.1.0
 status: draft
-title: AI Chat
-summary: AI conversation and message page route, including fidelity reconstruction and product-ready chat variants.
+title: AI 对话
+summary: AI 对话与消息页面的场景路由，涵盖高保真还原和可用于实际产品的对话页面变体。
 usesArchetype: archetype.mobile-chat-page
 sourceRefs:
   - docs/references/fidelity/chat-fidelity-reconstruction.md
   - bindings/assets/files/design-tokens/chat-fidelity-tokens.json
 businessIntent:
   domain: ai-assistant
-  userGoal: Ask questions, read reasoning, continue with related questions, or send follow-up input.
+  userGoal: 提出问题、阅读推理过程、继续查看关联问题，或发送后续追问。
 requiredComponents:
+  - component.chat-background
+  - component.chat-topbar
   - component.chat-input
   - component.message-feed
+  - component.bottom-bar
 optionalComponents:
   - component.button
-  - component.bottom-bar
 fidelityRoute:
   sourceFileKey: QYybrg0tr5g1BMRIpGyEuo
   priorityScreens:

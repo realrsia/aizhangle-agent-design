@@ -40,6 +40,18 @@ assetGroups:
     useFor:
       - bottom-bar-backgrounds
       - bottom-bar-icons
+  - id: home-top-bar
+    kind: component-assets
+    path: top-bar/home/
+    useFor:
+      - home-top-bar-theme-orbs
+      - html-runtime-maintenance
+  - id: page-background
+    kind: component-assets
+    path: page-background/
+    useFor:
+      - primary-page-background
+      - html-runtime-maintenance
   - id: fonts
     kind: font
     path: fonts/
@@ -160,3 +172,93 @@ resourceRefs:
       - offline-generation
     notCanonicalFor:
       - maintained-figma-component-instance
+  - id: asset.bottom-bar.chat-entry-icons
+    type: local-asset
+    assetKind: icon-set
+    locator: bindings/assets/files/bottom-bar/icons/chat-entry/
+    role: ai-chat-html-runtime-source-assets
+    sourceRefs:
+      - figma://pbxELN7TYDDguIgbXfc1zB/12:10180
+      - figma://pbxELN7TYDDguIgbXfc1zB/12:10189
+    useFor:
+      - html-prototype
+      - offline-generation
+      - runtime-maintenance
+    notCanonicalFor:
+      - maintained-figma-component-instance
+  - id: asset.bottom-bar.html-runtime
+    type: local-asset
+    assetKind: inline-runtime-payload
+    locator: renderers/html/components/bottom-bar/bottom-bar.assets.inline.js
+    role: single-html-bottom-bar-runtime-assets
+    sourceRefs:
+      - figma://pbxELN7TYDDguIgbXfc1zB/12:9199
+      - figma://pbxELN7TYDDguIgbXfc1zB/12:9208
+      - figma://pbxELN7TYDDguIgbXfc1zB/12:10180
+      - figma://pbxELN7TYDDguIgbXfc1zB/12:10189
+      - figma://pbxELN7TYDDguIgbXfc1zB/12:9221
+      - figma://pbxELN7TYDDguIgbXfc1zB/12:9232
+      - figma://pbxELN7TYDDguIgbXfc1zB/12:9237
+      - figma://pbxELN7TYDDguIgbXfc1zB/12:9243
+    useFor:
+      - single-html-prototype
+      - offline-generation
+      - runtime-maintenance
+    notCanonicalFor:
+      - maintained-figma-component-instance
+  - id: asset.home-topbar.orbs
+    type: local-asset
+    assetKind: theme-paired-image-set
+    locator: bindings/assets/files/top-bar/home/
+    role: home-top-bar-html-runtime-source-assets
+    sourceRefs:
+      - figma://pbxELN7TYDDguIgbXfc1zB/713:40812
+      - figma://pbxELN7TYDDguIgbXfc1zB/713:40841
+    useFor:
+      - single-html-prototype
+      - offline-generation
+      - runtime-maintenance
+    notCanonicalFor:
+      - maintained-figma-component-instance
+  - id: asset.home-topbar.html-runtime
+    type: local-asset
+    assetKind: inline-runtime-payload
+    locator: renderers/html/components/top-bar/top-bar.assets.inline.js
+    role: single-html-home-top-bar-runtime-assets
+    sourceRefs:
+      - figma://pbxELN7TYDDguIgbXfc1zB/713:40812
+      - figma://pbxELN7TYDDguIgbXfc1zB/713:40841
+    useFor:
+      - single-html-prototype
+      - offline-generation
+  - id: asset.page-background.primary
+    type: local-asset
+    assetKind: theme-paired-image-set
+    locator: bindings/assets/files/page-background/
+    role: primary-page-background-html-runtime-source-assets
+    sourceRefs:
+      - figma://pbxELN7TYDDguIgbXfc1zB/400:26896
+      - figma://pbxELN7TYDDguIgbXfc1zB/400:26805
+    useFor:
+      - home-page
+      - ai-chat-page
+      - morning-brief-page
+      - limit-up-hunter-page
+      - event-catcher-page
+      - single-html-prototype
+    pendingFor:
+      - trading-page
+      - stock-detail-page
+    notCanonicalFor:
+      - maintained-figma-component-instance
+  - id: asset.page-background.html-runtime
+    type: local-asset
+    assetKind: inline-runtime-payload
+    locator: renderers/html/components/page-background/page-background.assets.inline.js
+    role: single-html-primary-page-background-runtime-assets
+    sourceRefs:
+      - figma://pbxELN7TYDDguIgbXfc1zB/400:26896
+      - figma://pbxELN7TYDDguIgbXfc1zB/400:26805
+    useFor:
+      - single-html-prototype
+      - offline-generation

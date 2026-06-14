@@ -45,7 +45,15 @@
   "renderers": {
     "html": "renderers/html/",
     "componentRenderers": "renderers/html/component-renderers.yaml",
-    "pageRenderers": "renderers/html/page-renderers.yaml"
+    "pageRenderers": "renderers/html/page-renderers.yaml",
+    "reusableComponents": {
+      "topBarAssets": "renderers/html/components/top-bar/top-bar.assets.inline.js",
+      "topBar": "renderers/html/components/top-bar/top-bar.inline.js",
+      "pageBackgroundAssets": "renderers/html/components/page-background/page-background.assets.inline.js",
+      "pageBackground": "renderers/html/components/page-background/page-background.inline.js",
+      "bottomBarAssets": "renderers/html/components/bottom-bar/bottom-bar.assets.inline.js",
+      "bottomBar": "renderers/html/components/bottom-bar/bottom-bar.inline.js"
+    }
   },
   "schemas": {
     "component": "schemas/component.schema.json",

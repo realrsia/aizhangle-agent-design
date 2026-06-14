@@ -4,7 +4,7 @@ items:
   - id: page-background-hierarchy-match
     severity: P0
     question: 页面是否按真实层级选择背景分类，而不是按视觉相似度或截图选择？
-    passCriteria: 一级页用 `新版工作区/一级`；AI Chat、个股详情、交易、我的、账户等二级页用 `新版二级页`；设置和三层以上页面用 `新三级页`。
+    passCriteria: 当前已确认首页、AI 对话、早点听、涨停猎手、事件捕手使用 `新版工作区/一级`；交易、个股等页面等待后续专项补充，不得提前猜测；设置和三层以上页面使用 `新三级页`。
   - id: page-background-theme-pair
     severity: P0
     question: 黑版和白版是否使用同一 `分类` 下的 `Dark=On/Off` 配对？
@@ -13,6 +13,10 @@ items:
     severity: P0
     question: 背景是否来自 `背景/母组件` 的 Figma library instance？
     passCriteria: 组件来源可追溯到 `figma://pbxELN7TYDDguIgbXfc1zB/400:26745`，而不是普通矩形、渐变块或截图。
+  - id: page-background-html-runtime-reused
+    severity: P0
+    question: 单 HTML Demo 是否直接复用一级页面背景 runtime？
+    passCriteria: 先内联 `page-background.assets.inline.js`，再内联 `page-background.inline.js`，并使用 `xzl-page-background`；不得用纯色或手绘渐变替代。
   - id: page-background-bottom-layer
     severity: P1
     question: 背景是否位于 page root 最底层，且没有压住导航、内容、底栏或浮层？

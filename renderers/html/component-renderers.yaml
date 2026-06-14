@@ -7,21 +7,180 @@ title: HTML 组件渲染器
 summary: 面向 Agent 生成 H5 高保真原型 HTML 渲染器映射。
 principle: "Figma 组件 ID 用作身份依据；本地 HTML 渲染器规则负责生成高保真的 DOM/CSS 表达。"
 renderers:
+  - id: renderer.html.home-topbar
+    sourceComponent: component.home-topbar
+    htmlStrategy:
+      fidelity: high
+      renderAs: reusable-web-component
+      redrawForbidden: true
+      defaultInteraction: static
+    htmlRuntime:
+      assetPath: renderers/html/components/top-bar/top-bar.assets.inline.js
+      path: renderers/html/components/top-bar/top-bar.inline.js
+      customElement: xzl-home-top-bar
+      inlineMode: inline-assets-then-runtime-inside-script
+      noExternalDependencies: true
+      attributes:
+        theme:
+          allowed:
+            - light
+            - dark
+          required: true
+    visualReferences:
+      dark: figma://pbxELN7TYDDguIgbXfc1zB/713:40812
+      light: figma://pbxELN7TYDDguIgbXfc1zB/713:40841
+    hardGates:
+      forbidReimplementation: true
+      forbidNetworkAssets: true
+      requireTransparentBackground: true
+      requiredHeightPx: 115
+      requiredWidthBaselinePx: 390
+  - id: renderer.html.primary-page-background
+    sourceComponent: component.page-background
+    htmlStrategy:
+      fidelity: high
+      renderAs: reusable-web-component
+      redrawForbidden: true
+      defaultInteraction: static
+    htmlRuntime:
+      assetPath: renderers/html/components/page-background/page-background.assets.inline.js
+      path: renderers/html/components/page-background/page-background.inline.js
+      customElement: xzl-page-background
+      inlineMode: inline-assets-then-runtime-inside-script
+      noExternalDependencies: true
+      attributes:
+        scene:
+          allowed:
+            - home
+            - chat
+            - morning-brief
+            - limit-up-hunter
+            - event-catcher
+          required: true
+        theme:
+          allowed:
+            - light
+            - dark
+          required: true
+    visualReferences:
+      dark: figma://pbxELN7TYDDguIgbXfc1zB/400:26896
+      light: figma://pbxELN7TYDDguIgbXfc1zB/400:26805
+    pendingSceneCoverage:
+      - trading
+      - stock-detail
+    hardGates:
+      forbidPureColorFallback: true
+      forbidHandDrawnGradient: true
+      requireBottomLayer: true
+      requiredHeightPx: 844
+      requiredWidthPx: 390
+  - id: renderer.html.chat-topbar
+    sourceComponent: component.chat-topbar
+    htmlStrategy:
+      fidelity: high
+      renderAs: reusable-web-component
+      redrawForbidden: true
+      defaultInteraction: static
+    htmlRuntime:
+      assetPath: renderers/html/components/top-bar/top-bar.assets.inline.js
+      path: renderers/html/components/top-bar/top-bar.inline.js
+      customElement: xzl-chat-top-bar
+      inlineMode: inline-assets-then-runtime-inside-script
+      noExternalDependencies: true
+      attributes:
+        theme:
+          allowed:
+            - light
+            - dark
+          required: true
+    visualReferences:
+      dark: figma://pbxELN7TYDDguIgbXfc1zB/392:75358
+      light: figma://pbxELN7TYDDguIgbXfc1zB/392:75374
+      role: html-visual-acceptance-only
+    figmaBindingsUnchanged: true
+    figmaGenerationRoute: bindings/figma/components.yaml#components.component.chat-topbar
+    hardGates:
+      forbidReimplementation: true
+      forbidNetworkAssets: true
+      requireFixedTop: true
+      requiredHeightPx: 91
+      requiredWidthBaselinePx: 390
   - id: renderer.html.bottom-bar
     sourceComponent: component.bottom-bar
-    figmaBinding:
-      componentKey: "455cf0ed17ebc34a27a7de59ff7efdc3c8818fd1"
-      bindingSource: bindings/figma/critical-bindings.yaml
-      verificationRequired: true
     htmlStrategy:
-      fidelity: low
-      renderAs: fixed-bottom-bar
-      useTokens: true
-      useLocalAssetsWhenNeeded: true
+      fidelity: high
+      renderAs: reusable-web-component
+      redrawForbiddenForConfirmedRuntimeVariants: true
+      defaultInteraction: static
+    htmlRuntime:
+      assetPath: renderers/html/components/bottom-bar/bottom-bar.assets.inline.js
+      path: renderers/html/components/bottom-bar/bottom-bar.inline.js
+      customElement: xzl-bottom-bar
+      inlineMode: inline-assets-then-runtime-inside-script
+      noExternalDependencies: true
+      attributes:
+        scene:
+          allowed:
+            - home
+            - chat
+            - stock
+          required: true
+        theme:
+          allowed:
+            - light
+            - dark
+          required: true
+        companion:
+          allowed:
+            - "on"
+            - "off"
+          default: "off"
+    visualReferences:
+      chat-dark: figma://pbxELN7TYDDguIgbXfc1zB/12:10180
+      chat-light: figma://pbxELN7TYDDguIgbXfc1zB/12:10189
+      home-dark: figma://pbxELN7TYDDguIgbXfc1zB/12:9199
+      home-light: figma://pbxELN7TYDDguIgbXfc1zB/12:9208
+      stock-dark: figma://pbxELN7TYDDguIgbXfc1zB/12:9221
+      stock-light: figma://pbxELN7TYDDguIgbXfc1zB/12:9232
+      companion-dark: figma://pbxELN7TYDDguIgbXfc1zB/12:9237
+      companion-light: figma://pbxELN7TYDDguIgbXfc1zB/12:9243
+      role: html-visual-acceptance-only
+    figmaBindingsUnchanged: true
+    figmaGenerationRoute: bindings/figma/components.yaml#components.component.bottom-bar
     localFallbacks:
       - bindings/assets/files/bottom-bar/icons/
       - bindings/assets/files/templates/bottom-bar-component.json
     sceneVariantDefaults:
+      primary-core-page:
+        scene: home
+        examples:
+          - 首页
+          - 早点听
+          - 账户
+          - 交易
+          - 涨停猎手
+          - 事件捕手
+      ai-conversation:
+        scene: chat
+        allowedPages:
+          - AI 对话页
+          - 任务助手页
+      stock-detail:
+        scene: stock
+        requiresSelectedSecurity: true
+      companion:
+        composition: overlay
+        independentScene: false
+        occupiesLayoutHeight: false
+        mayOverlay:
+          - home
+          - stock
+      no-bottom-bar:
+        render: omit
+        appliesTo:
+          - 次级页面
+          - 专题页
+          - 无持续输入或底部操作需求的页面
       market-index:
         scene: 首页场景
         darkVariantId: default-dark
@@ -31,13 +190,19 @@ renderers:
     outputChecklist: bindings/assets/files/templates/bottom-bar-output-checklist.json
     hardGates:
       requireDataComponent: component.bottom-bar
-      requireTemplate:
+      confirmedRuntimeMustUse:
+        - renderers/html/components/bottom-bar/bottom-bar.assets.inline.js
+        - renderers/html/components/bottom-bar/bottom-bar.inline.js
+        - xzl-bottom-bar
+      fallbackVariantsRequireTemplate:
         - bindings/assets/files/templates/bottom-bar-component.json
       requireModeSpecificAssets: true
+      defaultInteraction: static-unless-explicitly-requested
       forbiddenSubstitutes:
         - ordinary-five-tab-navigation
         - tabs-as-bottom-bar
         - button-group-as-bottom-bar
+        - per-page-redraw-of-bottom-bar
         - css-drawn-icons
         - emoji-icons
         - lucide-icons
@@ -53,7 +218,16 @@ renderers:
         component: data-component
         componentFamily: data-component-family
         bindingStatus: data-binding-status
-      requiredFields:
+      confirmedRuntimeRequiredFields:
+        - runtimePath
+        - assetPath
+        - customElement
+        - scene
+        - theme
+        - companion
+        - visualReference
+        - checklistResult
+      fallbackVariantRequiredFields:
         - variant
         - templatePath
         - backgroundAsset

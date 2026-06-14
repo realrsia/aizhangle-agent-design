@@ -138,7 +138,14 @@ tokens:
     - color/xzl-color-background-b
     - color/xzl-color-background-d-card
   figmaFinding: "`背景/母组件` variant `400:26805` is the confirmed light AI Chat background; use parent component set `400:26745` and its partially verified variables as source evidence."
-assetRefs: []
+assetRefs:
+  - asset.page-background.primary
+htmlRuntime:
+  assetPath: renderers/html/components/page-background/page-background.assets.inline.js
+  path: renderers/html/components/page-background/page-background.inline.js
+  customElement: xzl-page-background
+  attributes:
+    scene: chat
 sourceRefs:
   - authoring/components/chat-background.brief.yaml
   - authoring/scenarios/ai-chat.brief.yaml

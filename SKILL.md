@@ -131,6 +131,43 @@ description: 为新涨乐 / AI 涨乐产品经理生成接近视觉稿、可直�
 - `bindings/assets/manifest.yaml`：仅用于 prototype fallback assets。
 - `canon/checklists/visual-review.yaml`：验证 prototype 输出。
 
+生成单 HTML Demo 时，Bottom Bar 必须优先直接复用：
+
+- `renderers/html/components/bottom-bar/bottom-bar.assets.inline.js`
+- `renderers/html/components/bottom-bar/bottom-bar.inline.js`
+
+先内联素材文件，再内联组件文件，不要逐页重画组件内部结构。使用：
+
+- 核心一级页面：`<xzl-bottom-bar scene="home" theme="light|dark">`
+- AI 对话页 / 任务助手页：`<xzl-bottom-bar scene="chat" theme="light|dark">`
+- 个股详情页：`<xzl-bottom-bar scene="stock" theme="light|dark">`
+- 陪伴叠加：在已有场景上增加 `companion="on"`；它覆盖正文，不占位、不推高页面。
+- 次级页面、专题页或无持续底部操作需求的页面：不渲染该组件。
+
+Top Bar 必须直接复用统一 runtime：
+
+- `renderers/html/components/top-bar/top-bar.assets.inline.js`
+- `renderers/html/components/top-bar/top-bar.inline.js`
+
+先内联素材文件，再内联组件文件。首页出招、首页大盘、首页早点听、
+首页提醒和首页任务使用 `<xzl-home-top-bar theme="light|dark">`；
+AI 对话页和任务助手页使用 `<xzl-chat-top-bar theme="light|dark">`。
+二级页面不要误用上述 Top Bar。
+
+当前已确认的一级页面背景必须直接复用：
+
+- `renderers/html/components/page-background/page-background.assets.inline.js`
+- `renderers/html/components/page-background/page-background.inline.js`
+
+先内联素材文件，再内联组件文件，使用
+`<xzl-page-background scene="home|chat|morning-brief|limit-up-hunter|event-catcher" theme="light|dark">`。
+它适用于首页、AI 对话、早点听、涨停猎手和事件捕手，固定为 `390x844`，
+位于页面根层最底部。不得使用纯色、手绘渐变或页面截图替代。交易页和个股详情页
+背景尚未完成本轮专项治理，不得提前猜测或复用该一级背景。
+
+- 未明确要求点击交互时保持静态展示。
+- 该 runtime 仅用于 HTML；Figma 任务继续使用 `bindings/figma/components.yaml` 中的正式组件绑定。
+
 #### Visual Review
 
 读取：
@@ -174,7 +211,7 @@ description: 为新涨乐 / AI 涨乐产品经理生成接近视觉稿、可直�
 - 必须选择正确 variant，并显式确认 light / dark variable mode。
 - 不允许只按 `Dark=On`、`Dark=Off`、组件名包含关系或循环覆盖式 fuzzy match 选择 component set child。选择 variant 时必须一次性匹配完整 `expectedVariantProperties` / `variantProperties`；如果 confirmed variant 已有 `componentKey`，优先直接 `importComponentByKeyAsync` 导入该 variant。
 - 放置 confirmed component 后必须反查实际来源和 variant：记录 `mainComponent.name`、`mainComponent.parent.name`、可读的 `componentProperties` 或实际 variant 名；若与 expected variant 不一致，必须修复后再交付。
-- AI Chat 场景的背景和底部输入是 P0 语义组件：背景必须使用 AI Chat 对话背景 expected variant，不得退回旧二级页/首页背景；底部输入必须使用 `场景=对话` 的 chat input / bottom bar variant，不得使用 `场景=默认` 首页 Bottom Bar。
+- AI Chat 场景的背景和底部输入是 P0 语义组件：背景必须使用已确认的 `新版工作区/一级` 对话背景变体或对应 HTML runtime，不得退回旧版背景、纯色或手绘渐变；底部输入必须使用 `场景=对话` 的 chat input / bottom bar variant，不得使用 `场景=默认` 首页 Bottom Bar。
 - 目标 Figma 文件里的既有 frame 只能作为参考；复用任何结构前，都要检查是否存在 wrong variant、clipped clone 或 placeholder text。
 - 对 confirmed fixed chrome 和核心消息组件，probe 失败是 P0 blocker，不是降级成高保真自绘的许可。示例：chat-topbar、chat-input / bottom bar、message-feed 的 verified 子组件、action-sheet mask / title / button area、trading action controls。
 - 允许重绘的范围只能是没有 confirmed binding 的局部业务模块，或 partial family 中确实缺失的子区域。
@@ -257,8 +294,4 @@ description: 为新涨乐 / AI 涨乐产品经理生成接近视觉稿、可直�
 - 不要猜 Figma component variants、variable names、component keys 或 node ids。
 - 不要把金融业务页面画成通用 dashboard cards。
 - 交付前不要跳过 checklist validation。
-
-
-
-
 

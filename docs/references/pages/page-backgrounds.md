@@ -18,8 +18,8 @@ Verify:
 
 Use these background assignments:
 
-- Level 1: home page, plus pages explicitly specified as level 1. Use the confirmed Figma page-shell/background component when available.
-- Level 2: stock detail page, 自选, 持仓页, trading page, and pages entered from a level-1 entry. Use the confirmed Figma page-shell/background component when available.
+- Level 1, currently confirmed: 首页、AI 对话、早点听、涨停猎手、事件捕手. Use the confirmed `新版工作区/一级` Figma page-shell/background component.
+- Pending专项治理: trading and stock-detail backgrounds are not yet complete in the HTML runtime. Do not infer or reuse the level-1 background for them until their variants are confirmed.
 - Level 3: pages entered from a level-2 page. Use the design token `background-a` (`xzl/color/background/page`, source `xzl-color-background-a`) instead of an image.
 
 Why:
@@ -27,9 +27,8 @@ Level 1 and level 2 pages use the maintained Figma background shell when availab
 
 Verify:
 
-- 首页 uses the level-1 background unless the task explicitly specifies another level-1 page.
-- 自选 and 持仓页 are treated as level-2 tabs of the same page background category.
-- Trading pages and stock detail pages use the level-2 background.
+- 首页、AI 对话、早点听、涨停猎手、事件捕手 use the confirmed level-1 background.
+- Trading and stock-detail pages remain pending until their exact background variants are added.
 - Level-3 pages use `background-a` and do not use the level-1 or level-2 shell treatment.
 
 ## Rule: Display page background shells at viewport size

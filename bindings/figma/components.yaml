@@ -1,4 +1,18 @@
 components:
+  component.home-topbar:
+    bindingMode: html_runtime_with_visual_reference
+    status: confirmed_for_html
+    fileName: 设计仓库
+    fileKey: pbxELN7TYDDguIgbXfc1zB
+    visualReferences:
+      darkNodeId: "713:40812"
+      lightNodeId: "713:40841"
+    htmlRuntime:
+      assetPath: renderers/html/components/top-bar/top-bar.assets.inline.js
+      path: renderers/html/components/top-bar/top-bar.inline.js
+      customElement: xzl-home-top-bar
+    figmaGenerationPolicy:
+      rule: 不根据 HTML runtime 新建或重复绑定 Figma 组件；后续确认正式组件 key 后再补强 Figma binding。
   component.action-sheet:
     bindingMode: must_use_library_instance
     bindingFailurePolicy: stop_and_recheck
@@ -751,6 +765,10 @@ components:
     bindingMode: must_use_library_instance
     bindingFailurePolicy: stop_and_recheck
     status: confirmed
+    htmlRuntime:
+      assetPath: renderers/html/components/top-bar/top-bar.assets.inline.js
+      path: renderers/html/components/top-bar/top-bar.inline.js
+      customElement: xzl-chat-top-bar
     sourceBrief: authoring/components/chat-topbar.brief.yaml
     fileName: 设计仓库
     fileKey: pbxELN7TYDDguIgbXfc1zB

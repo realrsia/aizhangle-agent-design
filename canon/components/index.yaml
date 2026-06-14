@@ -6,6 +6,7 @@ components:
   - component.chat-background
   - component.chat-input
   - component.chat-topbar
+  - component.home-topbar
   - component.divider
   - component.input
   - component.market-index-modules

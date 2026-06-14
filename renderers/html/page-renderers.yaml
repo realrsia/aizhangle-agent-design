@@ -23,15 +23,92 @@ renderers:
     sourceScenario: scenario.ai-chat
     sourceArchetype: archetype.mobile-chat-page
     htmlStrategy:
-      fidelity: low
+      fidelity: high
       renderAs: mobile-chat-shell
       useTokens: true
       useLocalAssetsWhenNeeded: true
+      fixedChromeReuseRequired: true
     requiredInputs:
       - canon/scenarios/ai-chat.yaml
       - canon/archetypes/mobile-chat-page.yaml
       - renderers/html/component-renderers.yaml
+      - renderers/html/components/page-background/page-background.assets.inline.js
+      - renderers/html/components/page-background/page-background.inline.js
+      - renderers/html/components/top-bar/top-bar.assets.inline.js
+      - renderers/html/components/top-bar/top-bar.inline.js
+      - renderers/html/components/bottom-bar/bottom-bar.assets.inline.js
+      - renderers/html/components/bottom-bar/bottom-bar.inline.js
       - canon/checklists/visual-review.yaml
+    requiredRenderers:
+      - renderer.html.primary-page-background
+      - renderer.html.chat-topbar
+      - renderer.html.bottom-bar
+    requiredComponents:
+      - component.page-background
+      - component.chat-background
+      - component.chat-topbar
+      - component.message-feed
+      - component.chat-input
+      - component.bottom-bar
+    fixedChrome:
+      backgroundAssetPath: renderers/html/components/page-background/page-background.assets.inline.js
+      backgroundRuntimePath: renderers/html/components/page-background/page-background.inline.js
+      topbarAssetPath: renderers/html/components/top-bar/top-bar.assets.inline.js
+      topbarRuntimePath: renderers/html/components/top-bar/top-bar.inline.js
+      bottomBarAssetPath: renderers/html/components/bottom-bar/bottom-bar.assets.inline.js
+      bottomBarRuntimePath: renderers/html/components/bottom-bar/bottom-bar.inline.js
+      topbarElement: xzl-chat-top-bar
+      backgroundElement: xzl-page-background
+      backgroundAttributes:
+        scene: chat
+      bottomBarElement: xzl-bottom-bar
+      bottomBarAttributes:
+        scene: chat
+        companion: "off"
+      themeMustMatchPage: true
+      defaultInteraction: static
+      redrawForbidden: true
+      figmaBindingsUnchanged: true
+    layoutContract:
+      viewport:
+        width: 390
+        height: 844
+      topbar:
+        fixed: true
+        height: 91
+      bottomInput:
+        fixed: true
+        height: 171
+      messageFeed:
+        scrollable: true
+        bottomClearancePxMin: 40
+  - id: renderer.html.primary-home-shell
+    sourceComponent: component.page-background
+    htmlStrategy:
+      fidelity: high
+      renderAs: primary-page-fixed-shell
+      useTokens: true
+      fixedChromeReuseRequired: true
+    appliesTo:
+      - 首页
+      - 早点听
+      - 涨停猎手
+      - 事件捕手
+    requiredRenderers:
+      - renderer.html.primary-page-background
+      - renderer.html.home-topbar
+      - renderer.html.bottom-bar
+    fixedChrome:
+      backgroundElement: xzl-page-background
+      topbarElement: xzl-home-top-bar
+      bottomBarElement: xzl-bottom-bar
+      bottomBarAttributes:
+        scene: home
+      themeMustMatchPage: true
+      defaultInteraction: static
+    pendingBackgroundCoverage:
+      - 交易页
+      - 个股详情页
   - id: renderer.html.market-index-page
     sourceScenario: scenario.market-index
     sourceArchetype: archetype.market-overview-page

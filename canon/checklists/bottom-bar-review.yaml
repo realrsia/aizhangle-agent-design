@@ -12,7 +12,11 @@ items:
   - id: scene-property-matches-page-context
     severity: P0
     question: "`场景` 属性是否与页面上下文一致？"
-    passCriteria: 首页、全屏对话、个股、关联问、陪伴场景不得混用；旧 Figma 值“默认 / 对话 / 交易场景”必须映射到 authoring 中确认的新分类。
+    passCriteria: 首页态用于核心一级页面，全屏对话态只用于 AI 对话/任务助手，个股态只用于明确标的详情页；陪伴是可叠加模块而非独立基础场景。
+  - id: bottom-bar-omitted-when-page-does-not-need-it
+    severity: P0
+    question: 次级页面、专题页或无持续底部操作需求的页面是否正确省略 Bottom Bar？
+    passCriteria: 页面没有持续输入、固定入口或底部交易动作需求时不渲染 Bottom Bar，不得为了视觉完整度强行添加。
   - id: bottom-bar-layer-foremost
     severity: P0
     question: Bottom Bar 是否处于页面常驻交互层最前方？
@@ -67,16 +71,16 @@ items:
     passCriteria: 用户正在键盘输入、长按语音、录音、松开发送、订单确认或交易表单提交时，不得弹出空闲关联问 Toast。
   - id: companion-context-matches-page
     severity: P1
-    question: 陪伴场景是否与页面上下文一致？
-    passCriteria: 首页陪伴用于权益领取或功能引导；预交易陪伴用于“我的”体系或预交易事项；个股详情陪伴用于当前标的分析提醒，不得混用。
+    question: 陪伴叠加模块是否与基础 Bottom Bar 和页面上下文一致？
+    passCriteria: 陪伴可叠加在已确认的首页态、个股态等 Bottom Bar 上方；提醒内容必须匹配当前页面，不得作为独立基础场景或替换基础 Bottom Bar。
   - id: companion-copy-not-investment-advice
     severity: P1
     question: 陪伴提醒文案是否避免确定性投资建议或收益承诺？
     passCriteria: 可以引导分析原因，但不得承诺收益、直接建议买卖或替用户做交易决策。
-  - id: companion-height-accounted
+  - id: companion-overlay-does-not-push-layout
     severity: P1
-    question: 陪伴模块出现后，底栏高度和页面底部避让是否正确？
-    passCriteria: 227 / 260 等陪伴高度变体不能被压缩；页面内容、指数模块、输入胶囊和 home indicator 不得被遮挡。
+    question: 陪伴模块是否以悬浮覆盖层呈现，而没有推高页面或预留独立空白？
+    passCriteria: 陪伴人物和气泡悬浮在基础 Bottom Bar 上方，可覆盖正文；不得为陪伴模块单独占位或推高页面，且不得遮挡输入胶囊和 home indicator。
   - id: ai-disclosure-kept-when-needed
     severity: P1
     question: 全屏对话或 AI 建议内容出现时，是否保留 AI 生成内容披露？
@@ -92,7 +96,7 @@ items:
   - id: optional-modules-height-accounted
     severity: P1
     question: 有陪伴、有指数、有关联问等模块出现时，底栏高度和内容避让是否正确？
-    passCriteria: 130 / 131 / 171 / 227 / 260 等不同高度变体不能强行压缩；滚动内容应预留对应底部空间。
+    passCriteria: 基础 Bottom Bar 和指数/关联问结构不得被压缩；陪伴模块作为覆盖层不增加页面占位高度，滚动内容只按基础 Bottom Bar 的固定区域避让。
   - id: voice-input-state-clear
     severity: P1
     question: 长按语音输入状态是否清楚表达当前操作？

@@ -9,7 +9,7 @@ items:
   - id: chat-background-not-screenshot
     severity: P0
     question: 是否没有把页面截图、普通矩形或近似色块当成可复用背景？
-    passCriteria: 背景不是 screenshot_background、hand_drawn_solid_rect 或普通 card/background frame。
+    passCriteria: Figma 使用正式背景组件；HTML 使用由该组件确认并内联的 page-background runtime，不使用页面截图、手绘色块或普通 card/background frame。
   - id: chat-background-theme-match
     severity: P0
     question: 黑版/白版是否使用正确 `Dark` 变体？

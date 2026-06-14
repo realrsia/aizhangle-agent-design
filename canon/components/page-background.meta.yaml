@@ -12,6 +12,11 @@ purpose: >
 usage:
   usedIn:
     - primary-workspace-page
+    - app-home-page
+    - ai-chat-page
+    - morning-brief-page
+    - limit-up-hunter-page
+    - event-catcher-page
     - secondary-business-page
     - ai-chat-flow-page
     - stock-detail-page
@@ -182,7 +187,21 @@ tokens:
     - color/xzl-color-background-b
     - color/xzl-color-background-d-card
 assets:
-  localAssetRefs: []
+  localAssetRefs:
+    - asset.page-background.primary
+htmlRuntime:
+  assetPath: renderers/html/components/page-background/page-background.assets.inline.js
+  path: renderers/html/components/page-background/page-background.inline.js
+  customElement: xzl-page-background
+  confirmedScenes:
+    - home
+    - chat
+    - morning-brief
+    - limit-up-hunter
+    - event-catcher
+  pendingScenes:
+    - trading
+    - stock-detail
 resourceRefs:
   - figma://pbxELN7TYDDguIgbXfc1zB/400:24983
   - figma://pbxELN7TYDDguIgbXfc1zB/400:26745
