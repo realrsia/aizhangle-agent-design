@@ -1,9 +1,9 @@
 ---
-name: zhangle-agent-design-system
+name: aizhangle-agent-design
 description: 为新涨乐 / AI 涨乐产品经理生成接近视觉稿、可直接交付设计师微调的移动端原型图（HTML 或 Figma 两种形态）。基于团队 Figma 组件库和 design tokens 严格约束，确保产出符合设计规范。触发场景：做原型图、画原型、出稿、给设计师看的稿、PRD 配图、demo、视觉稿、交易页、自选股页、AI 对话页、下单页、市场行情页、Bottom Bar、Action Sheet 等业务页面或组件的原型设计。即使用户只说"画个页面 / 做个 demo / 出张稿"，只要涉及新涨乐 / AI 涨乐移动端，都应触发本 skill。
 ---
 
-# AI Zhangle Agent Design system
+# aizhangle-agent-design
 
 本 skill 为产品经理生成接近视觉稿的移动端原型（HTML 或 Figma）。agent 进入后按下方任务路由读取最小文件集。
 

@@ -1,4 +1,4 @@
-# AI Zhangle Agent Design system
+# aizhangle-agent-design
 
 ## 1. 视觉主题与氛围
 

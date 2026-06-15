@@ -1,10 +1,14 @@
 {
-  "id": "zhangle-agent-design-system",
-  "name": "AI Zhangle Agent Design system",
+  "id": "aizhangle-agent-design",
+  "name": "aizhangle-agent-design",
   "schemaVersion": 1,
   "version": "0.1.0",
   "status": "mvp",
   "description": "Machine-readable path index for the schema-first AI Zhangle / New Zhangle design-system repository.",
+  "repository": {
+    "url": "https://github.com/realrsia/aizhangle-agent-design.git",
+    "branch": "main"
+  },
   "entrypoints": {
     "skill": "SKILL.md",
     "design": "DESIGN.md",

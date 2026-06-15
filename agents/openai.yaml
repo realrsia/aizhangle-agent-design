@@ -1,4 +1,4 @@
 interface:
-  display_name: "AI Zhangle Agent Design system"
+  display_name: "aizhangle-agent-design"
   short_description: "生成、评审和修复 AI 涨乐移动端设计"
-  default_prompt: "Use $zhangle-agent-design-system to generate, review, or repair an AI Zhangle mobile design with the repository canon, bindings, and checklists."
+  default_prompt: "Use $aizhangle-agent-design to generate, review, or repair an AI Zhangle mobile design with the repository canon, bindings, and checklists."
