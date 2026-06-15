@@ -97,6 +97,10 @@ items:
     severity: P1
     question: 有陪伴、有指数、有关联问等模块出现时，底栏高度和内容避让是否正确？
     passCriteria: 基础 Bottom Bar 和指数/关联问结构不得被压缩；陪伴模块作为覆盖层不增加页面占位高度，滚动内容只按基础 Bottom Bar 的固定区域避让。
+  - id: transparent-shadow-does-not-reserve-layout-height
+    severity: P0
+    question: Bottom Bar 顶部透明渐变是否作为覆盖层处理，而没有压缩正文可视区域？
+    passCriteria: 正文只避让实体操作区、safe area 及实体区上方 20px；透明阴影允许覆盖并透出正文，不得按完整组件高度再增加额外间距。
   - id: voice-input-state-clear
     severity: P1
     question: 长按语音输入状态是否清楚表达当前操作？

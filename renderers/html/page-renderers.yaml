@@ -81,7 +81,13 @@ renderers:
         height: 171
       messageFeed:
         scrollable: true
-        bottomClearancePxMin: 40
+        bottomClearance:
+          referenceEdge: bottom-bar-body-top
+          gapPx: 20
+          includeSafeAreaInReservedHeight: true
+          excludeTransparentShadowFromReservedHeight: true
+          allowContentUnderTransparentShadow: true
+          forbidFullBottomBarHeightPlusExtraSpacer: true
   - id: renderer.html.primary-home-shell
     sourceComponent: component.page-background
     htmlStrategy:

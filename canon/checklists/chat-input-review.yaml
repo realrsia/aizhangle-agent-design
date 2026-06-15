@@ -5,7 +5,7 @@ items:
   - id: chat-input-fixed-bottom
     severity: P0
     question: 对话输入栏是否固定在 frame 底部，并位于滚动内容之上？
-    passCriteria: 输入栏不随 message_feed 滚动，消息内容区为底部输入栏预留空间。
+    passCriteria: 输入栏不随 message_feed 滚动；消息内容只为实体操作区、safe area 和其上方 20px 间距避让，允许透过顶部透明渐变继续显示，不为完整组件高度额外占位。
   - id: chat-input-uses-dialog-bottom-bar
     severity: P0
     question: 是否复用了对话态 Bottom Bar 结构，而不是普通输入框或通用底部导航？

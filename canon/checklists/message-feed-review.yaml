@@ -38,6 +38,10 @@ items:
     severity: P1
     question: 关联问是否位于回答内容之后，且不进入底部输入栏？
     passCriteria: related_questions 属于 message_feed 内容尾部，不是 chat_input chip 或页面根层散落元素。
+  - id: message-feed-bottom-bar-overlap-contract
+    severity: P0
+    question: 消息流是否只避让 Bottom Bar 实体区，而没有为顶部透明渐变重复占位？
+    passCriteria: 最后一条内容距 Bottom Bar 实体操作区顶部 20px；正文可以显示在透明阴影下方，但不得进入实体操作区或 safe area，也不得按完整 Bottom Bar 高度再增加 spacer。
   - id: message-feed-reasoning-not-generic-card
     severity: P1
     question: 思考链是否没有被画成任意普通卡片？

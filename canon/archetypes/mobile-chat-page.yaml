@@ -28,10 +28,13 @@ layout:
     - topbar
     - bottom_input
   contentRules:
-    bottomInputGapPxMin: 40
+    bottomInputGapPx: 20
+    bottomInputGapReference: bottom-bar-body-top
+    reserveBottomBarBodyAndSafeArea: true
+    transparentShadowMayOverlayMessageFeed: true
+    fullBottomBarHeightSpacerForbidden: true
     messageFeedMustCoverChildren: true
-    messageFeedCannotBeCoveredByBottomInput: true
-    explicitSpacerBeforeBottomInput: recommended
+    messageFeedCannotBeCoveredByBottomBarBody: true
 reviewDefaults:
   - checklist.visual-review
   - checklist.chat-fidelity-source

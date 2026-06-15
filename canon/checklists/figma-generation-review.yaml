@@ -280,24 +280,26 @@ rules:
   - canon/archetypes/mobile-chat-page.yaml
   autofix:
     strategy: recompute-scroll-and-wrapper-heights-from-child-bounds
-- id: bottom-bar-keeps-40px-gap
+- id: bottom-bar-body-keeps-20px-gap
   severity: error
   target: mobile-chat-bottom-input
   assert:
     bottomBarFixedAtFrameBottom: true
     bottomBarOutsideMessageFeed: true
-    messageContentNotCoveredByBottomBar: true
-    gapBetweenContentAndBottomBarPxMin: 40
-    explicitSpacerPresentWhenNeeded: true
-  rationale: Chat input is fixed chrome; content must reserve visible breathing room
-    instead of sitting under the Bottom Bar.
+    messageContentNotCoveredByBottomBarBody: true
+    gapBetweenContentAndBottomBarBodyPx: 20
+    transparentShadowMayOverlayMessageContent: true
+    fullBottomBarHeightPlusExtraSpacerForbidden: true
+  rationale: Chat input is fixed chrome, but its transparent shadow is a visual
+    overlay rather than reserved layout height. Content avoids the solid body
+    and safe area while remaining visible beneath the gradient.
   sourceRefs:
   - SKILL.md
   - DESIGN.md
   - canon/components/chat-input.meta.yaml
   - canon/archetypes/mobile-chat-page.yaml
   autofix:
-    strategy: add-explicit-spacer-and-pin-bottom-bar-to-frame-bottom
+    strategy: reserve-body-safe-area-and-20px-gap-without-reserving-transparent-shadow
 - id: realistic-content-no-placeholders
   severity: error
   target: generated-screen-content

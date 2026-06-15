@@ -78,7 +78,7 @@ riskBoundaries:
     rule: Message feed and reasoning panel wrappers must be resized from child bounds; they cannot clip reasoning chains, answer body text, tables, charts, or related questions.
   - id: message-feed-bottom-input-clearance
     severity: P0
-    rule: Message feed content must end before the fixed chat input and keep at least 40px visible clearance from Bottom Bar / Chat Input.
+    rule: Message feed content must keep 20px clearance from the solid Bottom Bar body. It may extend beneath the transparent shadow area, but must not enter the control body or safe area; do not add a full-height Bottom Bar spacer.
   - id: message-feed-text-sizing
     severity: P1
     rule: Multi-line answer, reasoning, disclaimer, and related-question text should use Fill Container width and Hug height unless a verified source component owns the internal sizing.
@@ -360,8 +360,10 @@ generationRules:
   layoutResilience:
     messageFeedScrollMustCoverChildren: true
     recomputeWrapperHeightAfterInstanceResize: true
-    forbidBottomInputOverlap: true
-    bottomInputGapPxMin: 40
+    forbidBottomBarBodyOverlap: true
+    contentToBottomBarBodyGapPx: 20
+    transparentShadowMayOverlayContent: true
+    fullBottomBarHeightSpacerForbidden: true
     textSizing:
       multilineBodyWidth: fill_container
       textHeight: hug_contents

@@ -50,7 +50,7 @@ riskBoundaries:
     rule: Voice, keyboard, interruption, upward-swipe, related-question, companion, and index states remain candidates until verified in Figma.
   - id: chat-input-bottom-clearance
     severity: P0
-    rule: Bottom Bar / Chat Input must sit at the frame bottom and keep at least 40px visible gap from message content; it must not cover message_feed.
+    rule: Bottom Bar / Chat Input must sit at the frame bottom. Message content keeps 20px clearance from the top of the solid Bottom Bar body and may remain visible beneath its transparent shadow; do not reserve the full component height plus an extra spacer.
 componentFamilies:
   - familyId: chat-input.dialog-bottom-bar-instance
     displayName: 对话页底部输入栏实例
@@ -141,9 +141,12 @@ slots:
 layoutRules:
   fixedAtFrameBottom: true
   outsideMessageFeed: true
-  bottomInputGapPxMin: 40
-  explicitSpacerBeforeInput: recommended
-  overlapWithMessageContent: forbidden
+  contentToBodyGapPx: 20
+  clearanceReference: bottom-bar-body-top
+  reserveBodyAndSafeArea: true
+  transparentShadowMayOverlayMessageContent: true
+  fullComponentHeightSpacerForbidden: true
+  overlapWithBottomBarBody: forbidden
 tokens:
   source:
     - bindings/assets/files/templates/bottom-bar-component.json
