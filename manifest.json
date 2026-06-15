@@ -8,17 +8,13 @@
   "entrypoints": {
     "skill": "SKILL.md",
     "design": "DESIGN.md",
-    "llms": "llms.txt",
     "humanAuthoring": "authoring/README.md",
-    "changeHistory": "docs/references/change-history.md",
     "prTemplate": ".github/PULL_REQUEST_TEMPLATE.md"
   },
   "authoring": {
     "components": "authoring/components/",
     "componentIndex": "authoring/components/index.yaml",
-    "componentBriefWorkflow": "docs/references/component-brief-workflow.md",
-    "scenarios": "authoring/scenarios/",
-    "workflow": "docs/references/authoring-workflow.md"
+    "scenarios": "authoring/scenarios/"
   },
   "canonical": {
     "tokens": "canon/foundations/tokens/",
@@ -32,6 +28,7 @@
     "scenarios": "canon/scenarios/",
     "checklists": "canon/checklists/",
     "componentChecklistIndex": "canon/checklists/index.yaml",
+    "visualReviewChecklist": "canon/checklists/visual-review.yaml",
     "figmaGenerationChecklist": "canon/checklists/figma-generation-review.yaml"
   },
   "bindings": {
@@ -54,18 +51,6 @@
       "bottomBarAssets": "renderers/html/components/bottom-bar/bottom-bar.assets.inline.js",
       "bottomBar": "renderers/html/components/bottom-bar/bottom-bar.inline.js"
     }
-  },
-  "schemas": {
-    "component": "schemas/component.schema.json",
-    "checklist": "schemas/checklist.schema.json",
-    "resource": "schemas/resource.schema.json",
-    "componentBriefYaml": "schemas/component-brief.schema.yaml",
-    "componentMetaYaml": "schemas/component-meta.schema.yaml",
-    "checklistYaml": "schemas/checklist.schema.yaml",
-    "schemaIndex": "schemas/index.yaml"
-  },
-  "generated": {
-    "componentDocsIndex": "docs/generated/components/index.md"
   },
   "aesthetics": {
     "entrypoint": "DESIGN.md",
