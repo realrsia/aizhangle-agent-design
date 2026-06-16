@@ -4,7 +4,7 @@
   "schemaVersion": 1,
   "version": "0.1.1",
   "releaseNotes": {
-    "summary": "新增任务完成后的静默更新检查，并在发现新版本时返回版本说明摘要。",
+    "summary": "首个版本，支持复用AI涨乐规范token等，可复用的top bar、page background、bottom bar等组件。",
     "publishedAt": "2026-06-15"
   },
   "status": "mvp",
