@@ -73,6 +73,7 @@ description: 为新涨乐 / AI 涨乐产品经理生成接近视觉稿、可直�
 7. 需要自建页面内容或调整视觉值时，再读取相关 tokens、themes、semantics 和本地 assets；不要加载与当前任务无关的规范文件。
 8. 初稿完成后，使用 `docs/references/process/design-taster.md`、`docs/references/process/impeccable-adaptation.md` 和 `canon/checklists/visual-review.yaml` 进行视觉优化与交付检查。
 9. Figma 页面交付前还必须执行 `canon/checklists/figma-generation-review.yaml` 和相关的 component checklist 和 `canon/checklists/visual-review.yaml`；
+10. 最终回复前执行 `python scripts/version_check.py --check-latest-if-stale`。若返回 `status=update_available`，在最终回复末尾追加一句轻提示，说明当前版本、最新版本以及 `manifest.json` 中的 `releaseNotes.summary`；若返回 `current`、缓存结果或 `check_failed`，不打断当前任务。
 
 ### 2.2 业务场景路由
 
@@ -132,10 +133,17 @@ Bottom Bar 的完整组件高度包含顶部透明渐变 / 阴影区。页面正
 - `renderers/html/components/top-bar/top-bar.assets.inline.js`
 - `renderers/html/components/top-bar/top-bar.inline.js`
 
-先内联素材文件，再内联组件文件。首页出招、首页大盘、首页早点听、
-首页提醒和首页任务使用 `<xzl-home-top-bar theme="light|dark">`；
-AI 对话页和任务助手页使用 `<xzl-chat-top-bar theme="light|dark">`。
-二级页面不要误用上述 Top Bar。
+先内联素材文件，再内联组件文件。按页面场景选择对应 custom element：
+
+- 首页出招、首页大盘、首页提醒、首页任务，以及首页中的早点听入口卡片场景：`<xzl-home-top-bar theme="light|dark">`
+- AI 对话页和任务助手页：`<xzl-chat-top-bar theme="light|dark">`
+- 交易 / 下单 / 委托 / 条件单页面：`<xzl-trade-top-bar theme="light|dark">`
+- 早点听详情页：`<xzl-morning-top-bar theme="light|dark">`
+- 自选页：`<xzl-watchlist-top-bar theme="light|dark" active="自选|触发|模拟|持股">`
+- 个股详情页：`<xzl-stock-top-bar theme="light|dark">`
+- 除以上特殊声明场景外的次级页面：`<xzl-secondary-top-bar theme="light|dark" title="标题">`
+
+不得逐页重画 Top Bar 内部结构。自选页标签按钮必须使用 runtime 内已绑定的 3x PNG 背景切图，不得用 CSS/SVG 手绘替代。
 
 ##### 当前已确认的一级页面背景必须直接复用：
 
@@ -144,7 +152,7 @@ AI 对话页和任务助手页使用 `<xzl-chat-top-bar theme="light|dark">`。
 
 先内联素材文件，再内联组件文件，使用
 `<xzl-page-background scene="home|chat|morning-brief|limit-up-hunter|event-catcher" theme="light|dark">`。
-它适用于首页、AI 对话、早点听、涨停猎手和事件捕手，默认固定为 `390x844`，当页面内容超出可视区域时，保持页面背景、Top Bar 和 Bottom Bar 尺寸及位置不变，允许中间内容区域独立纵向滚动
+它适用于首页、AI 对话、早点听详情页、涨停猎手和事件捕手，默认固定为 `390x844`，当页面内容超出可视区域时，保持页面背景、Top Bar 和 Bottom Bar 尺寸及位置不变，允许中间内容区域独立纵向滚动
 位于页面根层最底部。不得使用纯色、手绘渐变或页面截图替代。交易页和个股详情页
 背景尚未完成本轮专项治理，不得提前猜测或复用该一级背景。
 

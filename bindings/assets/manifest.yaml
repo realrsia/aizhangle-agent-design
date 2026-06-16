@@ -46,6 +46,12 @@ assetGroups:
     useFor:
       - home-top-bar-theme-orbs
       - html-runtime-maintenance
+  - id: top-bar-watchlist-tabs
+    kind: component-assets
+    path: top-bar/watchlist-tabs/
+    useFor:
+      - watchlist-tab-backgrounds
+      - html-runtime-maintenance
   - id: page-background
     kind: component-assets
     path: page-background/
@@ -231,6 +237,52 @@ resourceRefs:
     useFor:
       - single-html-prototype
       - offline-generation
+  - id: asset.topbar.watchlist-tabs
+    type: local-asset
+    assetKind: theme-and-state-image-set
+    locator: bindings/assets/files/top-bar/watchlist-tabs/
+    role: watchlist-top-bar-tab-background-assets
+    sourceRefs:
+      - figma://pbxELN7TYDDguIgbXfc1zB/774:66816
+      - figma://pbxELN7TYDDguIgbXfc1zB/774:66866
+    files:
+      dark: zixuan-dark.png
+      darkActive: zixuan-active-dark.png
+      light: zixuan-light.png
+      lightActive: zixuan-active-light.png
+    displayMetrics:
+      idle:
+        width: 50
+        height: 35
+      active:
+        width: 56
+        height: 45
+    useFor:
+      - single-html-prototype
+      - offline-generation
+      - runtime-maintenance
+    notCanonicalFor:
+      - maintained-figma-component-instance
+  - id: asset.topbar.html-runtime
+    type: local-asset
+    assetKind: inline-runtime-payload
+    locator: renderers/html/components/top-bar/top-bar.assets.inline.js
+    role: single-html-top-bar-runtime-assets
+    sourceRefs:
+      - figma://pbxELN7TYDDguIgbXfc1zB/774:47670
+      - figma://pbxELN7TYDDguIgbXfc1zB/774:47669
+      - figma://pbxELN7TYDDguIgbXfc1zB/774:55970
+      - figma://pbxELN7TYDDguIgbXfc1zB/774:55971
+      - figma://pbxELN7TYDDguIgbXfc1zB/774:66816
+      - figma://pbxELN7TYDDguIgbXfc1zB/774:66866
+      - figma://pbxELN7TYDDguIgbXfc1zB/774:67059
+      - figma://pbxELN7TYDDguIgbXfc1zB/774:67217
+      - figma://pbxELN7TYDDguIgbXfc1zB/774:67337
+      - figma://pbxELN7TYDDguIgbXfc1zB/774:67397
+    useFor:
+      - single-html-prototype
+      - offline-generation
+      - runtime-maintenance
   - id: asset.page-background.primary
     type: local-asset
     assetKind: theme-paired-image-set
