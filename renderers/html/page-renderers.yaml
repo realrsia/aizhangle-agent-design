@@ -6,6 +6,76 @@ status: draft
 title: HTML 页面渲染器
 summary: 面向 Agent 生成高保证原型 H5 页面渲染器映射。
 renderers:
+  - id: renderer.html.topbar-selection
+    sourceComponent: component.topbar
+    htmlStrategy:
+      fidelity: high
+      renderAs: fixed-topbar-scene-selector
+      fixedChromeReuseRequired: true
+    requiredInputs:
+      - canon/components/topbar.meta.yaml
+      - renderers/html/component-renderers.yaml
+      - renderers/html/components/top-bar/top-bar.assets.inline.js
+      - renderers/html/components/top-bar/top-bar.inline.js
+    sceneRules:
+      home:
+        customElement: xzl-home-top-bar
+        sourceComponent: component.home-topbar
+        appliesTo:
+          - 首页
+          - 首页出招
+          - 首页大盘
+          - 首页提醒
+          - 首页任务
+          - 首页早点听入口卡片
+      ai-chat:
+        customElement: xzl-chat-top-bar
+        sourceComponent: component.chat-topbar
+        appliesTo:
+          - AI 对话页
+          - 任务助手页
+      trade:
+        customElement: xzl-trade-top-bar
+        appliesTo:
+          - 交易页
+          - 下单页
+          - 委托页
+          - 条件单入口
+      morning:
+        customElement: xzl-morning-top-bar
+        appliesTo:
+          - 早点听详情页
+      watchlist:
+        customElement: xzl-watchlist-top-bar
+        attributes:
+          active:
+            allowed:
+              - 自选
+              - 触发
+              - 模拟
+              - 持股
+            default: 自选
+        appliesTo:
+          - 自选页
+          - 自选股页
+      stock-detail:
+        customElement: xzl-stock-top-bar
+        appliesTo:
+          - 个股详情页
+          - 股票详情页
+      default-secondary:
+        customElement: xzl-secondary-top-bar
+        appliesTo:
+          - 次级页面
+          - 专题页
+          - 未特殊声明页面
+        rule: 除首页、AI 对话、交易、早点听详情页、自选、个股详情之外，默认使用次级页面导航栏。
+    hardGates:
+      inlineOrder:
+        - renderers/html/components/top-bar/top-bar.assets.inline.js
+        - renderers/html/components/top-bar/top-bar.inline.js
+      forbidPerPageTopbarRedraw: true
+      requireThemeMatch: true
   - id: renderer.html.watchlist-page
     sourceScenario: scenario.watchlist
     sourceArchetype: archetype.mobile-list-page
@@ -97,7 +167,7 @@ renderers:
       fixedChromeReuseRequired: true
     appliesTo:
       - 首页
-      - 早点听
+      - 首页早点听入口卡片
       - 涨停猎手
       - 事件捕手
     requiredRenderers:

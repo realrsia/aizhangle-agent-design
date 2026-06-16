@@ -17,6 +17,7 @@ import urllib.request
 SKILL_ID = "aizhangle-agent-design"
 USER_AGENT = f"{SKILL_ID}-version-check"
 UPDATE_HINT = f"请从 GitHub 拉取或重新安装 {SKILL_ID}。"
+DEFAULT_STALE_HOURS = 24.0
 
 
 def utc_now() -> str:
@@ -38,6 +39,18 @@ def write_json(path: pathlib.Path, data: dict) -> None:
 
 def install_record_path() -> pathlib.Path:
     return pathlib.Path.home() / ".codex" / "state" / SKILL_ID / "install.json"
+
+
+def parse_iso_datetime(value: str | None) -> dt.datetime | None:
+    if not value:
+        return None
+    try:
+        parsed = dt.datetime.fromisoformat(value.replace("Z", "+00:00"))
+    except ValueError:
+        return None
+    if parsed.tzinfo is None:
+        parsed = parsed.replace(tzinfo=dt.timezone.utc)
+    return parsed.astimezone(dt.timezone.utc)
 
 
 def git_commit(root: pathlib.Path) -> str | None:
@@ -142,11 +155,71 @@ def fetch_latest_manifest_from_git(root: pathlib.Path, branch: str) -> dict:
     return json.loads(result.stdout)
 
 
+def persist_check_result(record_path: pathlib.Path, record: dict, result: dict) -> None:
+    merged = {
+        **record,
+        "lastCheckedAt": utc_now(),
+        "lastCheckStatus": result.get("status"),
+        "lastKnownLatestVersion": result.get("latestVersion"),
+        "lastKnownCurrentVersion": result.get("currentVersion"),
+        "lastKnownUpdateHint": result.get("updateHint"),
+        "lastKnownReleaseSummary": result.get("latestReleaseSummary"),
+        "lastKnownPublishedAt": result.get("latestPublishedAt"),
+        "lastCheckError": result.get("error"),
+        "lastCheckSource": result.get("latestManifestUrl"),
+    }
+    try:
+        write_json(record_path, merged)
+    except OSError:
+        return
+
+
+def cached_check_result(record: dict) -> dict | None:
+    status = record.get("lastCheckStatus")
+    if not status:
+        return None
+    return {
+        "status": status,
+        "installedVersion": record.get("installedVersion"),
+        "currentVersion": record.get("lastKnownCurrentVersion", record.get("installedVersion")),
+        "latestVersion": record.get("lastKnownLatestVersion"),
+        "latestManifestUrl": record.get("lastCheckSource"),
+        "recordWarning": None,
+        "updateHint": record.get("lastKnownUpdateHint"),
+        "latestReleaseSummary": record.get("lastKnownReleaseSummary"),
+        "latestPublishedAt": record.get("lastKnownPublishedAt"),
+        "error": record.get("lastCheckError"),
+        "cached": True,
+        "lastCheckedAt": record.get("lastCheckedAt"),
+    }
+
+
 def record_install(root: pathlib.Path) -> dict:
     manifest_path = root / "manifest.json"
     manifest = load_json(manifest_path)
     record_path = install_record_path()
+    existing_record = {}
+    if record_path.exists():
+        try:
+            existing_record = load_json(record_path)
+        except (OSError, json.JSONDecodeError):
+            existing_record = {}
     record = {
+        **{
+            key: existing_record[key]
+            for key in (
+                "lastCheckedAt",
+                "lastCheckStatus",
+                "lastKnownLatestVersion",
+                "lastKnownCurrentVersion",
+                "lastKnownUpdateHint",
+                "lastKnownReleaseSummary",
+                "lastKnownPublishedAt",
+                "lastCheckError",
+                "lastCheckSource",
+            )
+            if key in existing_record
+        },
         "skillId": manifest["id"],
         "installedVersion": manifest["version"],
         "installedAt": utc_now(),
@@ -202,16 +275,19 @@ def check_latest(root: pathlib.Path, timeout: float) -> dict:
         json.JSONDecodeError,
         subprocess.CalledProcessError,
     ) as error:
-        return {
+        result = {
             "status": "check_failed",
             "installedVersion": installed_version,
             "currentVersion": current_version,
             "recordWarning": record_warning,
             "error": str(error),
         }
+        persist_check_result(record_path, record, result)
+        return result
 
     update_available = version_key(latest_version) > version_key(current_version)
-    return {
+    release_notes = latest_manifest.get("releaseNotes", {})
+    result = {
         "status": "update_available" if update_available else "current",
         "installedVersion": installed_version,
         "currentVersion": current_version,
@@ -219,7 +295,30 @@ def check_latest(root: pathlib.Path, timeout: float) -> dict:
         "latestManifestUrl": latest_url,
         "recordWarning": record_warning,
         "updateHint": UPDATE_HINT if update_available else None,
+        "latestReleaseSummary": release_notes.get("summary"),
+        "latestPublishedAt": release_notes.get("publishedAt"),
     }
+    persist_check_result(record_path, record, result)
+    return result
+
+
+def check_latest_if_stale(root: pathlib.Path, timeout: float, stale_hours: float) -> dict:
+    record_path = install_record_path()
+    try:
+        record = load_json(record_path) if record_path.exists() else {}
+    except (OSError, json.JSONDecodeError):
+        record = {}
+
+    last_checked_at = parse_iso_datetime(record.get("lastCheckedAt"))
+    stale_after = dt.timedelta(hours=stale_hours)
+    if last_checked_at is not None and dt.datetime.now(dt.timezone.utc) - last_checked_at < stale_after:
+        cached = cached_check_result(record)
+        if cached is not None:
+            return cached
+
+    result = check_latest(root, timeout)
+    result["cached"] = False
+    return result
 
 
 def update_skill(root: pathlib.Path) -> dict:
@@ -282,17 +381,21 @@ def main() -> int:
     parser.add_argument("--skill-root", default=None, help="Skill repository root. Defaults to the script parent.")
     parser.add_argument("--record-install", action="store_true", help="Write the local installed-version record.")
     parser.add_argument("--check-latest", action="store_true", help="Check GitHub manifest.json for a newer version.")
+    parser.add_argument("--check-latest-if-stale", action="store_true", help="Check for updates only when the cached result is stale.")
     parser.add_argument("--update", action="store_true", help="Update this skill with git pull --ff-only when installed from Git.")
     parser.add_argument("--timeout", type=float, default=5.0, help="GitHub request timeout in seconds.")
+    parser.add_argument("--stale-hours", type=float, default=DEFAULT_STALE_HOURS, help="Refresh cached update status after this many hours.")
     args = parser.parse_args()
 
     root = pathlib.Path(args.skill_root).resolve() if args.skill_root else skill_root_from_script()
-    selected = [args.record_install, args.check_latest, args.update]
+    selected = [args.record_install, args.check_latest, args.check_latest_if_stale, args.update]
     if sum(bool(item) for item in selected) != 1:
-        parser.error("choose exactly one of --record-install, --check-latest, or --update")
+        parser.error("choose exactly one of --record-install, --check-latest, --check-latest-if-stale, or --update")
 
     if args.record_install:
         result = record_install(root)
+    elif args.check_latest_if_stale:
+        result = check_latest_if_stale(root, args.timeout, args.stale_hours)
     elif args.check_latest:
         result = check_latest(root, args.timeout)
     else:

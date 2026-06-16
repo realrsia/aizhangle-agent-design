@@ -1,0 +1,149 @@
+id: component.topbar
+name: 场景顶部导航栏
+owner: design-system
+status: draft
+classification:
+  primitiveFamily: topbar
+  componentType: fixed-navigation
+  riskLevel: high
+purpose: >
+  承载非首页、非 AI 对话的高保真 HTML 顶部导航栏变体。
+  HTML 输出必须根据页面场景选择对应 Top Bar；未被特殊声明的场景默认使用次级页面导航栏。
+usage:
+  allowedZones:
+    - page_root_top
+    - fixed_topbar
+  forbiddenZones:
+    - scroll_content_body
+    - ordinary_card_header
+  requiredPairings:
+    - matching-theme
+  defaultRule: >
+    首页体系使用 component.home-topbar；AI 对话和任务助手使用 component.chat-topbar；
+    交易、早点听详情页、自选、个股详情使用本组件对应变体；首页中的早点听入口卡片仍归属首页体系；
+    其他未声明场景统一使用 secondary 变体。
+riskBoundaries:
+  - id: topbar-scene-selection
+    severity: P0
+    rule: 不得将首页 Top Bar、AI 对话 Top Bar 和二级页面 Top Bar 混用于错误业务场景；首页中的早点听入口卡片不得误用早点听详情页 Top Bar。
+  - id: watchlist-tab-assets
+    severity: P1
+    rule: 自选页标签按钮必须复用已确认的 3x PNG 背景切图；不得用 CSS/SVG 手绘替代。
+variants:
+  confirmed:
+    - id: topbar-trade-dark
+      scene: trade
+      theme: dark
+      figmaNodeId: "774:47670"
+      customElement: xzl-trade-top-bar
+      width: 390
+      height: 100
+    - id: topbar-trade-light
+      scene: trade
+      theme: light
+      figmaNodeId: "774:47669"
+      customElement: xzl-trade-top-bar
+      width: 390
+      height: 100
+    - id: topbar-morning-dark
+      scene: morning
+      theme: dark
+      figmaNodeId: "774:55970"
+      customElement: xzl-morning-top-bar
+      width: 390
+      height: 91
+    - id: topbar-morning-light
+      scene: morning
+      theme: light
+      figmaNodeId: "774:55971"
+      customElement: xzl-morning-top-bar
+      width: 390
+      height: 91
+    - id: topbar-watchlist-dark
+      scene: watchlist
+      theme: dark
+      figmaNodeId: "774:66816"
+      customElement: xzl-watchlist-top-bar
+      width: 390
+      height: 99
+    - id: topbar-watchlist-light
+      scene: watchlist
+      theme: light
+      figmaNodeId: "774:66866"
+      customElement: xzl-watchlist-top-bar
+      width: 390
+      height: 99
+    - id: topbar-stock-detail-dark
+      scene: stock-detail
+      theme: dark
+      figmaNodeId: "774:67059"
+      customElement: xzl-stock-top-bar
+      width: 390
+      height: 100
+    - id: topbar-stock-detail-light
+      scene: stock-detail
+      theme: light
+      figmaNodeId: "774:67217"
+      customElement: xzl-stock-top-bar
+      width: 390
+      height: 100
+    - id: topbar-secondary-dark
+      scene: secondary
+      theme: dark
+      figmaNodeId: "774:67337"
+      customElement: xzl-secondary-top-bar
+      width: 390
+      height: 91
+    - id: topbar-secondary-light
+      scene: secondary
+      theme: light
+      figmaNodeId: "774:67397"
+      customElement: xzl-secondary-top-bar
+      width: 390
+      height: 91
+states:
+  watchlistActive:
+    property: active
+    allowed:
+      - 自选
+      - 触发
+      - 模拟
+      - 持股
+    default: 自选
+  tradeTabs:
+    fixed:
+      - 委托
+      - 新建条件单
+htmlRuntime:
+  assetPath: renderers/html/components/top-bar/top-bar.assets.inline.js
+  path: renderers/html/components/top-bar/top-bar.inline.js
+  customElements:
+    trade: xzl-trade-top-bar
+    morning: xzl-morning-top-bar
+    watchlist: xzl-watchlist-top-bar
+    stockDetail: xzl-stock-top-bar
+    secondary: xzl-secondary-top-bar
+  defaultInteraction: static
+assetRefs:
+  - asset.topbar.watchlist-tabs
+sourceRefs:
+  - figma://pbxELN7TYDDguIgbXfc1zB/774:47670
+  - figma://pbxELN7TYDDguIgbXfc1zB/774:47669
+  - figma://pbxELN7TYDDguIgbXfc1zB/774:55970
+  - figma://pbxELN7TYDDguIgbXfc1zB/774:55971
+  - figma://pbxELN7TYDDguIgbXfc1zB/774:66816
+  - figma://pbxELN7TYDDguIgbXfc1zB/774:66866
+  - figma://pbxELN7TYDDguIgbXfc1zB/774:67059
+  - figma://pbxELN7TYDDguIgbXfc1zB/774:67217
+  - figma://pbxELN7TYDDguIgbXfc1zB/774:67337
+  - figma://pbxELN7TYDDguIgbXfc1zB/774:67397
+reviewRules:
+  - id: topbar-theme-match
+    severity: P0
+    rule: Top Bar 的 theme 必须与页面背景和其他固定 chrome 保持一致。
+  - id: topbar-no-redraw-watchlist-tabs
+    severity: P1
+    rule: 自选标签背景使用 bindings/assets/files/top-bar/watchlist-tabs/ 中的四张切图。
+  - id: topbar-default-secondary
+    severity: P1
+    rule: 未特殊声明页面统一使用 xzl-secondary-top-bar，不得空缺或复用首页导航。

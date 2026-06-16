@@ -2,7 +2,11 @@
   "id": "aizhangle-agent-design",
   "name": "aizhangle-agent-design",
   "schemaVersion": 1,
-  "version": "0.1.0",
+  "version": "0.1.1",
+  "releaseNotes": {
+    "summary": "新增任务完成后的静默更新检查，并在发现新版本时返回版本说明摘要。",
+    "publishedAt": "2026-06-15"
+  },
   "status": "mvp",
   "description": "Machine-readable path index for the schema-first AI Zhangle / New Zhangle design-system repository.",
   "repository": {
