@@ -70,8 +70,8 @@
             display: flex; flex-direction: column; align-items: center; justify-content: flex-end;
             padding-top: ${scene === "chat" ? "48px" : "48px"};
             background: ${light
-              ? "linear-gradient(to bottom, rgba(243,245,249,0) 8.85%, #f3f5f9 35.77%)"
-              : "linear-gradient(to bottom, rgba(7,16,37,0) 2.05%, #071025 34.62%)"};
+              ? "linear-gradient(to bottom, rgba(243,245,249,0) 8.85%, rgba(243,245,249,.82) 35.77%)"
+              : "linear-gradient(to bottom, rgba(7,16,37,0) 2.05%, rgba(7,16,37,.82) 34.62%)"};
           }
           .controls { display: flex; align-items: center; justify-content: center; gap: 16px; height: 48px; }
           .round, .action {

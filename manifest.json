@@ -2,9 +2,9 @@
   "id": "aizhangle-agent-design",
   "name": "aizhangle-agent-design",
   "schemaVersion": 1,
-  "version": "0.1.1",
+  "version": "0.1.2",
   "releaseNotes": {
-    "summary": "首个版本，支持复用AI涨乐规范token等，可复用的top bar、page background、bottom bar等组件。",
+    "summary": "新增AI对话页面可复用组件",
     "publishedAt": "2026-06-15"
   },
   "status": "mvp",
@@ -57,7 +57,9 @@
       "pageBackgroundAssets": "renderers/html/components/page-background/page-background.assets.inline.js",
       "pageBackground": "renderers/html/components/page-background/page-background.inline.js",
       "bottomBarAssets": "renderers/html/components/bottom-bar/bottom-bar.assets.inline.js",
-      "bottomBar": "renderers/html/components/bottom-bar/bottom-bar.inline.js"
+      "bottomBar": "renderers/html/components/bottom-bar/bottom-bar.inline.js",
+      "aiMessageAssets": "renderers/html/components/ai-message/ai-message.assets.inline.js",
+      "aiMessage": "renderers/html/components/ai-message/ai-message.inline.js"
     }
   },
   "aesthetics": {

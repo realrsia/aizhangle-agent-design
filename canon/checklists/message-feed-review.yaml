@@ -41,7 +41,11 @@ items:
   - id: message-feed-bottom-bar-overlap-contract
     severity: P0
     question: 消息流是否只避让 Bottom Bar 实体区，而没有为顶部透明渐变重复占位？
-    passCriteria: 最后一条内容距 Bottom Bar 实体操作区顶部 20px；正文可以显示在透明阴影下方，但不得进入实体操作区或 safe area，也不得按完整 Bottom Bar 高度再增加 spacer。
+    passCriteria: >
+      HTML 中 message-feed 不得使用 `height: calc(... - 171px)`、`bottom: 171px`、
+      `padding-bottom: 171px` 或完整 Bottom Bar 高度 spacer；推荐使用
+      `top: 98px; bottom: 102px; height: auto`，使正文可延伸到透明阴影下方，
+      但不进入实体操作区和 safe area。
   - id: message-feed-reasoning-not-generic-card
     severity: P1
     question: 思考链是否没有被画成任意普通卡片？

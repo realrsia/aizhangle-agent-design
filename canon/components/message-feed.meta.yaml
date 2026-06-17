@@ -247,16 +247,43 @@ states:
 slots:
   userMessage:
     description: 用户输入气泡。
+    htmlRuntimeElement: xzl-user-bubble
+    defaultUse: required for user question in HTML chat/message prototypes
   assistantIdentity:
     description: AI 头像和身份行。
+    htmlRuntimeElement: xzl-yomi-identity
+    defaultName: Yomi
+    defaultUse: required before assistant answer content
+  assistantOutputStatus:
+    description: 智能体输出状态，默认跟在 Yomi 头像和身份行下方。
+    htmlRuntimeElement: xzl-yomi-status
+    defaultUse: default-on, optional when answer state is intentionally omitted
   reasoningPanel:
     description: 思维链步骤、展开收起和检索内容。
   answerBody:
     description: 标题、正文、列表、表格等回答正文。
+    ownership: generated-by-agent-per-user-request
   answerFooter:
     description: 免责声明、来源、辅助功能。
+    defaultAssistActionsElement: xzl-yomi-assist-actions
+    defaultUse: answer assist actions are included by default at answer end
   relatedQuestions:
     description: 关联问列表，位于回答内容之后，不进入底部输入栏。
+htmlRuntime:
+  rendererId: renderer.html.ai-message-components
+  assetPath: renderers/html/components/ai-message/ai-message.assets.inline.js
+  path: renderers/html/components/ai-message/ai-message.inline.js
+  customElements:
+    - xzl-user-bubble
+    - xzl-yomi-identity
+    - xzl-yomi-status
+    - xzl-yomi-assist-actions
+  assemblyRule: >
+    HTML AI answer stacks compose Yomi identity, optional output status,
+    agent-generated answer content, and default assist actions. The runtime
+    owns reusable chrome only; paragraphs, business cards, charts, sources,
+    disclaimers, and related content remain generated per user request.
+  themeRule: Theme attributes must match the page theme.
 fallbackLayoutRules:
   appliesTo:
     - fallback / non-canonical / stock-recommendation-card
@@ -451,6 +478,9 @@ sourceRefs:
   - figma://pbxELN7TYDDguIgbXfc1zB/392:67955
   - figma://pbxELN7TYDDguIgbXfc1zB/392:68085
   - figma://pbxELN7TYDDguIgbXfc1zB/392:68096
+  - renderers/html/components/ai-message/ai-message.assets.inline.js
+  - renderers/html/components/ai-message/ai-message.inline.js
+  - ../ai-message-components-preview/index.html
 figmaBinding:
   path: bindings/figma/components.yaml
 reviewChecklist:

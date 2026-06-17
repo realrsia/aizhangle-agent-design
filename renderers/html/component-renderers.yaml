@@ -324,6 +324,78 @@ renderers:
         - iconAssets
         - metricsSource
         - checklistResult
+  - id: renderer.html.ai-message-components
+    sourceComponent: component.message-feed
+    htmlStrategy:
+      fidelity: high
+      renderAs: reusable-web-components
+      redrawForbiddenForConfirmedRuntimeParts: true
+      defaultInteraction: static
+      ownsBusinessAnswerContent: false
+    htmlRuntime:
+      assetPath: renderers/html/components/ai-message/ai-message.assets.inline.js
+      path: renderers/html/components/ai-message/ai-message.inline.js
+      inlineMode: inline-assets-then-runtime-inside-script
+      noExternalDependencies: true
+      customElements:
+        userBubble: xzl-user-bubble
+        yomiIdentity: xzl-yomi-identity
+        yomiStatus: xzl-yomi-status
+        yomiAssistActions: xzl-yomi-assist-actions
+      attributes:
+        theme:
+          allowed:
+            - light
+            - dark
+          required: true
+        name:
+          appliesTo: xzl-yomi-identity
+          default: Yomi
+        thinking:
+          appliesTo: xzl-yomi-status
+          default: 深度思考
+        label:
+          appliesTo: xzl-yomi-status
+          default: 模型完成答案生成
+    appliesTo:
+      - AI 对话页
+      - 任务助手页
+      - 消息页问答区域
+    compositionContract:
+      question:
+        requiredElement: xzl-user-bubble
+        role: user-input-bubble
+      answer:
+        requiredOrder:
+          - xzl-yomi-identity
+          - xzl-yomi-status
+          - agent-generated-answer-content
+          - xzl-yomi-assist-actions
+        optionalElements:
+          - xzl-yomi-status
+        freeformSlots:
+          agent-generated-answer-content: 段落、列表、表格、卡片、图表、来源、免责声明等按用户需求生成；不得放入 runtime 黑盒。
+      assistantNaming:
+        requiredName: Yomi
+        rule: AI 助手身份、状态和回答相关表达默认使用 Yomi。
+      defaultTailActions:
+        requiredByDefault: true
+        mayOmitOnlyWhen: 用户明确要求隐藏回答结束辅助功能。
+    visualReference:
+      localPreview: ../ai-message-components-preview/index.html
+      supportedThemes:
+        - dark
+        - light
+    hardGates:
+      requireRuntimeUseForHtmlChatMessages: true
+      forbidPerPageRedrawOf:
+        - user-input-bubble
+        - yomi-identity-row
+        - agent-output-status
+        - answer-assist-actions
+      forbidRuntimeOwningBusinessAnswerContent: true
+      themeMustMatchPage: true
+      defaultAssistantName: Yomi
   - id: renderer.html.financial-table
     sourceComponent: component.financial-table
     figmaBinding:

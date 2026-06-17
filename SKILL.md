@@ -114,6 +114,8 @@ Bottom Bar 的完整组件高度包含顶部透明渐变 / 阴影区。页面正
 
 未明确要求交互时，默认生成静态展示。HTML runtime 只用于 HTML 输出，不替代 Figma 正式组件绑定。
 
+AI 对话页和任务助手页的问答区域必须优先复用 `renderers/html/components/ai-message/` runtime。用户输入、Yomi 身份行、智能体输出状态和回答结束辅助功能分别使用 `xzl-user-bubble`、`xzl-yomi-identity`、`xzl-yomi-status`、`xzl-yomi-assist-actions`；回答正文、业务卡片、图表、来源和免责声明仍按用户需求在 message feed 中生成，不放入 runtime 黑盒。
+
 
 ##### Bottom Bar 必须优先直接复用：
 

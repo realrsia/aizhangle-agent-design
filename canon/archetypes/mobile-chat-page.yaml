@@ -30,9 +30,15 @@ layout:
   contentRules:
     bottomInputGapPx: 20
     bottomInputGapReference: bottom-bar-body-top
+    bottomReservedPxForHtmlChat: 102
+    fullBottomBarHeightPx: 171
     reserveBottomBarBodyAndSafeArea: true
     transparentShadowMayOverlayMessageFeed: true
     fullBottomBarHeightSpacerForbidden: true
+    forbiddenHtmlPatterns:
+      - subtracting full 171px bottom bar height from message_feed
+      - using bottom: 171px for message_feed
+      - adding a spacer equal to full bottom-bar height
     messageFeedMustCoverChildren: true
     messageFeedCannotBeCoveredByBottomBarBody: true
 reviewDefaults:

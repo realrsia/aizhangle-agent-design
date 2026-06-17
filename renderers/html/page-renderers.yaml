@@ -108,11 +108,14 @@ renderers:
       - renderers/html/components/top-bar/top-bar.inline.js
       - renderers/html/components/bottom-bar/bottom-bar.assets.inline.js
       - renderers/html/components/bottom-bar/bottom-bar.inline.js
+      - renderers/html/components/ai-message/ai-message.assets.inline.js
+      - renderers/html/components/ai-message/ai-message.inline.js
       - canon/checklists/visual-review.yaml
     requiredRenderers:
       - renderer.html.primary-page-background
       - renderer.html.chat-topbar
       - renderer.html.bottom-bar
+      - renderer.html.ai-message-components
     requiredComponents:
       - component.page-background
       - component.chat-background
@@ -127,6 +130,8 @@ renderers:
       topbarRuntimePath: renderers/html/components/top-bar/top-bar.inline.js
       bottomBarAssetPath: renderers/html/components/bottom-bar/bottom-bar.assets.inline.js
       bottomBarRuntimePath: renderers/html/components/bottom-bar/bottom-bar.inline.js
+      aiMessageAssetPath: renderers/html/components/ai-message/ai-message.assets.inline.js
+      aiMessageRuntimePath: renderers/html/components/ai-message/ai-message.inline.js
       topbarElement: xzl-chat-top-bar
       backgroundElement: xzl-page-background
       backgroundAttributes:
@@ -151,6 +156,24 @@ renderers:
         height: 171
       messageFeed:
         scrollable: true
+        cssContract:
+          requiredPositioning:
+            position: absolute
+            topPx: 98
+            bottomPx: 102
+            height: auto
+          preferredPattern:
+            rule: Use bottom-based positioning so message content may continue beneath the transparent Bottom Bar shadow.
+            css:
+              top: 98px
+              bottom: 102px
+              height: auto
+          forbiddenPatterns:
+            - "height: calc(844px - 98px - 171px)"
+            - "height: calc(844px - 104px - 171px)"
+            - "bottom: 171px"
+            - "padding-bottom: 171px"
+            - spacer equal to full bottom-bar height
         bottomClearance:
           referenceEdge: bottom-bar-body-top
           gapPx: 20
