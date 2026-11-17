@@ -27,13 +27,13 @@ renderers:
             - dark
           required: true
     visualReferences:
-      dark: figma://pbxELN7TYDDguIgbXfc1zB/713:40812
-      light: figma://pbxELN7TYDDguIgbXfc1zB/713:40841
+      dark: figma://pbxELN7TYDDguIgbXfc1zB/921:6255
+      light: figma://pbxELN7TYDDguIgbXfc1zB/921:6238
     hardGates:
       forbidReimplementation: true
       forbidNetworkAssets: true
       requireTransparentBackground: true
-      requiredHeightPx: 115
+      requiredHeightPx: 103
       requiredWidthBaselinePx: 390
   - id: renderer.html.primary-page-background
     sourceComponent: component.page-background

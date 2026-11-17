@@ -11,7 +11,6 @@
  */
 (function registerTopBars() {
   const assets = globalThis.XZL_TOP_BAR_ASSETS || {};
-  const homeAssets = assets.home || assets;
   const tabAssets = assets.watchlistTabs || {};
 
   const THEME = {
@@ -153,27 +152,67 @@
   class XzlHomeTopBar extends BaseTopBar {
     render() {
       const theme = this.theme();
-      const suffix = theme;
+      const light = theme === "light";
       this.shadowRoot.innerHTML = `
         <style>
-          ${sharedCss(theme, 115)}
-          .topbar { display: flex; flex-direction: column; gap: 12px; }
-          .status { height: 44px; }
-          .entry-row { position: relative; width: 390px; height: 59px; }
-          .avatar { position: absolute; right: 20px; top: 0; width: 40px; height: 40px; }
-          .avatar img { position: absolute; left: -19px; top: -19px; width: 78px; height: 78px; object-fit: contain; }
+          :host {
+            display: block; width: 390px; height: 103px; overflow: hidden;
+            color: ${light ? "#2d3a67" : "#d7efff"};
+            font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "SF Pro Text", sans-serif;
+          }
+          * { box-sizing: border-box; }
+          .topbar { position: relative; width: 390px; height: 103px; overflow: hidden; }
+          .home-status { position: relative; width: 390px; height: 44px; color: ${light ? "#030303" : "#fff"}; }
+          .home-time {
+            position: absolute; left: 27px; top: 14px; width: 54px; height: 21px;
+            font-size: 16px; font-weight: 600; line-height: 21px; letter-spacing: -.32px; text-align: center;
+          }
+          .dynamic-island { position: absolute; left: 143px; top: 13px; width: 104px; height: 28px; border-radius: 100px; background: #000; }
+          .system-icon { position: absolute; display: block; color: currentColor; }
+          .signal { left: 286px; top: 20px; width: 18px; height: 12px; }
+          .wifi { left: 312px; top: 20px; width: 17px; height: 12px; }
+          .battery { left: 336px; top: 19px; width: 28px; height: 13px; }
+          .header { display: flex; align-items: center; justify-content: space-between; width: 390px; height: 38px; padding: 0 12px; margin-top: 6px; }
+          .brand { display: flex; align-items: center; gap: 10px; height: 38px; }
+          .menu {
+            position: relative; width: 34px; height: 34px; flex: 0 0 34px; border-radius: 50%;
+            border: ${light ? ".895px solid #fff" : "1px solid rgba(255,255,255,.15)"};
+            background: ${light ? "#f9fcff" : "linear-gradient(157deg,rgba(40,54,99,.4),rgba(20,26,52,.01)),#091531"};
+            box-shadow: ${light ? "1px 7px 8px rgba(90,105,131,.1)" : "1px 7px 8px rgba(0,0,0,.1),inset 4px 4px 10px rgba(77,110,153,.2)"};
+          }
+          .menu-line { position: absolute; left: 10px; height: 1.8px; border-radius: 2px; background: currentColor; }
+          .menu-line.one { top: 10px; width: 14px; }
+          .menu-line.two { top: 15.4px; width: 8.7px; }
+          .menu-line.three { top: 20.8px; width: 14px; }
+          .menu-arrow { position: absolute; left: 19px; top: 14px; width: 5px; height: 5px; border-right: 1.8px solid currentColor; border-bottom: 1.8px solid currentColor; transform: rotate(-45deg); }
+          .title { font-size: 22px; font-weight: 500; line-height: normal; white-space: nowrap; }
+          .market {
+            display: flex; align-items: center; gap: 3px; height: 38px; padding: 7px 10px; border-radius: 20px;
+            border: ${light ? ".895px solid #fff" : "1px solid rgba(255,255,255,.15)"};
+            background: ${light ? "#f9fcff" : "linear-gradient(157deg,rgba(40,54,99,.4),rgba(20,26,52,.01)),#091531"};
+            box-shadow: ${light ? "1px 7px 4px rgba(90,105,131,.1)" : "1px 7px 4px rgba(0,0,0,.1),inset 4px 4px 10px rgba(77,110,153,.2)"};
+          }
+          .wallet { display: flex; align-items: center; justify-content: center; width: 16px; height: 16px; flex: 0 0 16px; }
+          .wallet svg { display: block; width: 13.33px; height: 12.98px; fill: currentColor; }
+          .market-copy { display: flex; flex-direction: column; align-items: flex-start; white-space: nowrap; }
+          .market-title { color: ${light ? "#2d3a67" : "#d7efff"}; font-size: 12px; line-height: normal; }
+          .market-value { color: #f62f3f; font-family: "ZLCaiFuTi-Regular", "PingFang SC", sans-serif; font-size: 11px; line-height: normal; }
         </style>
         <div class="topbar"
           data-component="component.home-topbar"
           data-component-family="home-top-bar"
           data-binding-status="html-runtime"
-          data-theme="${suffix}"
-          data-visual-reference="${theme === "light" ? "713:40841" : "713:40812"}">
-          ${statusMarkup()}
-          <div class="entry-row">
-            <span class="avatar" aria-label="Yomi 助手入口">
-              <img src="${homeAssets[suffix] || ""}" alt="">
-            </span>
+          data-theme="${theme}"
+          data-visual-reference="${light ? "921:6238" : "921:6255"}">
+          <div class="home-status">
+            <span class="home-time">9:41</span><span class="dynamic-island"></span>
+            <svg class="system-icon signal" viewBox="0 0 18 12" aria-hidden="true"><path d="M0 9a1 1 0 0 1 1-1h1a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1V9Zm5-2.5a1 1 0 0 1 1-1h1a1 1 0 0 1 1 1V11a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V6.5ZM10 3a1 1 0 0 1 1-1h1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1h-1a1 1 0 0 1-1-1V3Zm5-2a1 1 0 0 1 1-1h1a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1h-1a1 1 0 0 1-1-1V1Z" fill="currentColor"/></svg>
+            <svg class="system-icon wifi" viewBox="0 0 17 12" aria-hidden="true"><path d="M6.12 8.92a3.72 3.72 0 0 1 4.91 0 .35.35 0 0 1 .01.52l-2.22 2.29a.34.34 0 0 1-.49 0L6.1 9.44a.35.35 0 0 1 .02-.52ZM3.11 6.18a7.88 7.88 0 0 1 10.85 0 .36.36 0 0 1 .01.52l-1.29 1.33a.34.34 0 0 1-.48.01 5.38 5.38 0 0 0-7.33 0 .34.34 0 0 1-.48-.01L3.1 6.7a.36.36 0 0 1 .01-.52ZM.11 3.44a12 12 0 0 1 16.78 0 .36.36 0 0 1 .01.52l-1.29 1.33a.34.34 0 0 1-.48 0 9.5 9.5 0 0 0-13.26 0 .34.34 0 0 1-.48 0L.1 3.96a.36.36 0 0 1 .01-.52Z" fill="currentColor"/></svg>
+            <svg class="system-icon battery" viewBox="0 0 28 13" aria-hidden="true"><rect x=".5" y=".5" width="24" height="12" rx="3.5" fill="none" stroke="currentColor" opacity=".35"/><path d="M26 5v4.22a2.29 2.29 0 0 0 0-4.22Z" fill="currentColor" opacity=".4"/><rect x="2" y="2" width="21" height="9" rx="2" fill="currentColor"/></svg>
+          </div>
+          <div class="header">
+            <div class="brand"><span class="menu" aria-hidden="true"><i class="menu-line one"></i><i class="menu-line two"></i><i class="menu-line three"></i><i class="menu-arrow"></i></span><span class="title">首页</span></div>
+            <div class="market"><span class="wallet" aria-hidden="true"><svg viewBox="0 0 13.333 12.981"><path d="M10 2.981a2 2 0 0 1 2 2v1.333h.666a.667.667 0 0 1 .667.667v2a.666.666 0 0 1-.667.666H12v1.334a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-6a2 2 0 0 1 2-2h8ZM2 3.981a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V9.647h-1a.667.667 0 0 1-.667-.666v-2a.667.667 0 0 1 .667-.667h1V4.981a1 1 0 0 0-1-1H2Zm8.333 4.666h2v-1.333h-2v1.333ZM8.192.018a.5.5 0 0 1 .608.334l.41 1.321a.5.5 0 0 1-.955.297l-.268-.863-4.467 1.198a.5.5 0 0 1-.26-.966L8.192.018Z"/></svg></span><span class="market-copy"><span class="market-title">今日股票</span><span class="market-value">+233.12</span></span></div>
           </div>
         </div>`;
     }

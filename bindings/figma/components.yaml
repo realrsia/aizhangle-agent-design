@@ -5,8 +5,8 @@ components:
     fileName: 设计仓库
     fileKey: pbxELN7TYDDguIgbXfc1zB
     visualReferences:
-      darkNodeId: "713:40812"
-      lightNodeId: "713:40841"
+      darkNodeId: "921:6255"
+      lightNodeId: "921:6238"
     htmlRuntime:
       assetPath: renderers/html/components/top-bar/top-bar.assets.inline.js
       path: renderers/html/components/top-bar/top-bar.inline.js

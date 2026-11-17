@@ -40,12 +40,6 @@ assetGroups:
     useFor:
       - bottom-bar-backgrounds
       - bottom-bar-icons
-  - id: home-top-bar
-    kind: component-assets
-    path: top-bar/home/
-    useFor:
-      - home-top-bar-theme-orbs
-      - html-runtime-maintenance
   - id: top-bar-watchlist-tabs
     kind: component-assets
     path: top-bar/watchlist-tabs/
@@ -226,28 +220,14 @@ resourceRefs:
       - runtime-maintenance
     notCanonicalFor:
       - maintained-figma-component-instance
-  - id: asset.home-topbar.orbs
-    type: local-asset
-    assetKind: theme-paired-image-set
-    locator: bindings/assets/files/top-bar/home/
-    role: home-top-bar-html-runtime-source-assets
-    sourceRefs:
-      - figma://pbxELN7TYDDguIgbXfc1zB/713:40812
-      - figma://pbxELN7TYDDguIgbXfc1zB/713:40841
-    useFor:
-      - single-html-prototype
-      - offline-generation
-      - runtime-maintenance
-    notCanonicalFor:
-      - maintained-figma-component-instance
   - id: asset.home-topbar.html-runtime
     type: local-asset
     assetKind: inline-runtime-payload
     locator: renderers/html/components/top-bar/top-bar.assets.inline.js
     role: single-html-home-top-bar-runtime-assets
     sourceRefs:
-      - figma://pbxELN7TYDDguIgbXfc1zB/713:40812
-      - figma://pbxELN7TYDDguIgbXfc1zB/713:40841
+      - figma://pbxELN7TYDDguIgbXfc1zB/921:6255
+      - figma://pbxELN7TYDDguIgbXfc1zB/921:6238
     useFor:
       - single-html-prototype
       - offline-generation
