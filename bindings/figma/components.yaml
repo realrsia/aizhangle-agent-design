@@ -1138,13 +1138,15 @@ components:
         status: partially-confirmed-backlog
     confirmedVariants:
       - variantId: default-dark
-        nodeId: "12:10173"
-        componentKey: 76461340cd40213529701619e118084ca0affba7
-        figmaExactName: "场景=默认, 有关联问=Off, 有陪伴=Off, 有指数=Off, Dark=On"
+        nodeId: "921:26060"
+        sourceUrl: https://www.figma.com/design/pbxELN7TYDDguIgbXfc1zB/设计仓库?node-id=921-26060
+        bindingMode: visual_reference
+        status: confirmed
       - variantId: default-light
-        nodeId: "12:10216"
-        componentKey: 392f2a45b038459a6a2621d058109cbf90f67397
-        figmaExactName: "场景=默认, 有关联问=Off, 有陪伴=Off, 有指数=Off, Dark=Off"
+        nodeId: "921:26096"
+        sourceUrl: https://www.figma.com/design/pbxELN7TYDDguIgbXfc1zB/设计仓库?node-id=921-26096
+        bindingMode: visual_reference
+        status: confirmed
       - variantId: trading-related-dark
         nodeId: "12:10237"
         componentKey: c5b0068c364cd8da88ffb15b78f9ad83ba5a00de

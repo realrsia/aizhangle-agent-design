@@ -5,87 +5,51 @@
     "primaryPage": {
       "appliesTo": [
         "首页",
-        "自选",
-        "持仓",
         "primary first-level pages"
       ],
       "metrics": {
-        "bodyHeight": 48,
-        "shadowHeight": 130,
-        "inputHeight": 48,
-        "safeAreaHeight": 34,
+        "bodyHeight": 87,
+        "shadowHeight": 165,
+        "inputHeight": 44,
+        "safeAreaHeight": 29,
         "contentToBodyGap": 20
       },
-      "backgroundAssets": {
-        "light": "assets/bottom-bar/backgrounds/bottom-bar-home-bg-light.svg",
-        "dark": "assets/bottom-bar/backgrounds/bottom-bar-home-bg-dark.svg"
-      },
       "requiredNodes": [
-        "backgroundAsset",
-        "inputContainer",
-        "inputModeToggle",
-        "sceneEntries",
-        "safeArea"
+        "searchInputPill",
+        "homeNavigation",
+        "yomiVoiceEntry",
+        "aiGeneratedDisclosure",
+        "homeIndicator"
       ],
       "sceneEntries": {
-        "availablePool": [
-          "watchHold",
+        "fixedOrder": [
+          "home",
+          "watchlist",
+          "opportunity",
           "trade",
-          "paperTrade"
+          "yomiVoice"
         ],
-        "renderingRule": "Render only entries required by page context or user request; paperTrade is explicit-only.",
-        "tradeEntryAssets": {
-          "defaultIconLight": "assets/bottom-bar/icons/bottom-bar-entry-trade-icon-default-light.png",
-          "defaultIconDark": "assets/bottom-bar/icons/bottom-bar-entry-trade-icon-default-dark.png",
-          "defaultTextLight": "assets/bottom-bar/icons/bottom-bar-entry-trade-text-default-light.png",
-          "defaultTextDark": "assets/bottom-bar/icons/bottom-bar-entry-trade-text-default-dark.png",
-          "activeLight": "assets/bottom-bar/icons/bottom-bar-entry-trade-active-light.png",
-          "activeDark": "assets/bottom-bar/icons/bottom-bar-entry-trade-active-dark.png"
-        },
-        "forbiddenForTradeEntry": [
-          "assets/bottom-bar/icons/bottom-bar-action-buy-light.png",
-          "assets/bottom-bar/icons/bottom-bar-action-buy-dark.png",
-          "assets/bottom-bar/icons/bottom-bar-action-sell-light.png",
-          "assets/bottom-bar/icons/bottom-bar-action-sell-dark.png",
-          "assets/bottom-bar/icons/bottom-bar-action-cancel-light.png",
-          "assets/bottom-bar/icons/bottom-bar-action-cancel-dark.png"
-        ]
+        "renderingRule": "The V2 home runtime always renders the four navigation entries and the Yomi voice entry in this order.",
+        "assetRoot": "assets/bottom-bar/home-v2/"
       },
       "horizontalLayout": {
         "frameWidth": 390,
-        "frameHeight": 130,
-        "bodyBottom": 34,
-        "bodyHeight": 48,
-        "leftEntry": {
-          "type": "trade",
-          "x": 16,
-          "width": 48,
-          "height": 48
-        },
-        "rightEntry": {
-          "type": "watchHold",
-          "right": 21,
-          "width": 48,
-          "height": 48
-        },
+        "frameHeight": 165,
         "inputPill": {
-          "placement": "betweenEntries",
-          "width": "auto",
-          "resolvedWidthAt390": 225,
-          "height": 48,
-          "radius": 999
+          "x": 15,
+          "y": 30,
+          "width": 360,
+          "height": 44,
+          "radius": 200
         },
-        "gaps": {
-          "leftEntryToInput": 16,
-          "inputToRightEntry": 16
+        "navigation": {
+          "x": 12,
+          "y": 78,
+          "width": 366,
+          "height": 58,
+          "yomiVoiceWidth": 56
         },
-        "horizontalModel": "left 16 + trade 48 + gap 16 + input auto + gap 16 + watchHold 48 + right 21",
-        "visualOrder": [
-          "trade",
-          "inputPill",
-          "watchHold"
-        ],
-        "appliesTo": "首页 primaryPage bottom bar with trade and watchHold entries"
+        "appliesTo": "V2 home Bottom Bar"
       }
     },
     "chatPage": {

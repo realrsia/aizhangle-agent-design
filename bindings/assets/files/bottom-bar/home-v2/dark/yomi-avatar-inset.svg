@@ -1,0 +1,34 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="Subtract" filter="url(#filter0_i_0_595)">
+<use xlink:href="#stroke0_0_595" fill="url(#paint0_linear_0_595)"/>
+<use xlink:href="#stroke0_0_595" fill="url(#paint1_linear_0_595)" fill-opacity="0.2"/>
+<use xlink:href="#stroke0_0_595" fill="url(#paint2_linear_0_595)" fill-opacity="0.2"/>
+</g>
+<defs>
+<filter id="filter0_i_0_595" x="0" y="0" width="56" height="56" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset/>
+<feGaussianBlur stdDeviation="2.54544"/>
+<feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0.244973 0 0 0 0 0.25595 0 0 0 0 0.464524 0 0 0 0.24 0"/>
+<feBlend mode="normal" in2="shape" result="effect1_innerShadow_0_595"/>
+</filter>
+<linearGradient id="paint0_linear_0_595" x1="-2.72508" y1="-31.6466" x2="77.8159" y2="-14.6232" gradientUnits="userSpaceOnUse">
+<stop stop-color="#A0E2FF"/>
+<stop offset="0.41076" stop-color="#D7EFFF"/>
+<stop offset="0.574022" stop-color="#CDE8FF"/>
+<stop offset="0.951923" stop-color="#95BDFF"/>
+</linearGradient>
+<linearGradient id="paint1_linear_0_595" x1="45.5636" y1="23.3338" x2="70.5688" y2="42.7845" gradientUnits="userSpaceOnUse">
+<stop stop-color="#FF5050" stop-opacity="0"/>
+<stop offset="1" stop-color="#FF5050"/>
+</linearGradient>
+<linearGradient id="paint2_linear_0_595" x1="6.87273" y1="16.3339" x2="-11.6165" y2="24.9062" gradientUnits="userSpaceOnUse">
+<stop stop-color="#4971FF" stop-opacity="0"/>
+<stop offset="1" stop-color="#4971FF"/>
+</linearGradient>
+<path id="stroke0_0_595" d="M28 0C43.464 0 56 12.536 56 28C56 43.464 43.464 56 28 56C12.536 56 0 43.464 0 28C0 12.536 12.536 0 28 0ZM28 0.608398C12.8722 0.608398 0.608403 12.8722 0.608398 28C0.608398 43.1278 12.8722 55.3916 28 55.3916C43.1277 55.3914 55.3906 43.1277 55.3906 28C55.3906 12.8723 43.1277 0.608559 28 0.608398Z"/>
+</defs>
+</svg>

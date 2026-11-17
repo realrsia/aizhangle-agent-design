@@ -106,6 +106,14 @@ componentFamilies:
     bindingMode: must_use_library_instance
     bindingFailurePolicy: stop_and_recheck
     variantCount: 20
+  - familyId: bottom-bar.home-v2
+    displayName: 首页 Bottom Bar V2
+    figmaComponentName: 首页 Bottom Bar 新样式
+    bindingMode: visual_reference
+    bindingFailurePolicy: stop_and_recheck
+    visualReferences:
+      dark: "921:26060"
+      light: "921:26096"
   - familyId: bottom-bar.voice-input
     displayName: 长按语音输入
     figmaComponentName: bottom bar/item/长按语音输入
@@ -161,14 +169,11 @@ scenarios:
   - id: homepage-scene
     displayName: 首页场景
     usageRule: >
-      用于首页体系及大部分核心一级页面，包括首页、早点听、账户、交易、
-      涨停猎手、事件捕手等；左侧为交易入口，中间为输入/按住说话，
-      右侧为自选或我的入口。
+      用于首页体系及核心一级页面。顶部为提问/搜索输入胶囊，底部为
+      首页、自选、机会、交易四导航与 Yomi“长按说话”入口。
     variants:
       - default-dark
       - default-light
-      - default-companion-dark
-      - default-companion-light
     usedIn:
       - app-home-出招-page
       - app-home-大盘-page
@@ -210,11 +215,9 @@ scenarios:
   - id: companion-overlay
     displayName: 陪伴叠加模块
     compositionRule: >
-      陪伴不是独立 Bottom Bar 场景，而是可叠加在首页态、个股态或其他已确认
+      陪伴不是独立 Bottom Bar 场景。新首页态已内置 Yomi 入口，不再叠加旧版首页陪伴人物；个股态或其他已确认
       Bottom Bar 上方的悬浮模块；覆盖页面正文，不预留独立高度，不推高页面内容。
     variants:
-      - default-companion-dark
-      - default-companion-light
       - stock-index-companion-dark
       - stock-index-companion-light
       - trading-index-companion-dark
@@ -230,25 +233,17 @@ scenarios:
 variants:
   confirmed:
     - id: default-dark
-      nodeId: "12:10173"
-      height: 130
+      nodeId: "921:26060"
+      height: 165
       scene: 首页场景
-      modifiers: { 有关联问: "Off", 有陪伴: "Off", 有指数: "Off", Dark: "On" }
+      bindingMode: visual_reference
+      modifiers: { Dark: "On" }
     - id: default-light
-      nodeId: "12:10216"
-      height: 130
+      nodeId: "921:26096"
+      height: 165
       scene: 首页场景
-      modifiers: { 有关联问: "Off", 有陪伴: "Off", 有指数: "Off", Dark: "Off" }
-    - id: default-companion-dark
-      nodeId: "12:10198"
-      height: 227
-      scene: 首页场景
-      modifiers: { 有关联问: "Off", 有陪伴: "On", 有指数: "Off", Dark: "On" }
-    - id: default-companion-light
-      nodeId: "12:10207"
-      height: 227
-      scene: 首页场景
-      modifiers: { 有关联问: "Off", 有陪伴: "On", 有指数: "Off", Dark: "Off" }
+      bindingMode: visual_reference
+      modifiers: { Dark: "Off" }
     - id: chat-dark
       nodeId: "12:10180"
       height: 171
@@ -349,6 +344,9 @@ states:
     disabled: not-exposed-as-bottom-bar-main-variant
 slots:
   root: 底部栏根容器，宽度 390，固定在移动端 frame 底部。
+  homeSearchPill: 新首页态的提问/搜索输入胶囊。
+  homeNavigation: 新首页态的首页、自选、机会、交易四导航。
+  homeYomiVoiceEntry: 新首页态最右侧 Yomi 球形入口，弧形文字为“长按说话”。
   backgroundShadow: 底部渐变背景，按场景和可选模块高度变化。
   controlRow: 承载输入胶囊、入口、助手或交易行动的主操作行。
   inputPill: 语音或键盘输入胶囊；真实子组件为 `bottom bar/item/输入胶囊`。

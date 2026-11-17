@@ -178,6 +178,18 @@ resourceRefs:
       - offline-generation
     notCanonicalFor:
       - maintained-figma-component-instance
+  - id: asset.bottom-bar.home-v2
+    type: local-asset
+    assetKind: component-asset-set
+    locator: bindings/assets/files/bottom-bar/home-v2/
+    role: home-bottom-bar-v2-runtime-source-assets
+    sourceRefs:
+      - figma://pbxELN7TYDDguIgbXfc1zB/921:26060
+      - figma://pbxELN7TYDDguIgbXfc1zB/921:26096
+    useFor:
+      - single-html-prototype
+      - offline-generation
+      - runtime-maintenance
   - id: asset.bottom-bar.chat-entry-icons
     type: local-asset
     assetKind: icon-set
@@ -198,6 +210,8 @@ resourceRefs:
     locator: renderers/html/components/bottom-bar/bottom-bar.assets.inline.js
     role: single-html-bottom-bar-runtime-assets
     sourceRefs:
+      - figma://pbxELN7TYDDguIgbXfc1zB/921:26060
+      - figma://pbxELN7TYDDguIgbXfc1zB/921:26096
       - figma://pbxELN7TYDDguIgbXfc1zB/12:9199
       - figma://pbxELN7TYDDguIgbXfc1zB/12:9208
       - figma://pbxELN7TYDDguIgbXfc1zB/12:10180

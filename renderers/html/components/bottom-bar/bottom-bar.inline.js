@@ -2,12 +2,16 @@
  * Unified Bottom Bar runtime for single-file HTML demos.
  * Inline bottom-bar.assets.inline.js before this file, then use:
  *   <xzl-bottom-bar scene="home|chat|stock" theme="light|dark" companion="on|off">
+ * The home scene uses the 165px V2 navigation runtime and ignores the legacy
+ * companion overlay because Yomi voice entry is built into the home bar.
  * Omit the element on secondary or campaign pages that do not use a Bottom Bar.
  * Static by default. Attach interactions only when explicitly requested.
  */
 (function registerBottomBar() {
   const assets = globalThis.XZL_BOTTOM_BAR_ASSETS || {};
+  const homeAssets = globalThis.XZL_HOME_V2_ASSETS || {};
   const asset = (name) => assets[name] || "";
+  const homeAsset = (name) => homeAssets[name] || "";
   const mic = `
     <svg viewBox="0 0 16 18" aria-hidden="true">
       <rect x="4.25" y=".75" width="7.5" height="11" rx="3.75" fill="currentColor"/>
@@ -45,6 +49,10 @@
         ? this.getAttribute("scene")
         : "home";
       const light = this.getAttribute("theme") === "light";
+      if (scene === "home") {
+        this.renderHome(light);
+        return;
+      }
       const companion = this.getAttribute("companion") === "on";
       const barHeight = scene === "chat" ? 171 : 130;
       const inputWidth = scene === "stock" ? 168 : 220;
@@ -180,6 +188,84 @@
             </div>
             <div class="safe"><i class="home"></i></div>
           </div>
+        </div>`;
+    }
+
+    renderHome(light) {
+      const theme = light ? "light" : "dark";
+      const key = (name) => homeAsset(`home-v2-${theme}-${name}`);
+      const nav = [
+        ["首页", `<span class="nav-icon"><img class="home-icon" src="${key("nav-home.svg")}" alt=""></span>`],
+        ["自选", `<span class="nav-icon watch-icon"><img src="${key("nav-watch-a.svg")}" alt=""><img src="${key("nav-watch-b.svg")}" alt=""></span>`],
+        ["机会", `<span class="nav-icon"><img class="opportunity-icon" src="${key("nav-opportunity.svg")}" alt=""></span>`],
+        ["交易", `<span class="nav-icon"><img class="trade-icon" src="${key("nav-trade.svg")}" alt=""></span>`]
+      ].map(([label, icon]) => `<div class="nav-item">${icon}<span class="nav-label">${label}</span></div>`).join("");
+
+      this.shadowRoot.innerHTML = `
+        <style>
+          :host { display:block; width:390px; height:165px; overflow:hidden; font-family:-apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif; }
+          * { box-sizing:border-box; }
+          .bar { position:relative; width:390px; height:165px; overflow:hidden; color:${light ? "#2d3a67" : "#d7efff"}; background:${light ? "linear-gradient(to bottom,rgba(235,240,252,0) 0,#ebf0fc 18.37%)" : "linear-gradient(to bottom,rgba(7,16,37,0) 0,#071025 18.37%)"}; }
+          .input-row { position:absolute; left:0; top:30px; width:390px; height:44px; padding:0 15px; }
+          .input { position:relative; display:flex; align-items:center; gap:7px; width:360px; height:44px; padding:7px 12px; border:1px solid #fff; border-radius:200px; background:${light ? "linear-gradient(180deg,rgba(255,255,255,.6) 4.46%,rgba(255,255,255,.9) 103.57%)" : "linear-gradient(195.17deg,rgba(73,113,255,0) 69.18%,rgba(73,113,255,.2) 96.58%),linear-gradient(170.82deg,rgba(255,80,80,0) 64%,rgba(255,80,80,.2) 104.31%),linear-gradient(149.26deg,#a0e2ff 13.88%,#d7efff 37.07%,#cde8ff 57.32%,#95bdff 104.19%)"}; box-shadow:${light ? "0 0 15px rgba(84,116,172,.1)" : "inset 0 0 4px rgba(62,65,118,.24)"}; }
+          .input-control { position:relative; flex:0 0 30px; width:30px; height:30px; }
+          .input-control > img { position:absolute; display:block; max-width:none; }
+          .dark-left-ring { width:18.13px; height:18.13px; left:5.94px; top:5.94px; }
+          .dark-left-glyph { width:7.72px; height:7.72px; left:11.14px; top:11.14px; }
+          .dark-right { width:9.17px; height:7.5px; left:10.4px; top:11.5px; }
+          .dark-right-ring { position:absolute; inset:6.5px; border:1.13px solid #2d3a67; border-radius:50%; }
+          .light-left { width:50px; height:50px; left:-10px; top:-6px; }
+          .light-right { width:42px; height:42px; left:-6px; top:-6px; }
+          .input-copy { display:flex; flex:1; min-width:0; align-items:center; justify-content:center; gap:5px; color:#2d3a67; font-size:16px; font-weight:500; white-space:nowrap; }
+          .input-copy img { display:block; width:11.2px; height:15.4px; }
+          .bottom { position:absolute; left:0; top:78px; width:390px; height:87px; }
+          .navigation { display:flex; align-items:flex-start; justify-content:center; gap:9px; width:366px; height:58px; margin:0 auto; }
+          .nav-list { display:grid; grid-template-columns:repeat(4,75.25px); width:301px; height:58px; padding:8px 0; }
+          .nav-item { position:relative; height:42px; text-align:center; font-size:10px; }
+          .nav-icon { position:absolute; left:50%; top:1px; transform:translateX(-50%); display:block; width:24px; height:24px; }
+          .nav-label { position:absolute; top:27px; left:0; width:100%; line-height:14px; }
+          .nav-icon > img { position:absolute; display:block; max-width:none; }
+          .home-icon { left:2px; top:0; width:20px; height:20.72px; }
+          .opportunity-icon { left:2.88px; top:0; width:18.24px; height:22px; }
+          .trade-icon { left:1px; top:0; width:22px; height:22px; }
+          .watch-icon img { width:8.7px; height:16.3px; }
+          .watch-icon img:first-child { left:12.9px; top:1.95px; }
+          .watch-icon img:last-child { left:2.4px; top:5.35px; }
+          .yomi { position:relative; width:56px; height:56px; flex:0 0 56px; border-radius:30px; }
+          .yomi img { position:absolute; display:block; max-width:none; }
+          .yomi-dark .glow-a { width:104.7px; height:104.7px; left:-24.35px; top:-24.35px; }
+          .yomi-dark .glow-b { width:65.74px; height:65.74px; left:-4.87px; top:-4.87px; }
+          .yomi-dark .avatar-base, .yomi-dark .avatar-inset, .yomi-dark .texture { inset:0; width:56px; height:56px; }
+          .yomi-light { overflow:visible; background:linear-gradient(91.5deg,rgba(193,227,255,0) 67.4%,rgba(193,227,255,.56) 123%),linear-gradient(97.13deg,rgba(227,240,255,.69) 8.74%,rgba(253,237,255,.36) 90.08%),#fff; }
+          .yomi-light .glow-a { width:93px; height:81px; left:-18.5px; top:-2px; }
+          .yomi-light .avatar-halo { width:62.22px; height:62.22px; left:-3.11px; top:-3.11px; }
+          .texture { inset:0; width:56px; height:56px; object-fit:cover; mix-blend-mode:overlay; opacity:.8; border-radius:50%; }
+          .character-mask { position:absolute; left:2.86px; top:2.67px; width:50.28px; height:53.33px; overflow:hidden; -webkit-mask-repeat:no-repeat; mask-repeat:no-repeat; }
+          .yomi-dark .character-mask { -webkit-mask-image:url('${key("yomi-avatar-mask.svg")}'); mask-image:url('${key("yomi-avatar-mask.svg")}'); -webkit-mask-size:56px 56px; mask-size:56px 56px; -webkit-mask-position:-2.81px -2.67px; mask-position:-2.81px -2.67px; }
+          .yomi-light .character-mask { left:2px; top:.67px; height:55.33px; -webkit-mask-image:url('${key("yomi-avatar-mask.svg")}'); mask-image:url('${key("yomi-avatar-mask.svg")}'); -webkit-mask-size:50px 61px; mask-size:50px 61px; -webkit-mask-position:-.84px -2.67px; mask-position:-.84px -2.67px; }
+          .character-mask img { left:0; top:0; width:50.28px; height:164.33px; }
+          .avatar-glow { width:${light ? "71.68px" : "73.93px"}; height:${light ? "41.44px" : "40.86px"}; left:${light ? "-7.84px" : "-10px"}; top:${light ? "20.8px" : "17.1px"}; }
+          .yomi-label { position:absolute; z-index:10; left:0; bottom:-6px; width:56px; height:23px; overflow:visible; }
+          .yomi-label text { fill:#fff; font-family:-apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif; font-size:9px; font-weight:600; letter-spacing:.15px; paint-order:stroke; stroke:rgba(33,32,86,.45); stroke-width:.7px; }
+          .footer { position:absolute; left:0; top:58px; width:390px; height:29px; overflow:hidden; }
+          .disclaimer { position:absolute; top:1px; left:50%; transform:translateX(-50%); color:${light ? "#9fabc4" : "rgba(255,255,255,.3)"}; font-size:9px; line-height:13px; white-space:nowrap; }
+          .home-indicator { position:absolute; left:128px; bottom:9px; width:134px; height:5px; border-radius:100px; background:${light ? "#030303" : "#fff"}; }
+        </style>
+        <div class="bar" data-component="component.bottom-bar" data-component-family="bottom-bar.home-v2" data-binding-status="html-runtime" data-scene="home" data-theme="${theme}" data-companion="off" data-visual-reference="${light ? "921:26096" : "921:26060"}">
+          <div class="input-row"><div class="input">
+            <span class="input-control">${light ? `<img class="light-left" src="${key("input-left.svg")}" alt="">` : `<img class="dark-left-ring" src="${key("input-left-ring.svg")}" alt=""><img class="dark-left-glyph" src="${key("input-left-glyph.svg")}" alt="">`}</span>
+            <span class="input-copy"><img src="${homeAsset("home-v2-microphone.svg")}" alt=""><span>按住提问或搜索</span></span>
+            <span class="input-control">${light ? `<img class="light-right" src="${key("input-right.svg")}" alt="">` : `<i class="dark-right-ring"></i><img class="dark-right" src="${key("input-right-glyph.svg")}" alt="">`}</span>
+          </div></div>
+          <div class="bottom"><div class="navigation"><div class="nav-list">${nav}</div>
+            <div class="yomi ${light ? "yomi-light" : "yomi-dark"}">
+              <img class="glow-a" src="${key("yomi-glow-outer.png")}" alt="">
+              ${light ? `<img class="avatar-halo" src="${key("yomi-avatar-halo.svg")}" alt="">` : `<img class="glow-b" src="${key("yomi-glow-inner.png")}" alt=""><img class="avatar-base" src="${key("yomi-avatar-base.svg")}" alt=""><img class="avatar-inset" src="${key("yomi-avatar-inset.svg")}" alt="">`}
+              <span class="character-mask"><img src="${homeAsset("home-v2-yomi-character.png")}" alt="Yomi"></span>
+              <img class="texture" src="${homeAsset("home-v2-yomi-texture.png")}" alt=""><img class="avatar-glow" src="${key("yomi-avatar-glow.svg")}" alt="">
+              <svg class="yomi-label" viewBox="0 0 56 23" aria-label="长按说话"><path id="yomi-label-arc-${theme}" d="M 8 7 Q 28 14 48 7" fill="none"></path><text><textPath href="#yomi-label-arc-${theme}" startOffset="50%" text-anchor="middle">长按说话</textPath></text></svg>
+            </div>
+          </div><div class="footer"><span class="disclaimer">内容由AI生成，不构成投资建议</span><i class="home-indicator"></i></div></div>
         </div>`;
     }
 
