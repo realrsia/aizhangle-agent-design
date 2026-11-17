@@ -180,11 +180,7 @@
             background: ${light ? "#f9fcff" : "linear-gradient(157deg,rgba(40,54,99,.4),rgba(20,26,52,.01)),#091531"};
             box-shadow: ${light ? "1px 7px 8px rgba(90,105,131,.1)" : "1px 7px 8px rgba(0,0,0,.1),inset 4px 4px 10px rgba(77,110,153,.2)"};
           }
-          .menu-line { position: absolute; left: 10px; height: 1.8px; border-radius: 2px; background: currentColor; }
-          .menu-line.one { top: 10px; width: 14px; }
-          .menu-line.two { top: 15.4px; width: 8.7px; }
-          .menu-line.three { top: 20.8px; width: 14px; }
-          .menu-arrow { position: absolute; left: 19px; top: 14px; width: 5px; height: 5px; border-right: 1.8px solid currentColor; border-bottom: 1.8px solid currentColor; transform: rotate(-45deg); }
+          .menu-figma-icon { position: absolute; left: 10px; top: 10px; width: 14px; height: 12.54px; overflow: visible; color: inherit; }
           .title { font-size: 22px; font-weight: 500; line-height: normal; white-space: nowrap; }
           .market {
             display: flex; align-items: center; gap: 3px; height: 38px; padding: 7px 10px; border-radius: 20px;
@@ -211,7 +207,7 @@
             <svg class="system-icon battery" viewBox="0 0 28 13" aria-hidden="true"><rect x=".5" y=".5" width="24" height="12" rx="3.5" fill="none" stroke="currentColor" opacity=".35"/><path d="M26 5v4.22a2.29 2.29 0 0 0 0-4.22Z" fill="currentColor" opacity=".4"/><rect x="2" y="2" width="21" height="9" rx="2" fill="currentColor"/></svg>
           </div>
           <div class="header">
-            <div class="brand"><span class="menu" aria-hidden="true"><i class="menu-line one"></i><i class="menu-line two"></i><i class="menu-line three"></i><i class="menu-arrow"></i></span><span class="title">首页</span></div>
+            <div class="brand"><span class="menu" aria-hidden="true"><svg class="menu-figma-icon" viewBox="0 0 14 12.54" fill="none"><path d="M.9.9H12.71M.9 6.27H7.8M.9 11.64H12.71" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M9.886 4.12 13.61 6.27 9.886 8.42Z" fill="currentColor"/></svg></span><span class="title">首页</span></div>
             <div class="market"><span class="wallet" aria-hidden="true"><svg viewBox="0 0 13.333 12.981"><path d="M10 2.981a2 2 0 0 1 2 2v1.333h.666a.667.667 0 0 1 .667.667v2a.666.666 0 0 1-.667.666H12v1.334a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-6a2 2 0 0 1 2-2h8ZM2 3.981a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V9.647h-1a.667.667 0 0 1-.667-.666v-2a.667.667 0 0 1 .667-.667h1V4.981a1 1 0 0 0-1-1H2Zm8.333 4.666h2v-1.333h-2v1.333ZM8.192.018a.5.5 0 0 1 .608.334l.41 1.321a.5.5 0 0 1-.955.297l-.268-.863-4.467 1.198a.5.5 0 0 1-.26-.966L8.192.018Z"/></svg></span><span class="market-copy"><span class="market-title">今日股票</span><span class="market-value">+233.12</span></span></div>
           </div>
         </div>`;

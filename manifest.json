@@ -2,9 +2,9 @@
   "id": "aizhangle-agent-design",
   "name": "aizhangle-agent-design",
   "schemaVersion": 1,
-  "version": "0.1.4",
+  "version": "0.1.5",
   "releaseNotes": {
-    "summary": "更新首页 Top Bar 黑白主题样式",
+    "summary": "优化首页 Top Bar 菜单图标几何对齐",
     "publishedAt": "2026-11-17"
   },
   "status": "mvp",

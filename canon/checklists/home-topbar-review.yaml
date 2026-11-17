@@ -20,3 +20,7 @@ items:
     severity: P2
     question: 是否保持 390x103、状态区 44px 和导航行 38px 的固定结构？
     passCriteria: 导航行从页面顶部 50px 开始，水平留白 12px，今日股票胶囊不得越过 390px App 边界。
+  - id: home-topbar-menu-icon-geometry
+    severity: P2
+    question: 首页菜单图标的三条横线和尖头是否保持已验收几何关系？
+    passCriteria: 三条横线统一使用 1.8px 圆头描边，尖头为等边三角形，其右边界与上下两条横线的视觉右边界对齐。
